@@ -1,12 +1,14 @@
 import sys, os
+
+from flask import current_app
+from flask.ext.script import Manager, Command, Option
+from flask.ext.script import Shell, Server
+
 sys.path.append(os.path.dirname(
 	os.path.dirname(
 		os.path.abspath(__file__))
 	)
 )
-
-from flask.ext.script import Manager, Command, Option
-from flask.ext.script import Shell, Server
 
 from backend import create_app
 
@@ -22,7 +24,7 @@ class RunServer(Server):
 manager.add_command('run-api', RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'))
 
 def _make_context():
-    context = dict(db=db, current_app=current_app)
+    context = dict(current_app=current_app)
     return context
 
 manager.add_command('shell', Shell(make_context=_make_context, use_ipython=True))
