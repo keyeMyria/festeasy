@@ -18,7 +18,6 @@ manager.add_option('-c', '--env', dest='env', default='dev', required=False)
 
 class RunServer(Server):
     def handle(self, *args, **kwargs):
-        logger.info("Starting development server")
         Server.handle(self, *args, **kwargs)
 
 manager.add_command('run-api', RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'))
