@@ -13,7 +13,7 @@ sys.path.append(os.path.dirname(
 from backend import create_app
 
 
-manager = Manager(create_app)
+manager = Manager(create_app, with_default_commands=False)
 manager.add_option('-c', '--env', dest='env', default='dev', required=False)
 
 class RunServer(Server):
