@@ -24,7 +24,7 @@ class RunServer(Server):
 manager.add_command('run-api', RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'))
 
 def _make_context():
-    context = dict(current_app=current_app)
+    context = dict()
     return context
 
 manager.add_command('shell', Shell(make_context=_make_context, use_ipython=True))
