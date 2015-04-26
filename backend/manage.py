@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(
 	)
 )
 
-from backend import create_app
+from backend import create_app, db
 
 
 manager = Manager(create_app, with_default_commands=False)
@@ -21,6 +21,12 @@ class RunServer(Server):
         Server.handle(self, *args, **kwargs)
 
 manager.add_command('run-api', RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'))
+
+class CreateAll(Command):
+	def run(self):
+		db.create_all()
+
+manager.add_command('create_all', CreateAll())
 
 def _make_context():
     context = dict()
