@@ -62,3 +62,6 @@ venv/
 # Sublime
 *.sublime-project
 *.sublime-workspace
+
+# sqlite
+*.db
