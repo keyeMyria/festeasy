@@ -7,3 +7,6 @@ class User(db.Model):
 	__tablename__ = 'users'
 	id = Column(Integer, primary_key=True)
 	email_address = Column(String(200), unique=True, nullable=False)
+
+	def __init__(self, email_address):
+		self.email_address = email_address
