@@ -1,6 +1,6 @@
 import sys, os
+import nose
 
-from flask import current_app
 from flask.ext.script import Manager, Command, Option
 from flask.ext.script import Shell, Server
 
@@ -9,7 +9,6 @@ sys.path.append(os.path.dirname(
 		os.path.abspath(__file__))
 	)
 )
-
 from backend import create_app, db
 
 
@@ -19,14 +18,22 @@ manager.add_option('-c', '--env', dest='env', default='dev', required=False)
 class RunServer(Server):
     def handle(self, *args, **kwargs):
         Server.handle(self, *args, **kwargs)
-
 manager.add_command('run-api', RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'))
+
+class RunTests(Command):
+	def run(self):
+		nose.main(argv=['--where', 'backend'])
+manager.add_command('run-tests', RunTests())
 
 class CreateAll(Command):
 	def run(self):
 		db.create_all()
+manager.add_command('create-all', CreateAll())
 
-manager.add_command('create_all', CreateAll())
+class DropAll(Command):
+	def run(self):
+		db.drop_all()
+manager.add_command('drop-all', DropAll())
 
 def _make_context():
     context = dict()
