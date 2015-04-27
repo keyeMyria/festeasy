@@ -15,3 +15,6 @@ class Session(db.Model, Entity):
 
     def __init__(self, expires_on):
         self.expires_on = expires_on
+
+    def __repr__(self):
+        return '<Session {id}>'.format(id=self.id)
