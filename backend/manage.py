@@ -1,6 +1,5 @@
 import sys, os
 import nose
-
 from flask.ext.script import Manager, Command, Option
 from flask.ext.script import Shell, Server
 
@@ -40,7 +39,6 @@ def _make_context():
     return context
 
 manager.add_command('shell', Shell(make_context=_make_context, use_ipython=True))
-
 
 if __name__ == '__main__':
 	manager.run()
