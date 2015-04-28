@@ -6,7 +6,7 @@ from backend.models import User
 from backend.utils import APITestCase
 
 
-class TestUser(APITestCase):
+class TestCreateUser(APITestCase):
     def test_create_user_creates_user(self):
         """ Test that v1.create_user creates a user
         in the db.
