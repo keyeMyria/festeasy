@@ -10,6 +10,7 @@ class User(db.Model, Entity, Dumpable):
     __tablename__ = 'user'
 
     whitelist = [
+        'id',
         'created_on',
         'email_address',
     ]
