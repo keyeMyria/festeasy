@@ -7,37 +7,27 @@ from backend.utils import ModelTestCase
 
 class TestSession(ModelTestCase):
     def test_create_session(self):
-        """ Test that a session can be created.
+        """ 
+        Test that a session can be created.
+        Test that a session can only exist for a particular user.
+        (ie: Cannot have stray sessions.)
+        Test that a sessions user relationship exists.
         """
         now = datetime.datetime.now()
         tomorrow = now + datetime.timedelta(days=1)
 
-        session = Session(expires_on=tomorrow)
-        db.session.add(session)
-        db.session.commit()
-
-        fetched_session = Session.query.one()
-        self.assertEqual(fetched_session, session)
-
-    def test_session_user_relationship(self):
-        """ Test that a sessions' user can be set.
-        """
-        now = datetime.datetime.now()
-        tomorrow = now + datetime.timedelta(days=1)
-
-        session = Session(expires_on=tomorrow)
         user = User(email_address='test@festeasy.co.za')
-        session.user = user
-
+        session = Session(expires_on=tomorrow, user=user)
         db.session.add(session)
         db.session.commit()
 
         fetched_session = Session.query.one()
         fetched_user = User.query.one()
 
-        self.assertEqual(fetched_user.sessions[0], fetched_session)
+        self.assertEqual(fetched_session, session)
+        self.assertEqual(fetched_session.user, user)
 
-    def test_user_session_removal(self):
+    def test_session_deletion(self):
         """ Test that deleting a users session does 
         not delete that user.
         """
@@ -45,17 +35,16 @@ class TestSession(ModelTestCase):
         tomorrow = now + datetime.timedelta(days=1)
 
         user = User(email_address='test@festeasy.co.za')
-        session = Session(expires_on=tomorrow)
-        user.sessions.append(session)
-        db.session.add(user)
+        session = Session(expires_on=tomorrow, user=user)
+        db.session.add(session)
         db.session.commit()
-        # Test that session is added to user.sessions
+        
         fetched_user = User.query.one()
-        self.assertEqual(len(fetched_user.sessions), 1)
+        self.assertEqual(fetched_user.sessions[0], session)
+
         db.session.delete(session)
         db.session.commit()
+
         fetched_user = User.query.one()
-        # Test that session is removed from user.sessions and user
-        # remains
         self.assertIsNotNone(fetched_user)
-        self.assertEqual(len(fetched_user.sessions), 0) 
+        self.assertEqual(fetched_user.sessions, list()) 
