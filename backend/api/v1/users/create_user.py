@@ -12,7 +12,10 @@ def create_user():
     email_address = create_user_form.email_address.data
     password = create_user_form.password.data
     if not create_user_form.validate():
-        return jsonify(error='Invalid email address and or password.'), 401
+        return jsonify(error_message='Invalid email address and or password.'), 401
+    existing_user = User.query.filter(User.email_address==email_address).first()
+    if existing_user:
+        return jsonify(error_message='User account already registered with that email address.'), 409
     user = User(email_address=email_address)
     db.session.add(user)
     db.session.commit()
