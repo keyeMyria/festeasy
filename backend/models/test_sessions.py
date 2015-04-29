@@ -15,9 +15,10 @@ class TestSession(ModelTestCase):
         """
         now = datetime.datetime.now()
         tomorrow = now + datetime.timedelta(days=1)
+        token = 'abcd'
 
         user = User(email_address='test@festeasy.co.za')
-        session = Session(expires_on=tomorrow, user=user)
+        session = Session(expires_on=tomorrow, user=user, token=token)
         db.session.add(session)
         db.session.commit()
 
@@ -33,9 +34,10 @@ class TestSession(ModelTestCase):
         """
         now = datetime.datetime.now()
         tomorrow = now + datetime.timedelta(days=1)
+        token = 'abcd'
 
         user = User(email_address='test@festeasy.co.za')
-        session = Session(expires_on=tomorrow, user=user)
+        session = Session(expires_on=tomorrow, user=user, token=token)
         db.session.add(session)
         db.session.commit()
         

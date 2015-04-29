@@ -21,10 +21,12 @@ class TestUser(ModelTestCase):
         users sessions."""
         now = datetime.datetime.now()
         tomorrow = now + datetime.timedelta(days=1)
+        token = 'abcd'
+        another_token = 'bcde'
 
         user = User(email_address='test@festeasy.co.za')
-        session = Session(expires_on=tomorrow, user=user)
-        another_session = Session(expires_on=tomorrow, user=user)
+        session = Session(expires_on=tomorrow, user=user, token=token)
+        another_session = Session(expires_on=tomorrow, user=user, token=another_token)
 
         db.session.add(user)
         db.session.commit()

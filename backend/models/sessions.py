@@ -20,9 +20,12 @@ class Session(db.Model, Entity, Dumpable):
     	cascade='save-update, merge')
     expires_on = Column(DateTime, nullable=False)
 
-    def __init__(self, expires_on, user):
+    token = Column(String(200), nullable=False, unique=True)
+
+    def __init__(self, expires_on, user, token):
         self.expires_on = expires_on
         self.user = user
+        self.token = token
 
     def __repr__(self):
         return '<Session {id}>'.format(id=self.id)
