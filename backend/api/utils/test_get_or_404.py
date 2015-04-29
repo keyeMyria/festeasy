@@ -3,7 +3,7 @@ from werkzeug.exceptions import NotFound
 from backend import db
 from backend.utils import APITestCase
 from backend.models import User
-from get_or_404 import get_or_404
+from backend.api.utils.get_or_404 import get_or_404
 
 
 class TestGetOr404(APITestCase):
