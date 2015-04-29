@@ -1,5 +1,5 @@
 from backend.utils.general_test_case import GeneralTestCase
-from backend.utils.random_string import random_string
+from backend.utils import random_string
 
 
 class TestRandomString(GeneralTestCase):

@@ -22,7 +22,7 @@ class Session(db.Model, Entity, Dumpable):
 
     token = Column(String(200), nullable=False, unique=True)
 
-    def __init__(self, expires_on, user, token):
+    def __init__(self, expires_on, token, user=None):
         self.expires_on = expires_on
         self.user = user
         self.token = token
