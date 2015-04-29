@@ -9,7 +9,7 @@ class TestUser(ModelTestCase):
     def test_create_user(self):
         """ Test that a user can be created.
         """
-        user = User(email_address='test@festeasy.co.za', password='test_password')
+        user = self.create_user()
         db.session.add(user)
         db.session.commit()
 
@@ -24,7 +24,7 @@ class TestUser(ModelTestCase):
         token = 'abcd'
         another_token = 'bcde'
 
-        user = User(email_address='test@festeasy.co.za', password='test_password')
+        user = self.create_user()
         session = Session(expires_on=tomorrow, user=user, token=token)
         another_session = Session(expires_on=tomorrow, user=user, token=another_token)
 

@@ -19,6 +19,7 @@ class TestCreateUser(APITestCase):
             data=dict(
                 email_address=email_address, 
                 password=password,
+                first_name='Jason',
             )
         )
         user = User.query.one()
@@ -35,6 +36,7 @@ class TestCreateUser(APITestCase):
             data=dict(
                 email_address=email_address, 
                 password=password,
+                first_name='Jason',
             )
         )
         self.assertEqual(response.json['user']['email_address'], email_address)
@@ -45,7 +47,7 @@ class TestCreateUser(APITestCase):
         Test that duplicate email address returns 409.
         """
         email_address = 'test@festeasy.co.za'
-        user = User(email_address=email_address, password='test_password')
+        user = self.create_user(email_address=email_address)
         db.session.add(user)
         db.session.commit()
 
@@ -54,6 +56,7 @@ class TestCreateUser(APITestCase):
             data=dict(
                 email_address=email_address, 
                 password='test_password',
+                first_name='Meh',
             )
         )
         self.assertEqual(response.status_code, 409)

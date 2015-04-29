@@ -11,12 +11,13 @@ def create_user():
     create_user_form = CreateUserForm(request.form)
     email_address = create_user_form.email_address.data
     password = create_user_form.password.data
+    first_name = create_user_form.first_name.data
     if not create_user_form.validate():
         return jsonify(message='Invalid email address and or password.'), 401
     existing_user = User.query.filter(User.email_address==email_address).first()
     if existing_user:
         return jsonify(error_message='User account already registered with that email address.'), 409
-    user = User(email_address=email_address, password=password)
+    user = User(email_address=email_address, password=password, first_name=first_name)
     db.session.add(user)
     db.session.commit()
     return jsonify(message='successfully created user.', user=user.dump()), 201

@@ -20,6 +20,8 @@ class User(db.Model, Entity, Dumpable):
     sessions = relationship('Session', back_populates='user', 
         cascade='save-update, merge, delete, delete-orphan')
     password_hash = Column(String(200), unique=True, nullable=False)
+    first_name = Column(String(100), nullable=False)
+    last_name = Column(String(100))
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -30,9 +32,10 @@ class User(db.Model, Entity, Dumpable):
     def has_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __init__(self, email_address, password):
+    def __init__(self, email_address, password, first_name):
         self.email_address = email_address
         self.password_hash = generate_password_hash(password)
+        self.first_name = first_name
 
     def __repr__(self):
         return '<User {id}>'.format(id=self.id)

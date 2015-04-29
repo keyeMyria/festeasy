@@ -13,7 +13,7 @@ class TestCreateSession(APITestCase):
         """
         email_address = 'test@festeasy.co.za'
         password = 'test_password'
-        user = User(email_address=email_address, password=password)
+        user = self.create_user(password=password, email_address=email_address)
         db.session.add(user)
         db.session.commit()
 
@@ -41,7 +41,7 @@ class TestCreateSession(APITestCase):
         """
         email_address = 'test@festeasy.co.za'
         password = 'test_password'
-        user = User(email_address=email_address, password=password)
+        user = self.create_user(password=password, email_address=email_address)
         db.session.add(user)
         db.session.commit()
 
@@ -66,7 +66,7 @@ class TestCreateSession(APITestCase):
         """
         email_address = 'test@festeasy.co.za'
         password = 'test_password'
-        user = User(email_address=email_address, password=password)
+        user = self.create_user(password=password, email_address=email_address)
         db.session.add(user)
         db.session.commit()
 

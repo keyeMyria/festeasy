@@ -1,10 +1,10 @@
-from backend.utils import APITestCase
+from backend.utils import GeneralTestCase
 
 from backend import db
 from backend.models import User, Session
 
 
-class TestApiTestCase(APITestCase):
+class TestApiTestCase(GeneralTestCase):
     def test_create_user_creates_user(self):
         """ Test that create_user creates a user.
         """
