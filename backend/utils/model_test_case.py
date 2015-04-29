@@ -5,7 +5,7 @@ from backend import create_app, db
 
 class ModelTestCase(TestCase):
     def create_app(self):
-        app = create_app(env='testing')
+        app = create_app(config='testing')
         app.config['TESTING'] = True
         return app
 

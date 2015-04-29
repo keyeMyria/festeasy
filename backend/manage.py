@@ -12,7 +12,7 @@ from backend import create_app, db
 
 
 manager = Manager(create_app, with_default_commands=False)
-manager.add_option('-c', '--env', dest='env', default='dev', required=False)
+manager.add_option('-c', '--config', dest='config', default='dev', required=False)
 
 class RunServer(Server):
     def handle(self, *args, **kwargs):
