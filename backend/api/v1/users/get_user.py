@@ -8,4 +8,4 @@ from backend.models import User
 @api.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
 	user = get_or_404(User, user_id)
-	return jsonify(user=user.dump())
+	return jsonify(message='successfully got user.', user=user.dump())
