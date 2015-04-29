@@ -8,7 +8,7 @@ from get_or_404 import get_or_404
 
 class TestGetOr404(APITestCase):
     def test_get_or_404_returns_element(self):
-        user = User(email_address='test@festeasy.co.za')
+        user = User(email_address='test@festeasy.co.za', password='test_password')
         db.session.add(user)
         db.session.commit()
 

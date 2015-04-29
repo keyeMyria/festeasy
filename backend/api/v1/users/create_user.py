@@ -16,7 +16,7 @@ def create_user():
     existing_user = User.query.filter(User.email_address==email_address).first()
     if existing_user:
         return jsonify(error_message='User account already registered with that email address.'), 409
-    user = User(email_address=email_address)
+    user = User(email_address=email_address, password=password)
     db.session.add(user)
     db.session.commit()
     return jsonify(message='successfully created user.', user=user.dump()), 201

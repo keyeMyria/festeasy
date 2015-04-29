@@ -12,7 +12,7 @@ class TestGetUser(APITestCase):
         from the db.
         """
         email_address = 'test@festeasy.co.za'
-        user = User(email_address=email_address)
+        user = User(email_address=email_address, password='test_password')
         db.session.add(user)
         db.session.commit()
 
@@ -26,7 +26,7 @@ class TestGetUser(APITestCase):
         """ Test that v1.get_user 404s for an invalid user id.
         """
         email_address = 'test@festeasy.co.za'
-        user = User(email_address=email_address)
+        user = User(email_address=email_address, password='test_password')
         db.session.add(user)
         db.session.commit()
 

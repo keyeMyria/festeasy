@@ -45,7 +45,7 @@ class TestCreateUser(APITestCase):
         Test that duplicate email address returns 409.
         """
         email_address = 'test@festeasy.co.za'
-        user = User(email_address=email_address)
+        user = User(email_address=email_address, password='test_password')
         db.session.add(user)
         db.session.commit()
 
