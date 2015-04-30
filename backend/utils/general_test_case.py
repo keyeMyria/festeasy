@@ -19,13 +19,21 @@ class GeneralTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def create_user(self, email_address='user@APITestCase.takenote', 
+    def create_session(self, expires_on=None, token=None, for_user=None, create_valid_session=False):
+        now = datetime.datetime.now()
+        if create_valid_session:
+            expires_on = now + datetime.timedelta(seconds=30)
+            token = random_string(25)
+        session = Session(expires_on=expires_on, user=for_user, token=token)
+        return session
+
+    def create_user(self, email_address='user@GeneralTestCase.takenote', 
         password='test_password', first_name='Johannes', create_valid_session=False):
         now = datetime.datetime.now()
         user = User(email_address=email_address, password=password, first_name=first_name)
         if create_valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
             token = random_string(25)
-            session = Session(expires_on=expires_on, token=token)
+            session = self.create_session(expires_on=expires_on, token=token)
             user.sessions.append(session)
         return user
