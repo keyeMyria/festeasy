@@ -2,14 +2,13 @@ import json
 from flask import url_for
 
 from backend import db
-from backend.models import User
+from backend.models import User, Session
 from backend.utils import APITestCase
 
 
 class TestCreateUser(APITestCase):
     def test_create_user_creates_user(self):
-        """ Test that v1.create_user creates a user
-        in the db.
+        """ Test that v1.create_user creates a user and session in the db.
         """
         self.assertIsNone(User.query.first())
         email_address = 'test@festeasy.co.za'
@@ -24,10 +23,10 @@ class TestCreateUser(APITestCase):
         )
         user = User.query.one()
         self.assertEqual(user.email_address, email_address)
+        self.assertEqual(len(Session.query.all()), 1)
 
-    def test_create_user_returns_user(self):
-        """ Test that v1.create_user returns the created
-        user.
+    def test_create_user_returns_user_and_session(self):
+        """ Test that v1.create_user returns the created user and a session.
         """
         email_address = 'test@festeasy.co.za'
         password = 'test_password'
@@ -40,6 +39,7 @@ class TestCreateUser(APITestCase):
             )
         )
         self.assertEqual(response.json['user']['email_address'], email_address)
+        self.assertIsNotNone(response.json['session'])
 
 
     def test_create_user_existing_email_address(self):
