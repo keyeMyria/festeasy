@@ -23,6 +23,22 @@ class TestGeneralTestCaseCreateSession(GeneralTestCase):
 
         self.assertEqual(Session.query.one(), session)
 
+    def test_create_session_creates_valid_session(self):
+        """ Test create_session creates a valid session.
+        """
+        self.assertIsNone(Session.query.first())
+
+        now = datetime.datetime.now()
+        user = self.create_user()
+
+        session = self.create_session(create_valid_session=True, for_user=user)
+
+        db.session.add(session)
+        db.session.commit()
+
+        fetched_session = Session.query.one()
+        self.assertEqual(fetched_session, session)
+        self.assertTrue(fetched_session.expires_on > now)
 
 class TestGeneralTestCaseCreateUser(GeneralTestCase):
     def test_create_user_creates_user(self):
