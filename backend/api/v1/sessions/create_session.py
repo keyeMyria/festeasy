@@ -3,19 +3,21 @@ from flask import jsonify, request
 
 from backend import db
 from backend.api import api
+from backend.api.v1.utils import takes_form
 from backend.api.v1.forms import CreateSessionForm
 from backend.models import Session, User
 from backend.utils import random_string
 
 
 @api.route('/sessions', methods=['POST'])
-def create_session():
-    create_session_form = CreateSessionForm(request.form)
-    email_address = create_session_form.email_address.data
-    password = create_session_form.password.data
+@takes_form('CreateSessionForm', 'create_session_form')
+def create_session(create_session_form):
     
     if not create_session_form.validate():
         return jsonify(message='failed to create session. Form did not validate.'), 401
+
+    email_address = create_session_form.email_address.data
+    password = create_session_form.password.data
 
     user = User.query.filter(User.email_address==email_address).first()
 
