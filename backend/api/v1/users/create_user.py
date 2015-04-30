@@ -1,14 +1,16 @@
+import json
 from flask import jsonify, request
 
 from backend import db
 from backend.api import api
+from backend.api.v1.utils import takes_form
 from backend.api.v1.forms import CreateUserForm
 from backend.models import User
 
 
 @api.route('/users', methods=['POST'])
-def create_user():
-    create_user_form = CreateUserForm(request.form)
+@takes_form('CreateUserForm', form_name='create_user_form')
+def create_user(create_user_form):
     email_address = create_user_form.email_address.data
     password = create_user_form.password.data
     first_name = create_user_form.first_name.data
