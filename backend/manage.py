@@ -2,6 +2,8 @@ import sys, os
 import nose
 from flask.ext.script import Manager, Command, Option
 from flask.ext.script import Shell, Server
+from rainbow_logging_handler import RainbowLoggingHandler
+import logging
 
 sys.path.append(os.path.dirname(
     os.path.dirname(
@@ -9,7 +11,6 @@ sys.path.append(os.path.dirname(
     )
 )
 from backend import create_app, db
-
 
 manager = Manager(create_app, with_default_commands=False)
 manager.add_option('-c', '--config', dest='config', default='dev', required=False)

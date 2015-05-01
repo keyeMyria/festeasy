@@ -1,4 +1,5 @@
 import datetime
+import logging
 from flask import jsonify, request
 
 from backend import db
@@ -9,12 +10,15 @@ from backend.models import Session, User
 from backend.utils import random_string
 
 
+logger = logging.getLogger(__name__)
+
 @api.route('/sessions', methods=['POST'])
 @takes_form('CreateSessionForm', 'create_session_form')
 def create_session(create_session_form):
     
     if not create_session_form.validate():
-        return jsonify(message='failed to create session. Form did not validate.'), 401
+        logger.error("Failed to create session, form did not validate.")
+        return jsonify(message='Failed to create session, form did not validate.'), 401
 
     email_address = create_session_form.email_address.data
     password = create_session_form.password.data
@@ -23,7 +27,8 @@ def create_session(create_session_form):
 
     # TODO: email user with password reset on consecutive incorrect login attempts.
     if not user or not user.has_password(password):
-    	return jsonify(message='failed to create session. Invalid email address and or password.'), 401
+        logger.error("Failed to create session, invalid email address and password combination.")
+    	return jsonify(message="Failed to create session, invalid email address and password combination."), 401
 
     token = random_string(25)
     expires_on = datetime.datetime.now() + datetime.timedelta(days=7)
@@ -36,5 +41,5 @@ def create_session(create_session_form):
 
     db.session.add(session)
     db.session.commit()
-    return jsonify(message='successfully created session.', 
+    return jsonify(message="Successfully created session.", 
     	user=user.dump(), session=session.dump()), 201
