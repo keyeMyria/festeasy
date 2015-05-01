@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 def create_session(create_session_form):
     
     if not create_session_form.validate():
-        logger.error("Failed to create session, form did not validate.")
+        logger.warn("Failed to create session, form did not validate.")
         return jsonify(message='Failed to create session, form did not validate.'), 401
 
     email_address = create_session_form.email_address.data
@@ -27,7 +27,7 @@ def create_session(create_session_form):
 
     # TODO: email user with password reset on consecutive incorrect login attempts.
     if not user or not user.has_password(password):
-        logger.error("Failed to create session, invalid email address and password combination.")
+        logger.warn("Failed to create session, invalid email address and password combination.")
     	return jsonify(message="Failed to create session, invalid email address and password combination."), 401
 
     token = random_string(25)

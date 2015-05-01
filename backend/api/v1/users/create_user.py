@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @takes_form('CreateUserForm', form_name='create_user_form')
 def create_user(create_user_form):
     if not create_user_form.validate():
-        logger.error("Failed to create user, form did not validate.")
+        logger.warn("Failed to create user, form did not validate.")
         return jsonify(message="Failed to create user, form did not validate."), 401
 
     now = datetime.datetime.now()
@@ -27,7 +27,7 @@ def create_user(create_user_form):
 
     existing_user = User.query.filter(User.email_address==email_address).first()
     if existing_user:
-        logger.error("Failed to create user. Email address in use.")
+        logger.warn("Failed to create user. Email address in use.")
         return jsonify(error_message="Failed to create user. Email address in use."), 409
     
     user = User(

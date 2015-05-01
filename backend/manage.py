@@ -16,14 +16,13 @@ sys.path.append(os.path.dirname(
 from backend import create_app, db
 
 
-logging.getLogger().setLevel(logging.DEBUG)
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 console = RainbowLoggingHandler(sys.stderr, color_funcName=('black', True))
 console_formatter = logging.Formatter("[%(asctime)s] %(name)s %(funcName)s():%(lineno)d\t%(message)s")
 console.setFormatter(console_formatter)
 console.setLevel(logging.INFO)
-
-logging.getLogger().addHandler(console)
-
+logger.addHandler(console)
 
 manager = Manager(create_app, with_default_commands=False)
 manager.add_option('-c', '--config', dest='config', default='dev', required=False)
@@ -35,6 +34,8 @@ manager.add_command('run-api', RunServer(use_debugger=True, use_reloader=True, h
 
 class RunTests(Command):
     def run(self):
+        console.setLevel(logging.ERROR)
+        logger.addHandler(console)
         nose.main(argv=['--where', 'backend'])
 manager.add_command('run-tests', RunTests())
 
