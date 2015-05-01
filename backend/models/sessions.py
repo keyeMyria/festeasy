@@ -11,8 +11,10 @@ class Session(db.Model, Entity, Dumpable):
     __tablename__ = 'session'
 
     whitelist = [
+        'id',
     	'created_on',
     	'expires_on',
+        'token',
     ]
     
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
