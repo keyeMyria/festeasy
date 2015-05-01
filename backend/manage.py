@@ -1,9 +1,12 @@
 import sys, os
 import nose
+import logging
+from flask import current_app
 from flask.ext.script import Manager, Command, Option
 from flask.ext.script import Shell, Server
 from rainbow_logging_handler import RainbowLoggingHandler
 import logging
+
 
 sys.path.append(os.path.dirname(
     os.path.dirname(
@@ -11,6 +14,16 @@ sys.path.append(os.path.dirname(
     )
 )
 from backend import create_app, db
+
+
+logging.getLogger().setLevel(logging.DEBUG)
+console = RainbowLoggingHandler(sys.stderr, color_funcName=('black', True))
+console_formatter = logging.Formatter("[%(asctime)s] %(name)s %(funcName)s():%(lineno)d\t%(message)s")
+console.setFormatter(console_formatter)
+console.setLevel(logging.INFO)
+
+logging.getLogger().addHandler(console)
+
 
 manager = Manager(create_app, with_default_commands=False)
 manager.add_option('-c', '--config', dest='config', default='dev', required=False)
