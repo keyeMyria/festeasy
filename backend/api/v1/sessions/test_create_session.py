@@ -28,11 +28,33 @@ class TestCreateSession(APITestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json['user']['email_address'], email_address)
-        self.assertIsNotNone(response.json['session'])
-        self.assertIsNotNone(response.json['session']['token'])
         self.assertEqual(len(Session.query.all()), 1)
         self.assertEqual(Session.query.first().user, user)
+
+    def test_create_session_returns_session_and_user(self):
+        """ Test create_session returns session and user.
+        """
+        email_address = 'test@festeasy.co.za'
+        password = 'test_password'
+        user = self.create_user(password=password, email_address=email_address)
+        db.session.add(user)
+        db.session.commit()
+
+        self.assertIsNone(Session.query.first())
+
+        response = self.client.post(
+            url_for('v1.create_session'), 
+            data=dict(
+                email_address=email_address, 
+                password=password,
+            )
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json['user']['email_address'], email_address)
+        self.assertIsNotNone(response.json['session']['id'])
+        self.assertIsNotNone(response.json['session']['token'])
+        self.assertIsNotNone(response.json['session']['expires_on'])
 
     def test_create_session_handles_incorrect_email_address(self):
         """ Test that a session is not created for a user who
