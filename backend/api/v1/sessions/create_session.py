@@ -13,8 +13,8 @@ from backend.utils import random_string
 logger = logging.getLogger(__name__)
 
 @api.route('/sessions', methods=['POST'])
-@takes_form('CreateSessionForm', 'create_session_form')
-def create_session(create_session_form):
+def create_session():
+    create_session_form = CreateSessionForm(**request.get_json())
     
     if not create_session_form.validate():
         logger.warn("Failed to create session, form did not validate.")

@@ -19,7 +19,8 @@ class TestCreateSession(APITestCase):
 
         self.assertIsNone(Session.query.first())
 
-        response = self.client.post(
+        response = self.api_request(
+            'post',
             url_for('v1.create_session'), 
             data=dict(
                 email_address=email_address, 
@@ -42,7 +43,8 @@ class TestCreateSession(APITestCase):
 
         self.assertIsNone(Session.query.first())
 
-        response = self.client.post(
+        response = self.api_request(
+            'post',
             url_for('v1.create_session'), 
             data=dict(
                 email_address=email_address, 
@@ -70,7 +72,8 @@ class TestCreateSession(APITestCase):
 
         incorrect_email_address = 'incorrect@festeasy.co.za'
 
-        response = self.client.post(
+        response = self.api_request(
+            'post',
             url_for('v1.create_session'), 
             data=dict(
                 email_address=incorrect_email_address, 
@@ -95,7 +98,8 @@ class TestCreateSession(APITestCase):
 
         incorrect_password = 'incorrect_password'
 
-        response = self.client.post(
+        response = self.api_request(
+            'post',
             url_for('v1.create_session'), 
             data=dict(
                 email_address=email_address, 

@@ -13,7 +13,8 @@ class TestCreateUser(APITestCase):
         self.assertIsNone(User.query.first())
         email_address = 'test@festeasy.co.za'
         password = 'test_password'
-        response = self.client.post(
+        response = self.api_request(
+            'post',
             url_for('v1.create_user'), 
             data=dict(
                 email_address=email_address, 
@@ -30,7 +31,8 @@ class TestCreateUser(APITestCase):
         """
         email_address = 'test@festeasy.co.za'
         password = 'test_password'
-        response = self.client.post(
+        response = self.api_request(
+            'post',
             url_for('v1.create_user'), 
             data=dict(
                 email_address=email_address, 
@@ -51,7 +53,8 @@ class TestCreateUser(APITestCase):
         db.session.add(user)
         db.session.commit()
 
-        response = self.client.post(
+        response = self.api_request(
+            'post',
             url_for('v1.create_user'), 
             data=dict(
                 email_address=email_address, 

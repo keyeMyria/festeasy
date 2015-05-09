@@ -6,7 +6,6 @@ from flask import jsonify, request
 from backend import db
 from backend.api import api
 from backend.utils import random_string
-from backend.api.v1.utils import takes_form
 from backend.api.v1.forms import CreateUserForm
 from backend.models import User, Session
 
@@ -14,8 +13,8 @@ from backend.models import User, Session
 logger = logging.getLogger(__name__)
 
 @api.route('/users', methods=['POST'])
-@takes_form('CreateUserForm', form_name='create_user_form')
-def create_user(create_user_form):
+def create_user():
+    create_user_form = CreateUserForm(**request.get_json())
     if not create_user_form.validate():
         logger.warn("Failed to create user, form did not validate.")
         return jsonify(message="Failed to create user, form did not validate."), 401
