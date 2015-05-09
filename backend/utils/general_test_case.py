@@ -3,7 +3,7 @@ from flask.ext.testing import TestCase
 
 from backend import create_app, db
 from backend.utils.random_string import random_string
-from backend.models import User, Session
+from backend.models import User, Session, Product
 
 
 class GeneralTestCase(TestCase):
@@ -18,6 +18,10 @@ class GeneralTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def create_product(self, name=None, price_cents=None):
+        product = Product(name=name, price_cents=price_cents)
+        return product
 
     def create_session(self, expires_on=None, token=None, for_user=None, create_valid_session=False):
         now = datetime.datetime.now()

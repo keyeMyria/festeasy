@@ -19,3 +19,5 @@ class Entity(object):
 # All the models
 from sessions import Session
 from users import User
+from products import Product
+from user_product_cart import UserProductCart

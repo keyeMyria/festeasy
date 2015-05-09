@@ -1,7 +1,8 @@
 import datetime
 
 from backend import db
-from backend.models import User, Session
+from backend.models import User, Session, Product
+from backend.models import UserProductCart
 from backend.utils import ModelTestCase
 
 
@@ -38,3 +39,37 @@ class TestUser(ModelTestCase):
         # TODO: why is this commit not needed?
         #db.session.commit()
         self.assertEqual(Session.query.all(), list())
+
+    def test_user_cart_product_creation(self):
+        """ Test that a user can add a product to her cart.
+        """
+        user = self.create_user()
+        product = self.create_product(name='abc', price_cents=99)
+        user.cart_products.append(product)
+        db.session.add(user)
+        db.session.commit()
+
+        product = Product.query.one()
+        self.assertEqual(product, user.cart_products[0])
+
+    def test_user_deletion_deletes_user_cart_products(self):
+        """ Test that deleting a user deletes her cart_products.
+        """
+        user = self.create_user()
+        product = self.create_product(name='abc', price_cents=99)
+        user.cart_products.append(product)
+        db.session.add(user)
+        db.session.commit()
+
+        user = User.query.one()
+
+        self.assertEqual(product, user.cart_products[0])
+
+        db.session.delete(user)
+        db.session.commit()
+
+        self.assertEqual(User.query.all(), list())
+        self.assertEqual(UserProductCart.query.all(), list())
+        fetched_product = Product.query.first()
+
+        self.assertEqual(fetched_product, product)
