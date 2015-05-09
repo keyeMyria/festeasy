@@ -7,12 +7,6 @@ from flask.ext.script import Shell, Server
 from rainbow_logging_handler import RainbowLoggingHandler
 import logging
 
-
-sys.path.append(os.path.dirname(
-    os.path.dirname(
-        os.path.abspath(__file__))
-    )
-)
 from backend import create_app, db
 
 
