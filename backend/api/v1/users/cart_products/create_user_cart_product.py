@@ -22,13 +22,8 @@ def create_user_cart_product(user_id, authenticated_user):
         return jsonify(message="Failed to create cart products, form did not validate."), 401
 
     user = get_or_404(User, user_id)
-    product_ids = list()
     for item in create_cart_product_form.product_ids.data:
-        product_ids.append(item['product_id'])
-    if not product_ids:
-        return jsonify(message="Failed to create cart products, no product_ids supplied."), 400
-        
-    for product_id in product_ids:
+        product_id = item['product_id']
         product = get_or_404(Product, product_id)
         user_product_cart = UserCartProduct()
         user_product_cart.user = user
