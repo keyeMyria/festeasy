@@ -7,8 +7,8 @@ from backend import db
 from backend.models import Entity, Dumpable
 
 
-class UserProductCart(db.Model, Entity, Dumpable):
-    __tablename__ = 'user_product_cart'
+class UserCartProduct(db.Model, Entity, Dumpable):
+    __tablename__ = 'user_cart_product'
 
     whitelist = [
         'id',

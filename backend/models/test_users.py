@@ -2,7 +2,7 @@ import datetime
 
 from backend import db
 from backend.models import User, Session, Product
-from backend.models import UserProductCart
+from backend.models import UserCartProduct
 from backend.utils import ModelTestCase
 
 
@@ -69,7 +69,7 @@ class TestUser(ModelTestCase):
         db.session.commit()
 
         self.assertEqual(User.query.all(), list())
-        self.assertEqual(UserProductCart.query.all(), list())
+        self.assertEqual(UserCartProduct.query.all(), list())
         fetched_product = Product.query.first()
 
         self.assertEqual(fetched_product, product)

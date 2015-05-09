@@ -19,7 +19,7 @@ class Product(db.Model, Entity, Dumpable):
     name = Column(String(150), nullable=False)
     price_cents = Column(Integer, nullable=False)
 
-    cart_users = relationship('User', secondary='user_product_cart',
+    cart_users = relationship('User', secondary='user_cart_product',
         cascade='save-update, merge')
 
     def __init__(self, name, price_cents):

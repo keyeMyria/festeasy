@@ -40,6 +40,7 @@ class TestCreateUser(APITestCase):
                 first_name='Jason',
             )
         )
+        self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json['user']['email_address'], email_address)
         self.assertIsNotNone(response.json['session'])
 
