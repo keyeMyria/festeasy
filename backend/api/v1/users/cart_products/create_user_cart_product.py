@@ -27,6 +27,7 @@ def create_user_cart_product(user_id, authenticated_user):
         product_ids.append(item['product_id'])
     if not product_ids:
         return jsonify(message="Failed to create cart products, no product_ids supplied."), 400
+        
     for product_id in product_ids:
         product = get_or_404(Product, product_id)
         user_product_cart = UserCartProduct()
