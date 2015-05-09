@@ -28,9 +28,13 @@ class TestCreateCartUserProduct(APITestCase):
         )
         
         self.assertEqual(response.status_code, 201)
-        products = User.query.one().cart_products
-        self.assertEqual(len(products), 1)
-        self.assertEqual(products[0], product)
+        self.assertEqual(len(response.json['cart_products']), 1)
+        self.assertEqual(response.json['cart_products'][0]['id'], 1)
 
-        self.assertEqual(Product.query.one().cart_users[0], user)
-        self.assertIsNotNone(response.json['cart_products'])
+        user_cart_products = User.query.one().cart_products
+        self.assertEqual(len(user_cart_products), 1)
+        self.assertEqual(user_cart_products[0], product)
+
+        product_user_carts = Product.query.one().cart_users
+        self.assertEqual(len(product_user_carts), 1)
+        self.assertEqual(product_user_carts[0], user)
