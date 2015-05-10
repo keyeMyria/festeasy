@@ -13,6 +13,7 @@ class UserCartProduct(db.Model, Entity, Dumpable):
     whitelist = [
         'id',
         'created_on',
+        'product',
     ]
 
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)

@@ -14,13 +14,15 @@ class User(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'email_address',
-        'cart_products'
+        'user_cart_products'
     ]
     
     email_address = Column(String(200), unique=True, nullable=False)
     sessions = relationship('Session', back_populates='user', 
         cascade='save-update, merge, delete, delete-orphan')
     cart_products = relationship('Product', secondary='user_cart_product',
+        cascade='save-update, merge')
+    user_cart_products = relationship('UserCartProduct',
         cascade='save-update, merge')
     password_hash = Column(String(200), unique=True, nullable=False)
     first_name = Column(String(100), nullable=False)
