@@ -23,22 +23,29 @@ def require_auth():
         @wraps(f)
         def decorated_function(*args, **kwargs):
             now = datetime.datetime.now()
-            authorization_headers = get_authorization_headers_or_401(request)
-            authorization_type, encoded_details = authorization_headers
-            username, password = decode_details_or_401(encoded_details)
+            authorization_headers = get_authorization_headers(request)
+            authentication_arg = request.args.get('auth_token')
+            if authentication_arg and authorization_headers:
+                raise MyUnauthorized("Authorization header and token present, use only one method.")
+                
+            if authentication_arg:
+                password = authentication_arg
+            elif authorization_headers:
+                authorization_type, encoded_details = authorization_headers
+                username, password = decode_details_or_401(encoded_details)
+            else:
+                raise MyUnauthorized("No authorization header or token present.")
+            
             session = get_valid_session_or_401(password, now)
             request.authenticated_user = session.user
             return f(authenticated_user=request.authenticated_user, *args, **kwargs)
         return decorated_function
     return decorator
 
-def get_authorization_headers_or_401(request):
+def get_authorization_headers(request):
     authorization_headers = request.headers.get('Authorization')
-    if authorization_headers is None:
-        logger.warn("authorization_headers is None.")
-        raise MyUnauthorized("Received no authentication headers. xBasic "
-            "authentication required with username 'api' and a valid session "
-            "token as password.")
+    if not authorization_headers:
+        return None
     authorization_type, encoded_details = authorization_headers.split(' ')
     if authorization_type != 'xBasic':
         logger.warn("authorization_type is not xBasic.")
