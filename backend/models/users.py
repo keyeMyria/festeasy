@@ -23,7 +23,7 @@ class User(db.Model, Entity, Dumpable):
     cart_products = relationship('Product', secondary='user_cart_product',
         cascade='save-update, merge')
     user_cart_products = relationship('UserCartProduct',
-        cascade='save-update, merge')
+        cascade='save-update, merge, delete, delete-orphan')
     password_hash = Column(String(200), unique=True, nullable=False)
     first_name = Column(String(100), nullable=False)
     last_name = Column(String(100))

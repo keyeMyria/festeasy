@@ -2,7 +2,7 @@ import json
 from flask import url_for
 
 from backend import db
-from backend.models import User
+from backend.models import User, Product
 from backend.utils import APITestCase
 
 
