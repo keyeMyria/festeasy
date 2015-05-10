@@ -34,7 +34,4 @@ def create_user_cart_products(user_id, authenticated_user):
     db.session.commit()
 
     cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
-    dumpable_list = list()
-    for card_product in cart_products:
-        dumpable_list.append(card_product.dump())
-    return jsonify(message="Successfully created card_products.", cart_products=dumpable_list), 201
+    return jsonify(message="Successfully created card_products.", cart_products=cart_products), 201

@@ -45,4 +45,4 @@ def create_session():
     db.session.add(session)
     db.session.commit()
     return jsonify(message="Successfully created session.", 
-    	user=user.dump(), session=session.dump()), 201
+    	user=user, session=session), 201

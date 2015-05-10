@@ -12,4 +12,4 @@ def get_user(authenticated_user, user_id):
 	""" Gets a particular user.
 	"""
 	user = get_or_404(User, user_id)
-	return jsonify(message="Successfully got user.", user=user.dump())
+	return jsonify(message="Successfully got user.", user=user)

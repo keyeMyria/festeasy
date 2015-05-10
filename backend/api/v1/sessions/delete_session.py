@@ -16,4 +16,4 @@ def delete_session(authenticated_user, session_id):
 	session = get_or_404(Session, session_id)
 	db.session.delete(session)
 	db.session.commit()
-	return jsonify(session=session.dump(), message="Successfully deleted session."), 201
+	return jsonify(session=session, message="Successfully deleted session."), 201

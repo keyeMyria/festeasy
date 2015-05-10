@@ -14,6 +14,7 @@ class User(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'email_address',
+        'cart_products'
     ]
     
     email_address = Column(String(200), unique=True, nullable=False)
