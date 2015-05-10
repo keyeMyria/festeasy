@@ -30,5 +30,5 @@ def delete_user_cart_products(user_id, authenticated_user):
         db.session.delete(user_cart_product)
     db.session.commit()
 
-    cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
-    return jsonify(message="Successfully created card_product.", cart_products=cart_products), 201
+    user_cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
+    return jsonify(message="Successfully created card_product.", user_cart_products=user_cart_products), 201

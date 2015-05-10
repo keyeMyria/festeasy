@@ -22,6 +22,9 @@ class Product(db.Model, Entity, Dumpable):
     cart_users = relationship('User', secondary='user_cart_product',
         cascade='save-update, merge')
 
+    user_cart_products = relationship('UserCartProduct',
+        cascade='save-update, merge, delete, delete-orphan')
+
     def __init__(self, name, price_cents):
         self.name = name
         self.price_cents = price_cents
