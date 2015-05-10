@@ -8,6 +8,7 @@ from rainbow_logging_handler import RainbowLoggingHandler
 import logging
 
 from backend import create_app, db
+from backend import models
 from backend.models import User, Product
 
 
@@ -58,7 +59,11 @@ class InitDB(Command):
 manager.add_command('init-db', InitDB())
 
 def _make_context():
-    context = dict()
+    context = dict(
+        db=db,
+        current_app=current_app,
+    )
+    context.update(vars(models))
     return context
 
 manager.add_command('shell', Shell(make_context=_make_context, use_ipython=True))
