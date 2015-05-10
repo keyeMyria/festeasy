@@ -14,6 +14,8 @@ logger = logging.getLogger(__name__)
 
 @api.route('/users', methods=['POST'])
 def create_user():
+    """ Creates a new user.
+    """
     create_user_form = CreateUserForm(**request.get_json())
     if not create_user_form.validate():
         logger.warn("Failed to create user, form did not validate.")

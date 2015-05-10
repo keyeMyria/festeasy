@@ -11,6 +11,8 @@ from backend.models import Session
 @api.route('/sessions/<int:session_id>', methods=['DELETE'])
 @require_auth()
 def delete_session(authenticated_user, session_id):
+	""" Deletes a session.
+	"""
 	session = get_or_404(Session, session_id)
 	db.session.delete(session)
 	db.session.commit()

@@ -14,6 +14,9 @@ logger = logging.getLogger(__name__)
 
 @api.route('/sessions', methods=['POST'])
 def create_session():
+    """ Create a session if supplied with a valid 
+    email_address and password combination.
+    """
     create_session_form = CreateSessionForm(**request.get_json())
     
     if not create_session_form.validate():

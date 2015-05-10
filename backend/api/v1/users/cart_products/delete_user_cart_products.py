@@ -7,7 +7,6 @@ from backend import db
 from backend.api import api
 from backend.api.utils import get_or_404
 from backend.api.v1.auth import require_auth
-from backend.api.v1.forms import DeleteUserCartProductsForm
 from backend.models import User, UserCartProduct, Product
 
 
@@ -16,6 +15,9 @@ logger = logging.getLogger(__name__)
 @api.route('/users/<int:user_id>/cart_products/multiple', methods=['DELETE'])
 @require_auth()
 def delete_user_cart_products(user_id, authenticated_user):
+    """ Deletes one or more user_cart_products based on 
+    query parameters.
+    """
     print(request.args)
     user_cart_product_ids = request.args.get('user_cart_product_ids').split(',')
     if not user_cart_product_ids:

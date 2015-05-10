@@ -16,6 +16,8 @@ logger = logging.getLogger(__name__)
 @api.route('/users/<int:user_id>/cart_products/multiple', methods=['POST'])
 @require_auth()
 def create_user_cart_products(user_id, authenticated_user):
+    """ Creates one or more user_cart_products.
+    """
     create_cart_products_form = CreateUserCartProductsForm(**request.get_json())
     if not create_cart_products_form.validate():
         logger.warn("Failed to create cart products, form did not validate.")
