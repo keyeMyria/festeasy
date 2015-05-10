@@ -19,7 +19,7 @@ def create_user():
     create_user_form = CreateUserForm(**request.get_json())
     if not create_user_form.validate():
         logger.warn("Failed to create user, form did not validate.")
-        return jsonify(message="Failed to create user, form did not validate."), 401
+        return jsonify(message="Failed to create user, form did not validate."), 400
 
     now = datetime.datetime.now()
     email_address = create_user_form.email_address.data

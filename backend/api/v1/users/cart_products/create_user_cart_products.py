@@ -21,7 +21,7 @@ def create_user_cart_products(user_id, authenticated_user):
     create_cart_products_form = CreateUserCartProductsForm(**request.get_json())
     if not create_cart_products_form.validate():
         logger.warn("Failed to create cart products, form did not validate.")
-        return jsonify(message="Failed to create cart products, form did not validate."), 401
+        return jsonify(message="Failed to create cart products, form did not validate."), 400
 
     user = get_or_404(User, user_id)
     for item in create_cart_products_form.product_ids.data:
