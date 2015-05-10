@@ -8,6 +8,7 @@ from rainbow_logging_handler import RainbowLoggingHandler
 import logging
 
 from backend import create_app, db
+from backend.models import User, Product
 
 
 logger = logging.getLogger()
@@ -42,6 +43,17 @@ class DropAll(Command):
     def run(self):
         db.drop_all()
 manager.add_command('drop-all', DropAll())
+
+class InitDB(Command):
+    def run(self):
+        db.drop_all()
+        db.create_all()
+        user = User(email_address='test@festeasy.co.za', password='123', first_name='TestName')
+        product = Product(name='test_product', price_cents=99)
+        db.session.add(user)
+        db.session.add(product)
+        db.session.commit()
+manager.add_command('init-db', InitDB())
 
 def _make_context():
     context = dict()
