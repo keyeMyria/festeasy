@@ -16,14 +16,14 @@ logger = logging.getLogger(__name__)
 @api.route('/users/<int:user_id>/cart_products/multiple', methods=['DELETE'])
 @require_auth()
 def delete_user_cart_products(user_id, authenticated_user):
-    delete_user_cart_products_form = DeleteUserCartProductsForm(**request.get_json())
-    if not delete_user_cart_products_form.validate():
-        logger.warn("Failed to delete users cart products, form did not validate.")
-        return jsonify(message="Failed to delete users cart products, form did not validate."), 401
+    print(request.args)
+    user_cart_product_ids = request.args.get('user_cart_product_ids').split(',')
+    if not user_cart_product_ids:
+        logger.warn("No IDs to delete.")
+        return jsonify(message="No IDs to delete."), 400
 
     user = get_or_404(User, user_id)
-    for item in delete_user_cart_products_form.user_cart_product_ids.data:
-        user_cart_product_id = item['user_cart_product_id']
+    for user_cart_product_id in user_cart_product_ids:
         user_cart_product = get_or_404(UserCartProduct, user_cart_product_id)
         db.session.delete(user_cart_product)
     db.session.commit()

@@ -16,8 +16,7 @@ class TestCreateCartUserProduct(APITestCase):
         db.session.add(product)
         db.session.commit()
 
-        product_ids = list()
-        product_ids.append(dict(product_id=product.id))
+        product_ids = [dict(product_id=product.id)]
         
         response = self.api_request(
             'post',
