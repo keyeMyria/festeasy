@@ -6,8 +6,8 @@ from backend.models import User, UserCartProduct, Product
 from backend.utils import APITestCase
 
 
-class TestDeleteCartUserProduct(APITestCase):
-    def test_delete_user_cart_product_delete_user_cart_product(self):
+class TestDeleteCartUserProducts(APITestCase):
+    def test_delete_user_cart_product_delete_user_cart_products(self):
         """ Test that v1.delete_user_cart_products deletes a user_product_cart in the db.
         """
         user = self.create_user(create_valid_session=True)
@@ -30,7 +30,7 @@ class TestDeleteCartUserProduct(APITestCase):
 
         self.assertEqual(UserCartProduct.query.all(), list())
 
-    def test_delete_user_cart_product_404s_with_invalid_user_cart_product_id(self):
+    def test_delete_user_cart_products_404s_with_invalid_user_cart_product_id(self):
         """ Test that v1.delete_user_cart_products 404s with an 
         invalid user_cart_product ID.
         """
