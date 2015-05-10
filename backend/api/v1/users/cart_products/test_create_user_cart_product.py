@@ -8,7 +8,7 @@ from backend.utils import APITestCase
 
 class TestCreateCartUserProduct(APITestCase):
     def test_create_user_cart_product_creates_user_cart_product(self):
-        """ Test that v1.create_user_cart_product creates a user_product_cart in the db.
+        """ Test that v1.create_user_cart_products creates a user_product_cart in the db.
         """
         user = self.create_user(create_valid_session=True)
         product = self.create_product(name='abc', price_cents=99)
@@ -21,7 +21,7 @@ class TestCreateCartUserProduct(APITestCase):
         
         response = self.api_request(
             'post',
-            url_for('v1.create_user_cart_product', user_id=user.id), 
+            url_for('v1.create_user_cart_products', user_id=user.id), 
             data=dict(product_ids=product_ids),
             as_user=user,
             with_session=user.sessions[0],

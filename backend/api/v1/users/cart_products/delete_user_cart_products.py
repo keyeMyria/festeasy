@@ -7,22 +7,22 @@ from backend import db
 from backend.api import api
 from backend.api.utils import get_or_404
 from backend.api.v1.auth import require_auth
-from backend.api.v1.forms import DeleteUserCartProductForm
+from backend.api.v1.forms import DeleteUserCartProductsForm
 from backend.models import User, UserCartProduct, Product
 
 
 logger = logging.getLogger(__name__)
 
-@api.route('/users/<int:user_id>/cart_products', methods=['DELETE'])
+@api.route('/users/<int:user_id>/cart_products/multiple', methods=['DELETE'])
 @require_auth()
-def delete_user_cart_product(user_id, authenticated_user):
-    delete_user_cart_product_form = DeleteUserCartProductForm(**request.get_json())
-    if not delete_user_cart_product_form.validate():
+def delete_user_cart_products(user_id, authenticated_user):
+    delete_user_cart_products_form = DeleteUserCartProductsForm(**request.get_json())
+    if not delete_user_cart_products_form.validate():
         logger.warn("Failed to delete users cart products, form did not validate.")
         return jsonify(message="Failed to delete users cart products, form did not validate."), 401
 
     user = get_or_404(User, user_id)
-    for item in delete_user_cart_product_form.user_cart_product_ids.data:
+    for item in delete_user_cart_products_form.user_cart_product_ids.data:
         user_cart_product_id = item['user_cart_product_id']
         user_cart_product = get_or_404(UserCartProduct, user_cart_product_id)
         db.session.delete(user_cart_product)

@@ -1,4 +1,4 @@
 from create_user_form import CreateUserForm
 from create_session_form import CreateSessionForm
-from create_user_cart_product_form import CreateUserCartProductForm
-from delete_user_cart_product_form import DeleteUserCartProductForm
+from create_user_cart_products_form import CreateUserCartProductsForm
+from delete_user_cart_products_form import DeleteUserCartProductsForm

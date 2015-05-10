@@ -1,2 +1,2 @@
-from create_user_cart_product import create_user_cart_product
-from delete_user_cart_product import delete_user_cart_product
+from create_user_cart_products import create_user_cart_products
+from delete_user_cart_products import delete_user_cart_products
