@@ -39,5 +39,5 @@ def create_user_cart_products(user_id, authenticated_user):
         product = get_or_404(Product, item['product_id'])
         _create_user_cart_product(user, product)
 
-    cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
-    return jsonify(message="Successfully created card_products.", cart_products=cart_products), 201
+    user_cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
+    return jsonify(message="Successfully created card_products.", user_cart_products=user_cart_products), 201

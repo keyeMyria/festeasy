@@ -27,8 +27,8 @@ class TestCreateCartUserProducts(APITestCase):
         )
         
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(len(response.json['cart_products']), 1)
-        self.assertEqual(response.json['cart_products'][0]['id'], 1)
+        self.assertEqual(len(response.json['user_cart_products']), 1)
+        self.assertEqual(response.json['user_cart_products'][0]['id'], 1)
 
         user_cart_products = User.query.one().cart_products
         self.assertEqual(len(user_cart_products), 1)
