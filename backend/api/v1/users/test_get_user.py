@@ -23,6 +23,9 @@ class TestGetUser(APITestCase):
         )
         self.assertEqual(response.json['user']['id'], user.id)
 
+        # Test that correct attribs are returned:
+        self.assertIsNone(response.json['user']['current_cart_event'])
+
     def test_get_user_404(self):
         """ Test that v1.get_user 404s for an invalid user id.
         """
