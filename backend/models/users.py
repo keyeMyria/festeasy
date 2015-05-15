@@ -1,5 +1,6 @@
 import datetime
 from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -18,16 +19,23 @@ class User(db.Model, Entity, Dumpable):
     ]
     
     email_address = Column(String(200), unique=True, nullable=False)
-    sessions = relationship('Session', back_populates='user', 
-        cascade='save-update, merge, delete, delete-orphan')
-    cart_products = relationship('Product', secondary='user_cart_product',
-        cascade='save-update, merge')
-    user_cart_products = relationship('UserCartProduct',
-        cascade='save-update, merge, delete, delete-orphan')
     password_hash = Column(String(200), unique=True, nullable=False)
     first_name = Column(String(100), nullable=False)
     last_name = Column(String(100))
 
+    sessions = relationship('Session', back_populates='user', 
+        cascade='save-update, merge, delete, delete-orphan')
+
+    cart_products = relationship('Product', secondary='user_cart_product',
+        cascade='save-update, merge')
+
+    user_cart_products = relationship('UserCartProduct',
+        cascade='save-update, merge, delete, delete-orphan')
+
+    current_cart_event = relationship('Event', back_populates='users')
+    current_cart_event_id = Column(Integer, ForeignKey('event.id'), nullable=True)
+
+    
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
         db.session.add(self)

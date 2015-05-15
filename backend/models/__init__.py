@@ -21,3 +21,4 @@ from sessions import Session
 from users import User
 from products import Product
 from user_cart_product import UserCartProduct
+from events import Event

@@ -2,6 +2,7 @@ import datetime
 
 from backend import db
 from backend.models import User, Session, Product
+from backend.models import Event
 from backend.models import UserCartProduct
 from backend.utils import ModelTestCase
 
@@ -73,3 +74,22 @@ class TestUser(ModelTestCase):
         fetched_product = Product.query.first()
 
         self.assertEqual(fetched_product, product)
+
+    def test_user_deletion_keeps_events(self):
+        """ Test that deleting a user keeps that 
+        users current_cart_event."""
+
+        user = self.create_user()
+        event = self.create_event(name='test_product')
+
+        event.users.append(user)
+        db.session.add(event)
+        db.session.commit()
+
+        self.assertEqual(User.query.one().current_cart_event, event)
+
+        db.session.delete(user)
+        db.session.commit()
+
+        self.assertEqual(Event.query.one(), event)
+        
