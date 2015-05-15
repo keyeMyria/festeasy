@@ -13,6 +13,17 @@ from backend.models import User, UserCartProduct, Product
 
 logger = logging.getLogger(__name__)
 
+def _create_user_cart_product(user, product):
+    """ Creates a user_cart_product given a user 
+    and a product.
+    """
+    user_cart_product = UserCartProduct()
+    user_cart_product.user = user
+    user_cart_product.product = product
+    db.session.add(user_cart_product)
+    db.session.commit()
+    return user_cart_product
+
 @api.route('/users/<int:user_id>/cart_products/multiple', methods=['POST'])
 @require_auth()
 def create_user_cart_products(user_id, authenticated_user):
@@ -25,13 +36,8 @@ def create_user_cart_products(user_id, authenticated_user):
 
     user = get_or_404(User, user_id)
     for item in create_cart_products_form.product_ids.data:
-        product_id = item['product_id']
-        product = get_or_404(Product, product_id)
-        user_product_cart = UserCartProduct()
-        user_product_cart.user = user
-        user_product_cart.product = product
-        db.session.add(user_product_cart)
-    db.session.commit()
+        product = get_or_404(Product, item['product_id'])
+        _create_user_cart_product(user, product)
 
     cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
     return jsonify(message="Successfully created card_products.", cart_products=cart_products), 201

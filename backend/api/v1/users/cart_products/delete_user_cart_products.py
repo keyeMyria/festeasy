@@ -18,11 +18,10 @@ def delete_user_cart_products(user_id, authenticated_user):
     """ Deletes one or more user_cart_products based on 
     query parameters.
     """
-    print(request.args)
     user_cart_product_ids = request.args.get('user_cart_product_ids').split(',')
     if not user_cart_product_ids:
-        logger.warn("No IDs to delete.")
-        return jsonify(message="No IDs to delete."), 400
+        logger.warn("No user_cart_product IDs to delete.")
+        return jsonify(message="No user_cart_product IDs to delete."), 400
 
     user = get_or_404(User, user_id)
     for user_cart_product_id in user_cart_product_ids:
@@ -31,4 +30,4 @@ def delete_user_cart_products(user_id, authenticated_user):
     db.session.commit()
 
     user_cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
-    return jsonify(message="Successfully created card_product.", user_cart_products=user_cart_products), 201
+    return jsonify(message="Successfully deleted user_cart_products.", user_cart_products=user_cart_products), 201

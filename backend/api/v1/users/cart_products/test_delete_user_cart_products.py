@@ -26,7 +26,7 @@ class TestDeleteCartUserProducts(APITestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(len(response.json['cart_products']), 0)
+        self.assertEqual(len(response.json['user_cart_products']), 0)
 
         self.assertEqual(UserCartProduct.query.all(), list())
 
