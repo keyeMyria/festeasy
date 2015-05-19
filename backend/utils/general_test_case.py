@@ -4,7 +4,7 @@ from flask.ext.testing import TestCase
 from backend import create_app, db
 from backend.utils.random_string import random_string
 from backend.models import User, Session, Product
-from backend.models import Event
+from backend.models import Event, Order
 
 
 class GeneralTestCase(TestCase):
@@ -19,6 +19,10 @@ class GeneralTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def create_order(self):
+        order = Order()
+        return order
 
     def create_event(self, name):
         event = Event(name=name)

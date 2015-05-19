@@ -2,7 +2,7 @@ import datetime
 
 from backend import db
 from backend.models import User, Session, Product
-from backend.models import Event
+from backend.models import Event, Order
 from backend.models import UserCartProduct
 from backend.utils import ModelTestCase
 
@@ -92,4 +92,19 @@ class TestUser(ModelTestCase):
         db.session.commit()
 
         self.assertEqual(Event.query.one(), event)
+
+    def test_user_order_creation(self):
+        """ Test that a user can have orders.
+        """
+        user = self.create_user()
+        event = self.create_event(name='test_product')
+        order = self.create_order()
+        order.event = event
+
+        user.orders.append(order)
+        db.session.add(user)
+        db.session.commit()
+
+        order = Order.query.one()
+        self.assertEqual(User.query.one().orders, [order])
         
