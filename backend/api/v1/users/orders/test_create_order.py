@@ -35,5 +35,5 @@ class TestCreateOrder(APITestCase):
         fetched_order = Order.query.one()
 
         self.assertEqual(fetched_user.orders, [fetched_order])
-        self.assertEqual(fetched_order.event, user.current_cart_event)
+        self.assertEqual(fetched_order.event, event)
         self.assertEqual(fetched_order.products, [product])

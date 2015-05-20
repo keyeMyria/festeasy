@@ -21,8 +21,11 @@ def _create_order(user):
     order = Order()
 
     order.products = user.cart_products
-    order.user = user
+    
+    # TODO: why does the order of these two matter?
     order.event = user.current_cart_event
+    order.user = user
+    
 
     db.session.add(order)
     db.session.commit()
@@ -30,7 +33,7 @@ def _create_order(user):
 
 @api.route('/users/<int:user_id>/orders', methods=['POST'])
 @require_auth()
-def create_order(user_id, authenticated_user):
+def create_order(authenticated_user, user_id):
     """ Creates an order for a user.
     """
 
