@@ -49,16 +49,29 @@ class InitDB(Command):
     def run(self):
         db.drop_all()
         db.create_all()
-        user = User(email_address='test@festeasy.co.za', password='123', first_name='TestName')
-        product = Product(name='Beer', price_cents=99)
-        product_2 = Product(name='Chips', price_cents=1000)
-        event = Event(name='Event One')
-        event_2 = Event(name='Event Two')
-        db.session.add(event)
-        db.session.add(event_2)
-        db.session.add(user)
-        db.session.add(product_2)
-        db.session.add(product)
+        users = [
+            User(
+                email_address='test@festeasy.co.za', 
+                password='123', 
+                first_name='TestName')
+            ]
+        products = [
+            Product(name='Castle Lite Beer', price_cents=2000),
+            Product(name='Lays Small Pack', price_cents=900),
+            Product(name='Coke Can', price_cents=900),
+            Product(name='Windhoek Beer', price_cents=2100),
+            Product(name='Text Chocolate', price_cents=900),
+            Product(name='KitKat Chocolate', price_cents=800),
+            Product(name='Jelly Beans', price_cents=700),
+            ]
+        events = [
+            Event(name='Rocking The Daisies'),
+            Event(name='Sunflower Fest'),
+            Event(name='Oppie Koppie'),
+            ]
+        things = users + products + events
+        for thing in things:
+            db.session.add(thing)
         db.session.commit()
 manager.add_command('init-db', InitDB())
 
