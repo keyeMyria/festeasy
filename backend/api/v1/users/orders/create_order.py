@@ -23,6 +23,7 @@ def _create_order(user):
     order.products = user.cart_products
     
     # TODO: why does the order of these two matter?
+    # http://stackoverflow.com/questions/4201455/sqlalchemy-whats-the-difference-between-flush-and-commit
     order.event = user.current_cart_event
     order.user = user
     
