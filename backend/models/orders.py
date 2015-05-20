@@ -14,6 +14,7 @@ class Order(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'event',
+        'products',
     ]
     
     event_id = Column(Integer, ForeignKey('event.id'), nullable=False)
