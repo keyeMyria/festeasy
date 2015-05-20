@@ -9,7 +9,7 @@ from backend.utils import APITestCase
 
 class TestCreateOrder(APITestCase):
     def test_create_order_creates_order_for_user(self):
-        """ Test that v1.create_order creates a user_product_cart in the db.
+        """ Test that v1.create_order creates an order in the db.
         """
         user = self.create_user(create_valid_session=True)
         event = self.create_event(name='asd')
