@@ -23,3 +23,4 @@ from products import Product
 from user_cart_products import UserCartProduct
 from events import Event
 from orders import Order
+from order_products import OrderProduct

@@ -24,6 +24,9 @@ class Order(db.Model, Entity, Dumpable):
     user = relationship('User', back_populates='orders',
         cascade='save-update, merge')
 
+    products = relationship('Product', secondary='order_product',
+        cascade='save-update, merge')
+
     def __init__(self):
         pass
 
