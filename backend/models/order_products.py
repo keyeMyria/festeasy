@@ -13,7 +13,11 @@ class OrderProduct(db.Model, Entity, Dumpable):
     whitelist = [
         'id',
         'created_on',
+        'product',
+        'price_cents',
     ]
+
+    price_cents = Column(Integer, default=-1, nullable=False)
 
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     order = relationship('Order', cascade='save-update, merge')
@@ -24,6 +28,9 @@ class OrderProduct(db.Model, Entity, Dumpable):
     __table_args__ = (
         UniqueConstraint('order_id', 'product_id'),
     )
+
+    def __init__(self, price_cents=0):
+        self.price_cents = price_cents
 
     def __repr__(self):
         return '<OrderProduct {id}>'.format(id=self.id)

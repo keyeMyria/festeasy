@@ -34,11 +34,10 @@ class User(db.Model, Entity, Dumpable):
     user_cart_products = relationship('UserCartProduct',
         cascade='save-update, merge, delete, delete-orphan')
 
+    current_cart_event_id = Column(Integer, ForeignKey('event.id'), nullable=True)
     current_cart_event = relationship('Event', back_populates='users',
         cascade='save-update, merge')
-    current_cart_event_id = Column(Integer, ForeignKey('event.id'), nullable=True)
 
-    # TODO: Should we have 'delete, delete-orphan' in cascade for orders?
     orders = relationship('Order', back_populates='user',
         cascade='save-update, merge, delete, delete-orphan')
     

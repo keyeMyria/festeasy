@@ -14,7 +14,7 @@ class Order(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'event',
-        'products',
+        'order_products',
     ]
     
     event_id = Column(Integer, ForeignKey('event.id'), nullable=False)
@@ -26,6 +26,9 @@ class Order(db.Model, Entity, Dumpable):
         cascade='save-update, merge')
 
     products = relationship('Product', secondary='order_product',
+        cascade='save-update, merge')
+
+    order_products = relationship('OrderProduct',
         cascade='save-update, merge')
 
     def __init__(self):

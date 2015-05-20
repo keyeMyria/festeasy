@@ -28,6 +28,9 @@ class Product(db.Model, Entity, Dumpable):
     orders = relationship('Order', secondary='order_product',
         cascade='save-update, merge')
 
+    order_products = relationship('OrderProduct',
+        cascade='save-update, merge')
+
     def __init__(self, name, price_cents):
         self.name = name
         self.price_cents = price_cents
