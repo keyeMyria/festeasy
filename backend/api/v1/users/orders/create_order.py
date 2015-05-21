@@ -18,23 +18,22 @@ logger = logging.getLogger(__name__)
 def _create_order(user):
     """ Creates an order given a user.
     """
-    order = Order()
+    with db.session.no_autoflush:
+        order = Order()
+        
+        for cart_product in user.user_cart_products:
+            order_product = OrderProduct(
+                product=cart_product.product,
+                order=order,
+                price_cents=cart_product.product.price_cents,
+                )
+            db.session.add(order_product)
+        
+        order.event = user.current_cart_event
+        order.user = user
 
-    for cart_product in user.user_cart_products:
-        order_product = OrderProduct(
-            product=cart_product.product,
-            order=order,
-            price_cents=cart_product.product.price_cents,
-            )
-        db.session.add(order_product)
-    
-    # TODO: why does the order of these two matter?
-    # http://stackoverflow.com/questions/4201455/sqlalchemy-whats-the-difference-between-flush-and-commit
-    order.event = user.current_cart_event
-    order.user = user
-
-    db.session.add(order)
-    db.session.commit()
+        db.session.add(order)
+        db.session.commit()
     return order
 
 @api.route('/users/<int:user_id>/orders', methods=['POST'])
