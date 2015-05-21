@@ -18,6 +18,11 @@ def _create_user_cart_product(user, product):
     """ Creates a user_cart_product given a user 
     and a product.
     """
+    existing_user_cart_product = (UserCartProduct.query
+        .filter(UserCartProduct.user==user)
+        .filter(UserCartProduct.product==product)
+        ).first()
+
     user_cart_product = UserCartProduct()
     user_cart_product.user = user
     user_cart_product.product = product
