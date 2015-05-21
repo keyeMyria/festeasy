@@ -18,8 +18,14 @@ class TestOrderProduct(ModelTestCase):
 
         order.event = event
         order.user = user
-        order.products.append(product)
 
+        order_product = OrderProduct(
+            order=order,
+            product=product,
+            price_cents=product.price_cents,
+            )
+
+        db.session.add(order_product)
         db.session.add(order)
         db.session.commit()
 
@@ -39,8 +45,13 @@ class TestOrderProduct(ModelTestCase):
 
         order.event = event
         order.user = user
-        order.products.append(product)
+        order_product = OrderProduct(
+            order=order,
+            product=product,
+            price_cents=product.price_cents,
+            )
 
+        db.session.add(order_product)
         db.session.add(order)
         db.session.commit()
 

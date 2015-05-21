@@ -17,7 +17,7 @@ class OrderProduct(db.Model, Entity, Dumpable):
         'price_cents',
     ]
 
-    price_cents = Column(Integer, default=-1, nullable=False)
+    price_cents = Column(Integer, nullable=False)
 
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     order = relationship('Order', cascade='save-update, merge')
@@ -29,8 +29,10 @@ class OrderProduct(db.Model, Entity, Dumpable):
         UniqueConstraint('order_id', 'product_id'),
     )
 
-    def __init__(self, price_cents=0):
+    def __init__(self, price_cents=None, order=None, product=None):
         self.price_cents = price_cents
+        self.order = order
+        self.product = product
 
     def __repr__(self):
         return '<OrderProduct {id}>'.format(id=self.id)

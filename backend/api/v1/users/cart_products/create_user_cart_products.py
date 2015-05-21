@@ -42,7 +42,7 @@ def create_user_cart_product(user_id, authenticated_user):
     _create_user_cart_product(user, product)
 
     user_cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
-    return jsonify(message="Successfully created a user_cart_product.", user_cart_products=user_cart_products), 201
+    return jsonify(message="Successfully created a user_cart_product.", user=user, user_cart_products=user_cart_products), 201
 
 @api.route('/users/<int:user_id>/cart_products/multiple', methods=['POST'])
 @require_auth()
@@ -61,4 +61,4 @@ def create_user_cart_products(user_id, authenticated_user):
         _create_user_cart_product(user, product)
 
     user_cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
-    return jsonify(message="Successfully created user_cart_products.", user_cart_products=user_cart_products), 201
+    return jsonify(message="Successfully created user_cart_products.", user=user, user_cart_products=user_cart_products), 201

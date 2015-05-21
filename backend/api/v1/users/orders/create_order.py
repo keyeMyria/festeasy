@@ -10,7 +10,7 @@ from backend.api.v1.auth import require_auth
 from backend.api.v1.forms import CreateUserCartProductsForm
 from backend.api.v1.forms import CreateUserCartProductForm
 from backend.models import User, UserCartProduct, Product
-from backend.models import Order
+from backend.models import Order, OrderProduct
 
 
 logger = logging.getLogger(__name__)
@@ -20,13 +20,18 @@ def _create_order(user):
     """
     order = Order()
 
-    order.products = user.cart_products
+    for cart_product in user.user_cart_products:
+        order_product = OrderProduct(
+            product=cart_product.product,
+            order=order,
+            price_cents=cart_product.product.price_cents,
+            )
+        db.session.add(order_product)
     
     # TODO: why does the order of these two matter?
     # http://stackoverflow.com/questions/4201455/sqlalchemy-whats-the-difference-between-flush-and-commit
     order.event = user.current_cart_event
     order.user = user
-    
 
     db.session.add(order)
     db.session.commit()
@@ -44,4 +49,4 @@ def create_order(authenticated_user, user_id):
 
     orders = Order.query.filter(Order.user==user).all()
 
-    return jsonify(message="Successfully created order for user.", orders=orders), 201
+    return jsonify(message="Successfully created order for user.", user=user, orders=orders), 201

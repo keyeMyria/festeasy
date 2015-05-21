@@ -5,6 +5,7 @@ from backend import db
 from backend.models import User, UserCartProduct, Product
 from backend.models import Order
 from backend.utils import APITestCase
+from backend.api.v1.users.orders.create_order import _create_order
 
 
 class TestCreateOrder(APITestCase):
@@ -37,3 +38,21 @@ class TestCreateOrder(APITestCase):
         self.assertEqual(fetched_user.orders, [fetched_order])
         self.assertEqual(fetched_order.event, event)
         self.assertEqual(fetched_order.products, [product])
+
+    def test_create_order_copies_prices(self):
+        """ Test that _create_order copies the prices of 
+        products froms a users cart.
+        """
+        user = self.create_user(create_valid_session=True)
+        event = self.create_event(name='asd')
+        product = self.create_product(name='abc', price_cents=99)
+
+        user.cart_products.append(product)
+        user.current_cart_event = event
+
+        db.session.add(user)
+        db.session.commit()
+
+        order = _create_order(user)
+
+        self.assertEqual(order.order_products[0].price_cents, product.price_cents)
