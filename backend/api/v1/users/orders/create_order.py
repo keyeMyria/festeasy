@@ -44,6 +44,10 @@ def create_order(authenticated_user, user_id):
 
     user = get_or_404(User, user_id)
 
+    if not user.current_cart_event:
+        logger.warn("Failed to create order, no current_cart_event selected.")
+        return jsonify(message="Failed to create order, no current_cart_event selected."), 400
+
     _create_order(user)
 
     orders = Order.query.filter(Order.user==user).all()

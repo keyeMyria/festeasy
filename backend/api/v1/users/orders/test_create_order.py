@@ -56,3 +56,25 @@ class TestCreateOrder(APITestCase):
         order = _create_order(user)
 
         self.assertEqual(order.order_products[0].price_cents, product.price_cents)
+
+    def test_create_order_with_no_event(self):
+        """ Test that v1.create_order fails with 400 if
+        user has no current.
+        """
+        user = self.create_user(create_valid_session=True)
+        product = self.create_product(name='abc', price_cents=99)
+
+        user.cart_products.append(product)
+
+        db.session.add(user)
+        db.session.commit()
+
+        response = self.api_request(
+            'post',
+            url_for('v1.create_order', user_id=user.id), 
+            as_user=user,
+            with_session=user.sessions[0],
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(user.orders, list())
