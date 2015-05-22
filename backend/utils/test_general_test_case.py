@@ -16,7 +16,7 @@ class TestGeneralTestCaseCreateSession(GeneralTestCase):
         token = random_string(25)
         user = self.create_user()
 
-        session = self.create_session(expires_on=expires_on, token=token, for_user=user)
+        session = self.create_session(expires_on=expires_on, token=token, user=user)
 
         db.session.add(session)
         db.session.commit()
@@ -31,7 +31,7 @@ class TestGeneralTestCaseCreateSession(GeneralTestCase):
         now = datetime.datetime.now()
         user = self.create_user()
 
-        session = self.create_session(create_valid_session=True, for_user=user)
+        session = self.create_session(create_valid_session=True, user=user)
 
         db.session.add(session)
         db.session.commit()

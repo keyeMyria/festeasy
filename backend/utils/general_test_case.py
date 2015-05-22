@@ -20,30 +20,30 @@ class GeneralTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def create_order(self):
-        order = Order()
+    def create_order(self, event=None, user=None):
+        order = Order(event=event, user=user)
         return order
 
-    def create_event(self, name):
-        event = Event(name=name)
+    def create_event(self, name=None, users=[]):
+        event = Event(name=name, users=users)
         return event
 
-    def create_product(self, name=None, price_rands=None):
-        product = Product(name=name, price_rands=price_rands)
+    def create_product(self, name=None, price_rands=None, cart_users=[]):
+        product = Product(name=name, price_rands=price_rands, cart_users=cart_users)
         return product
 
-    def create_session(self, expires_on=None, token=None, for_user=None, create_valid_session=False):
+    def create_session(self, expires_on=None, token=None, user=None, create_valid_session=False):
         now = datetime.datetime.now()
         if create_valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
             token = random_string(25)
-        session = Session(expires_on=expires_on, user=for_user, token=token)
+        session = Session(expires_on=expires_on, user=user, token=token)
         return session
 
     def create_user(self, email_address='user@GeneralTestCase.takenote', 
-        password='test_password', first_name='Johannes', create_valid_session=False):
+        password='test_password', first_name='Johannes', create_valid_session=False, orders=[]):
         now = datetime.datetime.now()
-        user = User(email_address=email_address, password=password, first_name=first_name)
+        user = User(email_address=email_address, password=password, first_name=first_name, orders=orders)
         if create_valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
             token = random_string(25)

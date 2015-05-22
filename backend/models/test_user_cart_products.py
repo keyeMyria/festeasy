@@ -12,11 +12,7 @@ class TestUserCartProduct(ModelTestCase):
         """
         user = self.create_user()
         product = self.create_product(name='abc', price_rands=99)
-
-        cart_product = UserCartProduct()
-        cart_product.user = user
-        cart_product.product = product
-
+        cart_product = UserCartProduct(user=user, product=product)
         db.session.add(cart_product)
         db.session.commit()
 
@@ -32,11 +28,7 @@ class TestUserCartProduct(ModelTestCase):
         """
         user = self.create_user()
         product = self.create_product(name='abc', price_rands=99)
-
-        cart_product = UserCartProduct()
-        cart_product.user = user
-        cart_product.product = product
-
+        cart_product = UserCartProduct(user=user, product=product)
         db.session.add(cart_product)
         db.session.commit()
 

@@ -10,11 +10,10 @@ class TestOrder(ModelTestCase):
     def test_create_order(self):
         """ Test that an Order can be created.
         """
-        order = self.create_order()
+        
         event = self.create_event(name='test')
         user = self.create_user()
-        order.user = user
-        order.event = event
+        order = self.create_order(user=user, event=event)
         db.session.add(order)
         db.session.commit()
 
@@ -25,12 +24,9 @@ class TestOrder(ModelTestCase):
         """ Test that deleting an Order which has 
         users does not delete those users.
         """
-        user = self.create_user()
         event = self.create_event(name='test')
-        order = self.create_order()
-        order.event = event
-
-        user.orders.append(order)
+        order = self.create_order(event=event)
+        user = self.create_user(orders=[order])
         db.session.add(user)
         db.session.commit()
 

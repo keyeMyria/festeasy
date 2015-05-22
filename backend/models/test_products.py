@@ -18,23 +18,21 @@ class TestProduct(ModelTestCase):
         self.assertEqual(fetched_product, product)
 
     def test_product_deletion_leaves_users(self):
-    	""" Test that deleting a product which has 
-    	cart_users does not delete those users.
-    	"""
-    	user = self.create_user()
-    	product = self.create_product(name='test_product', price_rands=99)
+        """ Test that deleting a product which has 
+        cart_users does not delete those users.
+        """
+        user = self.create_user()
+        product = self.create_product(name='test_product', price_rands=99, cart_users=[user])
+        db.session.add(product)
+        db.session.commit()
 
-    	product.cart_users.append(user)
-    	db.session.add(product)
-    	db.session.commit()
+        self.assertEqual(User.query.one(), user)
+        self.assertEqual(UserCartProduct.query.one().user, user)
 
-    	self.assertEqual(User.query.one(), user)
-    	self.assertEqual(UserCartProduct.query.one().user, user)
+        db.session.delete(product)
+        db.session.commit()
 
-    	db.session.delete(product)
-    	db.session.commit()
-
-    	self.assertEqual(User.query.one(), user)
-    	self.assertEqual(UserCartProduct.query.all(), list())
-    	self.assertEqual(Product.query.all(), list())
+        self.assertEqual(User.query.one(), user)
+        self.assertEqual(UserCartProduct.query.all(), list())
+        self.assertEqual(Product.query.all(), list())
 

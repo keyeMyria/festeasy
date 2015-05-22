@@ -14,7 +14,7 @@ class TestSession(ModelTestCase):
         """
 
         user = self.create_user()
-        session = self.create_session(create_valid_session=True, for_user=user)
+        session = self.create_session(create_valid_session=True, user=user)
         db.session.add(session)
         db.session.commit()
 
@@ -27,7 +27,7 @@ class TestSession(ModelTestCase):
         """
 
         user = self.create_user()
-        session = self.create_session(create_valid_session=True, for_user=user)
+        session = self.create_session(create_valid_session=True, user=user)
         db.session.add(session)
         db.session.commit()
         

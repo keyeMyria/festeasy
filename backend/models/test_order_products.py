@@ -13,12 +13,9 @@ class TestOrderProduct(ModelTestCase):
         """
         user = self.create_user()
         product = self.create_product(name='abc', price_rands=99)
-        order = self.create_order()
         event = self.create_event(name='asd')
-
-        order.event = event
-        order.user = user
-
+        order = self.create_order(event=event, user=user)
+        
         order_product = OrderProduct(
             order=order,
             product=product,

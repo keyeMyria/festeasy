@@ -22,9 +22,7 @@ class TestEvent(ModelTestCase):
         users does not delete those users.
         """
         user = self.create_user()
-        event = self.create_event(name='test_product')
-
-        event.users.append(user)
+        event = self.create_event(name='test_product', users=[user])
         db.session.add(event)
         db.session.commit()
 
