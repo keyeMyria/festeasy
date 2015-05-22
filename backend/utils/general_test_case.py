@@ -28,8 +28,8 @@ class GeneralTestCase(TestCase):
         event = Event(name=name, users=users)
         return event
 
-    def create_product(self, name=None, price_rands=None, cart_users=[]):
-        product = Product(name=name, price_rands=price_rands, cart_users=cart_users)
+    def create_product(self, name=None, cost_rands=-1, price_rands=None, cart_users=[]):
+        product = Product(name=name, cost_rands=cost_rands, price_rands=price_rands, cart_users=cart_users)
         return product
 
     def create_session(self, expires_on=None, token=None, user=None, create_valid_session=False):
