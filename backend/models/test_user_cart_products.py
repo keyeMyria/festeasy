@@ -11,7 +11,7 @@ class TestUserCartProduct(ModelTestCase):
         """ Test that a UserCartProduct can be created.
         """
         user = self.create_user()
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
 
         cart_product = UserCartProduct()
         cart_product.user = user
@@ -31,7 +31,7 @@ class TestUserCartProduct(ModelTestCase):
         the user nor product.
         """
         user = self.create_user()
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
 
         cart_product = UserCartProduct()
         cart_product.user = user

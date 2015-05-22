@@ -14,7 +14,7 @@ class TestCreateOrder(APITestCase):
         """
         user = self.create_user(create_valid_session=True)
         event = self.create_event(name='asd')
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
 
         user.cart_products.append(product)
         user.current_cart_event = event
@@ -45,7 +45,7 @@ class TestCreateOrder(APITestCase):
         """
         user = self.create_user(create_valid_session=True)
         event = self.create_event(name='asd')
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
 
         user.cart_products.append(product)
         user.current_cart_event = event
@@ -55,14 +55,14 @@ class TestCreateOrder(APITestCase):
 
         order = _create_order(user)
 
-        self.assertEqual(order.order_products[0].price_cents, product.price_cents)
+        self.assertEqual(order.order_products[0].price_rands, product.price_rands)
 
     def test_create_order_with_no_event(self):
         """ Test that v1.create_order fails with 400 if
         user has no current.
         """
         user = self.create_user(create_valid_session=True)
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
 
         user.cart_products.append(product)
 

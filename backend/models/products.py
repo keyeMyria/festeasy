@@ -13,11 +13,11 @@ class Product(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'name',
-        'price_cents',
+        'price_rands',
     ]
     
     name = Column(String(150), nullable=False)
-    price_cents = Column(Integer, nullable=False)
+    price_rands = Column(Float, nullable=False)
 
     cart_users = relationship('User', secondary='user_cart_product',
         cascade='save-update, merge')
@@ -31,9 +31,9 @@ class Product(db.Model, Entity, Dumpable):
     order_products = relationship('OrderProduct',
         cascade='save-update, merge')
 
-    def __init__(self, name, price_cents):
+    def __init__(self, name=None, price_rands=None):
         self.name = name
-        self.price_cents = price_cents
+        self.price_rands = price_rands
 
     def __repr__(self):
         return '<Product {id}>'.format(id=self.id)

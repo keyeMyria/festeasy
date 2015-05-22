@@ -12,7 +12,7 @@ class TestOrderProduct(ModelTestCase):
         """ Test that a OrderProduct can be created.
         """
         user = self.create_user()
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
         order = self.create_order()
         event = self.create_event(name='asd')
 
@@ -22,7 +22,7 @@ class TestOrderProduct(ModelTestCase):
         order_product = OrderProduct(
             order=order,
             product=product,
-            price_cents=product.price_cents,
+            price_rands=product.price_rands,
             )
 
         db.session.add(order_product)
@@ -39,7 +39,7 @@ class TestOrderProduct(ModelTestCase):
         the user nor product nor event.
         """
         user = self.create_user()
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
         event = self.create_event(name='asd')
         order = self.create_order()
 
@@ -48,7 +48,7 @@ class TestOrderProduct(ModelTestCase):
         order_product = OrderProduct(
             order=order,
             product=product,
-            price_cents=product.price_cents,
+            price_rands=product.price_rands,
             )
 
         db.session.add(order_product)

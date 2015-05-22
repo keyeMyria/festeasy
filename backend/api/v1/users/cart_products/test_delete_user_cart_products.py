@@ -11,7 +11,7 @@ class TestDeleteCartUserProducts(APITestCase):
         """ Test that v1.delete_user_cart_products deletes a user_product_cart in the db.
         """
         user = self.create_user(create_valid_session=True)
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
         user_cart_product = UserCartProduct()
         user_cart_product.user = user
         user_cart_product.product = product
@@ -35,7 +35,7 @@ class TestDeleteCartUserProducts(APITestCase):
         invalid user_cart_product ID.
         """
         user = self.create_user(create_valid_session=True)
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
         user_cart_product = UserCartProduct()
         user_cart_product.user = user
         user_cart_product.product = product

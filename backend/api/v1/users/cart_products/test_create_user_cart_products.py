@@ -11,7 +11,7 @@ class TestCreateCartUserProducts(APITestCase):
         """ Test that v1.create_user_cart_product creates a user_product_cart in the db.
         """
         user = self.create_user(create_valid_session=True)
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
         db.session.add(user)
         db.session.add(product)
         db.session.commit()
@@ -40,7 +40,7 @@ class TestCreateCartUserProducts(APITestCase):
         """ Test that v1.create_user_cart_products creates a user_product_cart in the db.
         """
         user = self.create_user(create_valid_session=True)
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
         db.session.add(user)
         db.session.add(product)
         db.session.commit()
@@ -72,7 +72,7 @@ class TestCreateCartUserProducts(APITestCase):
         the form is not valid.
         """
         user = self.create_user(create_valid_session=True)
-        product = self.create_product(name='abc', price_cents=99)
+        product = self.create_product(name='abc', price_rands=99)
         db.session.add(user)
         db.session.add(product)
         db.session.commit()

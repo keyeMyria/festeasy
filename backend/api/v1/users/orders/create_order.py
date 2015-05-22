@@ -25,7 +25,7 @@ def _create_order(user):
             order_product = OrderProduct(
                 product=cart_product.product,
                 order=order,
-                price_cents=cart_product.product.price_cents,
+                price_rands=cart_product.product.price_rands,
                 )
             db.session.add(order_product)
         

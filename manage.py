@@ -56,13 +56,13 @@ class InitDB(Command):
                 first_name='TestName')
             ]
         products = [
-            Product(name='Castle Lite Beer', price_cents=2000),
-            Product(name='Lays Small Pack', price_cents=900),
-            Product(name='Coke Can', price_cents=900),
-            Product(name='Windhoek Beer', price_cents=2100),
-            Product(name='Text Chocolate', price_cents=900),
-            Product(name='KitKat Chocolate', price_cents=800),
-            Product(name='Jelly Beans', price_cents=700),
+            Product(name='Castle Lite Beer', price_rands=2000),
+            Product(name='Lays Small Pack', price_rands=900),
+            Product(name='Coke Can', price_rands=900),
+            Product(name='Windhoek Beer', price_rands=2100),
+            Product(name='Text Chocolate', price_rands=900),
+            Product(name='KitKat Chocolate', price_rands=800),
+            Product(name='Jelly Beans', price_rands=700),
             ]
         events = [
             Event(name='Rocking The Daisies'),
