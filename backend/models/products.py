@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer, String, DateTime, Numeric
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -18,8 +18,8 @@ class Product(db.Model, Entity, Dumpable):
     ]
     
     name = Column(String(150), nullable=False)
-    price_rands = Column(Float, nullable=False)
-    cost_rands = Column(Float, nullable=False)
+    price_rands = Column(Numeric, nullable=False)
+    cost_rands = Column(Numeric, nullable=False)
 
     cart_users = relationship('User', secondary='user_cart_product',
         cascade='save-update, merge')

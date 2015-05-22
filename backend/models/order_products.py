@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer, String, DateTime, Numeric
 from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 
@@ -17,7 +17,7 @@ class OrderProduct(db.Model, Entity, Dumpable):
         'price_rands',
     ]
 
-    price_rands = Column(Float, nullable=False)
+    price_rands = Column(Numeric, nullable=False)
 
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     order = relationship('Order', cascade='save-update, merge')
