@@ -31,9 +31,12 @@ class Product(db.Model, Entity, Dumpable):
     order_products = relationship('OrderProduct',
         cascade='save-update, merge')
 
-    def __init__(self, name=None, price_rands=None):
+    def __init__(self, name=None, price_rands=None, cart_users=[], orders=[], order_products=[]):
         self.name = name
         self.price_rands = price_rands
+        self.cart_users = cart_users
+        self.orders = orders
+        self.order_products = order_products
 
     def __repr__(self):
         return '<Product {id}>'.format(id=self.id)

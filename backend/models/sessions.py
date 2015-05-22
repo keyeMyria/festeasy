@@ -16,13 +16,14 @@ class Session(db.Model, Entity, Dumpable):
     	'expires_on',
         'token',
     ]
+
+    expires_on = Column(DateTime, nullable=False)
+    token = Column(String(200), nullable=False, unique=True)
     
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship('User', back_populates='sessions', 
     	cascade='save-update, merge')
-    expires_on = Column(DateTime, nullable=False)
-
-    token = Column(String(200), nullable=False, unique=True)
+    
 
     def __init__(self, expires_on, token, user=None):
         self.expires_on = expires_on

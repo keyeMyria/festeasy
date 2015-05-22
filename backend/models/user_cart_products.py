@@ -26,5 +26,9 @@ class UserCartProduct(db.Model, Entity, Dumpable):
         UniqueConstraint('user_id', 'product_id'),
     )
 
+    def __init__(self, user=None, product=None):
+        self.user = user
+        self.product = product
+
     def __repr__(self):
         return '<UserCartProduct {id}>'.format(id=self.id)

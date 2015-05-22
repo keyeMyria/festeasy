@@ -31,8 +31,11 @@ class Order(db.Model, Entity, Dumpable):
     order_products = relationship('OrderProduct',
         cascade='save-update, merge')
 
-    def __init__(self):
-        pass
+    def __init__(self, event=None, user=None, products=[], order_products=[]):
+        self.event = event
+        self.user = user
+        self.products = products
+        self.order_products = order_products
 
     def __repr__(self):
         return '<Order {id}>'.format(id=self.id)

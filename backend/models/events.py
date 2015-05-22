@@ -25,8 +25,12 @@ class Event(db.Model, Entity, Dumpable):
     orders = relationship('Order', back_populates='event',
         cascade='save-update, merge')
 
-    def __init__(self, name):
+    def __init__(self, name=None, starts_on=None, ends_on=None, users=[], orders=[]):
         self.name = name
+        self.starts_on = starts_on
+        self.ends_on = ends_on
+        self.users = users
+        self.orders = orders
 
     def __repr__(self):
         return '<Event {id}>'.format(id=self.id)
