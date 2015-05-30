@@ -4,7 +4,7 @@ from flask import jsonify, request
 
 from backend import db
 from backend.api import api
-from backend.api.v1.forms import CreateSessionForm
+from backend.api.forms import CreateSessionForm
 from backend.models import Session, User
 from backend.utils import random_string
 

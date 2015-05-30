@@ -7,8 +7,8 @@ from backend import db
 from backend.api import api
 from backend.api.utils import get_or_404
 from backend.api.auth import require_auth
-from backend.api.v1.forms import CreateUserCartProductsForm
-from backend.api.v1.forms import CreateUserCartProductForm
+from backend.api.forms import CreateUserCartProductsForm
+from backend.api.forms import CreateUserCartProductForm
 from backend.models import User, UserCartProduct, Product
 
 
