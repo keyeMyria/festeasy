@@ -21,7 +21,7 @@ class User(db.Model, Entity, Dumpable):
     ]
     
     email_address = Column(String(200), unique=True, nullable=False)
-    password_hash = Column(String(200), unique=True, nullable=False)
+    password_hash = Column(String(200), nullable=False)
     first_name = Column(String(100), nullable=False)
     last_name = Column(String(100))
 
