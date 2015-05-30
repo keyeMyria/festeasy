@@ -19,7 +19,8 @@ class TestOrderProduct(ModelTestCase):
         order_product = OrderProduct(
             order=order,
             product=product,
-            price_rands=product.price_rands,
+            unit_price_rands=product.price_rands,
+            quantity=1,
             )
 
         db.session.add(order_product)
@@ -45,7 +46,8 @@ class TestOrderProduct(ModelTestCase):
         order_product = OrderProduct(
             order=order,
             product=product,
-            price_rands=product.price_rands,
+            unit_price_rands=product.price_rands,
+            quantity=1,
             )
 
         db.session.add(order_product)

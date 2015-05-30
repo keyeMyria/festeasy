@@ -6,8 +6,8 @@ from flask import jsonify, request
 from backend import db
 from backend.api import api
 from backend.api.utils import get_or_404
-from backend.api.v1.auth import require_auth
-from backend.api.v1.forms import SetCurrentCartEventForm
+from backend.api.auth import require_auth
+from backend.api.forms import SetCurrentCartEventForm
 from backend.models import User, Event
 
 

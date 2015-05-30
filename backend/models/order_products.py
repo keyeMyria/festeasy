@@ -14,10 +14,17 @@ class OrderProduct(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'product',
-        'price_rands',
+        'unit_price_rands',
+        'quantity',
+        'sub_total_rands',
     ]
 
-    price_rands = Column(Numeric, nullable=False)
+    @property
+    def sub_total_rands(self):
+        return self.unit_price_rands * self.quantity
+
+    unit_price_rands = Column(Numeric, nullable=False)
+    quantity = Column(Integer, nullable=False)
 
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     order = relationship('Order', cascade='save-update, merge')
@@ -29,8 +36,9 @@ class OrderProduct(db.Model, Entity, Dumpable):
         UniqueConstraint('order_id', 'product_id'),
     )
 
-    def __init__(self, price_rands=None, order=None, product=None):
-        self.price_rands = price_rands
+    def __init__(self, unit_price_rands=None, quantity=None, order=None, product=None):
+        self.unit_price_rands = unit_price_rands
+        self.quantity = quantity
         self.order = order
         self.product = product
 
