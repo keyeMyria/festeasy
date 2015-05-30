@@ -13,8 +13,11 @@ class UserCartProduct(db.Model, Entity, Dumpable):
     whitelist = [
         'id',
         'created_on',
+        'quantity',
         'product',
     ]
+
+    quantity = Column(Integer, default=1, nullable=False)
 
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship('User', cascade='save-update, merge')
@@ -26,7 +29,8 @@ class UserCartProduct(db.Model, Entity, Dumpable):
         UniqueConstraint('user_id', 'product_id'),
     )
 
-    def __init__(self, user=None, product=None):
+    def __init__(self, quantity=None, user=None, product=None):
+        self.quantity = quantity
         self.user = user
         self.product = product
 
