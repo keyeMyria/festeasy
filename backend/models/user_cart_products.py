@@ -15,7 +15,12 @@ class UserCartProduct(db.Model, Entity, Dumpable):
         'created_on',
         'quantity',
         'product',
+        'sub_total_rands',
     ]
+
+    @property
+    def sub_total_rands(self):
+        return self.product.price_rands * self.quantity 
 
     quantity = Column(Integer, default=1, nullable=False)
 

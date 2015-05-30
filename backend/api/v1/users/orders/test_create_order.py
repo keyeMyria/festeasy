@@ -55,7 +55,7 @@ class TestCreateOrder(APITestCase):
 
         order = _create_order(user)
 
-        self.assertEqual(order.order_products[0].price_rands, product.price_rands)
+        self.assertEqual(order.order_products[0].sub_total_rands, product.price_rands)
 
     def test_create_order_with_no_event(self):
         """ Test that v1.create_order fails with 400 if
