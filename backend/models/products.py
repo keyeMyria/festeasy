@@ -30,6 +30,9 @@ class Product(db.Model, Entity, Dumpable):
     order_products = relationship('OrderProduct',
         cascade='save-update, merge')
 
+    cart_products = relationship('CartProduct',
+        cascade='save-update, merge, delete')
+
     def __init__(self, name=None, cost_rands=None, price_rands=None, orders=[], order_products=[]):
         self.name = name
         self.cost_rands = cost_rands
