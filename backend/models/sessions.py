@@ -12,8 +12,8 @@ class Session(db.Model, Entity, Dumpable):
 
     whitelist = [
         'id',
-    	'created_on',
-    	'expires_on',
+        'created_on',
+        'expires_on',
         'token',
     ]
 

@@ -4,7 +4,7 @@ from flask.ext.testing import TestCase
 from backend import create_app, db
 from backend.utils.random_string import random_string
 from backend.models import User, Session, Product
-from backend.models import Event, Order
+from backend.models import Event, Order, Cart
 
 
 class GeneralTestCase(TestCase):
@@ -41,7 +41,7 @@ class GeneralTestCase(TestCase):
         return session
 
     def create_user(self, email_address='user@GeneralTestCase.takenote', 
-        password='test_password', first_name='Johannes', create_valid_session=False, orders=[]):
+        password='test_password', first_name='Johannes', create_valid_session=False, create_cart=True, orders=[]):
         now = datetime.datetime.now()
         user = User(email_address=email_address, password=password, first_name=first_name, orders=orders)
         if create_valid_session:
@@ -49,4 +49,6 @@ class GeneralTestCase(TestCase):
             token = random_string(25)
             session = self.create_session(expires_on=expires_on, token=token)
             user.sessions.append(session)
+        if create_cart:
+            user.cart = Cart()
         return user
