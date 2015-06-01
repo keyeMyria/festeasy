@@ -33,4 +33,4 @@ class TestUpdateUserCartProducts(APITestCase):
         self.assertEqual(response.status_code, 201)
         fetched_cart_product = CartProduct.query.one()
         self.assertEqual(fetched_cart_product.quantity, new_quantity)
-        self.assertIsNotNone(response.json['cart_product'])
+        self.assertIsNotNone(response.json['cart'])

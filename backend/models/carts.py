@@ -29,7 +29,7 @@ class Cart(db.Model, Entity, Dumpable):
         cascade='save-update, merge')
 
     cart_products = relationship('CartProduct',
-        cascade='save-update, merge')
+        cascade='save-update, merge, delete, delete-orphan')
 
     def __init__(self, event=None, user=None, products=[]):
         self.event = event
