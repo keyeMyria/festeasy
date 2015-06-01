@@ -20,7 +20,8 @@ class Entity(object):
 from sessions import Session
 from users import User
 from products import Product
-from user_cart_products import UserCartProduct
 from events import Event
 from orders import Order
 from order_products import OrderProduct
+from carts import Cart
+from cart_products import CartProduct

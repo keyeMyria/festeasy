@@ -9,28 +9,24 @@ from backend.api.utils import get_or_404
 from backend.api.auth import require_auth
 from backend.api.forms import CreateUserCartProductsForm
 from backend.api.forms import CreateUserCartProductForm
-from backend.models import User, UserCartProduct, Product
+from backend.models import User, Product, CartProduct
 
 
 logger = logging.getLogger(__name__)
 
-def _create_user_cart_product(user, product):
-    """ Creates a user_cart_product given a user 
+def _create_cart_product(user, product):
+    """ Creates a cart_product given a user 
     and a product.
     """
-    existing_user_cart_product = (UserCartProduct.query
-        .filter(UserCartProduct.user==user)
-        .filter(UserCartProduct.product==product)
-        ).first()
-
-    user_cart_product = UserCartProduct()
-    user_cart_product.user = user
-    user_cart_product.product = product
-    db.session.add(user_cart_product)
+    cart_product = CartProduct(
+        product=product,
+        cart=user.cart,
+        )
+    db.session.add(cart_product)
     db.session.commit()
-    return user_cart_product
+    return cart_product
 
-@api.route('/users/<int:user_id>/cart_products', methods=['POST'])
+@api.route('/users/<int:user_id>/cart/cart_products', methods=['POST'])
 @require_auth()
 def create_user_cart_product(user_id, authenticated_user):
     """ Creates a user_cart_product.
@@ -44,12 +40,10 @@ def create_user_cart_product(user_id, authenticated_user):
     product_id = create_cart_product_form.product_id.data
     product = get_or_404(Product, product_id)
 
-    _create_user_cart_product(user, product)
+    _create_cart_product(user, product)
+    return jsonify(message="Successfully created a cart_product.", cart=user.cart), 201
 
-    user_cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
-    return jsonify(message="Successfully created a user_cart_product.", user=user, user_cart_products=user_cart_products), 201
-
-@api.route('/users/<int:user_id>/cart_products/multiple', methods=['POST'])
+@api.route('/users/<int:user_id>/cart/cart_products/multiple', methods=['POST'])
 @require_auth()
 def create_user_cart_products(user_id, authenticated_user):
     """ Creates one or more user_cart_products.
@@ -63,7 +57,5 @@ def create_user_cart_products(user_id, authenticated_user):
     for item in create_cart_products_form.product_ids.data:
         product_id = item['product_id']
         product = get_or_404(Product, product_id)
-        _create_user_cart_product(user, product)
-
-    user_cart_products = UserCartProduct.query.filter(UserCartProduct.user==user).all()
-    return jsonify(message="Successfully created user_cart_products.", user=user, user_cart_products=user_cart_products), 201
+        _create_cart_product(user, product)
+    return jsonify(message="Successfully created cart_products.", cart=user.cart), 201

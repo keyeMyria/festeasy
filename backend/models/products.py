@@ -21,11 +21,8 @@ class Product(db.Model, Entity, Dumpable):
     price_rands = Column(Numeric, nullable=False)
     cost_rands = Column(Numeric, nullable=False)
 
-    cart_users = relationship('User', secondary='user_cart_product',
+    carts = relationship('Cart', secondary='cart_product',
         cascade='save-update, merge')
-
-    user_cart_products = relationship('UserCartProduct',
-        cascade='save-update, merge, delete, delete-orphan')
 
     orders = relationship('Order', secondary='order_product',
         cascade='save-update, merge')
@@ -33,11 +30,10 @@ class Product(db.Model, Entity, Dumpable):
     order_products = relationship('OrderProduct',
         cascade='save-update, merge')
 
-    def __init__(self, name=None, cost_rands=None, price_rands=None, cart_users=[], orders=[], order_products=[]):
+    def __init__(self, name=None, cost_rands=None, price_rands=None, orders=[], order_products=[]):
         self.name = name
         self.cost_rands = cost_rands
         self.price_rands = price_rands
-        self.cart_users = cart_users
         self.orders = orders
         self.order_products = order_products
 

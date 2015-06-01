@@ -2,7 +2,7 @@ import datetime
 
 from backend import db
 from backend.models import Product, User
-from backend.models import UserCartProduct
+from backend.models import Cart
 from backend.utils import ModelTestCase
 
 
@@ -22,17 +22,18 @@ class TestProduct(ModelTestCase):
         cart_users does not delete those users.
         """
         user = self.create_user()
-        product = self.create_product(name='test_product', price_rands=99, cart_users=[user])
-        db.session.add(product)
+        product = self.create_product(name='test_product', price_rands=99)
+        user.cart = Cart(products=[product])
+        db.session.add(user)
         db.session.commit()
 
         self.assertEqual(User.query.one(), user)
-        self.assertEqual(UserCartProduct.query.one().user, user)
+        self.assertEqual(Cart.query.one().user, user)
 
         db.session.delete(product)
         db.session.commit()
 
         self.assertEqual(User.query.one(), user)
-        self.assertEqual(UserCartProduct.query.all(), list())
+        self.assertEqual(Cart.query.one(), User.query.one().cart )
         self.assertEqual(Product.query.all(), list())
 

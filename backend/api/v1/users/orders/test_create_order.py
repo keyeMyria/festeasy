@@ -2,7 +2,7 @@ import json
 from flask import url_for
 
 from backend import db
-from backend.models import User, UserCartProduct, Product
+from backend.models import User, Cart, Product
 from backend.models import Order
 from backend.utils import APITestCase
 from backend.api.v1.users.orders.create_order import _create_order
@@ -16,8 +16,8 @@ class TestCreateOrder(APITestCase):
         event = self.create_event(name='asd')
         product = self.create_product(name='abc', price_rands=99)
 
-        user.cart_products.append(product)
-        user.current_cart_event = event
+        user.cart = Cart(products=[product])
+        user.cart.event = event
         db.session.add(user)
         db.session.commit()
 
@@ -47,8 +47,8 @@ class TestCreateOrder(APITestCase):
         event = self.create_event(name='asd')
         product = self.create_product(name='abc', price_rands=99)
 
-        user.cart_products.append(product)
-        user.current_cart_event = event
+        user.cart = Cart(products=[product])
+        user.cart.event = event
 
         db.session.add(user)
         db.session.commit()
@@ -64,7 +64,7 @@ class TestCreateOrder(APITestCase):
         user = self.create_user(create_valid_session=True)
         product = self.create_product(name='abc', price_rands=99)
 
-        user.cart_products.append(product)
+        user.cart = Cart(products=[product])
 
         db.session.add(user)
         db.session.commit()
