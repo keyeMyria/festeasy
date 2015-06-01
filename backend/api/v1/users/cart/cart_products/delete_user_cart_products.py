@@ -12,7 +12,7 @@ from backend.models import User, Product, CartProduct
 
 logger = logging.getLogger(__name__)
 
-@api.route('/users/<int:user_id>/cart_products/multiple', methods=['DELETE'])
+@api.route('/users/<int:user_id>/cart/cart_products/multiple', methods=['DELETE'])
 @require_auth()
 def delete_user_cart_products(user_id, authenticated_user):
     """ Deletes one or more user_cart_products based on 
