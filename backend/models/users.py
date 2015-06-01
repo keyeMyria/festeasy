@@ -42,12 +42,13 @@ class User(db.Model, Entity, Dumpable):
     def has_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __init__(self, email_address=None, password=None, first_name=None, last_name=None,
+    def __init__(self, email_address=None, password=None, first_name=None, last_name=None, cart=None,
         sessions=[], orders=[]):
         self.email_address = email_address
         self.password_hash = generate_password_hash(password)
         self.first_name = first_name
         self.last_name = last_name
+        self.cart = cart
         self.sessions = sessions
         self.orders = orders
 

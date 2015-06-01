@@ -7,7 +7,7 @@ from backend import db
 from backend.api import api
 from backend.utils import random_string
 from backend.api.forms import CreateUserForm
-from backend.models import User, Session
+from backend.models import User, Session, Cart
 
 
 logger = logging.getLogger(__name__)
@@ -34,7 +34,8 @@ def create_user():
     user = User(
         email_address=email_address, 
         password=password, 
-        first_name=first_name
+        first_name=first_name,
+        cart=Cart(),
     )
     
     expires_on = now + datetime.timedelta(days=7)
