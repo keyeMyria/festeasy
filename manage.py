@@ -9,7 +9,7 @@ import logging
 
 from backend import create_app, db
 from backend import models
-from backend.models import User, Product, Event
+from backend.models import User, Product, Event, Cart
 
 
 logger = logging.getLogger()
@@ -53,7 +53,8 @@ class InitDB(Command):
             User(
                 email_address='test@festeasy.co.za', 
                 password='123', 
-                first_name='TestName')
+                first_name='TestName',
+                cart=Cart())
             ]
         products = [
             Product(name='Castle Lite Beer', cost_rands=10, price_rands=20),

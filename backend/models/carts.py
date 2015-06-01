@@ -15,6 +15,7 @@ class Cart(db.Model, Entity, Dumpable):
         'created_on',
         'event',
         'products',
+        'cart_products',
     ]
     
     event_id = Column(Integer, ForeignKey('event.id'))
@@ -25,6 +26,9 @@ class Cart(db.Model, Entity, Dumpable):
         cascade='save-update, merge')
 
     products = relationship('Product', secondary='cart_product',
+        cascade='save-update, merge')
+
+    cart_products = relationship('CartProduct',
         cascade='save-update, merge')
 
     def __init__(self, event=None, user=None, products=[]):

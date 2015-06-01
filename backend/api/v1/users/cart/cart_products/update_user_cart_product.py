@@ -23,4 +23,4 @@ def update_user_cart_product(authenticated_user, user_id, cart_product_id):
 	db.session.add(cart_product)
 	db.session.commit()
 
-	return jsonify(message="Successfully updated cart_product.", cart_product=cart_product), 201
+	return jsonify(message="Successfully updated cart_product.", cart=user.cart), 201
