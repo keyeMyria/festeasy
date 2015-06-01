@@ -13,10 +13,11 @@ from backend.models import User, Event
 
 logger = logging.getLogger(__name__)
 
-@api.route('/users/<int:user_id>/current_cart_event', methods=['POST'])
+# TODO: use put maybe?
+@api.route('/users/<int:user_id>/cart/event', methods=['POST'])
 @require_auth()
 def set_current_cart_event(authenticated_user, user_id):
-    """ Sets a users current_cart_event.
+    """ Sets a carts event.
     """
     set_current_cart_event_form = SetCurrentCartEventForm(**request.get_json())
     if not set_current_cart_event_form.validate():
@@ -28,8 +29,8 @@ def set_current_cart_event(authenticated_user, user_id):
     event_id = set_current_cart_event_form.event_id.data
     event = get_or_404(Event, event_id)
 
-    user.current_cart_event = event
+    user.cart.event = event
     db.session.add(user)
     db.session.commit()
 
-    return jsonify(message="Successfully set user current_cart_event.", user=user), 201
+    return jsonify(message="Successfully set cart event.", cart=user.cart), 201
