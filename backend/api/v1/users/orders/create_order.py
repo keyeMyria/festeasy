@@ -9,8 +9,9 @@ from backend.api.utils import get_or_404
 from backend.api.auth import require_auth
 from backend.api.forms import CreateUserCartProductsForm
 from backend.api.forms import CreateUserCartProductForm
-from backend.models import User, UserCartProduct, Product
+from backend.models import User, Product
 from backend.models import Order, OrderProduct
+from backend.models import CartProduct
 
 
 logger = logging.getLogger(__name__)
@@ -21,7 +22,7 @@ def _create_order(user):
     with db.session.no_autoflush:
         order = Order()
         
-        for cart_product in user.user_cart_products:
+        for cart_product in CartProduct.query.filter(CartProduct.cart==user.cart).all():
             order_product = OrderProduct(
                 product=cart_product.product,
                 order=order,
@@ -30,7 +31,7 @@ def _create_order(user):
                 )
             db.session.add(order_product)
         
-        order.event = user.current_cart_event
+        order.event = user.cart.event
         order.user = user
 
         db.session.add(order)
@@ -45,7 +46,7 @@ def create_order(authenticated_user, user_id):
 
     user = get_or_404(User, user_id)
 
-    if not user.current_cart_event:
+    if not user.cart.event:
         logger.warn("Failed to create order, no current_cart_event selected.")
         return jsonify(message="Failed to create order, no current_cart_event selected."), 400
 

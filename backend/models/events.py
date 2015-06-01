@@ -19,11 +19,10 @@ class Event(db.Model, Entity, Dumpable):
     starts_on = Column(DateTime)
     ends_on = Column(DateTime)
 
-    users = relationship('User', back_populates='current_cart_event',
-        cascade='save-update, merge')
-
     orders = relationship('Order', back_populates='event',
         cascade='save-update, merge')
+
+    carts = relationship('Cart', back_populates='event')
 
     def __init__(self, name=None, starts_on=None, ends_on=None, users=[], orders=[]):
         self.name = name

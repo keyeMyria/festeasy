@@ -2,7 +2,7 @@ import datetime
 
 from backend import db
 from backend.models import Event, User, Order
-from backend.models import UserCartProduct
+from backend.models import Cart
 from backend.utils import ModelTestCase
 
 

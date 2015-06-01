@@ -2,7 +2,8 @@ import json
 from flask import url_for
 
 from backend import db
-from backend.models import User, UserCartProduct, Product
+from backend.models import User, Cart, Product
+from backend.models import CartProduct
 from backend.utils import APITestCase
 
 
@@ -12,24 +13,24 @@ class TestUpdateUserCartProducts(APITestCase):
         """
         user = self.create_user(create_valid_session=True)
         product = self.create_product(name='abc', price_rands=99)
-        user.cart_products.append(product)
+        user.cart = Cart(products=[product])
         db.session.add(user)
         db.session.commit()
 
-        user_cart_product = UserCartProduct.query.one()
-        old_quantity = user_cart_product.quantity
+        cart_product = CartProduct.query.one()
+        old_quantity = cart_product.quantity
 
         new_quantity = old_quantity + 10
 
         response = self.api_request(
             'patch',
-            url_for('v1.update_user_cart_product', user_id=user.id, user_cart_product_id=user_cart_product.id), 
+            url_for('v1.update_user_cart_product', user_id=user.id, cart_product_id=cart_product.id), 
             data=dict(quantity=new_quantity),
             as_user=user,
             with_session=user.sessions[0],
         )
         
         self.assertEqual(response.status_code, 201)
-        fetched_user_cart_product = UserCartProduct.query.one()
-        self.assertEqual(fetched_user_cart_product.quantity, new_quantity)
-        self.assertIsNotNone(response.json['user_cart_products'])
+        fetched_cart_product = CartProduct.query.one()
+        self.assertEqual(fetched_cart_product.quantity, new_quantity)
+        self.assertIsNotNone(response.json['cart_product'])

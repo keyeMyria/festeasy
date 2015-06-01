@@ -2,8 +2,7 @@ import datetime
 
 from backend import db
 from backend.models import User, Session, Product
-from backend.models import Event, Order
-from backend.models import UserCartProduct
+from backend.models import Event, Order, Cart
 from backend.utils import ModelTestCase
 
 
@@ -46,52 +45,34 @@ class TestUser(ModelTestCase):
         """
         user = self.create_user()
         product = self.create_product(name='abc', price_rands=99)
-        user.cart_products.append(product)
+        user.cart = Cart(products=[product])
         db.session.add(user)
         db.session.commit()
 
         product = Product.query.one()
-        self.assertEqual(product, user.cart_products[0])
+        self.assertEqual(product, user.cart.products[0])
 
     def test_user_deletion_deletes_user_cart_products(self):
         """ Test that deleting a user deletes her cart_products.
         """
         user = self.create_user()
         product = self.create_product(name='abc', price_rands=99)
-        user.cart_products.append(product)
+        user.cart = Cart(products=[product])
         db.session.add(user)
         db.session.commit()
 
         user = User.query.one()
 
-        self.assertEqual(product, user.cart_products[0])
+        self.assertEqual(product, user.cart.products[0])
 
         db.session.delete(user)
         db.session.commit()
 
         self.assertEqual(User.query.all(), list())
-        self.assertEqual(UserCartProduct.query.all(), list())
+        self.assertEqual(Cart.query.all(), list())
         fetched_product = Product.query.first()
 
         self.assertEqual(fetched_product, product)
-
-    def test_user_deletion_keeps_events(self):
-        """ Test that deleting a user keeps that 
-        users current_cart_event."""
-
-        user = self.create_user()
-        event = self.create_event(name='test_product')
-
-        event.users.append(user)
-        db.session.add(event)
-        db.session.commit()
-
-        self.assertEqual(User.query.one().current_cart_event, event)
-
-        db.session.delete(user)
-        db.session.commit()
-
-        self.assertEqual(Event.query.one(), event)
 
     def test_user_order_creation(self):
         """ Test that a user can have orders.

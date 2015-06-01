@@ -15,8 +15,6 @@ class User(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'email_address',
-        'user_cart_products',
-        'current_cart_event',
         'orders',
     ]
     
@@ -25,21 +23,15 @@ class User(db.Model, Entity, Dumpable):
     first_name = Column(String(100), nullable=False)
     last_name = Column(String(100))
 
-    current_cart_event_id = Column(Integer, ForeignKey('event.id'), nullable=True)
-    current_cart_event = relationship('Event', back_populates='users',
-        cascade='save-update, merge')
-
     sessions = relationship('Session', back_populates='user', 
-        cascade='save-update, merge, delete, delete-orphan')
-
-    cart_products = relationship('Product', secondary='user_cart_product',
-        cascade='save-update, merge')
-
-    user_cart_products = relationship('UserCartProduct',
         cascade='save-update, merge, delete, delete-orphan')
 
     orders = relationship('Order', back_populates='user',
         cascade='save-update, merge, delete, delete-orphan')
+
+    cart_id = Column(Integer, ForeignKey('cart.id'))
+    cart = relationship('Cart', back_populates='user', uselist=False,
+        cascade='save-update, merge, delete')
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -50,16 +42,13 @@ class User(db.Model, Entity, Dumpable):
     def has_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __init__(self, email_address=None, password=None, first_name=None, last_name=None, current_cart_event=None,
-        sessions=[], cart_products=[], user_cart_products=[], orders=[]):
+    def __init__(self, email_address=None, password=None, first_name=None, last_name=None,
+        sessions=[], orders=[]):
         self.email_address = email_address
         self.password_hash = generate_password_hash(password)
         self.first_name = first_name
         self.last_name = last_name
-        self.current_cart_event = current_cart_event
         self.sessions = sessions
-        self.cart_products = cart_products
-        self.user_cart_products = user_cart_products
         self.orders = orders
 
     def __repr__(self):
