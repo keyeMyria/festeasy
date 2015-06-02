@@ -5,7 +5,7 @@ from backend import create_app, db
 from backend.utils.random_string import random_string
 from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart
-from backend.models import OrderProduct
+from backend.models import OrderProduct, CartProduct
 
 
 class GeneralTestCase(TestCase):
@@ -20,6 +20,11 @@ class GeneralTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def create_cart_product(self, cart=None, product=None,
+        quantity=None):
+        cart_product = CartProduct(cart=cart, product=product, quantity=quantity)
+        return cart_product
 
     def create_order_product(self, order=None, product=None,
         unit_price_rands=None, quantity=None):
