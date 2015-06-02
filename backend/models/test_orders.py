@@ -43,3 +43,31 @@ class TestOrder(ModelTestCase):
 
         self.assertEqual(Event.query.one(), event)
 
+    def test_order_total_rands(self):
+        event = self.create_event(name='test')
+        price = 10
+        product_1 = self.create_product(name='asd', price_rands=price)
+        product_2 = self.create_product(name='qwe', price_rands=price)
+        order = self.create_order(
+            event=event,
+            )
+        order_product_1 = self.create_order_product(
+            unit_price_rands=product_1.price_rands,
+            quantity=1,
+            order=order,
+            product=product_1,
+            )
+        order_product_2 = self.create_order_product(
+            unit_price_rands=product_2.price_rands,
+            quantity=1,
+            order=order,
+            product=product_2,
+            )
+        user = self.create_user(orders=[order])
+        db.session.add(user)
+        db.session.add(order_product_1)
+        db.session.add(order_product_2)
+        db.session.commit()
+
+        fetched_order = Order.query.one()
+        self.assertEqual(fetched_order.total_rands, price * 2)

@@ -15,7 +15,15 @@ class Order(db.Model, Entity, Dumpable):
         'created_on',
         'event',
         'order_products',
+        'total_rands',
     ]
+
+    @property
+    def total_rands(self):
+        total_rands = 0
+        for order_product in self.order_products:
+            total_rands += order_product.sub_total_rands
+        return total_rands
     
     event_id = Column(Integer, ForeignKey('event.id'), nullable=False)
     event = relationship('Event', back_populates='orders',

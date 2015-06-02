@@ -5,6 +5,7 @@ from backend import create_app, db
 from backend.utils.random_string import random_string
 from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart
+from backend.models import OrderProduct
 
 
 class GeneralTestCase(TestCase):
@@ -20,8 +21,14 @@ class GeneralTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def create_order(self, event=None, user=None):
-        order = Order(event=event, user=user)
+    def create_order_product(self, order=None, product=None,
+        unit_price_rands=None, quantity=None):
+        order_product = OrderProduct(order=order, product=product,
+            unit_price_rands=unit_price_rands, quantity=quantity)
+        return order_product
+
+    def create_order(self, event=None, user=None, products=[]):
+        order = Order(event=event, user=user, products=products)
         return order
 
     def create_event(self, name=None, users=[]):

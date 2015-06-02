@@ -16,7 +16,15 @@ class Cart(db.Model, Entity, Dumpable):
         'event',
         'products',
         'cart_products',
+        'total_rands',
     ]
+
+    @property
+    def total_rands(self):
+        total_rands = 0
+        for cart_product in self.cart_products:
+            total_rands += cart_product.sub_total_rands
+        return total_rands
     
     event_id = Column(Integer, ForeignKey('event.id'))
     event = relationship('Event', back_populates='carts',
