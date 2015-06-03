@@ -33,10 +33,10 @@ class Cart(db.Model, Entity, Dumpable):
     user = relationship('User', back_populates='cart', uselist=False,
         cascade='save-update, merge')
 
-    products = relationship('Product', secondary='cart_product',
+    products = relationship('Product', secondary='cart_product', back_populates='carts',
         cascade='save-update, merge')
 
-    cart_products = relationship('CartProduct',
+    cart_products = relationship('CartProduct', back_populates='cart',
         cascade='save-update, merge, delete, delete-orphan')
 
     def __init__(self, event=None, user=None, products=[]):

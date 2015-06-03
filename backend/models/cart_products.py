@@ -25,17 +25,17 @@ class CartProduct(db.Model, Entity, Dumpable):
     quantity = Column(Integer, default=1, nullable=False)
 
     product_id = Column(Integer, ForeignKey('product.id'), nullable=False)
-    product = relationship('Product', cascade='save-update, merge')
+    product = relationship('Product', back_populates='cart_products',
+        cascade='save-update, merge')
 
     cart_id = Column(Integer, ForeignKey('cart.id'), nullable=False)
-    cart = relationship('Cart')
+    cart = relationship('Cart', back_populates='cart_products')
 
     __table_args__ = (
         UniqueConstraint('cart_id', 'product_id'),
     )
 
-    def __init__(self, unit_price_rands=None, quantity=None, product=None, cart=None):
-        self.unit_price_rands = unit_price_rands
+    def __init__(self, quantity=None, product=None, cart=None):
         self.quantity = quantity
         self.product = product
         self.cart = cart

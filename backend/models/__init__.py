@@ -25,3 +25,5 @@ from orders import Order
 from order_products import OrderProduct
 from carts import Cart
 from cart_products import CartProduct
+from invoices import Invoice
+from invoice_products import InvoiceProduct

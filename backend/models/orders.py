@@ -33,10 +33,12 @@ class Order(db.Model, Entity, Dumpable):
     user = relationship('User', back_populates='orders',
         cascade='save-update, merge')
 
-    products = relationship('Product', secondary='order_product',
+    invoices = relationship('Invoice', back_populates='order')
+
+    products = relationship('Product', secondary='order_product', back_populates='orders',
         cascade='save-update, merge')
 
-    order_products = relationship('OrderProduct',
+    order_products = relationship('OrderProduct', back_populates='order',
         cascade='save-update, merge')
 
     def __init__(self, event=None, user=None, products=[], order_products=[]):
