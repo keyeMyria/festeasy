@@ -13,10 +13,10 @@ from backend.models import User, Product, Event, Cart
 
 
 logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 console = RainbowLoggingHandler(sys.stderr, color_funcName=('white',True))
 console_formatter = logging.Formatter("[%(asctime)s] %(name)s %(funcName)s():%(lineno)d\t%(message)s")
 console.setFormatter(console_formatter)
-console.setLevel(logging.INFO)
 logger.addHandler(console)
 
 manager = Manager(create_app, with_default_commands=False)
