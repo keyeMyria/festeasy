@@ -29,7 +29,6 @@ class User(db.Model, Entity, Dumpable):
     orders = relationship('Order', back_populates='user',
         cascade='save-update, merge, delete, delete-orphan')
 
-    # TODO: cannot be null
     cart_id = Column(Integer, ForeignKey('cart.id'), nullable=False)
     cart = relationship('Cart', back_populates='user', uselist=False,
         cascade='save-update, merge, delete')
