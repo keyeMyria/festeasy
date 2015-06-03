@@ -1,10 +1,10 @@
 import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Float
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey, func, select
+from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models import Entity, Dumpable
+from backend.models import Entity, Dumpable, CartProduct
 
 
 class Cart(db.Model, Entity, Dumpable):
@@ -18,13 +18,6 @@ class Cart(db.Model, Entity, Dumpable):
         'cart_products',
         'total_rands',
     ]
-
-    @property
-    def total_rands(self):
-        total_rands = 0
-        for cart_product in self.cart_products:
-            total_rands += cart_product.sub_total_rands
-        return total_rands
     
     event_id = Column(Integer, ForeignKey('event.id'))
     event = relationship('Event', back_populates='carts',
@@ -46,3 +39,7 @@ class Cart(db.Model, Entity, Dumpable):
 
     def __repr__(self):
         return '<Cart {id}>'.format(id=self.id)
+
+Cart.total_rands = column_property(
+    select([func.sum(CartProduct.sub_total_rands)]).where(CartProduct.cart_id==Cart.id).correlate(Cart)
+    )

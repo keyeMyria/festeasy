@@ -29,4 +29,3 @@ class TestCart(ModelTestCase):
         fetched_cart = Cart.query.one()
 
         self.assertEqual(fetched_cart.total_rands, price * 4)
-

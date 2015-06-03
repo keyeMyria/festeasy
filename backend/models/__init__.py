@@ -23,7 +23,7 @@ from products import Product
 from events import Event
 from orders import Order
 from order_products import OrderProduct
-from carts import Cart
 from cart_products import CartProduct
+from carts import Cart
 from invoices import Invoice
 from invoice_products import InvoiceProduct
