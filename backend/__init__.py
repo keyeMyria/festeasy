@@ -1,3 +1,4 @@
+import logging
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -8,6 +9,8 @@ def create_app(config='dev'):
     app = Flask(__name__)
     app.config.from_pyfile('config/{config}.py'.format(config=config))
     db.init_app(app)
+
+    logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
     from api.utils import add_cors
     app.after_request(add_cors)
