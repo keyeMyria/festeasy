@@ -1,7 +1,7 @@
 import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Numeric
 from sqlalchemy import ForeignKey, UniqueConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, column_property
 
 from backend import db
 from backend.models import Entity, Dumpable
@@ -19,10 +19,6 @@ class OrderProduct(db.Model, Entity, Dumpable):
         'sub_total_rands',
     ]
 
-    @property
-    def sub_total_rands(self):
-        return self.unit_price_rands * self.quantity
-
     unit_price_rands = Column(Numeric, nullable=False)
     quantity = Column(Integer, nullable=False)
 
@@ -33,6 +29,10 @@ class OrderProduct(db.Model, Entity, Dumpable):
     product_id = Column(Integer, ForeignKey('product.id'), nullable=False)
     product = relationship('Product', back_populates='order_products', 
         cascade='save-update, merge')
+
+    sub_total_rands = column_property(
+        unit_price_rands * quantity
+        )
 
     __table_args__ = (
         UniqueConstraint('order_id', 'product_id'),
