@@ -7,8 +7,8 @@ from backend.utils import APITestCase
 
 
 class TestGetCart(APITestCase):
-    def test_get_cart_returns_cart(self):
-        """ Test that v1.get_cart returns a user
+    def test_get_user_cart_returns_cart(self):
+        """ Test that v1.get_user_cart returns a user
         cart.
         """
         user = self.create_user(create_valid_session=True)
@@ -17,7 +17,7 @@ class TestGetCart(APITestCase):
         db.session.commit()
 
         response = self.api_request('get',
-            url_for('v1.get_cart', user_id=user.id),
+            url_for('v1.get_user_cart', user_id=user.id),
             as_user=user,
             with_session=user.sessions[0],
         )

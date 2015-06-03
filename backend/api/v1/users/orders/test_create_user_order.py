@@ -5,12 +5,12 @@ from backend import db
 from backend.models import User, Cart, Product
 from backend.models import Order
 from backend.utils import APITestCase
-from backend.api.v1.users.orders.create_order import _create_order
+from backend.api.v1.users.orders.create_user_order import _create_user_order
 
 
-class TestCreateOrder(APITestCase):
-    def test_create_order_creates_order_for_user(self):
-        """ Test that v1.create_order creates an order in the db.
+class TestCreateUserOrder(APITestCase):
+    def test_create_user_order_creates_order_for_user(self):
+        """ Test that v1.create_user_order creates an order in the db.
         """
         user = self.create_user(create_valid_session=True)
         event = self.create_event(name='asd')
@@ -23,7 +23,7 @@ class TestCreateOrder(APITestCase):
 
         response = self.api_request(
             'post',
-            url_for('v1.create_order', user_id=user.id), 
+            url_for('v1.create_user_order', user_id=user.id), 
             as_user=user,
             with_session=user.sessions[0],
         )
@@ -39,8 +39,8 @@ class TestCreateOrder(APITestCase):
         self.assertEqual(fetched_order.event, event)
         self.assertEqual(fetched_order.products, [product])
 
-    def test_create_order_copies_prices(self):
-        """ Test that _create_order copies the prices of 
+    def test_create_user_order_copies_prices(self):
+        """ Test that _create_user_order copies the prices of 
         products froms a users cart.
         """
         user = self.create_user(create_valid_session=True)
@@ -53,12 +53,12 @@ class TestCreateOrder(APITestCase):
         db.session.add(user)
         db.session.commit()
 
-        order = _create_order(user)
+        order = _create_user_order(user)
 
         self.assertEqual(order.order_products[0].sub_total_rands, product.price_rands)
 
-    def test_create_order_with_no_event(self):
-        """ Test that v1.create_order fails with 400 if
+    def test_create_user_order_with_no_event(self):
+        """ Test that v1.create_user_order fails with 400 if
         user has no current.
         """
         user = self.create_user(create_valid_session=True)
@@ -71,7 +71,7 @@ class TestCreateOrder(APITestCase):
 
         response = self.api_request(
             'post',
-            url_for('v1.create_order', user_id=user.id), 
+            url_for('v1.create_user_order', user_id=user.id), 
             as_user=user,
             with_session=user.sessions[0],
         )

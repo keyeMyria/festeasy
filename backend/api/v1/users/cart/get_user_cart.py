@@ -8,7 +8,7 @@ from backend.models import User
 
 @api.route('/users/<int:user_id>/cart', methods=['GET'])
 @require_auth()
-def get_cart(authenticated_user, user_id):
+def get_user_cart(authenticated_user, user_id):
 	""" Gets a particular users cart.
 	"""
 	user = get_or_404(User, user_id)

@@ -14,7 +14,7 @@ from backend.models import User, Product, CartProduct
 
 logger = logging.getLogger(__name__)
 
-def _create_cart_product(user, product):
+def _create_user_cart_product(user, product):
     """ Creates a cart_product given a user 
     and a product.
     """
@@ -40,7 +40,7 @@ def create_user_cart_product(user_id, authenticated_user):
     product_id = create_cart_product_form.product_id.data
     product = get_or_404(Product, product_id)
 
-    _create_cart_product(user, product)
+    _create_user_cart_product(user, product)
     return jsonify(message="Successfully created a cart_product.", cart=user.cart), 201
 
 @api.route('/users/<int:user_id>/cart/cart_products/multiple', methods=['POST'])
@@ -57,5 +57,5 @@ def create_user_cart_products(user_id, authenticated_user):
     for item in create_cart_products_form.product_ids.data:
         product_id = item['product_id']
         product = get_or_404(Product, product_id)
-        _create_cart_product(user, product)
+        _create_user_cart_product(user, product)
     return jsonify(message="Successfully created cart_products.", cart=user.cart), 201

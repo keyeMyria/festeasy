@@ -6,7 +6,7 @@ from backend.models import User, Product, Cart
 from backend.utils import APITestCase
 
 
-class TestSetCartEvent(APITestCase):
+class TestSetUserCartEvent(APITestCase):
     def test_set_cart_event_sets_event(self):
         """ Test that v1.set_user_cart_event returns a user
         cart.
