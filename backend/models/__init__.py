@@ -21,9 +21,10 @@ from sessions import Session
 from users import User
 from products import Product
 from events import Event
-from orders import Order
 from order_products import OrderProduct
+from orders import Order
 from cart_products import CartProduct
 from carts import Cart
-from invoices import Invoice
 from invoice_products import InvoiceProduct
+from invoices import Invoice
+
