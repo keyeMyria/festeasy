@@ -20,19 +20,7 @@ def _create_user_order(user):
     """ Creates an order given a user.
     """
     with db.session.no_autoflush:
-        order = Order()
-        
-        for cart_product in CartProduct.query.filter(CartProduct.cart==user.cart).all():
-            order_product = OrderProduct(
-                product=cart_product.product,
-                order=order,
-                unit_price_rands=cart_product.product.price_rands,
-                quantity=cart_product.quantity,
-                )
-            db.session.add(order_product)
-        
-        order.event = user.cart.event
-        order.user = user
+        order = Order(create_from_cart=True, user=user)
 
         db.session.add(order)
         db.session.commit()

@@ -34,11 +34,22 @@ class Order(db.Model, Entity, Dumpable):
     order_products = relationship('OrderProduct', back_populates='order',
         cascade='save-update, merge')
 
-    def __init__(self, event=None, user=None, products=[], order_products=[]):
-        self.event = event
+    def __init__(self, create_from_cart=False, event=None, user=None, products=[], order_products=[]):
         self.user = user
-        self.products = products
-        self.order_products = order_products
+        if create_from_cart:
+            self.event = user.cart.event
+            for cart_product in user.cart.cart_products:
+                self.order_products.append(OrderProduct(
+                    product=cart_product.product,
+                    quantity=cart_product.quantity,
+                    order=self,
+                    unit_price_rands=cart_product.product.price_rands,
+                    ))
+        else:
+            self.products = products
+            self.order_products = order_products
+            self.event = event
+
 
     def __repr__(self):
         return '<Order {id}>'.format(id=self.id)

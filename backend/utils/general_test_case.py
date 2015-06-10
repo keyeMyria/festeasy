@@ -4,7 +4,7 @@ from flask.ext.testing import TestCase
 from backend import create_app, db
 from backend.utils.random_string import random_string
 from backend.models import User, Session, Product
-from backend.models import Event, Order, Cart
+from backend.models import Event, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
 
 
@@ -21,6 +21,10 @@ class GeneralTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
+    def create_invoice(self, order=None, create_from_order=False, products=[], invoice_products=[]):
+        invoice = Invoice(order=order, create_from_order=create_from_order, products=products, invoice_products=invoice_products)
+        return invoice
+
     def create_cart_product(self, cart=None, product=None,
         quantity=None):
         cart_product = CartProduct(cart=cart, product=product, quantity=quantity)
@@ -32,8 +36,8 @@ class GeneralTestCase(TestCase):
             unit_price_rands=unit_price_rands, quantity=quantity)
         return order_product
 
-    def create_order(self, event=None, user=None, products=[]):
-        order = Order(event=event, user=user, products=products)
+    def create_order(self, create_from_cart=False, event=None, user=None, products=[], order_products=[]):
+        order = Order(create_from_cart=create_from_cart, event=event, user=user, products=products, order_products=order_products)
         return order
 
     def create_event(self, name=None, users=[]):
