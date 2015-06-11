@@ -30,5 +30,5 @@ class TestCreateUserInvoice(APITestCase):
         )
         
         self.assertEqual(response.status_code, 201)
-        #self.assertEqual(len(response.json['invoices']), 1)
-        #self.assertEqual(response.json['invoices'][0]['id'], 1)
+        self.assertEqual(len(response.json['invoices']), 1)
+        self.assertEqual(response.json['invoices'][0]['id'], 1)
