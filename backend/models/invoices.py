@@ -25,13 +25,14 @@ class Invoice(db.Model, Entity, Dumpable):
     def __init__(self, create_from_order=False, order=None, invoice_products=[], products=[]):
         self.order = order
         if create_from_order and order:
-            for order_product in order.order_products:
-                self.invoice_products.append(InvoiceProduct(
-                    product=order_product.product,
-                    unit_price_rands=order_product.unit_price_rands,
-                    quantity=order_product.quantity,
-                    invoice=self,
-                    ))
+            with db.session.no_autoflush:
+                for order_product in order.order_products:
+                    self.invoice_products.append(InvoiceProduct(
+                        product=order_product.product,
+                        unit_price_rands=order_product.unit_price_rands,
+                        quantity=order_product.quantity,
+                        invoice=self,
+                        ))
         else:
             self.invoice_products = invoice_products
             self.products = products
