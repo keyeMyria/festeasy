@@ -16,14 +16,13 @@ from backend.models import CartProduct
 
 logger = logging.getLogger(__name__)
 
-def _create_user_order(user):
-    """ Creates an order given a user.
+def _create_user_order(cart):
+    """ Creates an order given a cart.
     """
-    with db.session.no_autoflush:
-        order = Order(create_from_cart=True, user=user)
-
-        db.session.add(order)
-        db.session.commit()
+    order = Order()
+    order.from_cart(cart)
+    db.session.add(order)
+    db.session.commit()
     return order
 
 @api.route('/users/<int:user_id>/orders', methods=['POST'])
@@ -38,7 +37,7 @@ def create_user_order(authenticated_user, user_id):
         logger.warn("Failed to create order, no current_cart_event selected.")
         return jsonify(message="Failed to create order, no current_cart_event selected."), 400
 
-    _create_user_order(user)
+    _create_user_order(user.cart)
 
     orders = Order.query.filter(Order.user==user).all()
 

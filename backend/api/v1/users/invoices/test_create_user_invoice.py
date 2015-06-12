@@ -15,7 +15,8 @@ class TestCreateUserInvoice(APITestCase):
         user.cart.products.append(product)
         event = self.create_event(name='asd')
         user.cart.event = event
-        order = self.create_order(create_from_cart=True, user=user)
+        order = self.create_order()
+        order.from_cart(user.cart)
 
         db.session.add(user)
         db.session.add(order)
@@ -39,7 +40,8 @@ class TestCreateUserInvoice(APITestCase):
         user.cart.products.append(product)
         event = self.create_event(name='asd')
         user.cart.event = event
-        order = self.create_order(create_from_cart=True, user=user)
+        order = self.create_order()
+        order.from_cart(user.cart)
 
         db.session.add(user)
         db.session.add(order)

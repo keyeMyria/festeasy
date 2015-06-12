@@ -19,9 +19,11 @@ class TestGetUserInvoices(APITestCase):
         user.cart.products.append(product_2)
         user.cart.event = event
         
-        order = self.create_order(user=user, create_from_cart=True)
+        order = self.create_order()
+        order.from_cart(user.cart)
 
-        invoice = self.create_invoice(create_from_order=True, order=order)
+        invoice = self.create_invoice()
+        invoice.from_order(order)
 
         db.session.add(invoice)
         db.session.add(user)

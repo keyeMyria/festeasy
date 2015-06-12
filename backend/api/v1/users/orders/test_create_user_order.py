@@ -53,7 +53,7 @@ class TestCreateUserOrder(APITestCase):
         db.session.add(user)
         db.session.commit()
 
-        order = _create_user_order(user)
+        order = _create_user_order(user.cart)
 
         self.assertEqual(order.order_products[0].sub_total_rands, product.price_rands)
 
