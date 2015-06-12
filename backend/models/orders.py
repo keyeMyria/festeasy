@@ -55,6 +55,7 @@ class Order(db.Model, Entity, Dumpable):
     def __repr__(self):
         return '<Order {id}>'.format(id=self.id)
 
+# Total amount for an Order.
 Order.total_rands = column_property(
     select([func.sum(OrderProduct.sub_total_rands)]).where(OrderProduct.order_id==Order.id).correlate(Order)
     )

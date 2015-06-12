@@ -1,10 +1,11 @@
 import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Float
-from sqlalchemy import ForeignKey, func, select
+from sqlalchemy import Column, Integer, String, DateTime, Numeric
+from sqlalchemy import ForeignKey, func, select, cast
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
 from backend.models import Entity, Dumpable, InvoiceProduct
+from backend.models import Payment
 
 
 class Invoice(db.Model, Entity, Dumpable):
@@ -21,6 +22,8 @@ class Invoice(db.Model, Entity, Dumpable):
 
     products = relationship('Product', secondary='invoice_product', back_populates='invoices')
     invoice_products = relationship('InvoiceProduct', back_populates='invoice')
+
+    payments = relationship('Payment', back_populates='invoice')
 
     def __init__(self, order=None, invoice_products=[], products=[]):
         self.order = order
@@ -41,6 +44,12 @@ class Invoice(db.Model, Entity, Dumpable):
     def __repr__(self):
         return '<Invoice {id}>'.format(id=self.id)
 
+# Total amount for an Invoice
 Invoice.total_rands = column_property(
     select([func.sum(InvoiceProduct.sub_total_rands)]).where(InvoiceProduct.invoice_id==Invoice.id).correlate(Invoice)
+    )
+
+# Total amount which needs to be paid.
+Invoice.amount_due_rands = column_property(
+    cast(Invoice.total_rands - select([func.sum(Payment.amount_rands)]).where(Payment.invoice_id==Invoice.id).correlate(Invoice), Numeric)
     )

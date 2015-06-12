@@ -18,7 +18,9 @@ class Product(db.Model, Entity, Dumpable):
     ]
     
     name = Column(String(150), nullable=False)
+    # The price of a Product in Rands.
     price_rands = Column(Numeric, nullable=False)
+    # The cost of a Product in Rands.
     cost_rands = Column(Numeric, nullable=False)
 
     carts = relationship('Cart', secondary='cart_product', back_populates='products',
@@ -33,7 +35,6 @@ class Product(db.Model, Entity, Dumpable):
 
     invoices = relationship('Invoice', secondary='invoice_product', back_populates='products')
     invoice_products = relationship('InvoiceProduct', back_populates='product')
-
 
     def __init__(self, name=None, price_rands=None, cost_rands=None, orders=[], order_products=[]):
         self.name = name
