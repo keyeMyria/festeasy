@@ -17,7 +17,6 @@ class InvoiceProduct(db.Model, Entity, Dumpable):
         'unit_price_rands',
         'quantity',
         'product',
-        'invoice',
     ]
 
     unit_price_rands = Column(Numeric, nullable=False)

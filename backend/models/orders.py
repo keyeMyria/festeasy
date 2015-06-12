@@ -16,6 +16,7 @@ class Order(db.Model, Entity, Dumpable):
         'event',
         'order_products',
         'total_rands',
+        'invoices',
     ]
     
     event_id = Column(Integer, ForeignKey('event.id'), nullable=False)
@@ -43,8 +44,9 @@ class Order(db.Model, Entity, Dumpable):
     def from_cart(self, cart):
         with db.session.no_autoflush:
             self.user = cart.user
-            self.event = self.user.cart.event
-            for cart_product in self.user.cart.cart_products:
+            self.event = cart.event
+            for cart_product in cart.cart_products:
+                # TODO: There is an issue with cascade on products and order_products
                 self.order_products.append(OrderProduct(
                     product=cart_product.product,
                     quantity=cart_product.quantity,

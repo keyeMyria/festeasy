@@ -15,6 +15,9 @@ class Invoice(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'total_rands',
+        'amount_due_rands',
+        'invoice_products',
+        'order_id',
     ]
 
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
@@ -51,5 +54,5 @@ Invoice.total_rands = column_property(
 
 # Total amount which needs to be paid.
 Invoice.amount_due_rands = column_property(
-    cast(Invoice.total_rands - select([func.sum(Payment.amount_rands)]).where(Payment.invoice_id==Invoice.id).correlate(Invoice), Numeric)
+    Invoice.total_rands - select([func.sum(Payment.amount_rands)]).where(Payment.invoice_id==Invoice.id).correlate(Invoice)
     )
