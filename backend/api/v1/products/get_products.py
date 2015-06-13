@@ -9,7 +9,4 @@ from backend.models import Product
 @api.route('/products', methods=['GET'])
 def get_products():
 	products = Product.query.all()
-	dumnped_products = list()
-	for product in products:
-		dumnped_products.append(product.dump())
-	return jsonify(message="Successfully got products.", products=dumnped_products), 200
+	return jsonify(message="Successfully got products.", products=products), 200

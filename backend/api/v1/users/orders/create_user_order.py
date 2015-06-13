@@ -51,4 +51,4 @@ def create_user_order(authenticated_user, user_id):
 
     orders = Order.query.filter(Order.user==user).all()
 
-    return jsonify(message="Successfully created order for user.", user=user, orders=orders), 201
+    return jsonify(message="Successfully created order for user.", orders=orders), 201
