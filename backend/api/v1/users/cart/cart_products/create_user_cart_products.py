@@ -14,17 +14,6 @@ from backend.models import User, Product, CartProduct
 
 logger = logging.getLogger(__name__)
 
-def _create_user_cart_product(user, product):
-    """ Creates a cart_product given a user 
-    and a product.
-    """
-    cart_product = CartProduct(
-        product=product,
-        cart=user.cart,
-        )
-    db.session.add(cart_product)
-    db.session.commit()
-    return cart_product
 
 # TODO: 409 on existing cart_product better...
 @api.route('/users/<int:user_id>/cart/cart_products', methods=['POST'])
@@ -37,12 +26,25 @@ def create_user_cart_product(user_id, authenticated_user):
         logger.warn("Failed to create cart products, form did not validate.")
         return jsonify(message="Failed to create cart products, form did not validate."), 400
 
-    user = get_or_404(User, user_id)
     product_id = create_cart_product_form.product_id.data
     product = get_or_404(Product, product_id)
+    user = get_or_404(User, user_id)
+    cart = user.cart
 
-    _create_user_cart_product(user, product)
-    return jsonify(message="Successfully created a cart_product.", cart=user.cart), 201
+    existing_cart_product = (CartProduct.query
+        .filter(CartProduct.cart==cart)
+        .filter(CartProduct.product==product)
+        .first())
+    if existing_cart_product:
+        logger.error("Failed to create cart_product, cart_product already exists.")
+        return jsonify(message="Failed to create cart_product, cart_product already exists."), 409
+    cart_product = CartProduct(
+        product=product,
+        cart=cart,
+    )
+    db.session.add(cart_product)
+    db.session.commit()
+    return jsonify(message="Successfully created a cart_product.", cart=cart), 201
 
 # TODO: 409 on existing cart_product better...
 @api.route('/users/<int:user_id>/cart/cart_products/multiple', methods=['POST'])
@@ -54,12 +56,12 @@ def create_user_cart_products(user_id, authenticated_user):
     if not create_cart_products_form.validate():
         logger.warn("Failed to create cart products, form did not validate.")
         return jsonify(message="Failed to create cart products, form did not validate."), 400
-
+    
     user = get_or_404(User, user_id)
+    cart = user.cart
     for item in create_cart_products_form.product_ids.data:
         product_id = item['product_id']
         product = get_or_404(Product, product_id)
-
         existing_cart_product = (CartProduct.query
             .filter(CartProduct.cart==user.cart)
             .filter(CartProduct.product==product)
@@ -67,6 +69,11 @@ def create_user_cart_products(user_id, authenticated_user):
         if existing_cart_product:
             logger.error("Failed to create cart_product, cart_product already exists.")
             return jsonify(message="Failed to create cart_product, cart_product already exists."), 409
-       
-        _create_user_cart_product(user, product)
-    return jsonify(message="Successfully created cart_products.", cart=user.cart), 201
+        cart_product = CartProduct(
+            product=product,
+            cart=cart,
+        )
+        db.session.add(cart_product)
+
+    db.session.commit()
+    return jsonify(message="Successfully created cart_products.", cart=cart), 201
