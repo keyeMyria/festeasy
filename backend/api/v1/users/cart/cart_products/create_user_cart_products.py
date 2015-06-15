@@ -26,6 +26,7 @@ def _create_user_cart_product(user, product):
     db.session.commit()
     return cart_product
 
+# TODO: 409 on existing cart_product better...
 @api.route('/users/<int:user_id>/cart/cart_products', methods=['POST'])
 @require_auth()
 def create_user_cart_product(user_id, authenticated_user):
@@ -43,6 +44,7 @@ def create_user_cart_product(user_id, authenticated_user):
     _create_user_cart_product(user, product)
     return jsonify(message="Successfully created a cart_product.", cart=user.cart), 201
 
+# TODO: 409 on existing cart_product better...
 @api.route('/users/<int:user_id>/cart/cart_products/multiple', methods=['POST'])
 @require_auth()
 def create_user_cart_products(user_id, authenticated_user):
@@ -57,5 +59,14 @@ def create_user_cart_products(user_id, authenticated_user):
     for item in create_cart_products_form.product_ids.data:
         product_id = item['product_id']
         product = get_or_404(Product, product_id)
+
+        existing_cart_product = (CartProduct.query
+            .filter(CartProduct.cart==user.cart)
+            .filter(CartProduct.product==product)
+            .first())
+        if existing_cart_product:
+            logger.error("Failed to create cart_product, cart_product already exists.")
+            return jsonify(message="Failed to create cart_product, cart_product already exists."), 409
+       
         _create_user_cart_product(user, product)
     return jsonify(message="Successfully created cart_products.", cart=user.cart), 201
