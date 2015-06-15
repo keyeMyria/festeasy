@@ -36,7 +36,7 @@ def create_user_cart_product(user_id, authenticated_user):
         .filter(CartProduct.product==product)
         .first())
     if existing_cart_product:
-        logger.error("Failed to create cart_product, cart_product already exists.")
+        logger.warn("Failed to create cart_product, cart_product already exists.")
         return jsonify(message="Failed to create cart_product, cart_product already exists."), 409
     cart_product = CartProduct(
         product=product,
@@ -67,7 +67,7 @@ def create_user_cart_products(user_id, authenticated_user):
             .filter(CartProduct.product==product)
             .first())
         if existing_cart_product:
-            logger.error("Failed to create cart_product, cart_product already exists.")
+            logger.warn("Failed to create cart_product, cart_product already exists.")
             return jsonify(message="Failed to create cart_product, cart_product already exists."), 409
         cart_product = CartProduct(
             product=product,

@@ -82,3 +82,46 @@ class TestCreateCartUserProducts(APITestCase):
         
         self.assertEqual(response.status_code, 400)
 
+    def test_create_user_cart_products_409s(self):
+        """ Test that v1.create_user_cart_products 409s with dup.
+        """
+        user = self.create_user(create_valid_session=True)
+        user.cart = Cart()
+        product = self.create_product(name='abc', price_rands=99)
+        user.cart.products.append(product)
+        db.session.add(user)
+        db.session.add(product)
+        db.session.commit()
+
+        product_ids = [dict(product_id=product.id)]
+        
+        response = self.api_request(
+            'post',
+            url_for('v1.create_user_cart_products', user_id=user.id), 
+            data=dict(product_ids=product_ids),
+            as_user=user,
+            with_session=user.sessions[0],
+        )
+        
+        self.assertEqual(response.status_code, 409)
+
+    def test_create_user_cart_product_409s(self):
+        """ Test that v1.create_user_cart_product 409s with dup.
+        """
+        user = self.create_user(create_valid_session=True)
+        user.cart = Cart()
+        product = self.create_product(name='abc', price_rands=99)
+        user.cart.products.append(product)
+        db.session.add(user)
+        db.session.add(product)
+        db.session.commit()
+        
+        response = self.api_request(
+            'post',
+            url_for('v1.create_user_cart_product', user_id=user.id), 
+            data=dict(product_id=product.id),
+            as_user=user,
+            with_session=user.sessions[0],
+        )
+        
+        self.assertEqual(response.status_code, 409)
