@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship, column_property
 
 from backend import db
 from backend.models import Entity, Dumpable, CartProduct
+from backend.models import Event
 
 
 class Cart(db.Model, Entity, Dumpable):
@@ -13,11 +14,17 @@ class Cart(db.Model, Entity, Dumpable):
     whitelist = [
         'id',
         'created_on',
+        'selectable_events',
         'event',
         'products',
         'cart_products',
         'total_rands',
     ]
+
+    @property
+    def selectable_events(self):
+        selectable_events = Event.query.all()
+        return selectable_events
     
     event_id = Column(Integer, ForeignKey('event.id'))
     event = relationship('Event', back_populates='carts',
