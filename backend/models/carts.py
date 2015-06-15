@@ -19,12 +19,17 @@ class Cart(db.Model, Entity, Dumpable):
         'products',
         'cart_products',
         'total_rands',
+        'number_of_items',
     ]
 
     @property
     def selectable_events(self):
         selectable_events = Event.query.all()
         return selectable_events
+
+    @property
+    def number_of_items(self):
+        return len(self.cart_products)
     
     event_id = Column(Integer, ForeignKey('event.id'))
     event = relationship('Event', back_populates='carts',
