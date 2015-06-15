@@ -6,6 +6,7 @@ from backend.utils.random_string import random_string
 from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
+from backend.models import Payment
 
 
 class GeneralTestCase(TestCase):
@@ -20,6 +21,10 @@ class GeneralTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def create_payment(self, amount_rands=None, invoice=None):
+        payment = Payment(amount_rands=amount_rands, invoice=invoice)
+        return payment
 
     def create_invoice(self, order=None, products=[], invoice_products=[]):
         invoice = Invoice(order=order, products=products, invoice_products=invoice_products)
