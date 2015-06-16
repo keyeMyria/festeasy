@@ -1,6 +1,6 @@
 import datetime
 from sqlalchemy import Column, Integer, String
-from sqlalchemy import DateTime
+from sqlalchemy import DateTime, func
 
 from backend import db
 
@@ -13,7 +13,12 @@ class Dumpable(object):
 
 class Entity(object):
     id = Column(Integer, primary_key=True)
-    created_on = Column(DateTime, default=datetime.datetime.now, 
+    created_on = Column(DateTime, 
+    	default=datetime.datetime.utcnow, 
+        nullable=False)
+    last_updated_on = db.Column(db.DateTime, 
+    	default=datetime.datetime.utcnow,
+        onupdate=datetime.datetime.utcnow,
         nullable=False)
 
 # All the models
@@ -28,4 +33,3 @@ from carts import Cart
 from invoice_products import InvoiceProduct
 from payments import Payment
 from invoices import Invoice
-

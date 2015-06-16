@@ -88,4 +88,76 @@ class TestUser(ModelTestCase):
 
         order = Order.query.one()
         self.assertEqual(User.query.one().orders, [order])
-        
+
+    def test_user_check_constraint_as_guest(self):
+        """ Test the CheckConstraint on User,
+        either:
+            1) guest_token can be not null, then email_address, password and first_name can be null
+            2) email_address, password, first_name can be not null, then guest_token can be null
+        """
+
+        user = User()
+        user.cart = Cart()
+        user.guest_token = 'asd'
+        db.session.add(user)
+        db.session.commit()
+
+    def test_user_check_constraint_non_guest(self):
+        """ Test the CheckConstraint on User,
+        either:
+            1) guest_token can be not null, then email_address, password and first_name can be null
+            2) email_address, password, first_name can be not null, then guest_token can be null
+        """
+
+        user = User()
+        user.cart = Cart()
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        self.assertEqual(User.query.first(), None)
+
+        user = User()
+        user.cart = Cart()
+        user.email_address = 'asd'
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        self.assertEqual(User.query.first(), None)
+
+        user = User()
+        user.cart = Cart()
+        user.first_name = 'asd'
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        self.assertEqual(User.query.first(), None)
+
+        user = User()
+        user.cart = Cart()
+        user.set_password('asd')
+        db.session.add(user)
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+
+        self.assertEqual(User.query.first(), None)
+
+        user = User()
+        user.cart = Cart()
+        user.email_address = 'asd'
+        user.set_password('asd')
+        user.first_name = "test"
+        db.session.add(user)
+        db.session.commit()
+
+        self.assertEqual(User.query.first(), user)

@@ -1,8 +1,10 @@
 import datetime
 from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, CheckConstraint
+from sqlalchemy import or_, and_
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 from backend import db
 from backend.models import Entity, Dumpable
@@ -15,12 +17,14 @@ class User(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'email_address',
-        'orders',
+        'first_name',
+        'last_name',
     ]
     
-    email_address = Column(String(200), unique=True, nullable=False)
-    password_hash = Column(String(200), nullable=False)
-    first_name = Column(String(100), nullable=False)
+    email_address = Column(String(200), unique=True, nullable=True)
+    password_hash = Column(String(200), nullable=True)
+    guest_token = Column(String(200), unique=True, nullable=True)
+    first_name = Column(String(100), nullable=True)
     last_name = Column(String(100))
 
     sessions = relationship('Session', back_populates='user', 
@@ -32,12 +36,17 @@ class User(db.Model, Entity, Dumpable):
     cart_id = Column(Integer, ForeignKey('cart.id'), nullable=False)
     cart = relationship('Cart', back_populates='user', uselist=False,
         cascade='save-update, merge, delete')
+
+    __table_args__ = (
+        CheckConstraint(
+            or_(
+                guest_token != None, 
+                and_(password_hash != None, email_address != None, first_name != None))
+            ),
+    )
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-        db.session.add(self)
-        db.session.commit()
-        db.session.close()
 
     def has_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -45,7 +54,8 @@ class User(db.Model, Entity, Dumpable):
     def __init__(self, email_address=None, password=None, first_name=None, last_name=None, cart=None,
         sessions=[], orders=[]):
         self.email_address = email_address
-        self.password_hash = generate_password_hash(password)
+        if password:
+            self.password_hash = generate_password_hash(password)
         self.first_name = first_name
         self.last_name = last_name
         self.cart = cart
