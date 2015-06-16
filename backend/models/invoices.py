@@ -50,9 +50,9 @@ class Invoice(db.Model, Entity, Dumpable):
 # Total amount for an Invoice
 Invoice.total_rands = column_property(
     select([func.sum(InvoiceProduct.sub_total_rands)]).where(InvoiceProduct.invoice_id==Invoice.id).correlate(Invoice)
-    )
+)
 
 # Total amount which needs to be paid.
 Invoice.amount_due_rands = column_property(
-    Invoice.total_rands - select([func.sum(Payment.amount_rands)]).where(Payment.invoice_id==Invoice.id).correlate(Invoice)
-    )
+    Invoice.total_rands - select([func.coalesce(func.sum(Payment.amount_rands), 0)]).where(Payment.invoice_id==Invoice.id).correlate(Invoice)
+)

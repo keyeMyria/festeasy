@@ -62,7 +62,7 @@ class TestInvoice(ModelTestCase):
         self.assertEqual(fetched_invoice.total_rands, product_price)
         self.assertEqual(fetched_invoice.products, [product])
         
-    def test_invoice_with_payment(self):
+    def test_invoice_amount_due_rands_with_payment(self):
         """ Test that Invoice.amount_due_rands is correct with a Payment.
         """
         user = self.create_user()
@@ -93,3 +93,29 @@ class TestInvoice(ModelTestCase):
 
         self.assertEqual(fetched_invoice.amount_due_rands, 9)
         
+    def test_invoice_amount_due_rands_with_no_payment(self):
+        """ Test that Invoice.amount_due_rands is correct with no Payment.
+        """
+        user = self.create_user()
+        product_price = 99
+        product = self.create_product(name='qwe', price_rands=product_price)
+        order = self.create_order()
+        event = self.create_event(name='asd')
+        user.cart.event = event
+        user.cart.products.append(product)
+        # TODO: Look into why this is needed:
+        db.session.add(user)
+        db.session.commit()
+        order.from_cart(user.cart)
+        db.session.add(order)
+        db.session.commit()
+
+        invoice = Invoice()
+        invoice.from_order(order)
+
+        db.session.add(invoice)
+        db.session.commit()
+
+        fetched_invoice = Invoice.query.one()
+
+        self.assertEqual(fetched_invoice.amount_due_rands, product_price)
