@@ -61,10 +61,20 @@ class GeneralTestCase(TestCase):
         session = Session(expires_on=expires_on, user=user, token=token)
         return session
 
-    def create_user(self, email_address='user@GeneralTestCase.takenote', 
-        password='test_password', first_name='Johannes', create_valid_session=False, create_cart=True, orders=[]):
+    def create_user(self, email_address=None, create_normal_user=False,
+        password=None, cart=None, guest_token=None, first_name=None, create_valid_session=False, create_cart=True, orders=[]):
         now = datetime.datetime.now()
-        user = User(email_address=email_address, password=password, first_name=first_name, orders=orders)
+        if create_normal_user:
+            if not email_address:
+                email_address = 'test@festeasy.co.za'
+            if not password:
+                password = 'qwe'
+            if not first_name:
+                first_name = 'Jason'
+
+        user = User(email_address=email_address, password=password, cart=cart,
+            guest_token=guest_token, first_name=first_name, orders=orders)
+        
         if create_valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
             token = random_string(25)

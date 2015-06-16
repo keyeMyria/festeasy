@@ -8,7 +8,7 @@ from backend.api.utils.get_or_404 import get_or_404
 
 class TestGetOr404(APITestCase):
     def test_get_or_404_returns_element(self):
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         db.session.add(user)
         db.session.commit()
 

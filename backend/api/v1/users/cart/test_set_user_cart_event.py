@@ -11,7 +11,7 @@ class TestSetUserCartEvent(APITestCase):
         """ Test that v1.set_user_cart_event returns a user
         cart.
         """
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
         event = self.create_event(name='asd')
         db.session.add(event)
@@ -32,7 +32,7 @@ class TestSetUserCartEvent(APITestCase):
         """ Test that v1.set_user_cart_event 404s with 
         invalid event_id.
         """
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
         event = self.create_event(name='asd')
         db.session.add(event)

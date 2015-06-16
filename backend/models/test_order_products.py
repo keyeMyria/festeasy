@@ -11,7 +11,7 @@ class TestOrderProduct(ModelTestCase):
     def test_product_order_creation(self):
         """ Test that a OrderProduct can be created.
         """
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         product = self.create_product(name='abc', price_rands=99)
         event = self.create_event(name='asd')
         order = self.create_order(event=event, user=user)
@@ -36,7 +36,7 @@ class TestOrderProduct(ModelTestCase):
         """ Test that a OrderProduct deletion does not delete
         the user nor product nor event.
         """
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         product = self.create_product(name='abc', price_rands=99)
         event = self.create_event(name='asd')
         order = self.create_order()

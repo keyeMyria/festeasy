@@ -11,7 +11,7 @@ class TestUpdateCart(APITestCase):
         """ Test that v1.update_user_cart updates
         cart_product quantity.
         """
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
         product = self.create_product(name='asd', price_rands=100)
         quantity = 10
@@ -37,7 +37,7 @@ class TestUpdateCart(APITestCase):
         """ Test that v1.update_user_cart updates
         cart event.
         """
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
         product = self.create_product(name='asd', price_rands=100)
         event = self.create_event(name='asd')

@@ -14,7 +14,7 @@ class TestGeneralTestCaseCreateSession(GeneralTestCase):
         now = datetime.datetime.now()
         expires_on = now + datetime.timedelta(seconds=30)
         token = random_string(25)
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
 
         session = self.create_session(expires_on=expires_on, token=token, user=user)
 
@@ -29,7 +29,7 @@ class TestGeneralTestCaseCreateSession(GeneralTestCase):
         self.assertIsNone(Session.query.first())
 
         now = datetime.datetime.now()
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
 
         session = self.create_session(create_valid_session=True, user=user)
 
@@ -46,7 +46,7 @@ class TestGeneralTestCaseCreateUser(GeneralTestCase):
         """
         self.assertIsNone(User.query.first())
 
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         db.session.add(user)
         db.session.commit()
 
@@ -58,7 +58,7 @@ class TestGeneralTestCaseCreateUser(GeneralTestCase):
         """
         self.assertIsNone(Session.query.first())
 
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         db.session.add(user)
         db.session.commit()
 
@@ -69,7 +69,7 @@ class TestGeneralTestCaseCreateUser(GeneralTestCase):
         """
         self.assertIsNone(Session.query.first())
 
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_valid_session=True, create_normal_user=True)
         db.session.add(user)
         db.session.commit()
 

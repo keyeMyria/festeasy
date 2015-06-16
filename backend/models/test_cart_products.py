@@ -10,7 +10,7 @@ from backend.utils import ModelTestCase
 class TestCartProduct(ModelTestCase):
     def test_cart_product_sub_total_rands(self):
         price = 10
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         user.cart = Cart()
         product_1 = self.create_product(name='asd', price_rands=price)
         product_2 = self.create_product(name='qwe', price_rands=price * 2)

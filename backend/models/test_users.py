@@ -10,7 +10,7 @@ class TestUser(ModelTestCase):
     def test_create_user(self):
         """ Test that a user can be created.
         """
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         db.session.add(user)
         db.session.commit()
 
@@ -25,7 +25,7 @@ class TestUser(ModelTestCase):
         token = 'abcd'
         another_token = 'bcde'
 
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         session = Session(expires_on=tomorrow, user=user, token=token)
         another_session = Session(expires_on=tomorrow, user=user, token=another_token)
 
@@ -43,7 +43,7 @@ class TestUser(ModelTestCase):
     def test_user_cart_product_creation(self):
         """ Test that a user can add a product to her cart.
         """
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         product = self.create_product(name='abc', price_rands=99)
         user.cart = Cart(products=[product])
         db.session.add(user)
@@ -55,7 +55,7 @@ class TestUser(ModelTestCase):
     def test_user_deletion_deletes_user_cart_products(self):
         """ Test that deleting a user deletes her cart_products.
         """
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         product = self.create_product(name='abc', price_rands=99)
         user.cart = Cart(products=[product])
         db.session.add(user)
@@ -77,7 +77,7 @@ class TestUser(ModelTestCase):
     def test_user_order_creation(self):
         """ Test that a user can have orders.
         """
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         event = self.create_event(name='test_product')
         order = self.create_order()
         order.event = event

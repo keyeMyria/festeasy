@@ -11,7 +11,7 @@ class TestUpdateUserCartProducts(APITestCase):
     def test_update_user_cart_product(self):
         """ Test that v1.update_user_cart_product updates quantity.
         """
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True)
         product = self.create_product(name='abc', price_rands=99)
         user.cart = Cart(products=[product])
         db.session.add(user)

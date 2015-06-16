@@ -12,7 +12,7 @@ class TestCreateUserOrder(APITestCase):
     def test_create_user_order_creates_order_for_user(self):
         """ Test that v1.create_user_order creates an order in the db.
         """
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True)
         event = self.create_event(name='asd')
         product = self.create_product(name='abc', price_rands=99)
 
@@ -43,7 +43,7 @@ class TestCreateUserOrder(APITestCase):
         """ Test that _create_user_order copies the prices of 
         products froms a users cart.
         """
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True)
         event = self.create_event(name='asd')
         product = self.create_product(name='abc', price_rands=99)
 
@@ -61,7 +61,7 @@ class TestCreateUserOrder(APITestCase):
         """ Test that v1.create_user_order fails with 400 if
         user has no current.
         """
-        user = self.create_user(create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True)
         product = self.create_product(name='abc', price_rands=99)
 
         user.cart = Cart(products=[product])

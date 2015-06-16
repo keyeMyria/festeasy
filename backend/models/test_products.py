@@ -21,7 +21,7 @@ class TestProduct(ModelTestCase):
         """ Test that deleting a product which has 
         cart_users does not delete those users.
         """
-        user = self.create_user()
+        user = self.create_user(create_normal_user=True)
         product = self.create_product(name='test_product', price_rands=99)
         user.cart = Cart(products=[product])
         db.session.add(user)
