@@ -17,6 +17,7 @@ class User(db.Model, Entity, Dumpable):
         'id',
         'created_on',
         'email_address',
+        'guest_token',
         'first_name',
         'last_name',
     ]
@@ -52,13 +53,14 @@ class User(db.Model, Entity, Dumpable):
         return check_password_hash(self.password_hash, password)
 
     def __init__(self, email_address=None, password=None, first_name=None, last_name=None, cart=None,
-        sessions=[], orders=[]):
+        guest_token=None, sessions=[], orders=[]):
         self.email_address = email_address
         if password:
             self.password_hash = generate_password_hash(password)
         self.first_name = first_name
         self.last_name = last_name
         self.cart = cart
+        self.guest_token = guest_token
         self.sessions = sessions
         self.orders = orders
 
