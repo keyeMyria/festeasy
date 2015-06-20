@@ -15,6 +15,7 @@ class Session(db.Model, Entity, Dumpable):
         'created_on',
         'expires_on',
         'token',
+        'user_id',
     ]
 
     expires_on = Column(DateTime, nullable=False)
