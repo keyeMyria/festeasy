@@ -1,0 +1,9 @@
+machine:
+  timezone:
+    Etc/UTC
+  python:
+    version: 2.7.5
+
+test:
+  override:
+    - python manage.py -c testing run-tests
