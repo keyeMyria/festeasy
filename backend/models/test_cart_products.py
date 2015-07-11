@@ -9,6 +9,7 @@ from backend.utils import ModelTestCase
 
 class TestCartProduct(ModelTestCase):
     def test_cart_product_sub_total_rands(self):
+        self.fail()
         price = 10
         user = self.create_user(create_normal_user=True)
         user.cart = Cart()
