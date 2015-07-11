@@ -6,4 +6,4 @@ machine:
 
 test:
   override:
-    - python manage.py -c testing run-tests
+    - nosetests --with-xunit --xunit-file=$CIRCLE_TEST_REPORTS
