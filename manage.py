@@ -27,13 +27,6 @@ class RunServer(Server):
         Server.handle(self, *args, **kwargs)
 manager.add_command('run-api', RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'))
 
-class RunTests(Command):
-    def run(self):
-        console.setLevel(logging.ERROR)
-        logger.addHandler(console)
-        nose.main(argv=['--where', 'backend'])
-manager.add_command('run-tests', RunTests())
-
 class CreateAll(Command):
     def run(self):
         db.create_all()
