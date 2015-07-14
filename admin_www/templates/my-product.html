@@ -1,0 +1,32 @@
+
+<div class="row">
+	<hr>
+	<div class="col-md-3 well">
+	{{product.name}} image
+	<br/>
+	{{product.name}} image
+	<br/>
+	{{product.name}} image
+	<br/>
+	{{product.name}} image
+	<br/>
+	{{product.name}} image
+	<br/>
+
+	</div>
+
+	<div class="col-md-5">
+		<a ui-sref="base.product({productId: product.id})">
+			<p class="lead"><b>{{product.name}}</b></p>
+		</a>
+
+		<p class="text-danger lead" 
+			my-price amount="product.price_rands">
+		</p>
+	</div>
+
+	<div class="col-md-2">
+		<my-add-to-cart-button product="product"></my-add-to-cart-button>
+	</div>
+
+</div>

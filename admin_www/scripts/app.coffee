@@ -28,6 +28,12 @@ app.config(($stateProvider, $urlRouterProvider) ->
             controller: 'SigninController'
             auth_required: false
         })
+        .state('base.products', {
+            url: 'products'
+            templateUrl: 'partials/base.products.html'
+            controller: 'ProductsController'
+            auth_required: true
+        })
 )
 
 app.config((RestangularProvider, API_END_POINT) ->

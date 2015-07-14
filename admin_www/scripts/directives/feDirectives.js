@@ -20,3 +20,27 @@ app.directive('mySignInNavButton', [
     };
   }
 ]);
+
+app.directive('myPrice', [
+  function() {
+    return {
+      restrict: 'A',
+      templateUrl: 'templates/my-price.html',
+      scope: {
+        amount: '='
+      }
+    };
+  }
+]);
+
+app.directive('myProduct', [
+  function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'templates/my-product.html',
+      scope: {
+        product: '='
+      }
+    };
+  }
+]);

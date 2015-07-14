@@ -20,6 +20,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'partials/base.signin.html',
     controller: 'SigninController',
     auth_required: false
+  }).state('base.products', {
+    url: 'products',
+    templateUrl: 'partials/base.products.html',
+    controller: 'ProductsController',
+    auth_required: true
   });
 });
 
