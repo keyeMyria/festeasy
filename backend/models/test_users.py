@@ -36,7 +36,7 @@ class TestUser(ModelTestCase):
         self.assertFalse(user.is_guest)
 
     def test_user_is_guest(self):
-        user = self.create_user(email_address='asd@asd.com')
+        user = self.create_user()
         user.guest_token = 'jasduqwejj'
         db.session.add(user)
         db.session.commit()
