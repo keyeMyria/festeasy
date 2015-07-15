@@ -63,4 +63,4 @@ venv/
 *.db
 
 # Bower components
-bower_components/
+#bower_components/
