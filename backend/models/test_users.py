@@ -17,6 +17,31 @@ class TestUser(ModelTestCase):
         fetched_user = User.query.one()
         self.assertEqual(fetched_user, user)
 
+    def test_user_is_not_guest(self):
+        user = self.create_user(email_address='asd@asd.com')
+        user.first_name = 'Asd'
+        user.set_password('123')
+        db.session.add(user)
+        db.session.commit()
+        self.assertFalse(user.is_guest)
+
+    def test_user_is_guest_with_email(self):
+        user = self.create_user(email_address='asd@asd.com')
+        user.guest_token = 'jasduqwejj'
+        user.email_address = 'asd@asd.com'
+        user.first_name = 'Asd'
+        user.set_password('asd')
+        db.session.add(user)
+        db.session.commit()
+        self.assertFalse(user.is_guest)
+
+    def test_user_is_guest(self):
+        user = self.create_user(email_address='asd@asd.com')
+        user.guest_token = 'jasduqwejj'
+        db.session.add(user)
+        db.session.commit()
+        self.assertTrue(user.is_guest)
+
     def test_user_deletion_deletes_sessions(self):
         """ Test that deleting a user also deletes that 
         users sessions."""
