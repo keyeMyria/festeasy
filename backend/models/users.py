@@ -26,13 +26,11 @@ class User(db.Model, Entity, Dumpable):
 
     @property
     def is_guest(self):
-        is_guest = None
-        if (self.guest_token and not 
-            any([self.email_address, self.password_hash, self.first_name])):
-            is_guest = True
-        else:
-            is_guest = False
-        return is_guest
+        return (self.guest_token and not any([
+            self.email_address, 
+            self.password_hash, 
+            self.first_name,])
+        )
     
     email_address = Column(String(200), unique=True, nullable=True)
     password_hash = Column(String(200), nullable=True)
