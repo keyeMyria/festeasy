@@ -61,7 +61,7 @@ class GeneralTestCase(TestCase):
         session = Session(expires_on=expires_on, user=user, token=token)
         return session
 
-    def create_user(self, email_address=None, create_normal_user=False,
+    def create_user(self, email_address=None, create_normal_user=False, is_admin=False,
         password=None, cart=None, guest_token=None, first_name=None, create_valid_session=False, create_cart=True, orders=[]):
         now = datetime.datetime.now()
         if create_normal_user:
@@ -72,7 +72,7 @@ class GeneralTestCase(TestCase):
             if not first_name:
                 first_name = 'Jason'
 
-        user = User(email_address=email_address, password=password, cart=cart,
+        user = User(email_address=email_address, password=password, cart=cart, is_admin=is_admin,
             guest_token=guest_token, first_name=first_name, orders=orders)
         
         if create_valid_session:

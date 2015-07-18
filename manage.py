@@ -44,7 +44,8 @@ class InitDB(Command):
         users = [
             User(
                 email_address='test@festeasy.co.za', 
-                password='123', 
+                password='123',
+                is_admin=True,
                 first_name='TestName',
                 cart=Cart())
             ]

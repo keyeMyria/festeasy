@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy import ForeignKey, CheckConstraint
 from sqlalchemy import or_, and_
 from sqlalchemy.orm import relationship
@@ -21,6 +21,7 @@ class User(db.Model, Entity, Dumpable):
         'first_name',
         'last_name',
         'is_guest',
+        'is_admin',
     ]
 
     @property
@@ -38,6 +39,7 @@ class User(db.Model, Entity, Dumpable):
     guest_token = Column(String(200), unique=True, nullable=True)
     first_name = Column(String(100), nullable=True)
     last_name = Column(String(100))
+    is_admin = Column(Boolean, default=False, nullable=False)
 
     sessions = relationship('Session', back_populates='user', 
         cascade='save-update, merge, delete, delete-orphan')
@@ -64,7 +66,8 @@ class User(db.Model, Entity, Dumpable):
         return check_password_hash(self.password_hash, password)
 
     def __init__(self, email_address=None, password=None, first_name=None, last_name=None, cart=None,
-        guest_token=None, sessions=[], orders=[]):
+        is_admin=None, guest_token=None, sessions=[], orders=[]):
+        is_admin = is_admin
         self.email_address = email_address
         if password:
             self.password_hash = generate_password_hash(password)
