@@ -65,7 +65,7 @@ class User(db.Model, Entity, Dumpable):
 
     def __init__(self, email_address=None, password=None, first_name=None, last_name=None, cart=None,
         is_admin=None, guest_token=None, sessions=[], orders=[]):
-        is_admin = is_admin
+        self.is_admin = is_admin
         self.email_address = email_address
         if password:
             self.password_hash = generate_password_hash(password)
