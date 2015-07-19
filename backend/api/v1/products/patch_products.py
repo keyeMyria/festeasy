@@ -18,6 +18,7 @@ def patch_products():
 		'name',
 		'price_rands',
 		'cost_rands',
+		'is_enabled',
 	]
 
 	products_dict = request.get_json()
