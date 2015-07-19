@@ -50,13 +50,13 @@ class InitDB(Command):
                 cart=Cart())
             ]
         products = [
-            Product(name='Castle Lite Beer', cost_rands=10, price_rands=20),
-            Product(name='Lays Small Pack', cost_rands=10, price_rands=9),
-            Product(name='Coke Can', cost_rands=10, price_rands=9),
-            Product(name='Windhoek Beer', cost_rands=10, price_rands=21),
-            Product(name='Text Chocolate', cost_rands=10, price_rands=9),
-            Product(name='KitKat Chocolate', cost_rands=10, price_rands=8),
-            Product(name='Jelly Beans', cost_rands=10, price_rands=7),
+            Product(name='Castle Lite Beer', cost_rands=10, is_enabled=True, price_rands=20),
+            Product(name='Lays Small Pack', cost_rands=10, is_enabled=True, price_rands=9),
+            Product(name='Coke Can', cost_rands=10, is_enabled=True, price_rands=9),
+            Product(name='Windhoek Beer', cost_rands=10, is_enabled=True, price_rands=21),
+            Product(name='Text Chocolate', cost_rands=10, is_enabled=True, price_rands=9),
+            Product(name='KitKat Chocolate', cost_rands=10, is_enabled=True, price_rands=8),
+            Product(name='Jelly Beans', cost_rands=10, is_enabled=True, price_rands=7),
             ]
         events = [
             Event(name='Rocking The Daisies'),
