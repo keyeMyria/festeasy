@@ -1,1 +1,2 @@
 from get_products import get_products
+from patch_products import patch_products

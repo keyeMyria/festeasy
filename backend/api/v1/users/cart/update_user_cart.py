@@ -10,6 +10,7 @@ from backend.models import User, CartProduct, Event
 
 logger = logging.getLogger(__name__)
 
+# TODO: Auth.
 @api.route('/users/<int:user_id>/cart', methods=['PATCH'])
 @require_auth()
 def update_user_cart(authenticated_user, user_id):
