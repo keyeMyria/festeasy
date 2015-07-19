@@ -59,9 +59,9 @@ class InitDB(Command):
             Product(name='Jelly Beans', cost_rands=10, is_enabled=True, price_rands=7),
             ]
         events = [
-            Event(name='Rocking The Daisies'),
-            Event(name='Sunflower Fest'),
-            Event(name='Oppie Koppie'),
+            Event(name='Rocking The Daisies', is_enabled=True),
+            Event(name='Sunflower Fest', is_enabled=True),
+            Event(name='Oppie Koppie', is_enabled=True),
             ]
         things = users + products + events
         for thing in things:

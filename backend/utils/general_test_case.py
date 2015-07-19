@@ -45,8 +45,10 @@ class GeneralTestCase(TestCase):
         order = Order(event=event, user=user, products=products, order_products=order_products)
         return order
 
-    def create_event(self, name=None, users=[]):
-        event = Event(name=name, users=users)
+    def create_event(self, is_enabled=None, starts_on=None, ends_on=None, 
+        name=None, users=[]):
+        event = Event(is_enabled=is_enabled, name=name, starts_on=starts_on, ends_on=ends_on,
+            users=users)
         return event
 
     def create_product(self, name=None, cost_rands=-1, price_rands=None, is_enabled=None):
