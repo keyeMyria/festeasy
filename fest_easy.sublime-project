@@ -6,5 +6,15 @@
 			"folder_exclude_patterns": ["__pycache__"],
 			"file_exclude_patterns": ["*.pyc", "*.pyo", ".project"]
 		}
+	],
+	"build_systems":
+	[
+
+		{
+			"name": "nosetests",
+			"working_dir": "${project_path:${folder}}",
+			"cmd": ["./venv/bin/nosetests"], 
+			"selector": "source.python", 
+		}
 	]
 }
