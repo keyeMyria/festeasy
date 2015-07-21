@@ -56,7 +56,7 @@ target/
 venv/
 
 # Sublime
-*.sublime-project
+.sublime-project
 *.sublime-workspace
 
 # sqlite
