@@ -1,11 +1,12 @@
 import sys, os
 import nose
 import logging
+import logging
+import IPython
 from flask import current_app
 from flask.ext.script import Manager, Command, Option
 from flask.ext.script import Shell, Server
 from rainbow_logging_handler import RainbowLoggingHandler
-import logging
 
 from backend import create_app, db
 from backend import models
@@ -76,8 +77,8 @@ def _make_context():
     )
     context.update(vars(models))
     return context
-
 manager.add_command('shell', Shell(make_context=_make_context, use_ipython=True))
 
 if __name__ == '__main__':
+    IPython.terminal.interactiveshell.TerminalInteractiveShell.confirm_exit.default_value = False
     manager.run()
