@@ -1,7 +1,7 @@
 from wtforms import Form, FormField, FieldList
 from wtforms.validators import Required, Email
 
-from create_user_cart_product_form import CreateUserCartProductForm
+from .create_user_cart_product_form import CreateUserCartProductForm
 
 
 class CreateUserCartProductsForm(Form):

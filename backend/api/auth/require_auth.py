@@ -1,5 +1,6 @@
 import datetime
 import logging
+from base64 import b64decode
 from flask import request, make_response, jsonify
 from functools import wraps
 from werkzeug.exceptions import Unauthorized
@@ -55,7 +56,7 @@ def get_authorization_headers(request):
     return authorization_type, encoded_details
 
 def decode_details_or_401(encoded_details):
-    decoded_details = encoded_details.decode('base64')
+    decoded_details = b64decode(encoded_details).decode('utf-8')
     if ':' not in decoded_details:
         logger.warn("Encoded details must be seperated by a colon.")
         raise MyUnauthorized("Encoded details must be ':' seperated. xBasic "

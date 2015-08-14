@@ -12,7 +12,7 @@ def create_app(config='dev'):
 
     #logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-    from api.utils import add_cors
+    from .api.utils import add_cors
     app.after_request(add_cors)
 
     # Use our custom encoder.

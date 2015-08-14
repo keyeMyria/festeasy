@@ -1,3 +1,4 @@
+from base64 import b64encode
 import datetime
 import json
 
@@ -16,7 +17,8 @@ class APITestCase(GeneralTestCase):
         if as_user:
             if with_session:
                 session_token = with_session.token
-                headers['Authorization'] = 'xBasic %s' % ('api:%s' % session_token).encode('base64')[:-1]
+                a = b64encode(bytes('api:{0}'.format(session_token), 'utf-8')).decode('utf-8')
+                headers['Authorization'] = 'xBasic {0}'.format(a)
 
         f = getattr(self.client, method)
         args = [url]

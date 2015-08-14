@@ -30,7 +30,7 @@ def create_session():
     # TODO: email user with password reset on consecutive incorrect login attempts.
     if not user or not user.has_password(password):
         logger.warn("Failed to create session, invalid email address and password combination.")
-    	return jsonify(message="Failed to create session, invalid email address and password combination."), 401
+        return jsonify(message="Failed to create session, invalid email address and password combination."), 401
 
     token = random_string(25)
     expires_on = datetime.datetime.now() + datetime.timedelta(days=7)
@@ -44,4 +44,4 @@ def create_session():
     db.session.add(session)
     db.session.commit()
     return jsonify(message="Successfully created session.", 
-    	user=user, session=session), 201
+        user=user, session=session), 201

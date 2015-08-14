@@ -1,1 +1,1 @@
-from require_auth import require_auth, MyUnauthorized
+from .require_auth import require_auth, MyUnauthorized

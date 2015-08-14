@@ -1,1 +1,1 @@
-from get_events import get_events
+from .get_events import get_events
