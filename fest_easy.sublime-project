@@ -13,7 +13,7 @@
 		{
 			"name": "nose2",
 			"working_dir": "${project_path:${folder}}",
-			"cmd": ["./venv/bin/nose2"], 
+			"cmd": ["./venv/bin/nose2", "-F"], 
 			"selector": "source.python", 
 		}
 	]
