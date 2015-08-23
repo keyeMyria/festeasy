@@ -13,7 +13,7 @@ class TestDeleteCartUserProducts(APITestCase):
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         cart_product = CartProduct(
             cart=user.cart,
             product=product
@@ -39,7 +39,7 @@ class TestDeleteCartUserProducts(APITestCase):
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         cart_product = CartProduct(
             cart=user.cart,
             product=product

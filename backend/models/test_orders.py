@@ -46,8 +46,8 @@ class TestOrder(ModelTestCase):
     def test_order_total_rands(self):
         event = self.create_event(name='test')
         price = 10
-        product_1 = self.create_product(name='asd', price_rands=price)
-        product_2 = self.create_product(name='qwe', price_rands=price)
+        product_1 = self.create_product(create_valid_product=True, price_rands=price)
+        product_2 = self.create_product(create_valid_product=True, price_rands=price)
         order = self.create_order(
             event=event,
             )
@@ -74,7 +74,7 @@ class TestOrder(ModelTestCase):
 
     def test_from_cart(self):
         user = self.create_user(create_normal_user=True)
-        product = self.create_product(name='asd', price_rands=11)
+        product = self.create_product(create_valid_product=True, price_rands=11)
         event = self.create_event(name='qwe')
         user.cart.event = event
         user.cart.products.append(product)

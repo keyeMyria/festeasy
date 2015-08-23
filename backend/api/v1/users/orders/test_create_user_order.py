@@ -14,7 +14,7 @@ class TestCreateUserOrder(APITestCase):
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
         event = self.create_event(name='asd')
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
 
         user.cart = Cart(products=[product])
         user.cart.event = event
@@ -45,7 +45,7 @@ class TestCreateUserOrder(APITestCase):
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
         event = self.create_event(name='asd')
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
 
         user.cart = Cart(products=[product])
         user.cart.event = event
@@ -62,7 +62,7 @@ class TestCreateUserOrder(APITestCase):
         user has no current.
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
 
         user.cart = Cart(products=[product])
 

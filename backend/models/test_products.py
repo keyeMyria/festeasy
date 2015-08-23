@@ -10,7 +10,7 @@ class TestProduct(ModelTestCase):
     def test_create_product(self):
         """ Test that a product can be created.
         """
-        product = self.create_product(name='test_product', price_rands=99)
+        product = self.create_product(create_valid_product=True, price_rands=99)
         db.session.add(product)
         db.session.commit()
 
@@ -22,7 +22,7 @@ class TestProduct(ModelTestCase):
         cart_users does not delete those users.
         """
         user = self.create_user(create_normal_user=True)
-        product = self.create_product(name='test_product', price_rands=99)
+        product = self.create_product(create_valid_product=True, price_rands=99)
         user.cart = Cart(products=[product])
         db.session.add(user)
         db.session.commit()

@@ -22,37 +22,38 @@ class GeneralTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def create_payment(self, amount_rands=None, invoice=None):
-        payment = Payment(amount_rands=amount_rands, invoice=invoice)
+    def create_payment(self, *args, **kwagrs):
+        payment = Payment(*args, **kwagrs)
         return payment
 
-    def create_invoice(self, order=None, products=[], invoice_products=[]):
-        invoice = Invoice(order=order, products=products, invoice_products=invoice_products)
+    def create_invoice(self, *args, **kwagrs):
+        invoice = Invoice(*args, **kwagrs)
         return invoice
 
-    def create_cart_product(self, cart=None, product=None,
-        quantity=None):
-        cart_product = CartProduct(cart=cart, product=product, quantity=quantity)
+    def create_cart_product(self, *args, **kwagrs):
+        cart_product = CartProduct(*args, **kwagrs)
         return cart_product
 
-    def create_order_product(self, order=None, product=None,
-        unit_price_rands=None, quantity=None):
-        order_product = OrderProduct(order=order, product=product,
-            unit_price_rands=unit_price_rands, quantity=quantity)
+    def create_order_product(self, *args, **kwagrs):
+        order_product = OrderProduct(*args, **kwagrs)
         return order_product
 
-    def create_order(self, event=None, user=None, products=[], order_products=[]):
-        order = Order(event=event, user=user, products=products, order_products=order_products)
+    def create_order(self, *args, **kwagrs):
+        order = Order(*args, **kwagrs)
         return order
 
-    def create_event(self, is_enabled=None, starts_on=None, ends_on=None, 
-        name=None, users=[]):
-        event = Event(is_enabled=is_enabled, name=name, starts_on=starts_on, ends_on=ends_on,
-            users=users)
+    def create_event(self, *args, **kwagrs):
+        event = Event(*args, **kwagrs)
         return event
 
-    def create_product(self, name=None, cost_rands=-1, price_rands=None, is_enabled=None):
-        product = Product(name=name, cost_rands=cost_rands, price_rands=price_rands, is_enabled=is_enabled)
+    def create_product(self, *args, create_valid_product=None, **kwagrs):
+        if create_valid_product:
+            if 'name' not in kwagrs.keys():
+                kwagrs['name'] = 'Auto Product'
+            if 'price_rands' not in kwagrs.keys():
+                kwagrs['price_rands'] = 99999.12345
+            kwagrs['cost_rands'] = 10
+        product = Product(*args, **kwagrs)
         return product
 
     def create_session(self, expires_on=None, token=None, user=None, create_valid_session=False):

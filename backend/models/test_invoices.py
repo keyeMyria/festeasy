@@ -11,7 +11,7 @@ class TestInvoice(ModelTestCase):
         """ Test that an Invoice can be created.
         """
         user = self.create_user(create_normal_user=True)
-        product = self.create_product(name='qwe', price_rands=99)
+        product = self.create_product(create_valid_product=True, price_rands=99)
         order = self.create_order()
         event = self.create_event(name='asd')
         user.cart.event = event
@@ -39,7 +39,7 @@ class TestInvoice(ModelTestCase):
         """
         user = self.create_user(create_normal_user=True)
         product_price = 99
-        product = self.create_product(name='qwe', price_rands=product_price)
+        product = self.create_product(create_valid_product=True, price_rands=product_price)
         order = self.create_order()
         event = self.create_event(name='asd')
         user.cart.event = event
@@ -67,7 +67,7 @@ class TestInvoice(ModelTestCase):
         """
         user = self.create_user(create_normal_user=True)
         product_price = 99
-        product = self.create_product(name='qwe', price_rands=product_price)
+        product = self.create_product(create_valid_product=True, price_rands=product_price)
         order = self.create_order()
         event = self.create_event(name='asd')
         user.cart.event = event
@@ -98,7 +98,7 @@ class TestInvoice(ModelTestCase):
         """
         user = self.create_user(create_normal_user=True)
         product_price = 99
-        product = self.create_product(name='qwe', price_rands=product_price)
+        product = self.create_product(create_valid_product=True, price_rands=product_price)
         order = self.create_order()
         event = self.create_event(name='asd')
         user.cart.event = event

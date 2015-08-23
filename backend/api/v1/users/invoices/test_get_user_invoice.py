@@ -12,8 +12,8 @@ class TestGetUserInvoices(APITestCase):
         invoices.
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
-        product = self.create_product(name='asd', price_rands=10)
-        product_2 = self.create_product(name='qwe', price_rands=10)
+        product = self.create_product(create_valid_product=True)
+        product_2 = self.create_product(create_valid_product=True)
         event = self.create_event(name='asd')
         user.cart.products.append(product)
         user.cart.products.append(product_2)

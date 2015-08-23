@@ -12,7 +12,7 @@ class TestPayment(ModelTestCase):
         """
         product_price = 100
         user = self.create_user(create_normal_user=True)
-        product = self.create_product(name='abc', price_rands=product_price)
+        product = self.create_product(create_valid_product=True)
         event = self.create_event(name='asd')
         user.cart.products.append(product)
         user.cart.event = event

@@ -69,7 +69,7 @@ class TestUser(ModelTestCase):
         """ Test that a user can add a product to her cart.
         """
         user = self.create_user(create_normal_user=True)
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         user.cart = Cart(products=[product])
         db.session.add(user)
         db.session.commit()
@@ -81,7 +81,7 @@ class TestUser(ModelTestCase):
         """ Test that deleting a user deletes her cart_products.
         """
         user = self.create_user(create_normal_user=True)
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         user.cart = Cart(products=[product])
         db.session.add(user)
         db.session.commit()

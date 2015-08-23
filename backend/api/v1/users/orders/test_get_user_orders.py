@@ -12,7 +12,7 @@ class TestGetUserOrders(APITestCase):
         orders.
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
-        user.cart.products = [self.create_product(name='asd', price_rands=123)]
+        user.cart.products = [self.create_product(create_valid_product=True)]
         db.session.add(user)
         db.session.commit()
 

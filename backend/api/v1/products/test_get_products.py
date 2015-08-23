@@ -11,7 +11,7 @@ class TestGetProducts(APITestCase):
         """ Test that v1.get_products returns a user
         from the db.
         """
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         db.session.add(product)
         db.session.commit()
 

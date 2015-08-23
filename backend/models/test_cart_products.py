@@ -12,8 +12,8 @@ class TestCartProduct(ModelTestCase):
         price = 10
         user = self.create_user(create_normal_user=True)
         user.cart = Cart()
-        product_1 = self.create_product(name='asd', price_rands=price)
-        product_2 = self.create_product(name='qwe', price_rands=price * 2)
+        product_1 = self.create_product(create_valid_product=True, price_rands=price)
+        product_2 = self.create_product(create_valid_product=True, price_rands=price * 2)
 
         cart_product_1 = self.create_cart_product(product=product_1, quantity=2)
         cart_product_2 = self.create_cart_product(product=product_2, quantity=1)

@@ -13,7 +13,7 @@ class TestCreateCartUserProducts(APITestCase):
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         db.session.add(user)
         db.session.add(product)
         db.session.commit()
@@ -38,7 +38,7 @@ class TestCreateCartUserProducts(APITestCase):
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         db.session.add(user)
         db.session.add(product)
         db.session.commit()
@@ -65,7 +65,7 @@ class TestCreateCartUserProducts(APITestCase):
         the form is not valid.
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         db.session.add(user)
         db.session.add(product)
         db.session.commit()
@@ -87,7 +87,7 @@ class TestCreateCartUserProducts(APITestCase):
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         user.cart.products.append(product)
         db.session.add(user)
         db.session.add(product)
@@ -110,7 +110,7 @@ class TestCreateCartUserProducts(APITestCase):
         """
         user = self.create_user(create_normal_user=True, create_valid_session=True)
         user.cart = Cart()
-        product = self.create_product(name='abc', price_rands=99)
+        product = self.create_product(create_valid_product=True)
         user.cart.products.append(product)
         db.session.add(user)
         db.session.add(product)

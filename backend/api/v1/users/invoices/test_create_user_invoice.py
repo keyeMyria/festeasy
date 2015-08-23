@@ -11,7 +11,7 @@ from backend.api.v1.users.orders.create_user_order import _create_user_order
 class TestCreateUserInvoice(APITestCase):
     def test_create_user_invoice_creates_invoice(self):
         user = self.create_user(create_normal_user=True, create_valid_session=True)
-        product = self.create_product(name='asd', price_rands=10)
+        product = self.create_product(create_valid_product=True)
         user.cart.products.append(product)
         event = self.create_event(name='asd')
         user.cart.event = event
@@ -36,7 +36,7 @@ class TestCreateUserInvoice(APITestCase):
 
     def test_create_user_invoice_404s(self):
         user = self.create_user(create_normal_user=True, create_valid_session=True)
-        product = self.create_product(name='asd', price_rands=10)
+        product = self.create_product(create_valid_product=True)
         user.cart.products.append(product)
         event = self.create_event(name='asd')
         user.cart.event = event
