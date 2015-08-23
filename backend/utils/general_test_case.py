@@ -22,67 +22,76 @@ class GeneralTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def create_payment(self, *args, **kwagrs):
-        payment = Payment(*args, **kwagrs)
+    def template_entity(self, entity_template, kwargs):
+        for key, val in entity_template.items():
+            if key not in kwargs.keys():
+                kwargs[key] = val
+        return kwargs
+
+    def create_payment(self, *args, **kwargs):
+        payment = Payment(*args, **kwargs)
         return payment
 
-    def create_invoice(self, *args, **kwagrs):
-        invoice = Invoice(*args, **kwagrs)
+    def create_invoice(self, *args, **kwargs):
+        invoice = Invoice(*args, **kwargs)
         return invoice
 
-    def create_cart_product(self, *args, **kwagrs):
-        cart_product = CartProduct(*args, **kwagrs)
+    def create_cart_product(self, *args, **kwargs):
+        cart_product = CartProduct(*args, **kwargs)
         return cart_product
 
-    def create_order_product(self, *args, **kwagrs):
-        order_product = OrderProduct(*args, **kwagrs)
+    def create_order_product(self, *args, **kwargs):
+        order_product = OrderProduct(*args, **kwargs)
         return order_product
 
-    def create_order(self, *args, **kwagrs):
-        order = Order(*args, **kwagrs)
+    def create_order(self, *args, **kwargs):
+        order = Order(*args, **kwargs)
         return order
 
-    def create_event(self, *args, **kwagrs):
-        event = Event(*args, **kwagrs)
+    def create_event(self, *args, **kwargs):
+        event = Event(*args, **kwargs)
         return event
 
-    def create_product(self, *args, create_valid_product=None, **kwagrs):
+    def create_product(self, *args, create_valid_product=None, **kwargs):
+        product_template = {
+            'name': 'Auto Product',
+            'price_rands': 999.12345,
+            'cost_rands': 88.12345
+        }
         if create_valid_product:
-            if 'name' not in kwagrs.keys():
-                kwagrs['name'] = 'Auto Product'
-            if 'price_rands' not in kwagrs.keys():
-                kwagrs['price_rands'] = 99999.12345
-            kwagrs['cost_rands'] = 10
-        product = Product(*args, **kwagrs)
+            kwargs = self.template_entity(product_template, kwargs)
+        product = Product(*args, **kwargs)
         return product
 
-    def create_session(self, expires_on=None, token=None, user=None, create_valid_session=False):
+    def create_session(self, *args, create_valid_session=False, **kwargs):
         now = datetime.datetime.now()
+        session_template = {
+            'expires_on': now,
+            'token': random_string(25),
+        }
         if create_valid_session:
-            expires_on = now + datetime.timedelta(seconds=30)
-            token = random_string(25)
-        session = Session(expires_on=expires_on, user=user, token=token)
+            kwargs = self.template_entity(session_template, kwargs)
+        session = Session(*args, **kwargs)
         return session
 
-    def create_user(self, email_address=None, create_normal_user=False, is_admin=False,
-        password=None, cart=None, guest_token=None, first_name=None, create_valid_session=False, create_cart=True, orders=[]):
+    def create_user(self, *args, create_normal_user=False, create_valid_session=False, create_cart=True, **kwargs):
         now = datetime.datetime.now()
+        user_template = {
+            'email_address': 'auto-test@festeasy.co.za',
+            'password': 'autotest_password',
+            'first_name': 'autotest_first_name',
+        }
         if create_normal_user:
-            if not email_address:
-                email_address = 'test@festeasy.co.za'
-            if not password:
-                password = 'qwe'
-            if not first_name:
-                first_name = 'Jason'
+            self.template_entity(user_template, kwargs)
 
-        user = User(email_address=email_address, password=password, cart=cart, is_admin=is_admin,
-            guest_token=guest_token, first_name=first_name, orders=orders)
+        user = User(*args, **kwargs)
         
         if create_valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
             token = random_string(25)
             session = self.create_session(expires_on=expires_on, token=token)
             user.sessions.append(session)
+
         if create_cart:
             user.cart = Cart()
         return user
