@@ -11,9 +11,9 @@
 	[
 
 		{
-			"name": "nosetests",
+			"name": "nose2",
 			"working_dir": "${project_path:${folder}}",
-			"cmd": ["./venv/bin/nosetests"], 
+			"cmd": ["./venv/bin/nose2"], 
 			"selector": "source.python", 
 		}
 	]
