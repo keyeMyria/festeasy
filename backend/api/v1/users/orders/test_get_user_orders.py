@@ -11,7 +11,7 @@ class TestGetUserOrders(APITestCase):
         """ Test that v1.get_user_orders returns a users
         orders.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True, create_valid_cart=True)
         user.cart.products = [self.create_product(create_valid_product=True)]
         db.session.add(user)
         db.session.commit()

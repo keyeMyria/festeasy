@@ -11,7 +11,7 @@ class TestGetUser(APITestCase):
         """ Test that v1.get_user returns a user
         from the db.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True, create_valid_cart=True)
         db.session.add(user)
         db.session.commit()
         db.session.refresh(user)
@@ -27,7 +27,7 @@ class TestGetUser(APITestCase):
     def test_get_user_404(self):
         """ Test that v1.get_user 404s for an invalid user id.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True)
+        user = self.create_user(create_normal_user=True, create_valid_session=True, create_valid_cart=True)
         db.session.add(user)
         db.session.commit()
         db.session.refresh(user)

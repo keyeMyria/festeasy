@@ -12,7 +12,8 @@ class TestCreateProduct(APITestCase):
         """
         user = self.create_user(create_normal_user=True, 
             is_admin=True, 
-            create_valid_session=True
+            create_valid_session=True,
+            create_valid_cart=True,
         )
         db.session.add(user)
         db.session.commit()

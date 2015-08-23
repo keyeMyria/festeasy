@@ -74,7 +74,7 @@ class GeneralTestCase(TestCase):
         session = Session(*args, **kwargs)
         return session
 
-    def create_user(self, *args, create_normal_user=False, create_valid_session=False, create_cart=True, **kwargs):
+    def create_user(self, *args, create_normal_user=False, create_valid_session=False, create_valid_cart=False, **kwargs):
         now = datetime.datetime.now()
         user_template = {
             'email_address': 'auto-test@festeasy.co.za',
@@ -92,6 +92,6 @@ class GeneralTestCase(TestCase):
             session = self.create_session(expires_on=expires_on, token=token)
             user.sessions.append(session)
 
-        if create_cart:
+        if create_valid_cart:
             user.cart = Cart()
         return user

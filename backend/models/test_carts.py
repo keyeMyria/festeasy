@@ -12,7 +12,7 @@ class TestCart(ModelTestCase):
         CartProduct sub_total_rands.
         """
         price = 10
-        user = self.create_user(create_normal_user=True)
+        user = self.create_user(create_normal_user=True, create_valid_cart=True)
         product_1 = self.create_product(create_valid_product=True, price_rands=price)
         product_2 = self.create_product(create_valid_product=True, price_rands=price * 2)
 

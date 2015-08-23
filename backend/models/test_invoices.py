@@ -10,7 +10,7 @@ class TestInvoice(ModelTestCase):
     def test_create_invoice(self):
         """ Test that an Invoice can be created.
         """
-        user = self.create_user(create_normal_user=True)
+        user = self.create_user(create_normal_user=True, create_valid_cart=True)
         product = self.create_product(create_valid_product=True, price_rands=99)
         order = self.create_order()
         event = self.create_event(name='asd')
@@ -37,7 +37,7 @@ class TestInvoice(ModelTestCase):
         """ Test that Invoice.from_order sets up an Invoice from an 
         Order correctly.
         """
-        user = self.create_user(create_normal_user=True)
+        user = self.create_user(create_normal_user=True, create_valid_cart=True)
         product_price = 99
         product = self.create_product(create_valid_product=True, price_rands=product_price)
         order = self.create_order()
@@ -65,7 +65,7 @@ class TestInvoice(ModelTestCase):
     def test_invoice_amount_due_rands_with_payment(self):
         """ Test that Invoice.amount_due_rands is correct with a Payment.
         """
-        user = self.create_user(create_normal_user=True)
+        user = self.create_user(create_normal_user=True, create_valid_cart=True)
         product_price = 99
         product = self.create_product(create_valid_product=True, price_rands=product_price)
         order = self.create_order()
@@ -96,7 +96,7 @@ class TestInvoice(ModelTestCase):
     def test_invoice_amount_due_rands_with_no_payment(self):
         """ Test that Invoice.amount_due_rands is correct with no Payment.
         """
-        user = self.create_user(create_normal_user=True)
+        user = self.create_user(create_normal_user=True, create_valid_cart=True)
         product_price = 99
         product = self.create_product(create_valid_product=True, price_rands=product_price)
         order = self.create_order()

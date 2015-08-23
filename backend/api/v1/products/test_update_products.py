@@ -16,6 +16,7 @@ class TestPatchProducts(APITestCase):
             password='123',
             is_admin=True,
             create_valid_session=True,
+            create_valid_cart=True,
         )
         product = self.create_product(
             name='Test Product',
