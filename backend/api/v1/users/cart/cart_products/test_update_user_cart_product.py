@@ -4,7 +4,7 @@ from flask import url_for
 from backend import db
 from backend.models import User, Cart, Product
 from backend.models import CartProduct
-from backend.utils import APITestCase
+from backend.testing import APITestCase
 
 
 class TestUpdateUserCartProducts(APITestCase):

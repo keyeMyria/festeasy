@@ -2,7 +2,7 @@ import datetime
 
 from backend import db
 from backend.models import Session, User
-from backend.utils import ModelTestCase
+from backend.testing import ModelTestCase
 
 
 class TestSession(ModelTestCase):

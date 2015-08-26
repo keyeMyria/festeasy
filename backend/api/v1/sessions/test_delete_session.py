@@ -4,7 +4,7 @@ from flask import url_for
 
 from backend import db
 from backend.models import User, Session
-from backend.utils import APITestCase
+from backend.testing import APITestCase
 
 
 class TestDeleteSession(APITestCase):

@@ -4,7 +4,7 @@ from backend import db
 from backend.models import Session, User, Product
 from backend.models import Cart, Order
 from backend.models import CartProduct
-from backend.utils import ModelTestCase
+from backend.testing import ModelTestCase
 
 
 class TestCartProduct(ModelTestCase):

@@ -1,4 +1,4 @@
-from backend.utils.general_test_case import GeneralTestCase
+from backend.testing import GeneralTestCase
 from backend.utils import random_string
 
 

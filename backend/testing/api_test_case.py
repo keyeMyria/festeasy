@@ -3,7 +3,7 @@ import datetime
 import json
 
 from backend import create_app, db
-from backend.utils import GeneralTestCase
+from backend.testing import GeneralTestCase
 from backend.utils.random_string import random_string
 from backend.models import User, Session
 

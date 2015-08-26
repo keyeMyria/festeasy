@@ -1,5 +1,5 @@
 from backend import create_app, db
-from backend.utils import GeneralTestCase
+from backend.testing import GeneralTestCase
 
 
 class ModelTestCase(GeneralTestCase):

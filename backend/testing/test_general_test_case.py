@@ -1,7 +1,8 @@
 import datetime
 
 from backend import db
-from backend.utils import GeneralTestCase, random_string
+from backend.testing import GeneralTestCase
+from backend.utils import random_string
 from backend.models import User, Session
 
 

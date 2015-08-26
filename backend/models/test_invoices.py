@@ -3,7 +3,7 @@ import datetime
 from backend import db
 from backend.models import Event, User, Order
 from backend.models import Cart, InvoiceProduct, Invoice
-from backend.utils import ModelTestCase
+from backend.testing import ModelTestCase
 
 
 class TestInvoice(ModelTestCase):

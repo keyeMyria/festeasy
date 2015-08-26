@@ -3,7 +3,7 @@ import datetime
 from backend import db
 from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart
-from backend.utils import ModelTestCase
+from backend.testing import ModelTestCase
 
 
 class TestUser(ModelTestCase):

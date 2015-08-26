@@ -4,7 +4,7 @@ from flask import url_for
 from backend import db
 from backend.models import User, Cart, Product
 from backend.models import Order
-from backend.utils import APITestCase
+from backend.testing import APITestCase
 from backend.api.v1.users.orders.create_user_order import _create_user_order
 
 
