@@ -54,6 +54,7 @@ class GeneralTestCase(TestCase):
                 'price_rands': 999.12345,
                 'cost_rands': 88.12345
             }
+            #kwargs = dict(chain(product_template.items(), kwargs.items()))
             kwargs = template_entity(product_template, kwargs)
         product = Product(*args, **kwargs)
         return product
