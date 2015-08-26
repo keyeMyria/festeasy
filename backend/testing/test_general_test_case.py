@@ -92,6 +92,7 @@ class TestGeneralTestCaseCreateUser(GeneralTestCase):
     def test_create_user_creates_valid_session(self):
         """ Test that create_user creates a valid session for created user.
         """
+        now = datetime.datetime.now()
         user = self.create_user(normal_user=True, valid_session=True)
         user.cart = Cart()
         db.session.add(user)
