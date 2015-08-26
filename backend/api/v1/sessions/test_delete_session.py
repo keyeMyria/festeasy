@@ -11,7 +11,7 @@ class TestDeleteSession(APITestCase):
     def test_delete_session_deletes_session(self):
         """ Test that a session is deleted.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, valid_session=True, with_cart=True)
         session = user.sessions[0]
         db.session.add(user)
         db.session.commit()

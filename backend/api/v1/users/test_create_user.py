@@ -53,7 +53,7 @@ class TestCreateUser(APITestCase):
         Test that duplicate email address returns 409.
         """
         email_address = 'test@festeasy.co.za'
-        user = self.create_user(email_address=email_address, create_normal_user=True, create_valid_cart=True)
+        user = self.create_user(email_address=email_address, normal_user=True, with_cart=True)
         db.session.add(user)
         db.session.commit()
 

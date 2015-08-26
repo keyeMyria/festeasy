@@ -8,7 +8,7 @@ from backend.api.utils.get_or_404 import get_or_404
 
 class TestGetOr404(APITestCase):
     def test_get_or_404_returns_element(self):
-        user = self.create_user(create_normal_user=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, with_cart=True)
         db.session.add(user)
         db.session.commit()
         self.assertEqual(get_or_404(User, user.id), user)

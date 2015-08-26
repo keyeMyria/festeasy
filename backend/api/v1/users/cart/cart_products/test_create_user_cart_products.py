@@ -11,7 +11,7 @@ class TestCreateCartUserProducts(APITestCase):
     def test_create_user_cart_product_creates_user_cart_product(self):
         """ Test that v1.create_user_cart_product creates a user_product_cart in the db.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, valid_session=True, with_cart=True)
         user.cart = Cart()
         product = self.create_product(create_valid_product=True)
         db.session.add(user)
@@ -36,7 +36,7 @@ class TestCreateCartUserProducts(APITestCase):
     def test_create_user_cart_products_creates_user_cart_products(self):
         """ Test that v1.create_user_cart_products creates a user_product_cart in the db.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, valid_session=True, with_cart=True)
         user.cart = Cart()
         product = self.create_product(create_valid_product=True)
         db.session.add(user)
@@ -64,7 +64,7 @@ class TestCreateCartUserProducts(APITestCase):
         """ Test that v1.create_user_cart_products 400s when
         the form is not valid.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, valid_session=True, with_cart=True)
         product = self.create_product(create_valid_product=True)
         db.session.add(user)
         db.session.add(product)
@@ -85,7 +85,7 @@ class TestCreateCartUserProducts(APITestCase):
     def test_create_user_cart_products_409s(self):
         """ Test that v1.create_user_cart_products 409s with dup.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, valid_session=True, with_cart=True)
         user.cart = Cart()
         product = self.create_product(create_valid_product=True)
         user.cart.products.append(product)
@@ -108,7 +108,7 @@ class TestCreateCartUserProducts(APITestCase):
     def test_create_user_cart_product_409s(self):
         """ Test that v1.create_user_cart_product 409s with dup.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True)
+        user = self.create_user(normal_user=True, valid_session=True)
         user.cart = Cart()
         product = self.create_product(create_valid_product=True)
         user.cart.products.append(product)

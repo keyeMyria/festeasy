@@ -11,7 +11,7 @@ class TestDeleteCartUserProducts(APITestCase):
     def test_delete_user_cart_product_delete_user_cart_products(self):
         """ Test that v1.delete_user_cart_products deletes a user_product_cart in the db.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True)
+        user = self.create_user(normal_user=True, valid_session=True)
         user.cart = Cart()
         product = self.create_product(create_valid_product=True)
         cart_product = CartProduct(
@@ -37,7 +37,7 @@ class TestDeleteCartUserProducts(APITestCase):
         """ Test that v1.delete_user_cart_products 404s with an 
         invalid user_cart_product ID.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True)
+        user = self.create_user(normal_user=True, valid_session=True)
         user.cart = Cart()
         product = self.create_product(create_valid_product=True)
         cart_product = CartProduct(

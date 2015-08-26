@@ -38,7 +38,7 @@ class TestGeneralTestCaseCreateSession(GeneralTestCase):
         now = datetime.datetime.now()
         expires_on = now + datetime.timedelta(seconds=30)
         token = random_string(25)
-        user = self.create_user(create_normal_user=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, with_cart=True)
         session = self.create_session(expires_on=expires_on, token=token, user=user)
         db.session.add(session)
         db.session.commit()
@@ -50,8 +50,8 @@ class TestGeneralTestCaseCreateSession(GeneralTestCase):
         """ Test create_session creates a valid session.
         """
         now = datetime.datetime.now()
-        user = self.create_user(create_normal_user=True, create_valid_cart=True)
-        session = self.create_session(create_valid_session=True, user=user)
+        user = self.create_user(normal_user=True, with_cart=True)
+        session = self.create_session(valid_session=True, user=user)
         db.session.add(session)
         db.session.commit()
         fetched_session = Session.query.first()
@@ -79,7 +79,7 @@ class TestGeneralTestCaseCreateUser(GeneralTestCase):
             A normal user has a first_name, email_address and password
             pre set for convenience.
         """
-        user = self.create_user(create_normal_user=True)
+        user = self.create_user(normal_user=True)
         user.cart = Cart()
         db.session.add(user)
         db.session.commit()
@@ -92,7 +92,7 @@ class TestGeneralTestCaseCreateUser(GeneralTestCase):
     def test_create_user_creates_valid_session(self):
         """ Test that create_user creates a valid session for created user.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True)
+        user = self.create_user(normal_user=True, valid_session=True)
         user.cart = Cart()
         db.session.add(user)
         db.session.commit()
@@ -100,12 +100,13 @@ class TestGeneralTestCaseCreateUser(GeneralTestCase):
         fetched_session = Session.query.first()
         self.assertIsNotNone(fetched_session)
         self.assertEqual(fetched_user.sessions, [fetched_session])
+        self.assertTrue(fetched_session.expires_on > now)
 
     def test_create_user_creates_no_session(self):
         """ Test that create_user does not create a session
         by default.
         """
-        user = self.create_user(create_normal_user=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, with_cart=True)
         db.session.add(user)
         db.session.commit()
         fetched_user = User.query.first()
@@ -113,13 +114,13 @@ class TestGeneralTestCaseCreateUser(GeneralTestCase):
         self.assertIsNone(fetched_session)
         self.assertEqual(fetched_user.sessions, [])
 
-    def test_create_user_creates_valid_cart(self):
-        """ Test that create_user creates a valid cart for created user.
+    def test_create_user_creates_cart(self):
+        """ Test that create_user creates a cart for created user.
         """
         user = self.create_user(
-            create_normal_user=True, 
-            create_valid_session=True, 
-            create_valid_cart=True,
+            normal_user=True, 
+            valid_session=True, 
+            with_cart=True,
         )
         db.session.add(user)
         db.session.commit()

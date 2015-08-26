@@ -15,8 +15,8 @@ class TestPatchProducts(APITestCase):
             email_address="asd@asd.com",
             password='123',
             is_admin=True,
-            create_valid_session=True,
-            create_valid_cart=True,
+            valid_session=True,
+            with_cart=True,
         )
         product = self.create_product(
             name='Test Product',

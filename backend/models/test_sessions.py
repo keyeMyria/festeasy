@@ -13,8 +13,8 @@ class TestSession(ModelTestCase):
         Test that a sessions user relationship exists.
         """
 
-        user = self.create_user(create_normal_user=True, create_valid_cart=True)
-        session = self.create_session(create_valid_session=True, user=user)
+        user = self.create_user(normal_user=True, with_cart=True)
+        session = self.create_session(valid_session=True, user=user)
         db.session.add(session)
         db.session.commit()
 
@@ -26,8 +26,8 @@ class TestSession(ModelTestCase):
         """ Test deleting a users session keeps user
         """
 
-        user = self.create_user(create_normal_user=True, create_valid_cart=True)
-        session = self.create_session(create_valid_session=True, user=user)
+        user = self.create_user(normal_user=True, with_cart=True)
+        session = self.create_session(valid_session=True, user=user)
         db.session.add(session)
         db.session.commit()
         

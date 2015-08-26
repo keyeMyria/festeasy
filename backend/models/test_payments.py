@@ -11,7 +11,7 @@ class TestPayment(ModelTestCase):
         """ Test that a Payment can be created.
         """
         product_price = 100
-        user = self.create_user(create_normal_user=True, create_valid_cart=True)
+        user = self.create_user(normal_user=True, with_cart=True)
         product = self.create_product(create_valid_product=True)
         event = self.create_event(name='asd')
         user.cart.products.append(product)

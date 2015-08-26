@@ -59,9 +59,9 @@ class GeneralTestCase(TestCase):
         product = Product(*args, **kwargs)
         return product
 
-    def create_session(self, *args, create_valid_session=False, **kwargs):
+    def create_session(self, *args, valid_session=False, **kwargs):
         now = datetime.datetime.now()
-        if create_valid_session:
+        if valid_session:
             session_template = {
                 'expires_on': now,
                 'token': random_string(25),
@@ -70,9 +70,9 @@ class GeneralTestCase(TestCase):
         session = Session(*args, **kwargs)
         return session
 
-    def create_user(self, *args, create_normal_user=False, create_valid_session=False, create_valid_cart=False, **kwargs):
+    def create_user(self, *args, normal_user=False, valid_session=False, with_cart=False, **kwargs):
         now = datetime.datetime.now()
-        if create_normal_user:
+        if normal_user:
             user_template = {
                 'email_address': 'auto-test@festeasy.co.za',
                 'password': 'autotest_password',
@@ -81,12 +81,12 @@ class GeneralTestCase(TestCase):
             kwargs = template_entity(user_template, kwargs)
         user = User(*args, **kwargs)
         
-        if create_valid_session:
+        if valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
             token = random_string(25)
             session = self.create_session(expires_on=expires_on, token=token)
             user.sessions.append(session)
 
-        if create_valid_cart:
+        if with_cart:
             user.cart = Cart()
         return user

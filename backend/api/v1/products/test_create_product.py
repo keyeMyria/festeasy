@@ -10,10 +10,10 @@ class TestCreateProduct(APITestCase):
     def test_create_product_creates_a_product(self):
         """Test that v1.create_product creates a Product.
         """
-        user = self.create_user(create_normal_user=True, 
+        user = self.create_user(normal_user=True, 
             is_admin=True, 
-            create_valid_session=True,
-            create_valid_cart=True,
+            valid_session=True,
+            with_cart=True,
         )
         db.session.add(user)
         db.session.commit()

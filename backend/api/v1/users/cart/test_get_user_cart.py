@@ -11,7 +11,7 @@ class TestGetCart(APITestCase):
         """ Test that v1.get_user_cart returns a user
         cart.
         """
-        user = self.create_user(create_normal_user=True, create_valid_session=True)
+        user = self.create_user(normal_user=True, valid_session=True)
         user.cart = Cart()
         db.session.add(user)
         db.session.commit()
