@@ -48,37 +48,36 @@ class GeneralTestCase(TestCase):
         return event
 
     def create_product(self, *args, create_valid_product=None, **kwargs):
-        product_template = {
-            'name': 'Auto Product',
-            'price_rands': 999.12345,
-            'cost_rands': 88.12345
-        }
         if create_valid_product:
+            product_template = {
+                'name': 'Auto Product',
+                'price_rands': 999.12345,
+                'cost_rands': 88.12345
+            }
             kwargs = template_entity(product_template, kwargs)
         product = Product(*args, **kwargs)
         return product
 
     def create_session(self, *args, create_valid_session=False, **kwargs):
         now = datetime.datetime.now()
-        session_template = {
-            'expires_on': now,
-            'token': random_string(25),
-        }
         if create_valid_session:
+            session_template = {
+                'expires_on': now,
+                'token': random_string(25),
+            }
             kwargs = template_entity(session_template, kwargs)
         session = Session(*args, **kwargs)
         return session
 
     def create_user(self, *args, create_normal_user=False, create_valid_session=False, create_valid_cart=False, **kwargs):
         now = datetime.datetime.now()
-        user_template = {
-            'email_address': 'auto-test@festeasy.co.za',
-            'password': 'autotest_password',
-            'first_name': 'autotest_first_name',
-        }
         if create_normal_user:
+            user_template = {
+                'email_address': 'auto-test@festeasy.co.za',
+                'password': 'autotest_password',
+                'first_name': 'autotest_first_name',
+            }
             kwargs = template_entity(user_template, kwargs)
-
         user = User(*args, **kwargs)
         
         if create_valid_session:
