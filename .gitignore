@@ -54,7 +54,6 @@ target/
 
 # Pyhton virtualenv
 venv/
-venv3/
 
 # Sublime
 *.sublime-workspace
