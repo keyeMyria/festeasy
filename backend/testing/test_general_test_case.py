@@ -4,7 +4,32 @@ from backend import db
 from backend.testing import GeneralTestCase
 from backend.utils import random_string
 from backend.models import User, Session, Cart
+from backend.models import Product
 
+
+class TestGeneralTestCaseCreateProduct(GeneralTestCase):
+    def test_create_product_creates_product(self):
+        """ Test that create_product creates a Product.
+        """
+        product = self.create_product()
+        product.name = 'abc'
+        product.cost_rands = 1
+        product.price_rands = 2
+        db.session.add(product)
+        db.session.commit()
+        fetched_product = Product.query.first()
+        self.assertIsNotNone(fetched_product)
+
+    def test_create_product_creates_valid_product(self):
+        """ Test that create_product creates a valid Product,
+        with name, cost_rands and price_rands pre-populated
+        for convenience.
+        """
+        product = self.create_product(create_valid_product=True)
+        db.session.add(product)
+        db.session.commit()
+        fetched_product = Product.query.first()
+        self.assertIsNotNone(fetched_product)
 
 class TestGeneralTestCaseCreateSession(GeneralTestCase):
     def test_create_session_creates_session(self):
