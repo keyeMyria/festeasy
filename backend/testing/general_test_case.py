@@ -7,6 +7,7 @@ from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
 from backend.models import Payment
+from backend.testing.utils import template_entity
 
 
 class GeneralTestCase(TestCase):
@@ -21,12 +22,6 @@ class GeneralTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-
-    def template_entity(self, entity_template, kwargs):
-        for key, val in entity_template.items():
-            if key not in kwargs.keys():
-                kwargs[key] = val
-        return kwargs
 
     def create_payment(self, *args, **kwargs):
         payment = Payment(*args, **kwargs)
@@ -59,7 +54,7 @@ class GeneralTestCase(TestCase):
             'cost_rands': 88.12345
         }
         if create_valid_product:
-            kwargs = self.template_entity(product_template, kwargs)
+            kwargs = template_entity(product_template, kwargs)
         product = Product(*args, **kwargs)
         return product
 
@@ -70,7 +65,7 @@ class GeneralTestCase(TestCase):
             'token': random_string(25),
         }
         if create_valid_session:
-            kwargs = self.template_entity(session_template, kwargs)
+            kwargs = template_entity(session_template, kwargs)
         session = Session(*args, **kwargs)
         return session
 
@@ -82,7 +77,7 @@ class GeneralTestCase(TestCase):
             'first_name': 'autotest_first_name',
         }
         if create_normal_user:
-            self.template_entity(user_template, kwargs)
+            kwargs = template_entity(user_template, kwargs)
 
         user = User(*args, **kwargs)
         
