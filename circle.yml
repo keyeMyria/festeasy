@@ -5,11 +5,9 @@ machine:
     version: 3.4.2
 
 dependencies:
-  cache_directories:
-    - "node_modules/"
   override:
     - pip install -r requirements.txt --upgrade
-    - npm install divshot-cli
+    - npm install -g divshot-cli
 
 test:
   override:
