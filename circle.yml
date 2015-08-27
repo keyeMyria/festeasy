@@ -13,3 +13,6 @@ deployment:
     branch: master
     heroku:
       appname: fest-easy-backend
+    commands:
+      - npm install -g divshot-cli
+      - cd www && divshot push staging --token $DIVSHOT_TOKEN
