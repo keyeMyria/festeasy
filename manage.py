@@ -1,6 +1,4 @@
 import sys, os
-import nose
-import logging
 import logging
 import IPython
 from flask import current_app
