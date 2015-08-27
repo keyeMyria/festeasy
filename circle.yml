@@ -12,4 +12,4 @@ deployment:
   staging:
     branch: master
     heroku:
-      appname: fest-easy
+      appname: fest-easy-backend
