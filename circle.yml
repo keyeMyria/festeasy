@@ -19,3 +19,9 @@ deployment:
     commands:
       - git push git@heroku.com:festeasy.git $CIRCLE_SHA1:master
       - cd www && divshot push staging --token $DIVSHOT_TOKEN
+  production:
+    branch: production
+    commands:
+      - git push git@heroku.com:festeasy.git $CIRCLE_SHA1:master
+      - cd www && divshot push production --token $DIVSHOT_TOKEN
+      
