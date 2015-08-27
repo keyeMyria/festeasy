@@ -3,8 +3,12 @@ machine:
     Etc/UTC
   python:
     version: 3.4.2
+  node:
+    version: 0.10.33
 
 dependencies:
+  cache_directories:
+    - ~/nvm/v0.10.33/
   override:
     - pip install -r requirements.txt --upgrade
     - npm install -g divshot-cli
