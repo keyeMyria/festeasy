@@ -9,10 +9,12 @@ test:
     - nose2
 
 deployment:
-  staging:
+  backend-staging:
     branch: master
     heroku:
       appname: fest-easy-backend
+  www-staging:
+    branch: master
     commands:
       - npm install -g divshot-cli
       - cd www && divshot push staging --token $DIVSHOT_TOKEN
