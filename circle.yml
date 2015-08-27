@@ -7,3 +7,9 @@ machine:
 test:
   override:
     - nose2
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: fest-easy
