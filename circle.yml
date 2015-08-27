@@ -12,6 +12,6 @@ deployment:
   staging:
     branch: master
     commands:
-      - git push git@heroku.com:fest-easy-backend.git $CIRCLE_SHA1:master
+      - git push git@heroku.com:festeasy.git $CIRCLE_SHA1:master
       - npm install -g divshot-cli
       - cd www && divshot push staging --token $DIVSHOT_TOKEN
