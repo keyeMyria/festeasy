@@ -4,6 +4,11 @@ machine:
   python:
     version: 3.4.2
 
+dependencies:
+  override:
+    - pip install -r requirements.txt --upgrade
+    - npm install -g divshot-cli
+
 test:
   override:
     - nose2
@@ -13,5 +18,4 @@ deployment:
     branch: master
     commands:
       - git push git@heroku.com:festeasy.git $CIRCLE_SHA1:master
-      - npm install -g divshot-cli
       - cd www && divshot push staging --token $DIVSHOT_TOKEN
