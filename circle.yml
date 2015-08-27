@@ -18,4 +18,12 @@ deployment:
     branch: staging
     commands:
       - git push git@heroku.com:festeasy.git $CIRCLE_SHA1:master
+      - echo "app.constant('API_END_POINT', 'http://festeasy.herokuapp.com/v1');" > www/scripts/settings.js
       - cd www && divshot push staging --token $DIVSHOT_TOKEN
+  production:
+    branch: production
+    commands:
+      - git push git@heroku.com:festeasy.git $CIRCLE_SHA1:master
+      - echo "app.constant('API_END_POINT', 'http://festeasy.herokuapp.com/v1');" > www/scripts/settings.js
+      - cd www && divshot push production --token $DIVSHOT_TOKEN
+      
