@@ -1,6 +1,4 @@
 machine:
-  timezone:
-    Etc/UTC
   python:
     version: 3.4.2
 
