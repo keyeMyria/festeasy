@@ -3,14 +3,8 @@ machine:
     Etc/UTC
   python:
     version: 3.4.2
-  node:
-    version: 0.10.33
 
 dependencies:
-  cache_directories:
-    - ~/nvm/v0.10.33/
-  pre:
-    - if [ ! -e ~/nvm/v0.10.33/bin/divshot ]; then npm install -g divshot-cli; else echo "Divshot seems to be cached."; fi;
   override:
     - pip install -r requirements.txt --upgrade
 
@@ -23,12 +17,8 @@ deployment:
     branch: staging
     commands:
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
-      - echo "app.constant('API_END_POINT', 'http://festeasy-staging.herokuapp.com/v1');" > www/scripts/settings.js
-      - cd www && divshot push staging --token $DIVSHOT_TOKEN
   production:
     branch: production
     commands:
       - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
-      - echo "app.constant('API_END_POINT', 'http://festeasy-production.herokuapp.com/v1');" > www/scripts/settings.js
-      - cd www && divshot push production --token $DIVSHOT_TOKEN
       
