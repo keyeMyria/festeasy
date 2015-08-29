@@ -11,6 +11,8 @@ def create_app(config='live'):
 
     from backend.api import v1_bp
     app.register_blueprint(v1_bp, url_prefix='/v1')
+
+    app.config['BUNDLE_ERRORS'] = True
     
     db.init_app(app)
 
