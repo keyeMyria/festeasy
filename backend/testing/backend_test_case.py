@@ -43,7 +43,12 @@ class BackendTestCase(TestCase):
         order = Order(*args, **kwargs)
         return order
 
-    def create_event(self, *args, **kwargs):
+    def create_event(self, *args, pre_populate=False, **kwargs):
+        if pre_populate:
+            template = {
+                'name': 'My Event',
+            }
+            kwargs = template_entity(template, kwargs)
         event = Event(*args, **kwargs)
         return event
 

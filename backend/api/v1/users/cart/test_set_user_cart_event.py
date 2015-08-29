@@ -13,7 +13,7 @@ class TestSetUserCartEvent(APITestCase):
         """
         user = self.create_user(normal_user=True, valid_session=True)
         user.cart = Cart()
-        event = self.create_event(name='asd')
+        event = self.create_event(pre_populate=True)
         db.session.add(event)
         db.session.add(user)
         db.session.commit()
@@ -34,7 +34,7 @@ class TestSetUserCartEvent(APITestCase):
         """
         user = self.create_user(normal_user=True, valid_session=True)
         user.cart = Cart()
-        event = self.create_event(name='asd')
+        event = self.create_event(pre_populate=True)
         db.session.add(event)
         db.session.add(user)
         db.session.commit()
