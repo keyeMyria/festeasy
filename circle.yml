@@ -1,6 +1,4 @@
 machine:
-  timezone:
-    Etc/UTC
   python:
     version: 3.4.2
 
@@ -16,9 +14,13 @@ deployment:
   staging:
     branch: staging
     commands:
+      - curl http://festeasy-staging.herokuapp.com:
+          background: true
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
   production:
     branch: production
     commands:
+      - curl http://festeasy-production.herokuapp.com:
+          background: true
       - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
       
