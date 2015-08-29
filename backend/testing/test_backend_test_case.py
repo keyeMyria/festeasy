@@ -1,13 +1,13 @@
 import datetime
 
 from backend import db
-from backend.testing import GeneralTestCase
+from backend.testing import BackendTestCase
 from backend.utils import random_string
 from backend.models import User, Session, Cart
 from backend.models import Product
 
 
-class TestGeneralTestCaseCreateProduct(GeneralTestCase):
+class TestBackendTestCaseCreateProduct(BackendTestCase):
     def test_create_product_creates_product(self):
         """ Test that create_product creates a Product.
         """
@@ -31,7 +31,7 @@ class TestGeneralTestCaseCreateProduct(GeneralTestCase):
         fetched_product = Product.query.first()
         self.assertIsNotNone(fetched_product)
 
-class TestGeneralTestCaseCreateSession(GeneralTestCase):
+class TestBackendTestCaseCreateSession(BackendTestCase):
     def test_create_session_creates_session(self):
         """ Test create_session creates a session.
         """
@@ -59,7 +59,7 @@ class TestGeneralTestCaseCreateSession(GeneralTestCase):
         self.assertEqual(fetched_session, session)
         self.assertTrue(fetched_session.expires_on > now)
 
-class TestGeneralTestCaseCreateUser(GeneralTestCase):
+class TestBackendTestCaseCreateUser(BackendTestCase):
     def test_create_user_creates_user(self):
         """ Test that create_user creates a user.
         """

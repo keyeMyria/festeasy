@@ -1,6 +1,6 @@
 from backend import create_app, db
-from backend.testing import GeneralTestCase
+from backend.testing import BackendTestCase
 
 
-class ModelTestCase(GeneralTestCase):
+class ModelTestCase(BackendTestCase):
     pass

@@ -3,12 +3,12 @@ import datetime
 import json
 
 from backend import create_app, db
-from backend.testing import GeneralTestCase
+from backend.testing import BackendTestCase
 from backend.utils.random_string import random_string
 from backend.models import User, Session
 
 
-class APITestCase(GeneralTestCase):
+class APITestCase(BackendTestCase):
 
     def api_request(self, method, url, data=None, as_user=None, with_session=None):
         kwargs = dict()
