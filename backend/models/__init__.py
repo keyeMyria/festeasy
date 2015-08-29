@@ -22,14 +22,14 @@ class Entity(object):
         nullable=False)
 
 # All the models
-from .sessions import Session
-from .users import User
-from .products import Product
-from .events import Event
-from .order_products import OrderProduct
-from .orders import Order
-from .cart_products import CartProduct
-from .carts import Cart
-from .invoice_products import InvoiceProduct
-from .payments import Payment
-from .invoices import Invoice
+from .session import Session
+from .user import User
+from .product import Product
+from .event import Event
+from .order_product import OrderProduct
+from .order import Order
+from .cart_product import CartProduct
+from .cart import Cart
+from .invoice_product import InvoiceProduct
+from .payment import Payment
+from .invoice import Invoice
