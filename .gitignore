@@ -60,6 +60,3 @@ venv/
 
 # sqlite
 *.db
-
-# Bower components
-#bower_components/

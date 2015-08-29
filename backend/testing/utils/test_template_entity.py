@@ -1,8 +1,8 @@
-from backend.testing import GeneralTestCase
+from backend.testing import BackendTestCase
 from backend.testing.utils import template_entity
 
 
-class TestTemplateEntity(GeneralTestCase):
+class TestTemplateEntity(BackendTestCase):
 	def test_template_entity(self):
 		template_name = 'Jason'
 		template_email_address = 't@q.io'

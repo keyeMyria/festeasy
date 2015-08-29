@@ -1,3 +1,3 @@
-from .general_test_case import GeneralTestCase
+from .backend_test_case import BackendTestCase
 from .api_test_case import APITestCase
 from .model_test_case import ModelTestCase
