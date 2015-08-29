@@ -29,7 +29,7 @@ class CartProduct(db.Model, Entity, Dumpable):
 
     sub_total_rands = column_property(
         quantity * select([(Product.price_rands)]).where(Product.id == product_id)
-        )
+    )
 
     __table_args__ = (
         UniqueConstraint('cart_id', 'product_id'),

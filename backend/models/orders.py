@@ -29,8 +29,8 @@ class Order(db.Model, Entity, Dumpable):
 
     invoices = relationship('Invoice', back_populates='order')
 
-    products = relationship('Product', secondary='order_product', back_populates='orders',
-        cascade='save-update, merge')
+    products = relationship('Product', secondary='order_product', 
+        back_populates='orders', cascade='save-update, merge')
 
     order_products = relationship('OrderProduct', back_populates='order',
         cascade='save-update, merge')
@@ -60,4 +60,4 @@ class Order(db.Model, Entity, Dumpable):
 # Total amount for an Order.
 Order.total_rands = column_property(
     select([func.sum(OrderProduct.sub_total_rands)]).where(OrderProduct.order_id==Order.id).correlate(Order)
-    )
+)

@@ -32,7 +32,7 @@ class OrderProduct(db.Model, Entity, Dumpable):
 
     sub_total_rands = column_property(
         unit_price_rands * quantity
-        )
+    )
 
     __table_args__ = (
         UniqueConstraint('order_id', 'product_id'),

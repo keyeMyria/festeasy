@@ -24,13 +24,22 @@ class User(db.Model, Entity, Dumpable):
         'is_admin',
     ]
 
-    @property
-    def is_guest(self):
-        return (self.guest_token and not any([
-            self.email_address, 
-            self.password_hash, 
-            self.first_name,])
-        )
+    def __init__(self, email_address=None, password=None, first_name=None, last_name=None, 
+        cart=None, is_admin=None, guest_token=None, sessions=[], orders=[]):
+    
+        self.is_admin = is_admin
+        self.email_address = email_address
+        if password:
+            self.password_hash = generate_password_hash(password)
+        self.first_name = first_name
+        self.last_name = last_name
+        self.cart = cart
+        self.guest_token = guest_token
+        self.sessions = sessions
+        self.orders = orders
+
+    def __repr__(self):
+        return '<User {id}>'.format(id=self.id)
     
     email_address = Column(String(200), unique=True, nullable=True)
     password_hash = Column(String(200), nullable=True)
@@ -63,18 +72,11 @@ class User(db.Model, Entity, Dumpable):
     def has_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __init__(self, email_address=None, password=None, first_name=None, last_name=None, cart=None,
-        is_admin=None, guest_token=None, sessions=[], orders=[]):
-        self.is_admin = is_admin
-        self.email_address = email_address
-        if password:
-            self.password_hash = generate_password_hash(password)
-        self.first_name = first_name
-        self.last_name = last_name
-        self.cart = cart
-        self.guest_token = guest_token
-        self.sessions = sessions
-        self.orders = orders
-
-    def __repr__(self):
-        return '<User {id}>'.format(id=self.id)
+    @property
+    def is_guest(self):
+        return (self.guest_token and not any([
+            self.email_address, 
+            self.password_hash, 
+            self.first_name,
+            ])
+        )

@@ -42,7 +42,7 @@ class Invoice(db.Model, Entity, Dumpable):
                     unit_price_rands=order_product.unit_price_rands,
                     quantity=order_product.quantity,
                     invoice=self,
-                    ))
+                ))
 
     def __repr__(self):
         return '<Invoice {id}>'.format(id=self.id)

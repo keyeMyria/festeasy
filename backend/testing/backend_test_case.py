@@ -91,7 +91,7 @@ class BackendTestCase(TestCase):
             token = random_string(25)
             session = self.create_session(expires_on=expires_on, token=token)
             user.sessions.append(session)
-
+            
         if with_cart:
             user.cart = Cart()
         return user

@@ -15,17 +15,13 @@ class TestCart(ModelTestCase):
         user = self.create_user(normal_user=True, with_cart=True)
         product_1 = self.create_product(create_valid_product=True, price_rands=price)
         product_2 = self.create_product(create_valid_product=True, price_rands=price * 2)
-
         cart_product_1 = self.create_cart_product(cart=user.cart, product=product_1,
         	quantity=2)
         cart_product_2 = self.create_cart_product(cart=user.cart, product=product_2,
         	quantity=1)
-
         db.session.add(cart_product_1)
         db.session.add(cart_product_2)
         db.session.add(user)
         db.session.commit()
-
-        fetched_cart = Cart.query.one()
-
+        fetched_cart = Cart.query.first()
         self.assertEqual(fetched_cart.total_rands, price * 4)
