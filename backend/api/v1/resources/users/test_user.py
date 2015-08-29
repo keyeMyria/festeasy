@@ -13,5 +13,5 @@ class TestUserResource(APITestCase):
             'get', 
             url_for('v1.userresource', user_id=user.id),
         )
-        print(response.json)
-        self.fail()
+        self.assertEqual(response.json['id'], user.id)
+        
