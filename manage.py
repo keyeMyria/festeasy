@@ -4,19 +4,11 @@ from IPython.terminal.interactiveshell import TerminalInteractiveShell
 from flask import current_app
 from flask.ext.script import Manager, Command, Option
 from flask.ext.script import Shell, Server
-from rainbow_logging_handler import RainbowLoggingHandler
 
 from backend import create_app, db
 from backend import models
 from backend.models import User, Product, Event, Cart
 
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-console = RainbowLoggingHandler(sys.stderr, color_funcName=('white',True))
-console_formatter = logging.Formatter("[%(asctime)s] %(name)s %(funcName)s():%(lineno)d\t%(message)s")
-console.setFormatter(console_formatter)
-logger.addHandler(console)
 
 manager = Manager(create_app, with_default_commands=False)
 manager.add_option('-c', '--config', dest='config', default='live', required=False)
