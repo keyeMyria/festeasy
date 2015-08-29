@@ -1,6 +1,6 @@
 import sys, os
 import logging
-import IPython
+from IPython.terminal.interactiveshell import TerminalInteractiveShell
 from flask import current_app
 from flask.ext.script import Manager, Command, Option
 from flask.ext.script import Shell, Server
@@ -19,7 +19,7 @@ console.setFormatter(console_formatter)
 logger.addHandler(console)
 
 manager = Manager(create_app, with_default_commands=False)
-manager.add_option('-c', '--config', dest='config', default='dev', required=False)
+manager.add_option('-c', '--config', dest='config', default='live', required=False)
 
 class RunServer(Server):
     def handle(self, *args, **kwargs):
@@ -75,8 +75,8 @@ def _make_context():
     )
     context.update(vars(models))
     return context
-manager.add_command('shell', Shell(make_context=_make_context, use_ipython=True))
+manager.add_command('shell', Shell(make_context=_make_context))
 
 if __name__ == '__main__':
-    IPython.terminal.interactiveshell.TerminalInteractiveShell.confirm_exit.default_value = False
+    TerminalInteractiveShell.confirm_exit.default_value = False
     manager.run()
