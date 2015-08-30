@@ -1,9 +1,9 @@
-import logging
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
 
 db = SQLAlchemy()
+
 
 def create_app(config='live'):
     app = Flask(__name__)
@@ -16,7 +16,7 @@ def create_app(config='live'):
     app.register_blueprint(v1_bp, url_prefix='/api/v1')
 
     app.config['BUNDLE_ERRORS'] = True
-    
+
     db.init_app(app)
 
     return app
