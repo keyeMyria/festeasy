@@ -1,8 +1,6 @@
-import sys, os
-import logging
 from IPython.terminal.interactiveshell import TerminalInteractiveShell
 from flask import current_app
-from flask.ext.script import Manager, Command, Option
+from flask.ext.script import Manager, Command
 from flask.ext.script import Shell, Server
 
 from backend import create_app, db
@@ -11,22 +9,32 @@ from backend.models import User, Product, Event, Cart
 
 
 manager = Manager(create_app, with_default_commands=False)
-manager.add_option('-c', '--config', dest='config', default='live', required=False)
+manager.add_option(
+    '-c', '--config',
+    dest='config', default='live', required=False
+)
+
 
 class RunServer(Server):
     def handle(self, *args, **kwargs):
         Server.handle(self, *args, **kwargs)
-manager.add_command('run-api', RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'))
+manager.add_command(
+    'run-api',
+    RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'),
+)
+
 
 class CreateAll(Command):
     def run(self):
         db.create_all()
 manager.add_command('create-all', CreateAll())
 
+
 class DropAll(Command):
     def run(self):
         db.drop_all()
 manager.add_command('drop-all', DropAll())
+
 
 class InitDB(Command):
     def run(self):
@@ -34,31 +42,40 @@ class InitDB(Command):
         db.create_all()
         users = [
             User(
-                email_address='test@festeasy.co.za', 
+                email_address='test@festeasy.co.za',
                 password='123',
                 is_admin=True,
                 first_name='TestName',
-                cart=Cart())
-            ]
+                cart=Cart()
+            )
+        ]
         products = [
-            Product(name='Castle Lite Beer', cost_rands=10, is_enabled=True, price_rands=20),
-            Product(name='Lays Small Pack', cost_rands=10, is_enabled=True, price_rands=9),
-            Product(name='Coke Can', cost_rands=10, is_enabled=True, price_rands=9),
-            Product(name='Windhoek Beer', cost_rands=10, is_enabled=True, price_rands=21),
-            Product(name='Text Chocolate', cost_rands=10, is_enabled=True, price_rands=9),
-            Product(name='KitKat Chocolate', cost_rands=10, is_enabled=True, price_rands=8),
-            Product(name='Jelly Beans', cost_rands=10, is_enabled=True, price_rands=7),
-            ]
+            Product(name='Castle Lite Beer',
+                    cost_rands=10, is_enabled=True, price_rands=20),
+            Product(name='Lays Small Pack',
+                    cost_rands=10, is_enabled=True, price_rands=9),
+            Product(name='Coke Can',
+                    cost_rands=10, is_enabled=True, price_rands=9),
+            Product(name='Windhoek Beer',
+                    cost_rands=10, is_enabled=True, price_rands=21),
+            Product(name='Text Chocolate',
+                    cost_rands=10, is_enabled=True, price_rands=9),
+            Product(name='KitKat Chocolate',
+                    cost_rands=10, is_enabled=True, price_rands=8),
+            Product(name='Jelly Beans',
+                    cost_rands=10, is_enabled=True, price_rands=7),
+        ]
         events = [
             Event(name='Rocking The Daisies', is_enabled=True),
             Event(name='Sunflower Fest', is_enabled=True),
             Event(name='Oppie Koppie', is_enabled=True),
-            ]
+        ]
         things = users + products + events
         for thing in things:
             db.session.add(thing)
         db.session.commit()
 manager.add_command('init-db', InitDB())
+
 
 def _make_context():
     context = dict(
