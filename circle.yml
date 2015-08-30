@@ -7,7 +7,7 @@ dependencies:
     - sudo apt-get -yqq install python3-dev
     - sudo ldconfig
   override:
-    - pip install -qr requirements.txt --upgrade
+    - pip install -qUr requirements.txt
 
 test:
   override:
