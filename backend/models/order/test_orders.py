@@ -1,8 +1,5 @@
-import datetime
-
 from backend import db
-from backend.models import Event, User, Order
-from backend.models import Cart
+from backend.models import Order
 from backend.testing import ModelTestCase
 
 
@@ -13,8 +10,14 @@ class TestOrder(ModelTestCase):
         """
         event = self.create_event(name='test')
         price = 10
-        product_1 = self.create_product(create_valid_product=True, price_rands=price)
-        product_2 = self.create_product(create_valid_product=True, price_rands=price)
+        product_1 = self.create_product(
+            create_valid_product=True,
+            price_rands=price
+        )
+        product_2 = self.create_product(
+            create_valid_product=True,
+            price_rands=price
+        )
         order = self.create_order(
             event=event,
         )
@@ -30,7 +33,11 @@ class TestOrder(ModelTestCase):
             order=order,
             product=product_2,
         )
-        user = self.create_user(normal_user=True, orders=[order], with_cart=True)
+        user = self.create_user(
+            normal_user=True,
+            orders=[order],
+            with_cart=True
+        )
         db.session.add(user)
         db.session.commit()
         fetched_order = Order.query.one()
@@ -41,7 +48,10 @@ class TestOrder(ModelTestCase):
         from a Cart.
         """
         user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(create_valid_product=True, price_rands=11)
+        product = self.create_product(
+            create_valid_product=True,
+            price_rands=11,
+        )
         event = self.create_event(name='qwe')
         user.cart.event = event
         user.cart.products.append(product)

@@ -1,4 +1,3 @@
-import datetime
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
@@ -28,8 +27,10 @@ class Session(db.Model, Entity, Dumpable):
 
     expires_on = Column(DateTime, nullable=False)
     token = Column(String(200), nullable=False, unique=True)
-    
+
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    user = relationship('User', back_populates='sessions', 
-    	cascade='save-update, merge')
-    
+    user = relationship(
+        'User',
+        back_populates='sessions',
+        cascade='save-update, merge',
+    )

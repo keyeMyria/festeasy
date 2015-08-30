@@ -1,14 +1,12 @@
-import datetime
-
 from backend import db
-from backend.models import User, Session, Product
-from backend.models import Event, Order, Cart
+from backend.models import User
 from backend.testing import ModelTestCase
 
 
 class TestUser(ModelTestCase):
     def test_user_is_not_guest(self):
-        """ Test that user.is_guest is False if a user 
+        """
+        Test that user.is_guest is False if a user
         has an email_address, first_name and password set.
         """
         user = self.create_user(email_address='asd@asd.com', with_cart=True)
@@ -21,7 +19,8 @@ class TestUser(ModelTestCase):
         self.assertFalse(fetched_user.is_guest)
 
     def test_user_is_not_guest_with_email(self):
-        """ Test that user.is_guest is False if a user 
+        """
+        Test that user.is_guest is False if a user
         has an email_address, first_name, password and guest_token set.
         """
         user = self.create_user(email_address='asd@asd.com', with_cart=True)
@@ -35,7 +34,8 @@ class TestUser(ModelTestCase):
         self.assertFalse(fetched_user.is_guest)
 
     def test_user_is_guest(self):
-        """ Test that user.is_guest is True if a user 
+        """
+        Test that user.is_guest is True if a user
         has only a guest_token set.
         """
         user = self.create_user(with_cart=True)
@@ -46,7 +46,8 @@ class TestUser(ModelTestCase):
         self.assertTrue(fetched_user.is_guest)
 
     def test_user_check_constraint_as_guest(self):
-        """ Test CheckConstraint for a guest user.
+        """
+        Test CheckConstraint for a guest user.
         """
         user = self.create_user(with_cart=True)
         user.guest_token = 'asd'
@@ -56,7 +57,8 @@ class TestUser(ModelTestCase):
         self.assertIsNotNone(fetched_user)
 
     def test_user_check_constraint_non_guest(self):
-        """ Test CheckConstraint for a normal user.
+        """
+        Test CheckConstraint for a normal user.
         """
         user = self.create_user(with_cart=True)
         db.session.add(user)

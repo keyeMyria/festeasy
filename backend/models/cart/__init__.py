@@ -22,28 +22,6 @@ class Cart(db.Model, Entity, Dumpable):
         'number_of_items',
     ]
 
-    @property
-    def selectable_events(self):
-        selectable_events = Event.query.all()
-        return selectable_events
-
-    @property
-    def number_of_items(self):
-        return len(self.cart_products)
-    
-    event_id = Column(Integer, ForeignKey('event.id'))
-    event = relationship('Event', back_populates='carts',
-        cascade='save-update, merge')
-
-    user = relationship('User', back_populates='cart', uselist=False,
-        cascade='save-update, merge')
-
-    products = relationship('Product', secondary='cart_product', back_populates='carts',
-        cascade='save-update, merge')
-
-    cart_products = relationship('CartProduct', back_populates='cart',
-        cascade='save-update, merge, delete, delete-orphan')
-
     def __init__(self, event=None, user=None, products=[]):
         self.event = event
         self.user = user
@@ -52,6 +30,40 @@ class Cart(db.Model, Entity, Dumpable):
     def __repr__(self):
         return '<Cart {id}>'.format(id=self.id)
 
+    event_id = Column(Integer, ForeignKey('event.id'))
+    event = relationship(
+        'Event',
+        back_populates='carts',
+        cascade='save-update, merge'
+    )
+    user = relationship(
+        'User',
+        back_populates='cart',
+        uselist=False,
+        cascade='save-update, merge'
+    )
+    products = relationship(
+        'Product',
+        secondary='cart_product',
+        back_populates='carts',
+        cascade='save-update, merge'
+    )
+    cart_products = relationship(
+        'CartProduct',
+        back_populates='cart',
+        cascade='save-update, merge, delete, delete-orphan'
+    )
+
+    @property
+    def selectable_events(self):
+        selectable_events = Event.query.all()
+        return selectable_events
+
+    @property
+    def number_of_items(self):
+        return len(self.cart_products)
+
 Cart.total_rands = column_property(
-    select([func.sum(CartProduct.sub_total_rands)]).where(CartProduct.cart_id==Cart.id).correlate(Cart)
+    select([func.sum(CartProduct.sub_total_rands)]).where(
+        CartProduct.cart_id == Cart.id).correlate(Cart)
 )

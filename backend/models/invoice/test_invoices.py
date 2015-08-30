@@ -1,19 +1,20 @@
-import datetime
-
 from backend import db
-from backend.models import Event, User, Order
-from backend.models import Cart, InvoiceProduct, Invoice
+from backend.models import Invoice
 from backend.testing import ModelTestCase
 
 
 class TestInvoice(ModelTestCase):
     def test_from_order(self):
-        """ Test that Invoice.from_order sets up an Invoice from an 
+        """
+        Test that Invoice.from_order sets up an Invoice from an
         Order correctly.
         """
         product_price = 99
         user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(create_valid_product=True, price_rands=product_price)
+        product = self.create_product(
+            create_valid_product=True,
+            price_rands=product_price
+        )
         order = self.create_order()
         event = self.create_event(name='asd')
         user.cart.event = event
@@ -37,7 +38,10 @@ class TestInvoice(ModelTestCase):
         """
         product_price = 99
         user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(create_valid_product=True, price_rands=product_price)
+        product = self.create_product(
+            create_valid_product=True,
+            price_rands=product_price
+        )
         order = self.create_order()
         event = self.create_event(name='asd')
         user.cart.event = event
@@ -53,13 +57,16 @@ class TestInvoice(ModelTestCase):
         db.session.commit()
         fetched_invoice = Invoice.query.first()
         self.assertEqual(fetched_invoice.total_rands, product_price)
-        
+
     def test_invoice_amount_due_rands_with_payment(self):
         """ Test that Invoice.amount_due_rands is correct with a Payment.
         """
         product_price = 99
         user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(create_valid_product=True, price_rands=product_price)
+        product = self.create_product(
+            create_valid_product=True,
+            price_rands=product_price
+        )
         order = self.create_order()
         event = self.create_event(name='asd')
         user.cart.event = event
@@ -73,18 +80,24 @@ class TestInvoice(ModelTestCase):
         invoice.from_order(order)
         db.session.add(invoice)
         db.session.commit()
-        payment = self.create_payment(amount_rands=product_price - 9, invoice=invoice)
+        payment = self.create_payment(
+            amount_rands=product_price - 9,
+            invoice=invoice,
+        )
         db.session.add(payment)
         db.session.commit()
         fetched_invoice = Invoice.query.first()
         self.assertEqual(fetched_invoice.amount_due_rands, 9)
-        
+
     def test_invoice_amount_due_rands_with_no_payment(self):
         """ Test that Invoice.amount_due_rands is correct with no Payments.
         """
         product_price = 99
         user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(create_valid_product=True, price_rands=product_price)
+        product = self.create_product(
+            create_valid_product=True,
+            price_rands=product_price
+        )
         order = self.create_order()
         event = self.create_event(name='asd')
         user.cart.event = event

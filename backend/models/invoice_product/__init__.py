@@ -1,5 +1,4 @@
-import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Numeric
+from sqlalchemy import Column, Integer, Numeric
 from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship, column_property
 
@@ -19,6 +18,16 @@ class InvoiceProduct(db.Model, Entity, Dumpable):
         'product',
     ]
 
+    def __init__(self, unit_price_rands=None, 
+            quantity=None, product=None, invoice=None):
+        self.unit_price_rands = unit_price_rands
+        self.quantity = quantity
+        self.product = product
+        self.invoice = invoice
+
+    def __repr__(self):
+        return '<InvoiceProduct {id}>'.format(id=self.id)
+
     unit_price_rands = Column(Numeric, nullable=False)
     quantity = Column(Integer, default=1, nullable=False)
 
@@ -35,13 +44,3 @@ class InvoiceProduct(db.Model, Entity, Dumpable):
     __table_args__ = (
         UniqueConstraint('invoice_id', 'product_id'),
     )
-
-    def __init__(self, unit_price_rands=None, quantity=None, product=None, invoice=None):
-        self.unit_price_rands = unit_price_rands
-        self.quantity = quantity
-        self.product = product
-        self.invoice = invoice
-        
-
-    def __repr__(self):
-        return '<InvoiceProduct {id}>'.format(id=self.id)
