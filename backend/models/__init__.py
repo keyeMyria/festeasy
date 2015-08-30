@@ -1,35 +1,41 @@
 import datetime
-from sqlalchemy import Column, Integer, String
-from sqlalchemy import DateTime, func
+from sqlalchemy import Column, Integer
+from sqlalchemy import DateTime
 
 from backend import db
 
 
 class Dumpable(object):
     whitelist = []
+
     def dump(self):
-        return {attr: getattr(self, attr) 
-            for attr in self.whitelist}
+        return {attr: getattr(self, attr)
+                for attr in self.whitelist}
+
 
 class Entity(object):
     id = Column(Integer, primary_key=True)
-    created_on = Column(DateTime, 
-    	default=datetime.datetime.utcnow, 
-        nullable=False)
-    last_updated_on = db.Column(db.DateTime, 
-    	default=datetime.datetime.utcnow,
+    created_on = Column(
+        DateTime,
+        default=datetime.datetime.utcnow,
+        nullable=False,
+    )
+    last_updated_on = db.Column(
+        db.DateTime,
+        default=datetime.datetime.utcnow,
         onupdate=datetime.datetime.utcnow,
-        nullable=False)
+        nullable=False,
+    )
 
 # All the models
-from .sessions import Session
-from .users import User
-from .products import Product
-from .events import Event
-from .order_products import OrderProduct
-from .orders import Order
-from .cart_products import CartProduct
-from .carts import Cart
-from .invoice_products import InvoiceProduct
-from .payments import Payment
-from .invoices import Invoice
+from .session import Session
+from .user import User
+from .product import Product
+from .event import Event
+from .order_product import OrderProduct
+from .order import Order
+from .cart_product import CartProduct
+from .cart import Cart
+from .invoice_product import InvoiceProduct
+from .payment import Payment
+from .invoice import Invoice

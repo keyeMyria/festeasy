@@ -2,11 +2,11 @@ import datetime
 from flask.ext.testing import TestCase
 
 from backend import create_app, db
-from backend.utils.random_string import random_string
+from backend.utils import random_string
 from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
-from backend.models import Payment
+from backend.models import Payment, InvoiceProduct
 from backend.testing.utils import template_entity
 
 
@@ -23,6 +23,10 @@ class BackendTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
+    def create_cart(self, *args, **kwargs):
+        cart = Cart(*args, **kwargs)
+        return cart
+
     def create_payment(self, *args, **kwargs):
         payment = Payment(*args, **kwargs)
         return payment
@@ -30,6 +34,10 @@ class BackendTestCase(TestCase):
     def create_invoice(self, *args, **kwargs):
         invoice = Invoice(*args, **kwargs)
         return invoice
+
+    def create_invoice_product(self, *args, **kwargs):
+        invoice_product = InvoiceProduct(*args, **kwargs)
+        return invoice_product
 
     def create_cart_product(self, *args, **kwargs):
         cart_product = CartProduct(*args, **kwargs)
@@ -43,7 +51,12 @@ class BackendTestCase(TestCase):
         order = Order(*args, **kwargs)
         return order
 
-    def create_event(self, *args, **kwargs):
+    def create_event(self, *args, pre_populate=False, **kwargs):
+        if pre_populate:
+            template = {
+                'name': 'My Event',
+            }
+            kwargs = template_entity(template, kwargs)
         event = Event(*args, **kwargs)
         return event
 
@@ -70,7 +83,8 @@ class BackendTestCase(TestCase):
         session = Session(*args, **kwargs)
         return session
 
-    def create_user(self, *args, normal_user=False, valid_session=False, with_cart=False, **kwargs):
+    def create_user(self, *args, normal_user=False, 
+            valid_session=False, with_cart=False, **kwargs):
         now = datetime.datetime.now()
         if normal_user:
             user_template = {
@@ -80,7 +94,7 @@ class BackendTestCase(TestCase):
             }
             kwargs = template_entity(user_template, kwargs)
         user = User(*args, **kwargs)
-        
+
         if valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
             token = random_string(25)

@@ -31,6 +31,7 @@ class TestBackendTestCaseCreateProduct(BackendTestCase):
         fetched_product = Product.query.first()
         self.assertIsNotNone(fetched_product)
 
+
 class TestBackendTestCaseCreateSession(BackendTestCase):
     def test_create_session_creates_session(self):
         """ Test create_session creates a session.
@@ -39,7 +40,11 @@ class TestBackendTestCaseCreateSession(BackendTestCase):
         expires_on = now + datetime.timedelta(seconds=30)
         token = random_string(25)
         user = self.create_user(normal_user=True, with_cart=True)
-        session = self.create_session(expires_on=expires_on, token=token, user=user)
+        session = self.create_session(
+            expires_on=expires_on,
+            token=token,
+            user=user,
+        )
         db.session.add(session)
         db.session.commit()
         fetched_session = Session.query.first()
@@ -58,6 +63,7 @@ class TestBackendTestCaseCreateSession(BackendTestCase):
         self.assertIsNotNone(fetched_session)
         self.assertEqual(fetched_session, session)
         self.assertTrue(fetched_session.expires_on > now)
+
 
 class TestBackendTestCaseCreateUser(BackendTestCase):
     def test_create_user_creates_user(self):
@@ -119,8 +125,8 @@ class TestBackendTestCaseCreateUser(BackendTestCase):
         """ Test that create_user creates a cart for created user.
         """
         user = self.create_user(
-            normal_user=True, 
-            valid_session=True, 
+            normal_user=True,
+            valid_session=True,
             with_cart=True,
         )
         db.session.add(user)

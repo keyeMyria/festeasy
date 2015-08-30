@@ -1,9 +1,11 @@
 from flask import Blueprint
 
+from .v1 import v1_bp
 
-api = Blueprint('v1', __name__)
 
-from .v1 import users
-from .v1 import sessions
-from .v1 import products
-from .v1 import events
+bp = Blueprint('api', __name__)
+
+
+@bp.route('/')
+def hi():
+    return 'API Here.'
