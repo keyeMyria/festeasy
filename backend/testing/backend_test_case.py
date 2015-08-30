@@ -23,6 +23,10 @@ class BackendTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
+    def create_cart(self, *args, **kwargs):
+        cart = Cart(*args, **kwargs)
+        return cart
+
     def create_payment(self, *args, **kwargs):
         payment = Payment(*args, **kwargs)
         return payment

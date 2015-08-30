@@ -54,4 +54,4 @@ class Cart(db.Model, Entity, Dumpable):
 
 Cart.total_rands = column_property(
     select([func.sum(CartProduct.sub_total_rands)]).where(CartProduct.cart_id==Cart.id).correlate(Cart)
-    )
+)
