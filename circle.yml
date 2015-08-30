@@ -4,7 +4,8 @@ machine:
 
 dependencies:
   pre:
-    - sudo apt-get install python3-dev python-dev
+    - sudo apt-get -yqq install python3-dev python-dev
+    - sudo ldconfig
   override:
     - pip install -r requirements.txt --upgrade
 
