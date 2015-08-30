@@ -11,7 +11,7 @@ class TestEventSingleton(APITestCase):
         db.session.add(event)
         db.session.commit()
         response = self.api_request(
-            'get', 
+            'get',
             url_for('v1.eventsingleton', event_id=event.id),
         )
         self.assertEqual(response.status_code, 200)

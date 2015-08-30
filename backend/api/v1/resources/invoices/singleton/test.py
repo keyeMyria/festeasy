@@ -2,7 +2,6 @@ from flask import url_for
 
 from backend import db
 from backend.testing import APITestCase
-from backend.models import Invoice
 
 
 class TestInvoiceSingleton(APITestCase):
@@ -16,7 +15,7 @@ class TestInvoiceSingleton(APITestCase):
         db.session.add(invoice)
         db.session.commit()
         response = self.api_request(
-            'get', 
+            'get',
             url_for('v1.invoicesingleton', invoice_id=invoice.id),
         )
         self.assertEqual(response.status_code, 200)

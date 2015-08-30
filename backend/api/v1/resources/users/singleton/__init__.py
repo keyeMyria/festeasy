@@ -2,7 +2,7 @@ from flask_restful import Resource, fields, marshal_with
 from flask_restful import reqparse
 
 from backend import db
-from backend.models import User, Cart
+from backend.models import User
 from backend.api.utils import get_or_404
 
 
@@ -11,6 +11,7 @@ user_fields = {
     'email_address': fields.String,
     'cart_id': fields.Integer,
 }
+
 
 class UserSingleton(Resource):
     def __init__(self):

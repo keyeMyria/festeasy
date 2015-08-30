@@ -2,7 +2,6 @@ from flask import url_for
 
 from backend import db
 from backend.testing import APITestCase
-from backend.models import Invoice
 
 
 class TestOrderSingleton(APITestCase):

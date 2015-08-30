@@ -2,7 +2,7 @@ from flask_restful import Resource, fields, marshal_with
 from flask_restful import reqparse
 
 from backend import db
-from backend.models import User, Cart
+from backend.models import Cart
 from backend.api.utils import get_or_404
 
 
@@ -13,6 +13,7 @@ resource_fields = {
 
 patch_parser = reqparse.RequestParser()
 patch_parser.add_argument('event_id', type=int)
+
 
 class CartSingleton(Resource):
     @marshal_with(resource_fields)

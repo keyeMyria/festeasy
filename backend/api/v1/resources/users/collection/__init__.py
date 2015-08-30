@@ -3,7 +3,6 @@ from flask_restful import reqparse
 
 from backend import db
 from backend.models import User, Cart
-from backend.api.utils import get_or_404
 
 
 user_fields = {
@@ -11,6 +10,7 @@ user_fields = {
     'email_address': fields.String,
     'cart_id': fields.Integer,
 }
+
 
 class UserCollection(Resource):
     def __init__(self):

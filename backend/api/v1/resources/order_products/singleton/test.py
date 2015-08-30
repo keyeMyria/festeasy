@@ -2,7 +2,6 @@ from flask import url_for
 
 from backend import db
 from backend.testing import APITestCase
-from backend.models import OrderProduct
 
 
 class TestOrderProductSingleton(APITestCase):
@@ -20,7 +19,9 @@ class TestOrderProductSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'get',
-            url_for('v1.orderproductsingleton', order_product_id=order_product.id),
+            url_for('v1.orderproductsingleton',
+                    order_product_id=order_product.id
+            ),
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['id'], order_product.id)

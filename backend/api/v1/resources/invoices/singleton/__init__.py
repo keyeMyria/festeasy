@@ -1,7 +1,5 @@
 from flask_restful import Resource, fields, marshal_with
-from flask_restful import reqparse
 
-from backend import db
 from backend.models import Invoice
 from backend.api.utils import get_or_404
 
@@ -12,6 +10,7 @@ singleton_fields = {
     'total_rands': fields.Float,
     'amount_due_rands': fields.Float,
 }
+
 
 class InvoiceSingleton(Resource):
     @marshal_with(singleton_fields)

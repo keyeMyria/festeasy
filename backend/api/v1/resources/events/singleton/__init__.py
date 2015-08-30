@@ -14,6 +14,7 @@ singleton_fields = {
 patch_parser = reqparse.RequestParser()
 patch_parser.add_argument('name')
 
+
 class EventSingleton(Resource):
     @marshal_with(singleton_fields)
     def get(self, event_id):
