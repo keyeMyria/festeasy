@@ -6,7 +6,7 @@ from backend.utils import random_string
 from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
-from backend.models import Payment
+from backend.models import Payment, InvoiceProduct
 from backend.testing.utils import template_entity
 
 
@@ -34,6 +34,10 @@ class BackendTestCase(TestCase):
     def create_invoice(self, *args, **kwargs):
         invoice = Invoice(*args, **kwargs)
         return invoice
+
+    def create_invoice_product(self, *args, **kwargs):
+        invoice_product = InvoiceProduct(*args, **kwargs)
+        return invoice_product
 
     def create_cart_product(self, *args, **kwargs):
         cart_product = CartProduct(*args, **kwargs)

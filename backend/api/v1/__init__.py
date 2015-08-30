@@ -25,3 +25,6 @@ v1_api.add_resource(EventSingleton, '/events/<int:event_id>')
 
 from .resources.invoices import InvoiceSingleton
 v1_api.add_resource(InvoiceSingleton, '/invoices/<int:invoice_id>')
+
+from .resources.invoice_products import InvoiceProductSingleton
+v1_api.add_resource(InvoiceProductSingleton, '/invoice-products/<int:invoice_product_id>')
