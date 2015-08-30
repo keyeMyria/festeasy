@@ -28,3 +28,9 @@ v1_api.add_resource(InvoiceSingleton, '/invoices/<int:invoice_id>')
 
 from .resources.invoice_products import InvoiceProductSingleton
 v1_api.add_resource(InvoiceProductSingleton, '/invoice-products/<int:invoice_product_id>')
+
+from .resources.orders import OrderSingleton
+v1_api.add_resource(OrderSingleton, '/orders/<int:order_id>')
+
+from .resources.order_products import OrderProductSingleton
+v1_api.add_resource(OrderProductSingleton, '/order-products/<int:order_product_id>')
