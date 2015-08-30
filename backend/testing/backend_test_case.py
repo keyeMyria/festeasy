@@ -83,7 +83,8 @@ class BackendTestCase(TestCase):
         session = Session(*args, **kwargs)
         return session
 
-    def create_user(self, *args, normal_user=False, valid_session=False, with_cart=False, **kwargs):
+    def create_user(self, *args, normal_user=False, 
+            valid_session=False, with_cart=False, **kwargs):
         now = datetime.datetime.now()
         if normal_user:
             user_template = {
@@ -93,13 +94,13 @@ class BackendTestCase(TestCase):
             }
             kwargs = template_entity(user_template, kwargs)
         user = User(*args, **kwargs)
-        
+
         if valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
             token = random_string(25)
             session = self.create_session(expires_on=expires_on, token=token)
             user.sessions.append(session)
-            
+
         if with_cart:
             user.cart = Cart()
         return user
