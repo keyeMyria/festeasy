@@ -48,3 +48,7 @@ v1_api.add_resource(OrderProductSingleton,
 from .resources.payments import PaymentSingleton
 v1_api.add_resource(PaymentSingleton,
                     '/payments/<int:payment_id>')
+
+from .resources.products import ProductSingleton
+v1_api.add_resource(ProductSingleton,
+                    '/products/<int:product_id>')
