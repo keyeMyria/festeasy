@@ -10,6 +10,7 @@ v1_api = Api(v1_bp)
 def hi():
     return 'V1 API Here.'
 
+
 from .resources.users import UserSingleton
 v1_api.add_resource(UserSingleton,
                     '/users/<int:user_id>')
