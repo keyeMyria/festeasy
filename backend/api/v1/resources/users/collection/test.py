@@ -5,14 +5,17 @@ from backend.testing import APITestCase
 from backend.models import User
 
 
+endpoint = 'v1.usercollection'
+
+
 class TestUserCollection(APITestCase):
     def test_get(self):
         user = self.create_user(normal_user=True, with_cart=True)
         db.session.add(user)
         db.session.commit()
         response = self.api_request(
-            'get', 
-            url_for('v1.usercollection'),
+            'get',
+            url_for(endpoint),
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json[0]['id'], user.id)
@@ -23,7 +26,7 @@ class TestUserCollection(APITestCase):
         password = '123'
         response = self.api_request(
             'post',
-            url_for('v1.usercollection'),
+            url_for(endpoint),
             data=dict(
                 first_name=first_name,
                 email_address=email_address,

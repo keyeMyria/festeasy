@@ -4,6 +4,9 @@ from backend import db
 from backend.testing import APITestCase
 
 
+endpoint = 'v1.invoicesingleton'
+
+
 class TestInvoiceSingleton(APITestCase):
     def test_get(self):
         invoice = self.create_invoice(
@@ -16,7 +19,7 @@ class TestInvoiceSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'get',
-            url_for('v1.invoicesingleton', invoice_id=invoice.id),
+            url_for(endpoint, invoice_id=invoice.id),
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['id'], invoice.id)

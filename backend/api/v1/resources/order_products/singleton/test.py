@@ -4,6 +4,9 @@ from backend import db
 from backend.testing import APITestCase
 
 
+endpoint = 'v1.orderproductsingleton'
+
+
 class TestOrderProductSingleton(APITestCase):
     def test_get(self):
         order_product = self.create_order_product(
@@ -19,9 +22,9 @@ class TestOrderProductSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'get',
-            url_for('v1.orderproductsingleton',
+            url_for(endpoint,
                     order_product_id=order_product.id
-            ),
+                    ),
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['id'], order_product.id)
