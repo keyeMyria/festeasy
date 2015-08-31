@@ -13,12 +13,12 @@ user_fields = {
 }
 
 
-class UserSingleton(Resource):
-    def __init__(self):
-        self.patch_parser = reqparse.RequestParser()
-        self.patch_parser.add_argument('first_name', type=str)
-        self.patch_parser.add_argument('last_name', type=str)
+patch_parser = reqparse.RequestParser()
+patch_parser.add_argument('first_name', type=str)
+patch_parser.add_argument('last_name', type=str)
 
+
+class UserSingleton(Resource):
     @marshal_with(user_fields)
     def get(self, user_id):
         user = get_or_404(User, User.id == user_id)
@@ -33,7 +33,7 @@ class UserSingleton(Resource):
 
     @marshal_with(user_fields)
     def patch(self, user_id):
-        args = self.patch_parser.parse_args(strict=True)
+        args = patch_parser.parse_args(strict=True)
         user = get_or_404(User, User.id == user_id)
         for arg in args:
             setattr(user, arg, args[arg])

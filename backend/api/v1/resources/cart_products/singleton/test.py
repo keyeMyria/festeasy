@@ -5,6 +5,9 @@ from backend.testing import APITestCase
 from backend.models import CartProduct
 
 
+endpoint = 'v1.cartproductsingleton'
+
+
 class TestCartProductSingleton(APITestCase):
     def test_get(self):
         cart_product = CartProduct(
@@ -15,9 +18,9 @@ class TestCartProductSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'get',
-            url_for('v1.cartproductsingleton',
+            url_for(endpoint,
                     cart_product_id=cart_product.id
-            ),
+                    ),
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['id'], cart_product.id)
@@ -32,9 +35,9 @@ class TestCartProductSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'patch',
-            url_for('v1.cartproductsingleton',
+            url_for(endpoint,
                     cart_product_id=cart_product.id
-            ),
+                    ),
             data=dict(
                 quantity=new_quantity,
             )

@@ -4,6 +4,9 @@ from backend import db
 from backend.testing import APITestCase
 
 
+endpoint = 'v1.invoiceproductsingleton'
+
+
 class TestInvoiceProductSingleton(APITestCase):
     def test_get(self):
         invoice_product = self.create_invoice_product(
@@ -20,7 +23,7 @@ class TestInvoiceProductSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'get',
-            url_for('v1.invoiceproductsingleton',
+            url_for(endpoint,
                     invoice_product_id=invoice_product.id),
         )
         self.assertEqual(response.status_code, 200)

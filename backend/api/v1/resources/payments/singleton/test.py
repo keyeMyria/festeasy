@@ -4,6 +4,9 @@ from backend import db
 from backend.testing import APITestCase
 
 
+endpoint = 'v1.paymentsingleton'
+
+
 class TestPaymentSingleton(APITestCase):
     def test_get(self):
         payment = self.create_payment(
@@ -19,7 +22,7 @@ class TestPaymentSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'get',
-            url_for('v1.paymentsingleton', payment_id=payment.id),
+            url_for(endpoint, payment_id=payment.id),
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['id'], payment.id)

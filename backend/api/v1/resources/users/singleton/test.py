@@ -5,6 +5,9 @@ from backend.testing import APITestCase
 from backend.models import User
 
 
+endpoint = 'v1.usersingleton'
+
+
 class TestUserSingleton(APITestCase):
     def test_get(self):
         user = self.create_user(normal_user=True, with_cart=True)
@@ -12,7 +15,7 @@ class TestUserSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'get',
-            url_for('v1.usersingleton', user_id=user.id),
+            url_for(endpoint, user_id=user.id),
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['id'], user.id)
@@ -23,7 +26,7 @@ class TestUserSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'delete',
-            url_for('v1.usersingleton', user_id=user.id),
+            url_for(endpoint, user_id=user.id),
         )
         self.assertEqual(response.status_code, 200)
         self.assertIsNone(User.query.first())
@@ -41,7 +44,7 @@ class TestUserSingleton(APITestCase):
         db.session.commit()
         response = self.api_request(
             'patch',
-            url_for('v1.usersingleton', user_id=user.id),
+            url_for(endpoint, user_id=user.id),
             data=dict(
                 first_name=new_first_name,
             )

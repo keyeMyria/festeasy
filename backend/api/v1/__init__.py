@@ -10,6 +10,7 @@ v1_api = Api(v1_bp)
 def hi():
     return 'V1 API Here.'
 
+
 from .resources.users import UserSingleton
 v1_api.add_resource(UserSingleton,
                     '/users/<int:user_id>')
@@ -48,3 +49,11 @@ v1_api.add_resource(OrderProductSingleton,
 from .resources.payments import PaymentSingleton
 v1_api.add_resource(PaymentSingleton,
                     '/payments/<int:payment_id>')
+
+from .resources.products import ProductSingleton
+v1_api.add_resource(ProductSingleton,
+                    '/products/<int:product_id>')
+
+from .resources.sessions import SessionSingleton
+v1_api.add_resource(SessionSingleton,
+                    '/sessions/<int:session_id>')

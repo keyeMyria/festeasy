@@ -4,20 +4,20 @@ from backend import db
 from backend.testing import APITestCase
 
 
-endpoint = 'v1.ordersingleton'
+endpoint = 'v1.sessionsingleton'
 
 
-class TestOrderSingleton(APITestCase):
+class TestSessionSingleton(APITestCase):
     def test_get(self):
-        order = self.create_order(
-            event=self.create_event(name='asd'),
+        session = self.create_session(
+            valid_session=True,
             user=self.create_user(normal_user=True, with_cart=True),
         )
-        db.session.add(order)
+        db.session.add(session)
         db.session.commit()
         response = self.api_request(
             'get',
-            url_for(endpoint, order_id=order.id),
+            url_for(endpoint, session_id=session.id),
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], order.id)
+        self.assertEqual(response.json['id'], session.id)
