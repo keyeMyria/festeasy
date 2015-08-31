@@ -52,3 +52,7 @@ v1_api.add_resource(PaymentSingleton,
 from .resources.products import ProductSingleton
 v1_api.add_resource(ProductSingleton,
                     '/products/<int:product_id>')
+
+from .resources.sessions import SessionSingleton
+v1_api.add_resource(SessionSingleton,
+                    '/sessions/<int:session_id>')
