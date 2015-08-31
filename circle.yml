@@ -4,10 +4,10 @@ machine:
 
 dependencies:
   pre:
-    - sudo apt-get -yqq install python3-dev
+    - sudo apt-get update; sudo apt-get -y install python3-dev
     - sudo ldconfig
   override:
-    - pip install -qr requirements.txt
+    - pip install -r requirements.txt
 
 test:
   override:
@@ -19,11 +19,11 @@ deployment:
     commands:
       - curl http://festeasy-staging.herokuapp.com:
           background: true
-      - git push -qf git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
+      - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
   production:
     branch: production
     commands:
       - curl http://festeasy-production.herokuapp.com:
           background: true
-      - git push -qf git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
+      - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
       
