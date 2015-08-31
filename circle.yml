@@ -19,11 +19,11 @@ deployment:
     commands:
       - curl http://festeasy-staging.herokuapp.com:
           background: true
-      - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
+      - git push -qf git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
   production:
     branch: production
     commands:
       - curl http://festeasy-production.herokuapp.com:
           background: true
-      - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
+      - git push -qf git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
       
