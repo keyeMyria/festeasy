@@ -13,7 +13,6 @@ from backend.testing.utils import template_entity
 class BackendTestCase(TestCase):
     def create_app(self):
         app = create_app(config='testing')
-        app.config['TESTING'] = True
         return app
 
     def setUp(self):
