@@ -14,16 +14,14 @@ def create_app(config):
     app = Flask(__name__)
 
     if config == 'testing':
+        app.config['TESTING'] = True
         app.config.from_pyfile('config/testing.py'.format(config))
-        logger.warn('Loading config from config/testing.py')
     elif config == 'file':
         app.config.from_pyfile('config/live.py'.format(config))
         logger.warn('Loading config from config/live.py')
     elif config == 'env':
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
-        logger.warn('Loading config os.environ: {0}'.format(
-                    app.config['SQLALCHEMY_DATABASE_URI'])
-                    )
+        logger.warn('Loading config from environment variables.')
     else:
         raise('No config specified.')
 
