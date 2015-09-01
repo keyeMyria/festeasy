@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -5,9 +6,17 @@ from flask.ext.sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-def create_app(config='live'):
+def create_app(config):
     app = Flask(__name__)
-    app.config.from_pyfile('config/{0}.py'.format(config))
+
+    if config == 'file':
+        app.config.from_pyfile('config/live.py'.format(config))
+    elif config == 'testing':
+        app.config.from_pyfile('config/testing.py'.format(config))
+    elif config == 'env':
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
+    else:
+        raise Exception('Invalid config argument.')
 
     from backend.api import bp
     app.register_blueprint(bp, url_prefix='/api')

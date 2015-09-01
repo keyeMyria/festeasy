@@ -11,7 +11,7 @@ from backend.models import User, Product, Event, Cart
 manager = Manager(create_app, with_default_commands=False)
 manager.add_option(
     '-c', '--config',
-    dest='config', default='live', required=False
+    dest='config', default='file', required=False,
 )
 
 
