@@ -4,12 +4,14 @@ from flask_restful import Resource
 from backend import db
 from backend.models import User
 from backend.api.utils import get_or_404
-from ..schema import UserSchema
+from ..schema import authenticate_and_get_schema
 
 
 class UserSingleton(Resource):
     def __init__(self):
-        self.user_schema = UserSchema()
+        self.authenticated_user, self.user_schema = (
+            authenticate_and_get_schema(request)
+        )
 
     def get(self, user_id):
         user = get_or_404(User, User.id == user_id)
