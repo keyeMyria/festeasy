@@ -19,9 +19,13 @@ def create_app(config):
     elif config == 'file':
         app.config.from_pyfile('config/live.py'.format(config))
         logger.warn('Loading config from config/live.py')
-    else:
+    elif config == 'env':
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
-        logger.warn('Loading config os.environ')
+        logger.warn('Loading config os.environ: {0}'.format(
+                    app.config['SQLALCHEMY_DATABASE_URI'])
+                    )
+    else:
+        raise('No config specified.')
 
     from backend.api import bp
     app.register_blueprint(bp, url_prefix='/api')
