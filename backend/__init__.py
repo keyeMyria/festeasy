@@ -1,7 +1,11 @@
 import os
+import logging
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 db = SQLAlchemy()
 
@@ -11,8 +15,13 @@ def create_app(config):
 
     if config == 'testing':
         app.config.from_pyfile('config/testing.py'.format(config))
+        logger.warn('Loading config from config/testing.py')
+    elif config == 'file':
+        app.config.from_pyfile('config/live.py'.format(config))
+        logger.warn('Loading config from config/live.py')
     else:
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
+        logger.warn('Loading config os.environ')
 
     from backend.api import bp
     app.register_blueprint(bp, url_prefix='/api')
