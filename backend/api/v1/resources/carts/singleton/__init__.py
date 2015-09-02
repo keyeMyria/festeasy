@@ -1,32 +1,27 @@
-from flask_restful import Resource, fields, marshal_with
-from flask_restful import reqparse
+from flask_restful import Resource
+from flask import request
 
 from backend import db
 from backend.models import Cart
 from backend.api.utils import get_or_404
-
-
-resource_fields = {
-    'id': fields.Integer,
-    'event_id': fields.Integer,
-}
-
-patch_parser = reqparse.RequestParser()
-patch_parser.add_argument('event_id', type=int)
+from backend.api.v1.schemas import CartSchema
 
 
 class CartSingleton(Resource):
-    @marshal_with(resource_fields)
+    def __init__(self):
+        self.cart_schema = CartSchema()
+
     def get(self, cart_id):
         cart = get_or_404(Cart, Cart.id == cart_id)
-        return cart
+        data, errors = self.cart_schema.dump(cart)
+        return data
 
-    @marshal_with(resource_fields)
     def patch(self, cart_id):
-        args = patch_parser.parse_args(strict=True)
+        load_data, load_errors = self.cart_schema.load(request.get_json())
         cart = get_or_404(Cart, Cart.id == cart_id)
-        for arg in args:
-            setattr(cart, arg, args[arg])
+        for arg in load_data:
+            setattr(cart, arg, load_data[arg])
         db.session.add(cart)
         db.session.commit()
-        return cart
+        data, errors = self.cart_schema.dump(cart)
+        return data

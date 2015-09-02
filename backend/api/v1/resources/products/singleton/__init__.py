@@ -1,16 +1,15 @@
-from flask_restful import Resource, fields, marshal_with
+from flask_restful import Resource
 
 from backend.models import Product
 from backend.api.utils import get_or_404
-
-
-singleton_fields = {
-    'id': fields.Integer,
-}
+from backend.api.v1.schemas import ProductSchema
 
 
 class ProductSingleton(Resource):
-    @marshal_with(singleton_fields)
+    def __init__(self):
+        self.product_schema = ProductSchema()
+
     def get(self, product_id):
         product = get_or_404(Product, Product.id == product_id)
-        return product
+        data, errors = self.product_schema.dump(product)
+        return data

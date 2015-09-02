@@ -1,34 +1,25 @@
-from flask_restful import Resource, fields, marshal_with
-from flask_restful import reqparse
+from flask import request
+from flask_restful import Resource
 
 from backend import db
 from backend.models import User, Cart
-
-
-user_fields = {
-    'id': fields.Integer,
-    'email_address': fields.String,
-    'cart_id': fields.Integer,
-}
+from backend.api.v1.schemas import UserSchema
 
 
 class UserCollection(Resource):
     def __init__(self):
-        self.post_parser = reqparse.RequestParser()
-        self.post_parser.add_argument('email_address', type=str, required=True)
-        self.post_parser.add_argument('first_name', type=str, required=True)
-        self.post_parser.add_argument('password', type=str, required=True)
+        self.user_schema = UserSchema()
 
-    @marshal_with(user_fields)
     def get(self):
         users = User.query.all()
-        return users
+        data, errors = self.user_schema.dump(users, many=True)
+        return data
 
-    @marshal_with(user_fields)
     def post(self):
-        args = self.post_parser.parse_args(strict=True)
-        user = User(**args)
+        load_data, load_errors = self.user_schema.load(request.get_json())
+        user = User(**load_data)
         user.cart = Cart()
         db.session.add(user)
         db.session.commit()
-        return user
+        data, errors = self.user_schema.dump(user)
+        return data
