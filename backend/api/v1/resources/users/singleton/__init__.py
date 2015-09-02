@@ -3,7 +3,7 @@ from flask_restful import Resource
 
 from backend import db
 from backend.models import User
-from backend.api.utils import get_or_404
+from backend.api.utils import get_or_404, requires_auth
 from ..schemas import get_appropriate_user_schema
 
 
@@ -13,7 +13,8 @@ class UserSingleton(Resource):
             get_appropriate_user_schema(request)
             )
 
-    def get(self, user_id):
+    @requires_auth
+    def get(self, user_id, authenticated_user):
         user = get_or_404(User, User.id == user_id)
         data, errors = self.user_schema.dump(user)
         return data
