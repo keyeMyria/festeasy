@@ -5,7 +5,7 @@ from flask.ext.script import Shell, Server
 
 from backend import create_app, db
 from backend import models
-from backend.models import User, Product, Event, Cart
+from backend.models import User, Product, Event, Cart, Session
 
 
 manager = Manager(create_app, with_default_commands=False)
@@ -40,14 +40,20 @@ class InitDB(Command):
     def run(self):
         db.drop_all()
         db.create_all()
-        users = [
-            User(
-                email_address='test@festeasy.co.za',
-                password='123',
-                is_admin=True,
-                first_name='TestName',
-                cart=Cart()
+        test_user = User(
+            email_address='test@festeasy.co.za',
+            password='123',
+            is_admin=True,
+            first_name='TestName',
+            cart=Cart()
             )
+        import datetime
+        now = datetime.datetime.now()
+        never = now + datetime.timedelta(days=1000)
+        test_user.sessions.append(
+            Session(token='123', expires_on=never))
+        users = [
+            test_user,
         ]
         products = [
             Product(name='Castle Lite Beer',

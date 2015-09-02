@@ -1,19 +1,15 @@
-from flask_restful import Resource, fields, marshal_with
+from flask_restful import Resource
 
 from backend.models import Invoice
 from backend.api.utils import get_or_404
-
-
-singleton_fields = {
-    'id': fields.Integer,
-    'order_id': fields.Integer,
-    'total_rands': fields.Float,
-    'amount_due_rands': fields.Float,
-}
+from backend.api.v1.schemas import InvoiceSchema
 
 
 class InvoiceSingleton(Resource):
-    @marshal_with(singleton_fields)
+    def __init__(self):
+        self.invoice_schema = InvoiceSchema()
+
     def get(self, invoice_id):
         invoice = get_or_404(Invoice, Invoice.id == invoice_id)
-        return invoice
+        data, errors = self.invoice_schema.dump(invoice)
+        return data

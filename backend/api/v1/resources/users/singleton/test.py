@@ -20,18 +20,6 @@ class TestUserSingleton(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['id'], user.id)
 
-    def test_delete(self):
-        user = self.create_user(normal_user=True, with_cart=True)
-        db.session.add(user)
-        db.session.commit()
-        response = self.api_request(
-            'delete',
-            url_for(endpoint, user_id=user.id),
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertIsNone(User.query.first())
-        self.assertEqual(response.json['id'], user.id)
-
     def test_patch(self):
         first_name = 'a'
         new_first_name = 'b'

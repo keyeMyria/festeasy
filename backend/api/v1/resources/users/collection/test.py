@@ -22,7 +22,7 @@ class TestUserCollection(APITestCase):
 
     def test_post(self):
         first_name = 'Test Name'
-        email_address = 'a@b.c'
+        email_address = 'name@domain.com'
         password = '123'
         response = self.api_request(
             'post',
