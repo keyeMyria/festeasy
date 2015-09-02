@@ -1,39 +1,27 @@
-from flask_restful import Resource, fields, marshal_with
-from flask_restful import reqparse
+from flask_restful import Resource
+from flask import request
 
 from backend import db
 from backend.models import Event
 from backend.api.utils import get_or_404
-
-
-singleton_fields = {
-    'id': fields.Integer,
-    'name': fields.String,
-}
-
-patch_parser = reqparse.RequestParser()
-patch_parser.add_argument('name')
+from backend.api.v1.schemas import EventSchema
 
 
 class EventSingleton(Resource):
-    @marshal_with(singleton_fields)
+    def __init__(self):
+        self.event_schema = EventSchema()
+
     def get(self, event_id):
         event = get_or_404(Event, Event.id == event_id)
-        return event
+        data, errors = self.event_schema.dump(event)
+        return data
 
-    @marshal_with(singleton_fields)
-    def delete(self, event_id):
-        event = get_or_404(Event, Event.id == event_id)
-        db.session.delete(event)
-        db.session.commit()
-        return event
-
-    @marshal_with(singleton_fields)
     def patch(self, event_id):
-        args = patch_parser.parse_args(strict=True)
         event = get_or_404(Event, Event.id == event_id)
-        for arg in args:
-            setattr(event, arg, args[arg])
+        load_data, load_errors = self.event_schema.load(request.get_json())
+        for arg in load_data:
+            setattr(event, arg, load_data[arg])
         db.session.add(event)
         db.session.commit()
-        return event
+        data, errors = self.event_schema.dump(event)
+        return data
