@@ -25,5 +25,5 @@ class AdminUserScema(UserSchema):
     password = fields.String()
 
 
-def authenticate_and_get_schema(request):
-    return None, NormalUserSchema()
+def get_appropriate_user_schema(request):
+    return NormalUserSchema()

@@ -3,7 +3,7 @@ from flask_restful import Resource
 
 from backend import db
 from backend.models import User, Cart
-from ..schema import UserSchema
+from ..schemas import UserSchema
 
 
 class UserCollection(Resource):

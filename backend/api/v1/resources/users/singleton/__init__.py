@@ -4,7 +4,7 @@ from flask_restful import Resource
 from backend import db
 from backend.models import User
 from backend.api.utils import get_or_404
-from ..schema import get_appropriate_user_schema
+from ..schemas import get_appropriate_user_schema
 
 
 class UserSingleton(Resource):
@@ -15,13 +15,6 @@ class UserSingleton(Resource):
 
     def get(self, user_id):
         user = get_or_404(User, User.id == user_id)
-        data, errors = self.user_schema.dump(user)
-        return data
-
-    def delete(self, user_id):
-        user = get_or_404(User, User.id == user_id)
-        db.session.delete(user)
-        db.session.commit()
         data, errors = self.user_schema.dump(user)
         return data
 
