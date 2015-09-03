@@ -3,22 +3,13 @@ from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models import Entity, Dumpable
+from backend.models import Entity
 
 
-class InvoiceProduct(db.Model, Entity, Dumpable):
+class InvoiceProduct(db.Model, Entity):
     __tablename__ = 'invoice_product'
 
-    whitelist = [
-        'id',
-        'created_on',
-        'sub_total_rands',
-        'unit_price_rands',
-        'quantity',
-        'product',
-    ]
-
-    def __init__(self, unit_price_rands=None, 
+    def __init__(self, unit_price_rands=None,
             quantity=None, product=None, invoice=None):
         self.unit_price_rands = unit_price_rands
         self.quantity = quantity

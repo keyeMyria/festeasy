@@ -3,20 +3,11 @@ from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity, Dumpable
+from backend.models import Entity
 
 
-class Product(db.Model, Entity, Dumpable):
+class Product(db.Model, Entity):
     __tablename__ = 'product'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'name',
-        'price_rands',
-        'cost_rands',
-        'is_enabled',
-    ]
 
     def __init__(self, is_enabled=None, name=None, price_rands=None,
             cost_rands=None, orders=[], order_products=[]):

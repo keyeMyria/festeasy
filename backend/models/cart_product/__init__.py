@@ -3,19 +3,11 @@ from sqlalchemy import ForeignKey, UniqueConstraint, select
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models import Entity, Dumpable, Product
+from backend.models import Entity, Product
 
 
-class CartProduct(db.Model, Entity, Dumpable):
+class CartProduct(db.Model, Entity):
     __tablename__ = 'cart_product'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'product',
-        'quantity',
-        'sub_total_rands',
-    ]
 
     def __init__(self, quantity=None, product=None, cart=None):
         self.quantity = quantity
