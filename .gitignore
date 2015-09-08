@@ -66,3 +66,6 @@ www/bower_components/
 
 # Node modules
 www/node_modules/
+
+www/build/
+www/dist/
