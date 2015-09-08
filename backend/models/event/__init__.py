@@ -3,20 +3,11 @@ from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity, Dumpable
+from backend.models import Entity
 
 
-class Event(db.Model, Entity, Dumpable):
+class Event(db.Model, Entity):
     __tablename__ = 'event'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'name',
-        'starts_on',
-        'ends_on',
-        'is_enabled',
-    ]
 
     def __init__(self, is_enabled=None, name=None,
             starts_on=None, ends_on=None, users=[], orders=[]):

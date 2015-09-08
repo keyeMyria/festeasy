@@ -1,23 +1,13 @@
-import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer
 from sqlalchemy import ForeignKey, func, select
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models import Entity, Dumpable, OrderProduct
+from backend.models import Entity, OrderProduct
 
 
-class Order(db.Model, Entity, Dumpable):
+class Order(db.Model, Entity):
     __tablename__ = 'order'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'event',
-        'order_products',
-        'total_rands',
-        'invoices',
-    ]
 
     def __init__(self, event=None, user=None, products=[], order_products=[]):
         self.user = user

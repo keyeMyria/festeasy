@@ -3,20 +3,11 @@ from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models import Entity, Dumpable
+from backend.models import Entity
 
 
-class OrderProduct(db.Model, Entity, Dumpable):
+class OrderProduct(db.Model, Entity):
     __tablename__ = 'order_product'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'product',
-        'unit_price_rands',
-        'quantity',
-        'sub_total_rands',
-    ]
 
     def __init__(self, unit_price_rands=None, quantity=None,
             order=None, product=None):

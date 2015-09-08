@@ -1,26 +1,14 @@
-import datetime
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer
 from sqlalchemy import ForeignKey, func, select
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models import Entity, Dumpable, CartProduct
+from backend.models import Entity, CartProduct
 from backend.models import Event
 
 
-class Cart(db.Model, Entity, Dumpable):
+class Cart(db.Model, Entity):
     __tablename__ = 'cart'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'selectable_events',
-        'event',
-        'products',
-        'cart_products',
-        'total_rands',
-        'number_of_items',
-    ]
 
     def __init__(self, event=None, user=None, products=[]):
         self.event = event

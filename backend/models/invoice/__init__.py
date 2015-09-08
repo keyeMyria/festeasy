@@ -3,21 +3,12 @@ from sqlalchemy import ForeignKey, func, select
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models import Entity, Dumpable, InvoiceProduct
+from backend.models import Entity, InvoiceProduct
 from backend.models import Payment
 
 
-class Invoice(db.Model, Entity, Dumpable):
+class Invoice(db.Model, Entity):
     __tablename__ = 'invoice'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'total_rands',
-        'amount_due_rands',
-        'invoice_products',
-        'order_id',
-    ]
 
     def __init__(self, order=None, invoice_products=[], products=[]):
         self.order = order

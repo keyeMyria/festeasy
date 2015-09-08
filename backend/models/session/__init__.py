@@ -3,19 +3,11 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity, Dumpable
+from backend.models import Entity
 
 
-class Session(db.Model, Entity, Dumpable):
+class Session(db.Model, Entity):
     __tablename__ = 'session'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'expires_on',
-        'token',
-        'user_id',
-    ]
 
     def __init__(self, expires_on, token, user=None):
         self.expires_on = expires_on

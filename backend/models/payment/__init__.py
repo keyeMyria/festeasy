@@ -3,17 +3,11 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity, Dumpable
+from backend.models import Entity
 
 
-class Payment(db.Model, Entity, Dumpable):
+class Payment(db.Model, Entity):
     __tablename__ = 'payment'
-
-    whitelist = [
-        'id',
-        'created_on',
-        'amount_rands',
-    ]
 
     def __init__(self, invoice=None, amount_rands=None):
         self.invoice = invoice

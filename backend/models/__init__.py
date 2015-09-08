@@ -5,14 +5,6 @@ from sqlalchemy import DateTime
 from backend import db
 
 
-class Dumpable(object):
-    whitelist = []
-
-    def dump(self):
-        return {attr: getattr(self, attr)
-                for attr in self.whitelist}
-
-
 class Entity(object):
     id = Column(Integer, primary_key=True)
     created_on = Column(

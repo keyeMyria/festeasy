@@ -11,12 +11,18 @@ def hi():
     return 'V1 API Here.'
 
 
-from .resources.users import UserSingleton
-v1_api.add_resource(UserSingleton,
-                    '/users/<int:user_id>')
 from .resources.users import UserCollection
 v1_api.add_resource(UserCollection,
                     '/users')
+from .resources.users import UserSingleton
+v1_api.add_resource(UserSingleton,
+                    '/users/<int:user_id>')
+from .resources.users import UserOrderCollection
+v1_api.add_resource(UserOrderCollection,
+                    '/users/<user_id>/orders')
+from .resources.users import UserOrderSingleton
+v1_api.add_resource(UserOrderSingleton,
+                    '/users/<int:user_id>/orders/<order_id>')
 
 from .resources.carts import CartSingleton
 v1_api.add_resource(CartSingleton,

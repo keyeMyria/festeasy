@@ -6,25 +6,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 from backend import db
-from backend.models import Entity, Dumpable
+from backend.models import Entity
 
 
-class User(db.Model, Entity, Dumpable):
+class User(db.Model, Entity):
     __tablename__ = 'user'
 
-    whitelist = [
-        'id',
-        'created_on',
-        'email_address',
-        'guest_token',
-        'first_name',
-        'last_name',
-        'is_guest',
-        'is_admin',
-    ]
-
-    def __init__(self, email_address=None, password=None, first_name=None, 
-            last_name=None, cart=None, is_admin=None, guest_token=None, 
+    def __init__(self, email_address=None, password=None, first_name=None,
+            last_name=None, cart=None, is_admin=None, guest_token=None,
             sessions=[], orders=[]):
         self.is_admin = is_admin
         self.email_address = email_address
