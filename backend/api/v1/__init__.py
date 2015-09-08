@@ -17,6 +17,9 @@ v1_api.add_resource(UserCollection,
 from .resources.users import UserSingleton
 v1_api.add_resource(UserSingleton,
                     '/users/<int:user_id>')
+from .resources.users import UserCartSingleton
+v1_api.add_resource(UserCartSingleton,
+                    '/users/<int:user_id>/cart')
 from .resources.users import UserOrderCollection
 v1_api.add_resource(UserOrderCollection,
                     '/users/<user_id>/orders')
