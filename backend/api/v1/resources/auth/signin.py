@@ -16,12 +16,12 @@ class Signin(Resource):
 
     def post(self):
         load_data, load_erros = self.signin_schema.load(request.get_json())
+        email_address = load_data['email_address']
+        password = load_data['password']
         user = User.query.filter(
-            User.email_address == load_data['email_address']
+            User.email_address == email_address,
             ).first()
-        if not user:
-            raise Exception('Signin error.')
-        if not user.has_password(load_data['password']):
+        if not user or not user.has_password(password):
             raise Exception('Signin error.')
         now = datetime.datetime.now()
         token = random_string(25)
