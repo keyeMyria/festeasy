@@ -1,0 +1,23 @@
+{
+  "name": "www",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jasrusable/festeasy-www",
+  "authors": [
+    "Jason Russell <jasrusable@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "description": "landing and store for festeasy",
+  "dependencies": {
+    "angular": "~1.4.4",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5"
+  }
+}

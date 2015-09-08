@@ -1,0 +1,9 @@
+{
+  "name": "festeasy",
+  "root": "./",
+  "clean_urls": true,
+  "routes": {
+  	"**": "index.html"
+  },
+  "error_page": "error.html"
+}
