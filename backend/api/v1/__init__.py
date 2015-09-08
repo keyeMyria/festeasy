@@ -10,6 +10,7 @@ v1_api = Api(v1_bp)
 def hi():
     return 'V1 API Here.'
 
+
 from .resources.auth import Signup
 v1_api.add_resource(Signup,
                     '/signup')
