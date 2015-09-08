@@ -10,3 +10,4 @@ from .event_schema import EventSchema
 from .cart_schema import CartSchema
 from .cart_product_schema import CartProductSchema
 from .signup_schema import SignupSchema
+from .signin_schema import SigninSchema

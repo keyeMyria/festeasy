@@ -14,6 +14,10 @@ from .resources.auth import Signup
 v1_api.add_resource(Signup,
                     '/signup')
 
+from .resources.auth import Signin
+v1_api.add_resource(Signin,
+                    '/signin')
+
 from .resources.users import UserCollection
 v1_api.add_resource(UserCollection,
                     '/users')
