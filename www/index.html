@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html data-ng-app="app" lang="en">
     <head>
+        <!-- bower:less -->
+        <!-- endbower -->
         <meta charset="utf-8" />
         <base href="/">
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
@@ -8,23 +10,25 @@
         <meta http-equiv="refresh" content="3600">
         <title>FestEasy</title>
 
-        <!-- inject-vendor:css -->
-        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <!-- endinject -->
 
         <!-- inject:css -->
         <link href="styles.css" rel="stylesheet" />
         <!-- endinject -->
 
+        
+
     </head>
     <body>
         <div ui-view></div>
-        <!-- inject-vendor:js -->
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/angular/angular.min.js"></script>
-        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- endinject -->
+
+        <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- endbower -->
+
+       
 
         <!-- inject:js -->
         <!-- Bootstrapping -->

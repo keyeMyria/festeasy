@@ -2,17 +2,20 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    bower: {
-      install: {
-      	options: {
-      		layout: 'byType',
-      	}
+    bower_concat: {
+      all: {
+        dest: 'build/bower.js',
+        cssDest: 'build/bower.css',
+        devDependencies: true,
+        mainFiles: {
+          bootstrap: ['dist/css/bootstrap.css']
+        }
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-bower-concat');
 
-  grunt.registerTask('default', ['bower']);
+  grunt.registerTask('default', ['bower_concat']);
 
 };
