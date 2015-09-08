@@ -62,4 +62,7 @@ venv/
 *.db
 
 # Bower components
-www/app/bower_components/
+www/bower_components/
+
+# Node modules
+www/node_modules/
