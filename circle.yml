@@ -15,7 +15,7 @@ dependencies:
     - cd www && bower install
     - pip install -r requirements.txt
     - cd www && npm install
-    - cd www && npm bower install
+    - cd www && bower install
     - cd www && grunt
 
 test:
