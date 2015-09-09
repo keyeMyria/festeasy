@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    clean: ["build", "dist"],
     bower_concat: {
       all: {
         dest: 'build/bower.js',
@@ -25,11 +26,6 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [{
-          cwd: 'src',
-          src: ['index.html', ],
-          dest: 'dist/',
-          expand: true,
-        }, {
           cwd: 'build',
           src: ['*', ],
           dest: 'dist/',
@@ -39,7 +35,7 @@ module.exports = function(grunt) {
           src: ['app/components/**', ],
           dest: 'dist/',
           expand: true,
-        },{
+        }, {
           cwd: 'src',
           src: ['app/assets/**', ],
           dest: 'dist/',
@@ -47,12 +43,26 @@ module.exports = function(grunt) {
         },]
       }
     },
+    template: {
+      'process-html-template': {
+        options: {
+          data: {
+            'buildNumber': '1',
+          },
+        },
+        files: {
+          'dist/index.html': ['src/index.html.tpl']
+        },
+      }
+    }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-bower-concat');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-template');
 
-  grunt.registerTask('default', ['bower_concat', 'coffee', 'copy']);
+  grunt.registerTask('default', ['clean', 'bower_concat', 'coffee', 'copy', 'template']);
 
 };

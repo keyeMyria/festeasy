@@ -8,17 +8,16 @@
         <meta http-equiv="refresh" content="3600">
         <title>FestEasy</title>
         <!-- inject:css -->
-        <link href="bower.css" rel="stylesheet" />
-        <link href="app/assets/css/styles.css" rel="stylesheet" />
+        <link href="bower.css?build_number=<%= buildNumber %>" rel="stylesheet" />
+        <link href="app/assets/css/styles.css?build_number=<%= buildNumber %>" rel="stylesheet" />
         <!-- endinject -->
     </head>
     <body>
         <div ui-view></div>
         <!-- inject:js -->
         <!-- Bootstrapping -->
-        <script src="bower.js"></script>
-        <script src="my.js"></script>
-        <script src="template.js"></script>
+        <script src="bower.js?build_number=<%= buildNumber %>"></script>
+        <script src="my.js?build_number=<%= buildNumber %>"></script>
         <!-- endinject -->
     </body>
 </html>
