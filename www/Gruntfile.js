@@ -11,11 +11,23 @@ module.exports = function(grunt) {
           bootstrap: ['dist/css/bootstrap.css']
         }
       }
-    }
+    },
+    coffee: {
+      all: {
+        files: {
+          'build/my.js': ['**/*.coffee']
+        },
+        options: {
+          basePath: 'src',
+          sourceMap: true,
+        }
+      }
+    },
   });
 
   grunt.loadNpmTasks('grunt-bower-concat');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
 
-  grunt.registerTask('default', ['bower_concat']);
+  grunt.registerTask('default', ['bower_concat', 'coffee']);
 
 };
