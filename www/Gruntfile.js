@@ -15,19 +15,44 @@ module.exports = function(grunt) {
     coffee: {
       all: {
         files: {
-          'build/my.js': ['**/*.coffee']
+          'build/my.js': ['src/**/*.coffee']
         },
         options: {
-          basePath: 'src',
           sourceMap: true,
         }
+      }
+    },
+    copy: {
+      main: {
+        files: [{
+          cwd: 'src',
+          src: ['index.html', ],
+          dest: 'dist/',
+          expand: true,
+        }, {
+          cwd: 'build',
+          src: ['*', ],
+          dest: 'dist/',
+          expand: true,
+        }, {
+          cwd: 'src',
+          src: ['app/components/**', ],
+          dest: 'dist/',
+          expand: true,
+        },{
+          cwd: 'src',
+          src: ['app/assets/**', ],
+          dest: 'dist/',
+          expand: true,
+        },]
       }
     },
   });
 
   grunt.loadNpmTasks('grunt-bower-concat');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['bower_concat', 'coffee']);
+  grunt.registerTask('default', ['bower_concat', 'coffee', 'copy']);
 
 };
