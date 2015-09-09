@@ -47,7 +47,7 @@ module.exports = function(grunt) {
       'process-html-template': {
         options: {
           data: {
-            'buildNumber': '1',
+            'buildNumber': process.env.CIRCLE_BUILD_NUM || 'local',
           },
         },
         files: {
