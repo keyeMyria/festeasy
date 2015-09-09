@@ -48,6 +48,7 @@ module.exports = function(grunt) {
         options: {
           data: {
             'buildNumber': process.env.CIRCLE_BUILD_NUM || 'local',
+            'revision': process.env.CIRCLE_SHA1 || 'local',
           },
         },
         files: {
