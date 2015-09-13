@@ -1,3 +1,5 @@
+var history = require('connect-history-api-fallback')
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -50,6 +52,18 @@ module.exports = function(grunt) {
           'dist/index.html': ['src/index.html.tpl']
         },
       }
+    },
+    connect: {
+      server: {
+        options: {
+          port: 8080,
+          base: 'dist',
+          middleware: function(connect, options, middleware) {
+            middleware.unshift(history())
+            return middleware
+          },
+        }
+      }
     }
   });
 
@@ -58,6 +72,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-template');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   grunt.registerTask('default', ['clean', 'bower_concat', 'coffee', 'copy', 'template']);
 
