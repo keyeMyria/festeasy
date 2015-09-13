@@ -2,11 +2,11 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    clean: ["build", "dist"],
+    clean: ["dist/*"],
     bower_concat: {
       all: {
-        dest: 'build/bower.js',
-        cssDest: 'build/bower.css',
+        dest: 'dist/bower.js',
+        cssDest: 'dist/bower.css',
         devDependencies: true,
         mainFiles: {
           bootstrap: ['dist/css/bootstrap.css']
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
     coffee: {
       all: {
         files: {
-          'build/my.js': ['src/**/*.coffee']
+          'dist/festeasy.js': ['src/**/*.coffee']
         },
         options: {
           sourceMap: true,
@@ -26,11 +26,6 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [{
-          cwd: 'build',
-          src: ['*', ],
-          dest: 'dist/',
-          expand: true,
-        }, {
           cwd: 'src',
           src: ['app/components/**', ],
           dest: 'dist/',
