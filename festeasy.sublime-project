@@ -15,6 +15,11 @@
 			"working_dir": "${project_path:${folder}}",
 			"cmd": ["./venv/bin/nose2", "-F"], 
 			"selector": "source.python", 
+		}, {
+			"name": "grunt",
+			"working_dir": "${project_path:${folder}}/www",
+			"cmd": ["grunt", "--no-color"], 
+			"selector": "source.coffee, text.html, source.html", 
 		}
 	]
 }
