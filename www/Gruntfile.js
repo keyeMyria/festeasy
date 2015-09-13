@@ -1,12 +1,14 @@
+var history = require('connect-history-api-fallback')
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    clean: ["build", "dist"],
+    clean: ["dist/*"],
     bower_concat: {
       all: {
-        dest: 'build/bower.js',
-        cssDest: 'build/bower.css',
+        dest: 'dist/bower.js',
+        cssDest: 'dist/bower.css',
         devDependencies: true,
         mainFiles: {
           bootstrap: ['dist/css/bootstrap.css']
@@ -16,7 +18,7 @@ module.exports = function(grunt) {
     coffee: {
       all: {
         files: {
-          'build/my.js': ['src/**/*.coffee']
+          'dist/festeasy.js': ['src/**/*.coffee']
         },
         options: {
           sourceMap: true,
@@ -26,11 +28,6 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [{
-          cwd: 'build',
-          src: ['*', ],
-          dest: 'dist/',
-          expand: true,
-        }, {
           cwd: 'src',
           src: ['app/components/**', ],
           dest: 'dist/',
@@ -55,6 +52,18 @@ module.exports = function(grunt) {
           'dist/index.html': ['src/index.html.tpl']
         },
       }
+    },
+    connect: {
+      server: {
+        options: {
+          port: 8080,
+          base: 'dist',
+          middleware: function(connect, options, middleware) {
+            middleware.unshift(history())
+            return middleware
+          },
+        }
+      }
     }
   });
 
@@ -63,6 +72,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-template');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   grunt.registerTask('default', ['clean', 'bower_concat', 'coffee', 'copy', 'template']);
 

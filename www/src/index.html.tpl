@@ -17,7 +17,7 @@
         <!-- inject:js -->
         <!-- Bootstrapping -->
         <script src="bower.js?revision=<%= revision %>&build_number=<%= buildNumber %>"></script>
-        <script src="my.js?revision=<%= revision %>&build_number=<%= buildNumber %>"></script>
+        <script src="festeasy.js?revision=<%= revision %>&build_number=<%= buildNumber %>"></script>
         <!-- endinject -->
     </body>
 </html>
