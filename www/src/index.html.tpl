@@ -11,13 +11,14 @@
         <link href="bower.css?revision=<%= revision %>&build_number=<%= buildNumber %>" rel="stylesheet" />
         <link href="app/assets/css/styles.css?revision=<%= revision %>&build_number=<%= buildNumber %>" rel="stylesheet" />
         <!-- endinject -->
+        <!-- Bootstrapping -->
+        <script src="bower.js?revision=<%= revision %>&build_number=<%= buildNumber %>"></script>
+        <script src="festeasy.js?revision=<%= revision %>&build_number=<%= buildNumber %>"></script>
+        <script src="partials.js?revision=<%= revision %>&build_number=<%= buildNumber %>"></script>
+        <!-- endinject -->
     </head>
     <body>
         <div ui-view></div>
         <!-- inject:js -->
-        <!-- Bootstrapping -->
-        <script src="bower.js?revision=<%= revision %>&build_number=<%= buildNumber %>"></script>
-        <script src="festeasy.js?revision=<%= revision %>&build_number=<%= buildNumber %>"></script>
-        <!-- endinject -->
     </body>
 </html>

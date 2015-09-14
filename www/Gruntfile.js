@@ -54,6 +54,13 @@ module.exports = function(grunt) {
         },
       }
     },
+    ngtemplates: {
+      app: {
+        cwd: 'dist',
+        src: 'partials/*',
+        dest: 'dist/partials.js'
+      }
+    },
     connect: {
       server: {
         options: {
@@ -74,7 +81,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-template');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-angular-templates');
 
-  grunt.registerTask('default', ['clean', 'bower_concat', 'coffee', 'copy', 'template']);
+  grunt.registerTask('default', ['clean', 'bower_concat', 'coffee', 'copy', 'ngtemplates', 'template']);
 
 };
