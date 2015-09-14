@@ -19,7 +19,7 @@
 			"name": "grunt",
 			"working_dir": "${project_path:${folder}}/www",
 			"cmd": ["grunt", "--no-color"], 
-			"selector": "source.coffee, text.html, source.html", 
+			"selector": "source.coffee, text.html, source.html, source.js",
 		}
 	]
 }
