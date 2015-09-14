@@ -1,4 +1,4 @@
-signin.config(($stateProvider, $urlRouterProvider) ->
+auth.config(($stateProvider, $urlRouterProvider) ->
     $stateProvider
         .state('signin', {
             url: '/signin'
