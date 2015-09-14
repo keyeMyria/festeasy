@@ -29,12 +29,13 @@ module.exports = function(grunt) {
       main: {
         files: [{
           cwd: 'src',
-          src: ['app/components/**', ],
-          dest: 'dist/',
+          src: 'app/components/**/*.partial.html',
+          dest: 'dist/partials',
+          flatten: true,
           expand: true,
         }, {
           cwd: 'src',
-          src: ['app/assets/**', ],
+          src: 'app/assets/**',
           dest: 'dist/',
           expand: true,
         },]
