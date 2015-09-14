@@ -19,6 +19,5 @@
     </head>
     <body>
         <div ui-view></div>
-        
     </body>
 </html>
