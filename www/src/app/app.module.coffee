@@ -1,6 +1,6 @@
 app = angular.module('app', [
 	'landing',
-	'signin',
+	'auth',
 	'ui.router',
 ])
 

@@ -29,12 +29,13 @@ module.exports = function(grunt) {
       main: {
         files: [{
           cwd: 'src',
-          src: ['app/components/**', ],
-          dest: 'dist/',
+          src: 'app/components/**/*.partial.html',
+          dest: 'dist/partials',
+          flatten: true,
           expand: true,
         }, {
           cwd: 'src',
-          src: ['app/assets/**', ],
+          src: 'app/assets/**',
           dest: 'dist/',
           expand: true,
         },]
@@ -56,7 +57,7 @@ module.exports = function(grunt) {
     connect: {
       server: {
         options: {
-          port: 8080,
+          port: 8000,
           base: 'dist',
           middleware: function(connect, options, middleware) {
             middleware.unshift(history())
