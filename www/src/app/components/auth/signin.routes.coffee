@@ -1,7 +1,7 @@
 signin.config(($stateProvider, $urlRouterProvider) ->
     $stateProvider
-        .state('siginin', {
+        .state('signin', {
             url: '/signin'
-            templateUrl: 'app/components/signin/signin.partial.html'
+            templateUrl: 'app/components/auth/signin.partial.html'
         })
 )
