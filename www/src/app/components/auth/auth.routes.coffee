@@ -3,5 +3,6 @@ auth.config(($stateProvider, $urlRouterProvider) ->
         .state('signin', {
             url: '/signin'
             templateUrl: 'partials/signin.partial.html'
+            controller: 'signinController'
         })
 )

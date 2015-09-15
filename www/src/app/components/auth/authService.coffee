@@ -1,7 +1,9 @@
-auth.factory('authService', () ->
-	service = {}
-	service.user = null
-	service.session = null
-
-	return service
+auth.factory('authService', ($auth) ->
+	api = {}
+	api.signin = (user) ->
+		promise = $auth.login(user)
+		promise.then(() ->
+			console.log 'Singed in'
+		)
+	return api
 )
