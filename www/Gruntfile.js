@@ -62,7 +62,7 @@ module.exports = function(grunt) {
     },
     watch: {
       configFiles: {
-        files: [ 'Gruntfile.js', 'src/**' ],
+        files: ['Gruntfile.js', 'src/**', 'bower_components/**'],
         tasks: ['default'],
         options: {
           reload: true
