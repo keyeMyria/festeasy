@@ -75,6 +75,7 @@ module.exports = function(grunt) {
         options: {
           port: 8000,
           base: 'dist',
+          keepalive: true,
           middleware: function(connect, options, middleware) {
             middleware.unshift(history())
             return middleware
