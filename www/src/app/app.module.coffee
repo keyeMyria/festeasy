@@ -1,7 +1,7 @@
 app = angular.module('app', [
 	'landing',
 	'auth',
-	'ui.router',
+	'ui.router'
 ])
 
 app.config(($locationProvider) ->

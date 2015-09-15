@@ -1,14 +1,15 @@
 auth = angular.module('auth', [
 	'ui.router',
 	'satellizer',
+	'conf',
 ])
 
-auth.config(($authProvider) ->
+auth.config(($authProvider, API_END_POINT) ->
 	$authProvider.httpInterceptor = true;
 	$authProvider.withCredentials = true;
 	$authProvider.tokenRoot = null;
 	$authProvider.cordova = false;
-	$authProvider.baseUrl = 'http://localhost:5000/api/v1/';
+	$authProvider.baseUrl = API_END_POINT
 	$authProvider.loginUrl = '/signin';
 	$authProvider.signupUrl = '/signup';
 	$authProvider.unlinkUrl = '/auth/unlink/';
