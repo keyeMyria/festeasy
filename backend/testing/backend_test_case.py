@@ -2,7 +2,6 @@ import datetime
 from flask.ext.testing import TestCase
 
 from backend import create_app, db
-from backend.utils import random_string
 from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
