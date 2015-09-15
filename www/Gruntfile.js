@@ -61,6 +61,15 @@ module.exports = function(grunt) {
         dest: 'dist/partials.js'
       }
     },
+    watch: {
+      configFiles: {
+        files: [ 'Gruntfile.js', 'src/**' ],
+        tasks: ['default'],
+        options: {
+          reload: true
+        }
+      }
+    },
     connect: {
       server: {
         options: {
@@ -82,6 +91,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-template');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('default', ['clean', 'bower_concat', 'coffee', 'copy', 'ngtemplates', 'template']);
 
