@@ -39,8 +39,8 @@ Now to run the server:
 
 `python manage.py run-api`
 
-Now if you navigate to (http://localhost:5000), you will be served the api etc :)
-Also, (http://localhost:5000/api/v1/)
+Now if you navigate to [localhost:5000](http://localhost:5000), you will be served the api etc :)
+Also, [localhost:5000/api/v1/](http://localhost:5000/api/v1/)
 
 Now start hacking.
 
@@ -79,6 +79,6 @@ From the www directory, run:
 
 `grunt server`
 
-Now navigate to (http://localhost:8000) and you should see some stuff, done!
+Now navigate to [localhost:8000](http://localhost:8000) and you should see some stuff, done!
 
 Now start hacking.
