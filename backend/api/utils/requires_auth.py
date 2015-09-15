@@ -1,26 +1,36 @@
 import datetime
-from flask import request
+import jwt
+from flask import request, jsonify
 from functools import wraps
+from jwt import DecodeError, ExpiredSignature
 
-from backend.models import Session
+from backend.models import User
+
+
+def parse_token(req):
+    token = req.headers.get('Authorization').split()[1]
+    return jwt.decode(token, 'secret')
 
 
 def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        now = datetime.datetime.now()
-        auth_token = request.args.get('auth_token')
-        if not auth_token:
-            raise Exception('No auth token present')
-        session = (Session.query.filter(
-            Session.token == auth_token,
-            )).first()
-        if not session:
-            raise Exception('No session found with supplied auth_token')
-        if session.expires_on < now:
-            raise Exception('Session has expired.')
-        authenticated_user = session.user
-        if not authenticated_user:
-            raise Exception('Session has no user.')
-        return f(*args, authenticated_user=authenticated_user, **kwargs)
+        if not request.headers.get('Authorization'):
+            response = jsonify(message='Missing authorization header')
+            response.status_code = 401
+            return response
+        try:
+            payload = parse_token(request)
+        except DecodeError:
+            response = jsonify(message='Token is invalid')
+            response.status_code = 401
+            return response
+        except ExpiredSignature:
+            response = jsonify(message='Token has expired')
+            response.status_code = 401
+        user_id = payload['sub']
+        user = User.query.filter(User.id == user_id).first()
+        if not user:
+            raise Exception('No user for given token. This should never happen.')
+        return f(*args, authenticated_user=user, **kwargs)
     return decorated

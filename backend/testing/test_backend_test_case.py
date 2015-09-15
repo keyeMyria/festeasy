@@ -2,7 +2,6 @@ import datetime
 
 from backend import db
 from backend.testing import BackendTestCase
-from backend.utils import random_string
 from backend.models import User, Session, Cart
 from backend.models import Product
 
@@ -38,13 +37,12 @@ class TestBackendTestCaseCreateSession(BackendTestCase):
         """
         now = datetime.datetime.now()
         expires_on = now + datetime.timedelta(seconds=30)
-        token = random_string(25)
         user = self.create_user(normal_user=True, with_cart=True)
         session = self.create_session(
             expires_on=expires_on,
-            token=token,
             user=user,
         )
+        session.generate_token()
         db.session.add(session)
         db.session.commit()
         fetched_session = Session.query.first()

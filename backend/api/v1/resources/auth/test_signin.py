@@ -32,7 +32,6 @@ class TestSignin(APITestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json['user']['email_address'], email_address)
-        self.assertIsNotNone(response.json['session'])
+        self.assertEqual(response.json['user_id'], user.id)
         fetched_session = Session.query.first()
         self.assertEqual(fetched_session.user, user)
