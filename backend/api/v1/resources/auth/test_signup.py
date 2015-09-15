@@ -24,8 +24,7 @@ class TestSignup(APITestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json['user']['email_address'], email_address)
-        self.assertEqual(response.json['session']['id'], 1)
+        self.assertEqual(response.json['id'], 1)
         fetched_user = User.query.first()
         fetched_session = Session.query.first()
         self.assertEqual(fetched_user.email_address, email_address)

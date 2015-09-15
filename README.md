@@ -77,7 +77,7 @@ From the www directory, run:
 
 From the www directory, run:
 
-`grunt server`
+`grunt connect`
 
 Now navigate to [localhost:8000](http://localhost:8000) and you should see some stuff, done!
 

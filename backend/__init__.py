@@ -2,6 +2,7 @@ import os
 import logging
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.cors import CORS
 
 
 logger = logging.getLogger(__name__)
@@ -12,7 +13,8 @@ db = SQLAlchemy()
 
 def create_app(config):
     app = Flask(__name__)
-
+    CORS(app)
+    app.config['PROPAGATE_EXCEPTIONS'] = True
     if config == 'testing':
         app.config['TESTING'] = True
         app.config.from_pyfile('config/testing.py'.format(config))

@@ -2,7 +2,6 @@ import datetime
 from flask.ext.testing import TestCase
 
 from backend import create_app, db
-from backend.utils import random_string
 from backend.models import User, Session, Product
 from backend.models import Event, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
@@ -76,13 +75,14 @@ class BackendTestCase(TestCase):
         if valid_session:
             session_template = {
                 'expires_on': now,
-                'token': random_string(25),
             }
             kwargs = template_entity(session_template, kwargs)
         session = Session(*args, **kwargs)
+        if valid_session:
+            session.generate_token()
         return session
 
-    def create_user(self, *args, normal_user=False, 
+    def create_user(self, *args, normal_user=False,
             valid_session=False, with_cart=False, **kwargs):
         now = datetime.datetime.now()
         if normal_user:
@@ -96,10 +96,12 @@ class BackendTestCase(TestCase):
 
         if valid_session:
             expires_on = now + datetime.timedelta(seconds=30)
-            token = random_string(25)
-            session = self.create_session(expires_on=expires_on, token=token)
+            session = self.create_session(
+                expires_on=expires_on,
+                user=user,
+            )
+            session.generate_token()
             user.sessions.append(session)
-
         if with_cart:
             user.cart = Cart()
         return user

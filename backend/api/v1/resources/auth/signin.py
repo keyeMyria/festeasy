@@ -1,11 +1,11 @@
 import datetime
+import jwt
 from flask_restful import Resource
 from flask import request, jsonify, make_response
 
 from backend import db
 from backend.models import User, Session
 from backend.api.v1.schemas import SigninSchema, UserSchema, SessionSchema
-from backend.utils import random_string
 from backend.api.v1.exceptions import APIException
 
 
@@ -27,15 +27,14 @@ class Signin(Resource):
                 'Incorrect email address and password combination.',
                 401,
             )
-        now = datetime.datetime.now()
-        token = random_string(25)
+        now = datetime.datetime.utcnow()
+        expires_on = now + datetime.timedelta(days=14)
         session = Session(
-            expires_on=now + datetime.timedelta(days=100),
-            token=token,
+            expires_on=expires_on,
+            user=user,
         )
-        user.sessions.append(session)
-        db.session.add(user)
+        session.generate_token()
+        db.session.add(session)
         db.session.commit()
-        user_data, user_errors = self.user_schema.dump(user)
         session_data, session_errors = self.session_schema.dump(session)
-        return make_response(jsonify(user=user_data, session=session_data), 201)
+        return make_response(jsonify(session_data), 201)

@@ -50,8 +50,11 @@ class InitDB(Command):
         import datetime
         now = datetime.datetime.now()
         never = now + datetime.timedelta(days=1000)
+        session = Session(user=test_user, expires_on=never)
+        session.generate_token()
         test_user.sessions.append(
-            Session(token='123', expires_on=never))
+            session,
+        )
         users = [
             test_user,
         ]

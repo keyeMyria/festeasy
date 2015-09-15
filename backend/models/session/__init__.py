@@ -1,3 +1,4 @@
+import jwt
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
@@ -9,10 +10,17 @@ from backend.models import Entity
 class Session(db.Model, Entity):
     __tablename__ = 'session'
 
-    def __init__(self, expires_on, token, user=None):
+    def __init__(self, expires_on, user):
         self.expires_on = expires_on
         self.user = user
-        self.token = token
+
+    def generate_token(self):
+        payload = {
+            'sub': self.user.id,
+            'iat': self.created_on,
+            'exp': self.expires_on,
+        }
+        self.token = jwt.encode(payload, 'secret').decode('unicode_escape')
 
     def __repr__(self):
         return '<Session {id}>'.format(id=self.id)
