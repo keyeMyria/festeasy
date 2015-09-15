@@ -9,3 +9,8 @@ app.config(($locationProvider) ->
         enabled: true,
     })
 )
+
+app.config(($stateProvider, $urlRouterProvider) ->
+    $urlRouterProvider
+        .otherwise('/')
+)

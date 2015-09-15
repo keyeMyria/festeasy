@@ -18,3 +18,12 @@ auth.config(($authProvider) ->
 	$authProvider.authToken = 'Bearer';
 	$authProvider.storageType = 'localStorage';
 )
+
+auth.config(($stateProvider, $urlRouterProvider) ->
+    $stateProvider
+        .state('signin', {
+            url: '/signin'
+            templateUrl: 'partials/signin.partial.html'
+            controller: 'signinController'
+        })
+)
