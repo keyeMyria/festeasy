@@ -48,13 +48,17 @@ Now start hacking.
 
 #### Install some apt dependencies
 
-`sudo apt get install nodejs npm`
+`sudo apt get install nodejs nodejs-legacy npm`
 
 #### Install npm modules
 
 Install grunt-cli:
 
 `sudo npm install -g grunt-cli`
+
+Install bower:
+
+`sudo npm install -g bower`
 
 From the www directory of the repository, run:
 
