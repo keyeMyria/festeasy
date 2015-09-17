@@ -20,7 +20,7 @@ auth.config(($authProvider, API_END_POINT) ->
 	$authProvider.storageType = 'localStorage'
 )
 
-auth.config(($stateProvider, $urlRouterProvider) ->
+auth.config(($stateProvider) ->
     $stateProvider
         .state('signin', {
             url: '/signin'

@@ -1,4 +1,4 @@
-auth.controller('signinController', ($scope, authService) ->
+auth.controller('signinController', ($scope, authService, $state) ->
 	$scope.user = {
 		email_address: null
 		password: null
@@ -12,6 +12,7 @@ auth.controller('signinController', ($scope, authService) ->
 		promise.then((response) ->
 			console.log 'success'
 			console.log response
+			$state.go('account')
 		, (response) ->
 			console.log 'fail'
 			$scope.errors.auth_error = true
