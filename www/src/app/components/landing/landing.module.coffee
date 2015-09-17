@@ -2,7 +2,7 @@ landing = angular.module('landing', [
 	'ui.router',
 ])
 
-landing.config(($stateProvider, $urlRouterProvider) ->
+landing.config(($stateProvider) ->
     $stateProvider
         .state('landing', {
             url: '/'
