@@ -5,13 +5,10 @@ account = angular.module('account', [
 
 account.config(($stateProvider) ->
 	$stateProvider
-        .state('account', {
+        .state('base.account', {
             url: '/account'
             templateUrl: 'partials/account.partial.html'
             controller: 'accountController'
-            resolve: 
-            	user: ($auth, userService) ->
-            		user_id = $auth.getPayload().sub
-            		return userService.one(user_id).get()
+            auth: true
         })
 )

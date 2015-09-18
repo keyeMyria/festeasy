@@ -1,5 +1,9 @@
-<navbar></navbar>
+<div ng-show="is_loading">
+	Loading...
+</div>
 
-Hi {{user.first_name}}!
-<br/>
-Your email address is {{user.email_address}}
+<div ng-show="!is_loading">
+	Hi {{user.first_name}}!
+	<br/>
+	Your email address is {{user.email_address}}
+</div>
