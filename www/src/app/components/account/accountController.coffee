@@ -1,8 +1,4 @@
-account.controller('accountController', ($scope, $auth, userService, $state) ->
-	if not $auth.isAuthenticated()
-		$state.go('base.signin')
-		return
-
+account.controller('accountController', ($scope, $auth, userService) ->
 	$scope.is_loading = true
 	user_id = $auth.getPayload().sub
 	promise = userService.one(user_id).get()

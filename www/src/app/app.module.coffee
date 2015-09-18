@@ -1,8 +1,8 @@
 app = angular.module('app', [
-	'base'
-	'landing',
-	'auth',
-	'account',
+    'base'
+    'landing',
+    'auth',
+    'account',
 ])
 
 app.config(($locationProvider) ->
@@ -10,3 +10,11 @@ app.config(($locationProvider) ->
         enabled: true,
     })
 )
+
+app.run(($rootScope, $auth, $state) ->
+    $rootScope.$on('$stateChangeStart',
+        (event, toState, toParams, fromState, fromParams) ->
+            if toState.auth and not $auth.isAuthenticated()
+                event.preventDefault()
+                $state.go('base.signin')
+))

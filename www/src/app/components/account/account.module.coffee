@@ -9,5 +9,6 @@ account.config(($stateProvider) ->
             url: '/account'
             templateUrl: 'partials/account.partial.html'
             controller: 'accountController'
+            auth: true
         })
 )
