@@ -26,6 +26,7 @@ auth.config(($stateProvider) ->
             url: '/signin'
             templateUrl: 'partials/signin.partial.html'
             controller: 'signinController'
+            params: {redirectReason: null}
         })
         .state('base.signup', {
             url: '/signup'
