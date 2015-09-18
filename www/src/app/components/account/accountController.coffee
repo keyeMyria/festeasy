@@ -1,6 +1,6 @@
 account.controller('accountController', ($scope, $auth, userService, $state) ->
 	if not $auth.isAuthenticated()
-		$state.go('signin')
+		$state.go('base.signin')
 		return
 
 	$scope.is_loading = true

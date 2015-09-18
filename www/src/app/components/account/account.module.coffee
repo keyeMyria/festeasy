@@ -5,7 +5,7 @@ account = angular.module('account', [
 
 account.config(($stateProvider) ->
 	$stateProvider
-        .state('account', {
+        .state('base.account', {
             url: '/account'
             templateUrl: 'partials/account.partial.html'
             controller: 'accountController'

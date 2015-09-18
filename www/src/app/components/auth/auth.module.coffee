@@ -22,12 +22,12 @@ auth.config(($authProvider, API_END_POINT) ->
 
 auth.config(($stateProvider) ->
     $stateProvider
-        .state('signin', {
+        .state('base.signin', {
             url: '/signin'
             templateUrl: 'partials/signin.partial.html'
             controller: 'signinController'
         })
-        .state('signup', {
+        .state('base.signup', {
             url: '/signup'
             templateUrl: 'partials/signup.partial.html'
             controller: 'signupController'

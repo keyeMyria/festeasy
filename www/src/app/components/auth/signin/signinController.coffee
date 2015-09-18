@@ -12,7 +12,7 @@ auth.controller('signinController', ($scope, authService, $state) ->
 		promise.then((response) ->
 			console.log 'success'
 			console.log response
-			$state.go('account')
+			$state.go('base.account')
 		, (response) ->
 			console.log 'fail'
 			$scope.errors.auth_error = true

@@ -8,19 +8,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" ui-sref="landing">FestEasy</a>
+      <a class="navbar-brand" ui-sref="base.landing">FestEasy</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ui-sref-active="active"><a ui-sref="landing">Landing</a></li>
+        <li ui-sref-active="active"><a ui-sref="base.landing">Landing</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li ui-sref-active="active"><a ui-sref="account">Account</a></li>
+        <li ui-sref-active="active"><a ui-sref="base.account">Account</a></li>
         <li ui-sref-active="active"><a ng-controller="signoutController" ng-click="signout()">Sign out</a></li>
-        <li ui-sref-active="active"><a ui-sref="signin">Sign in</a></li>
-        <li ui-sref-active="active"><a ui-sref="signup">Sign up</a></li>
+        <li ui-sref-active="active"><a ui-sref="base.signin">Sign in</a></li>
+        <li ui-sref-active="active"><a ui-sref="base.signup">Sign up</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

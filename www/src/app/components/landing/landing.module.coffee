@@ -4,7 +4,7 @@ landing = angular.module('landing', [
 
 landing.config(($stateProvider) ->
     $stateProvider
-        .state('landing', {
+        .state('base.landing', {
             url: '/'
             templateUrl: 'partials/landing.partial.html'
         })
