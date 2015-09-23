@@ -1,4 +1,5 @@
 auth.controller('signinController', ($scope, authService, $state, $stateParams) ->
+	$scope.is_loading = false
 	$scope.redirectReason = $stateParams.redirectReason
 	$scope.user = {
 		email_address: null
@@ -8,6 +9,7 @@ auth.controller('signinController', ($scope, authService, $state, $stateParams) 
 		auth_error: null
 	}
 	$scope.signin = () ->
+		$scope.is_loading = true
 		$scope.redirectReason = null
 		$scope.errors.auth_error = false
 		promise = authService.signin($scope.user)
@@ -19,8 +21,8 @@ auth.controller('signinController', ($scope, authService, $state, $stateParams) 
 			console.log 'fail'
 			$scope.errors.auth_error = true
 			console.log response
-		, (response) ->
-			console.log 'notify'
-			console.log response
+		)
+		promise.finally((response) ->
+			$scope.is_loading = false
 		)
 )
