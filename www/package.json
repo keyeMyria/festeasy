@@ -15,7 +15,8 @@
     "grunt-contrib-copy": "^0.8.1",
     "grunt-contrib-uglify": "^0.9.2",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-template": "^0.2.3"
+    "grunt-template": "^0.2.3",
+    "npm-check-updates": "^2.2.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
