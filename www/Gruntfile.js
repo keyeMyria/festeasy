@@ -3,7 +3,7 @@ var history = require('connect-history-api-fallback')
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    clean: ["dist/*"],
+    clean: ["dist/*", "build/*"],
     bower_concat: {
       all: {
         dest: 'dist/bower.js',
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         files: [{
           cwd: 'src',
           src: 'app/components/**/*.partial.html',
-          dest: 'dist/partials',
+          dest: 'build/partials',
           flatten: true,
           expand: true,
         }, {
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
     },
     ngtemplates: {
       app: {
-        cwd: 'dist',
+        cwd: 'build',
         src: 'partials/*',
         dest: 'dist/partials.js'
       }
