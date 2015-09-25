@@ -2,16 +2,19 @@
 	<form ng-submit="signup()">
 		<div class="form-group">
 			<label for="inputFirstName">First Name</label>
-			<input type="text" class="form-control" ng-model="user.first_name" id="inputFirstName" placeholder="first name">
+			<input type="text" class="form-control" ng-model="user.first_name" id="inputFirstName" placeholder="first name" ng-required="true">
 		  </div>
 	  	<div class="form-group">
 			<label for="inputEmail">Email address</label>
-			<input type="email" class="form-control" ng-model="user.email_address" id="inputEmail" placeholder="Email">
+			<input type="email" class="form-control" ng-model="user.email_address" id="inputEmail" placeholder="Email" ng-required="true">
 	  	</div>
 	  	<div class="form-group">
 			<label for="inputPassword">Password</label>
-			<input type="password" class="form-control" ng-model="user.password" id="inputPassword" placeholder="Password">
+			<input type="password" class="form-control" ng-model="user.password" id="inputPassword" placeholder="Password" ng-required="true">
 	  	</div>
-	  	<button type="submit" class="btn btn-default btn-block">Sign up</button>
+	  	<button type="submit" class="btn btn-default btn-block">
+	  		<span ng-show="is_loading">Loading...</span>
+		  	<span ng-show="!is_loading">Sign up</span>
+	  	</button>
 	</form>
 </div>

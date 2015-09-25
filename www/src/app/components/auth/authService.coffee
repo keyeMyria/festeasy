@@ -17,12 +17,18 @@ auth.factory('authService', ($q, $auth) ->
 		a = $auth.signup(user)
 		a.then((response) ->
 			console.log 'Signed up!'
-			deferred.resolve(response)
+			b = signin(user)
+			b.then((response) ->
+				deferred.resolve(response)
+			)
+			b.catch((response) ->
+				deferred.reject(response)
+			)
 		)
 		a.catch((response) ->
 			deferred.reject(response)
 		)
-
+		return deferred.promise
 	api.signin = signin
 	api.signup = signup
 	return api
