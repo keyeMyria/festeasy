@@ -16,10 +16,18 @@
       <ul class="nav navbar-nav">
         <li ui-sref-active="active"><a ui-sref="base.landing">Landing</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li ui-sref-active="active"><a ui-sref="base.account">Account</a></li>
-        <li ui-sref-active="active"><a ng-controller="signoutController" ng-click="signout()">Sign out</a></li>
-        <li ui-sref-active="active"><a ui-sref="base.signin">Sign in</a></li>
+      <ul ng-show="authService.isAuthenticated()" class="nav navbar-nav navbar-right">
+        <li ui-sref-active="active">
+          <a ui-sref="base.account">Account</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ng-controller="signoutController" ng-click="signout()">Sign out</a>
+        </li>
+      </ul>
+      <ul ng-hide="authService.isAuthenticated()" class="nav navbar-nav navbar-right">
+        <li ui-sref-active="active">
+          <a ui-sref="base.signin">Sign in</a>
+        </li>
         <li ui-sref-active="active"><a ui-sref="base.signup">Sign up</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->

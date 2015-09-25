@@ -16,10 +16,10 @@ app.config(($stateProvider, $urlRouterProvider) ->
         .otherwise('/')
 )
 
-app.run(($rootScope, $auth, $state) ->
+app.run(($rootScope, authService, $state) ->
     $rootScope.$on('$stateChangeStart',
         (event, toState, toParams, fromState, fromParams) ->
-            if toState.auth and not $auth.isAuthenticated()
+            if toState.auth and not authService.isAuthenticated()
                 event.preventDefault()
                 $state.go('base.signin', {redirectReason: 'Auth needed.'})
     )
