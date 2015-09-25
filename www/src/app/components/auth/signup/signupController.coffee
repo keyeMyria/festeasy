@@ -10,7 +10,6 @@ auth.controller('signupController', ($scope, authService, $state) ->
 			unknown_error: null
 		}
 		$scope.is_loading = true
-		$scope.errors.auth_error = false
 		promise = authService.signup($scope.user)
 		promise.then((response) ->
 			console.log 'success'
