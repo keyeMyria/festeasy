@@ -3,6 +3,10 @@
 		<b>Oh snap!</b> There was a connection error.
 		Please try again.
 	</div>
+	<div ng-show="errors.duplicate_error" class="alert alert-warning" role="alert">
+		<b>Hold on!</b> This email address has already been registered.
+		Please try again.
+	</div>
 	<div ng-show="errors.unknown_error" class="alert alert-warning" role="alert">
 		<b>Crap!</b> There was an unknown error.
 		Please try again.

@@ -7,6 +7,7 @@ auth.controller('signupController', ($scope, authService, $state) ->
 	$scope.signup = () ->
 		$scope.errors = {
 			connection_error: null
+			duplicate_error: null
 			unknown_error: null
 		}
 		$scope.is_loading = true
@@ -19,6 +20,8 @@ auth.controller('signupController', ($scope, authService, $state) ->
 			status_code = response.status
 			if status_code == 0
 				$scope.errors.connection_error = true
+			else if status_code == 409
+				$scope.errors.duplicate_error = true
 			else
 				$scope.errors.unknown_error = true
 		)
