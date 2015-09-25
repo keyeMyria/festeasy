@@ -15,12 +15,10 @@ auth.controller('signinController', ($scope, authService, $state, $stateParams) 
 		promise = authService.signin($scope.user)
 		promise.then((response) ->
 			console.log 'success'
-			console.log response
 			$state.go('base.account')
 		, (response) ->
 			console.log 'fail'
 			$scope.errors.auth_error = true
-			console.log response
 		)
 		promise.finally((response) ->
 			$scope.is_loading = false

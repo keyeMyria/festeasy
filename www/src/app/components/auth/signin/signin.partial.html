@@ -12,12 +12,15 @@
 	<form ng-submit="signin()">
 	  	<div class="form-group">
 			<label for="exampleInputEmail1">Email address</label>
-			<input type="email" class="form-control" ng-model="user.email_address" id="exampleInputEmail1" placeholder="Email">
+			<input type="email" class="form-control" ng-model="user.email_address" id="exampleInputEmail1" placeholder="Email" ng-required="true">
 	  	</div>
 	  	<div class="form-group">
 			<label for="exampleInputPassword1">Password</label>
-			<input type="password" class="form-control" ng-model="user.password" id="exampleInputPassword1" placeholder="Password">
+			<input type="password" class="form-control" ng-model="user.password" id="exampleInputPassword1" placeholder="Password" ng-required="true">
 	  	</div>
-	  	<button type="submit" class="btn btn-default btn-block">Sign in</button>
+	  	<button type="submit" class="btn btn-default btn-block">
+		  	<span ng-show="is_loading">Loading...</span>
+		  	<span ng-show="!is_loading">Sign in</span>
+	  	</button>
 	</form>
 </div>
