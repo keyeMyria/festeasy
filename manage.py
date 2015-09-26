@@ -19,7 +19,7 @@ class RunServer(Server):
     def handle(self, *args, **kwargs):
         Server.handle(self, *args, **kwargs)
 manager.add_command(
-    'run-api',
+    'run-server',
     RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'),
 )
 
