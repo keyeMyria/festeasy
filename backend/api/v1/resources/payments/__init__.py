@@ -1,1 +1,1 @@
-from .payments_singleton import PaymentSingleton
+from .payment_singleton import PaymentSingleton

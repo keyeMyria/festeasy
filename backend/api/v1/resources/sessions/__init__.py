@@ -1,1 +1,1 @@
-from .sessions_singleton import SessionSingleton
+from .session_singleton import SessionSingleton

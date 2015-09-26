@@ -14,20 +14,25 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ui-sref-active="active"><a ui-sref="base.festivals">Festivals</a></li>
+        <li ui-sref-active="active">
+          <a ui-sref="base.festivals" ui-sref-opts="{reload:true}">Festivals</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="base.how-it-works" ui-sref-opts="{reload:true}">How It Works</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.account">Account</a>
+          <a ui-sref="base.account" ui-sref-opts="{reload:true}">Account</a>
         </li>
         <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
           <a ng-controller="signoutController" ng-click="signout()">Sign out</a>
         </li>
         <li ng-hide="authService.isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.signin">Sign in</a>
+          <a ui-sref="base.signin" ui-sref-opts="{reload:true}">Sign in</a>
         </li>
         <li ng-hide="authService.isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.signup">Sign up</a>
+          <a ui-sref="base.signup" ui-sref-opts="{reload:true}">Sign up</a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
