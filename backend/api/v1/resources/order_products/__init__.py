@@ -1,1 +1,1 @@
-from .singleton import OrderProductSingleton
+from .order_products_singleton import OrderProductSingleton

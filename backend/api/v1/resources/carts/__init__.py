@@ -1,1 +1,1 @@
-from .singleton import CartSingleton
+from .carts_singleton import CartSingleton
