@@ -1,2 +1,2 @@
-from .festivals_singleton import FestivalSingleton
-from .festivals_collection import FestivalCollection
+from .festival_singleton import FestivalSingleton
+from .festival_collection import FestivalCollection
