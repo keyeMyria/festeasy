@@ -1,12 +1,12 @@
-from base64 import b64encode
 import json
+from base64 import b64encode
 
 from backend.testing import BackendTestCase
 
 
 class APITestCase(BackendTestCase):
     def api_request(self, method,
-            url, data=None, as_user=None, with_session=None):
+                    url, data=None, as_user=None, with_session=None):
         kwargs = dict()
         headers = dict()
 
