@@ -17,7 +17,7 @@ module.exports = function(grunt) {
     coffee: {
       all: {
         files: {
-          'dist/festeasy.js': ['src/**/*.coffee']
+          'dist/festeasy.js': ['src/**/*.module.coffee', 'src/**/*.coffee']
         },
         options: {
           sourceMap: true,
