@@ -3,7 +3,7 @@ from flask.ext.testing import TestCase
 
 from backend import create_app, db
 from backend.models import User, Session, Product
-from backend.models import Event, Order, Cart, Invoice
+from backend.models import Festival, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
 from backend.models import Payment, InvoiceProduct
 from backend.testing.utils import template_entity
@@ -49,14 +49,14 @@ class BackendTestCase(TestCase):
         order = Order(*args, **kwargs)
         return order
 
-    def create_event(self, *args, pre_populate=False, **kwargs):
+    def create_festival(self, *args, pre_populate=False, **kwargs):
         if pre_populate:
             template = {
-                'name': 'My Event',
+                'name': 'My Festival',
             }
             kwargs = template_entity(template, kwargs)
-        event = Event(*args, **kwargs)
-        return event
+        festival = Festival(*args, **kwargs)
+        return festival
 
     def create_product(self, *args, create_valid_product=None, **kwargs):
         if create_valid_product:

@@ -6,7 +6,7 @@ from flask.ext.cors import CORS
 
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARN)
 
 db = SQLAlchemy()
 

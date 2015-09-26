@@ -43,9 +43,9 @@ from .resources.cart_products import CartProductSingleton
 v1_api.add_resource(CartProductSingleton,
                     '/cart-products/<int:cart_product_id>')
 
-from .resources.events import EventSingleton
-v1_api.add_resource(EventSingleton,
-                    '/events/<int:event_id>')
+from .resources.festivals import FestivalSingleton
+v1_api.add_resource(FestivalSingleton,
+                    '/festivals/<int:festival_id>')
 
 from .resources.invoices import InvoiceSingleton
 v1_api.add_resource(InvoiceSingleton,

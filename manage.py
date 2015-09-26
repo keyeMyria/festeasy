@@ -5,7 +5,7 @@ from flask.ext.script import Shell, Server
 
 from backend import create_app, db
 from backend import models
-from backend.models import User, Product, Event, Cart, Session
+from backend.models import User, Product, Festival, Cart, Session
 
 
 manager = Manager(create_app, with_default_commands=False)
@@ -74,12 +74,12 @@ class InitDB(Command):
             Product(name='Jelly Beans',
                     cost_rands=10, is_enabled=True, price_rands=7),
         ]
-        events = [
-            Event(name='Rocking The Daisies', is_enabled=True),
-            Event(name='Sunflower Fest', is_enabled=True),
-            Event(name='Oppie Koppie', is_enabled=True),
+        festivals = [
+            Festival(name='Rocking The Daisies'),
+            Festival(name='Sunflower Fest'),
+            Festival(name='Oppie Koppie'),
         ]
-        things = users + products + events
+        things = users + products + festivals
         for thing in things:
             db.session.add(thing)
         db.session.commit()

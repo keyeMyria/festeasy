@@ -1,24 +1,30 @@
 auth.controller('signinController', ($scope, authService, $state, $stateParams) ->
-	$scope.is_loading = false
 	$scope.redirectReason = $stateParams.redirectReason
 	$scope.user = {
 		email_address: null
 		password: null
 	}
-	$scope.errors = {
-		auth_error: null
-	}
 	$scope.signin = () ->
+		$scope.errors = {
+			connection_error: null
+			auth_error: null
+			unknown_error: null
+		}
 		$scope.is_loading = true
 		$scope.redirectReason = null
-		$scope.errors.auth_error = false
 		promise = authService.signin($scope.user)
 		promise.then((response) ->
 			console.log 'success'
 			$state.go('base.account')
 		, (response) ->
 			console.log 'fail'
-			$scope.errors.auth_error = true
+			status_code = response.status
+			if status_code == 0
+				$scope.errors.connection_error = true
+			else if status_code == 401
+				$scope.errors.auth_error = true
+			else
+				$scope.errors.unknown_error = true
 		)
 		promise.finally((response) ->
 			$scope.is_loading = false

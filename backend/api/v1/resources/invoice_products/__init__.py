@@ -1,1 +1,1 @@
-from .singleton import InvoiceProductSingleton
+from .invoice_products_singleton import InvoiceProductSingleton

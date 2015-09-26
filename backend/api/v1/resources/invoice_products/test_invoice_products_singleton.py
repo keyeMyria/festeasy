@@ -14,7 +14,7 @@ class TestInvoiceProductSingleton(APITestCase):
             product=self.create_product(create_valid_product=True),
             invoice=self.create_invoice(
                 order=self.create_order(
-                    event=self.create_event(name='asdf'),
+                    festival=self.create_festival(name='asdf'),
                     user=self.create_user(normal_user=True, with_cart=True),
                 ),
             ),

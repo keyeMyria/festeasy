@@ -1,0 +1,1 @@
+from .festivals_singleton import FestivalSingleton
