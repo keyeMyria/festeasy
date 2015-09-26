@@ -65,7 +65,8 @@ module.exports = function(grunt) {
         files: ['Gruntfile.js', 'src/**', 'bower_components/**'],
         tasks: ['default'],
         options: {
-          reload: true
+          reload: true,
+          atBegin: true,
         }
       }
     },
