@@ -1,0 +1,3 @@
+festivals.controller('festivalsController', ($scope) ->
+
+)
