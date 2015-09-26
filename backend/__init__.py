@@ -14,7 +14,10 @@ db = SQLAlchemy()
 def create_app(config):
     app = Flask(__name__)
     CORS(app)
+
     app.config['PROPAGATE_EXCEPTIONS'] = True
+    app.config['BUNDLE_ERRORS'] = True
+
     if config == 'testing':
         app.config['TESTING'] = True
         app.config.from_pyfile('config/testing.py'.format(config))
@@ -32,8 +35,6 @@ def create_app(config):
 
     from backend.api import v1_bp
     app.register_blueprint(v1_bp, url_prefix='/api/v1')
-
-    app.config['BUNDLE_ERRORS'] = True
 
     db.init_app(app)
 
