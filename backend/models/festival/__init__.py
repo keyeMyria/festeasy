@@ -6,12 +6,11 @@ from backend import db
 from backend.models import Entity
 
 
-class Event(db.Model, Entity):
-    __tablename__ = 'event'
+class Festival(db.Model, Entity):
+    __tablename__ = 'festival'
 
     def __init__(self, is_enabled=None, name=None,
             starts_on=None, ends_on=None, users=[], orders=[]):
-        self.is_enabled = is_enabled
         self.name = name
         self.starts_on = starts_on
         self.ends_on = ends_on
@@ -19,7 +18,7 @@ class Event(db.Model, Entity):
         self.orders = orders
 
     def __repr__(self):
-        return '<Event {id}>'.format(id=self.id)
+        return '<Festival {id}>'.format(id=self.id)
 
     name = Column(String(150), nullable=False)
     starts_on = Column(DateTime)
@@ -28,7 +27,7 @@ class Event(db.Model, Entity):
 
     orders = relationship(
         'Order',
-        back_populates='event',
+        back_populates='festival',
         cascade='save-update, merge'
     )
-    carts = relationship('Cart', back_populates='event')
+    carts = relationship('Cart', back_populates='festival')

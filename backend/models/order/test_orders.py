@@ -8,7 +8,7 @@ class TestOrder(ModelTestCase):
         """ Test that Order.total_rands is equal to the sum
         of all OrderProduct.sub_total_rands for an Order.
         """
-        event = self.create_event(name='test')
+        festival = self.create_festival(name='test')
         price = 10
         product_1 = self.create_product(
             create_valid_product=True,
@@ -19,7 +19,7 @@ class TestOrder(ModelTestCase):
             price_rands=price
         )
         order = self.create_order(
-            event=event,
+            festival=festival,
         )
         order_product_1 = self.create_order_product(
             unit_price_rands=product_1.price_rands,
@@ -52,8 +52,8 @@ class TestOrder(ModelTestCase):
             create_valid_product=True,
             price_rands=11,
         )
-        event = self.create_event(name='qwe')
-        user.cart.event = event
+        festival = self.create_festival(name='qwe')
+        user.cart.festival = festival
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()

@@ -9,16 +9,16 @@ from backend.models import Entity, OrderProduct
 class Order(db.Model, Entity):
     __tablename__ = 'order'
 
-    def __init__(self, event=None, user=None, products=[], order_products=[]):
+    def __init__(self, festival=None, user=None, products=[], order_products=[]):
         self.user = user
         self.products = products
         self.order_products = order_products
-        self.event = event
+        self.festival = festival
 
     def from_cart(self, cart):
         with db.session.no_autoflush:
             self.user = cart.user
-            self.event = cart.event
+            self.festival = cart.festival
             for cart_product in cart.cart_products:
                 # TODO: There is an issue with cascade
                 # on products and order_products
@@ -32,9 +32,9 @@ class Order(db.Model, Entity):
     def __repr__(self):
         return '<Order {id}>'.format(id=self.id)
 
-    event_id = Column(Integer, ForeignKey('event.id'), nullable=False)
-    event = relationship(
-        'Event',
+    festival_id = Column(Integer, ForeignKey('festival.id'), nullable=False)
+    festival = relationship(
+        'Festival',
         back_populates='orders',
         cascade='save-update, merge'
     )

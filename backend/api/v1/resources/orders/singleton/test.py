@@ -10,7 +10,7 @@ endpoint = 'v1.ordersingleton'
 class TestOrderSingleton(APITestCase):
     def test_get(self):
         order = self.create_order(
-            event=self.create_event(name='asd'),
+            festival=self.create_festival(name='asd'),
             user=self.create_user(normal_user=True, with_cart=True),
         )
         db.session.add(order)

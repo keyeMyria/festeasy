@@ -4,23 +4,23 @@ from sqlalchemy.orm import relationship, column_property
 
 from backend import db
 from backend.models import Entity, CartProduct
-from backend.models import Event
+from backend.models import Festival
 
 
 class Cart(db.Model, Entity):
     __tablename__ = 'cart'
 
-    def __init__(self, event=None, user=None, products=[]):
-        self.event = event
+    def __init__(self, festival=None, user=None, products=[]):
+        self.festival = festival
         self.user = user
         self.products = products
 
     def __repr__(self):
         return '<Cart {id}>'.format(id=self.id)
 
-    event_id = Column(Integer, ForeignKey('event.id'))
-    event = relationship(
-        'Event',
+    festival_id = Column(Integer, ForeignKey('festival.id'))
+    festival = relationship(
+        'Festival',
         back_populates='carts',
         cascade='save-update, merge'
     )
@@ -41,15 +41,6 @@ class Cart(db.Model, Entity):
         back_populates='cart',
         cascade='save-update, merge, delete, delete-orphan'
     )
-
-    @property
-    def selectable_events(self):
-        selectable_events = Event.query.all()
-        return selectable_events
-
-    @property
-    def number_of_items(self):
-        return len(self.cart_products)
 
 Cart.total_rands = column_property(
     select([func.sum(CartProduct.sub_total_rands)]).where(

@@ -23,7 +23,7 @@ class Entity(object):
 from .session import Session
 from .user import User
 from .product import Product
-from .event import Event
+from .festival import Festival
 from .order_product import OrderProduct
 from .order import Order
 from .cart_product import CartProduct

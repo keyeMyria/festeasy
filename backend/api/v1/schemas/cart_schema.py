@@ -4,7 +4,7 @@ from backend.api.utils import EntitySchema
 
 
 class CartSchema(EntitySchema):
-    event_id = fields.Integer()
+    festival_id = fields.Integer()
     total_rands = fields.Float()
 
     class Meta:

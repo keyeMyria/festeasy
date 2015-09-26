@@ -11,7 +11,7 @@ class TestInvoiceSingleton(APITestCase):
     def test_get(self):
         invoice = self.create_invoice(
             order=self.create_order(
-                event=self.create_event(name='asd'),
+                festival=self.create_festival(name='asd'),
                 user=self.create_user(normal_user=True, with_cart=True)
             ),
         )

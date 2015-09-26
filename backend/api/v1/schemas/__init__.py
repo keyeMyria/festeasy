@@ -6,7 +6,7 @@ from .order_schema import OrderSchema
 from .order_product_schema import OrderProductSchema
 from .invoice_schema import InvoiceSchema
 from .invoice_product_schema import InvoiceProductSchema
-from .event_schema import EventSchema
+from .festival_schema import FestivalSchema
 from .cart_schema import CartSchema
 from .cart_product_schema import CartProductSchema
 from .signup_schema import SignupSchema

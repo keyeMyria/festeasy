@@ -13,7 +13,7 @@ class TestOrderProductSingleton(APITestCase):
             unit_price_rands=10,
             quantity=3,
             order=self.create_order(
-                event=self.create_event(name='as'),
+                festival=self.create_festival(name='as'),
                 user=self.create_user(normal_user=True, with_cart=True),
             ),
             product=self.create_product(create_valid_product=True),
