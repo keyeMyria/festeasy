@@ -9,7 +9,7 @@ from backend.models import Entity
 class Festival(db.Model, Entity):
     __tablename__ = 'festival'
 
-    def __init__(self, is_enabled=None, name=None,
+    def __init__(self, name=None,
             starts_on=None, ends_on=None, users=[], orders=[]):
         self.name = name
         self.starts_on = starts_on
@@ -23,7 +23,6 @@ class Festival(db.Model, Entity):
     name = Column(String(150), nullable=False)
     starts_on = Column(DateTime)
     ends_on = Column(DateTime)
-    is_enabled = Column(Boolean, default=False, nullable=False)
 
     orders = relationship(
         'Order',
