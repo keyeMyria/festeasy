@@ -37,12 +37,11 @@ First, activate the virtualenv. From the root of the repository run:
 
 Now to run the server:
 
-`python manage.py run-api`
+`python manage.py run-server`
 
-Now if you navigate to [localhost:5000](http://localhost:5000), you will be served the api etc :)
-Also, [localhost:5000/api/v1/](http://localhost:5000/api/v1/)
+Now if you navigate to [localhost:5000/api/v1/](http://localhost:5000/api/v1/), you will be served the api etc :)
 
-Now start hacking.
+Start hacking!
 
 ### Frontend
 
@@ -85,4 +84,4 @@ From the www directory, run:
 
 Now navigate to [localhost:8000](http://localhost:8000) and you should see some stuff, done!
 
-Now start hacking.
+start hacking!

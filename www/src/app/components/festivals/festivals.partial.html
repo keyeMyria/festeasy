@@ -1,0 +1,16 @@
+<div class="container">
+	<div ng-show="isLoading">
+		Loading...
+	</div>
+	<div class="well" ng-repeat="festival in festivals">
+		<p class="lead">
+			{{festival.name}}
+		</p>
+		<p>
+			Starts: {{festival.starts_on}}
+		</p>
+		<p>
+			Ends: {{festival.ends_on}}
+		</p>
+	</div>
+</div>

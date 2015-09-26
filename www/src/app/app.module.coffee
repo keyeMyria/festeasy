@@ -3,6 +3,7 @@ app = angular.module('app', [
     'landing',
     'auth',
     'account',
+    'festivals',
 ])
 
 app.config(($locationProvider) ->

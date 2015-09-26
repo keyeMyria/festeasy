@@ -3,7 +3,9 @@ account.controller('accountController', ($scope, $auth, userService) ->
 	user_id = $auth.getPayload().sub
 	promise = userService.one(user_id).get()
 	promise.then((response) ->
-		$scope.is_loading = false
 		$scope.user = response
+	)
+	promise.finally((response) ->
+		$scope.is_loading = false
 	)
 )

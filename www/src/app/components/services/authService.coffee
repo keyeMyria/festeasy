@@ -1,4 +1,4 @@
-auth.factory('authService', ($q, $auth) ->
+services.factory('authService', ($q, $auth) ->
 	api = {}
 	signin = (user) ->
 		deferred = $q.defer()

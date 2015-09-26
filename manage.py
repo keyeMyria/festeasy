@@ -19,7 +19,7 @@ class RunServer(Server):
     def handle(self, *args, **kwargs):
         Server.handle(self, *args, **kwargs)
 manager.add_command(
-    'run-api',
+    'run-server',
     RunServer(use_debugger=True, use_reloader=True, host='0.0.0.0'),
 )
 
@@ -75,9 +75,9 @@ class InitDB(Command):
                     cost_rands=10, is_enabled=True, price_rands=7),
         ]
         festivals = [
-            Festival(name='Rocking The Daisies'),
-            Festival(name='Sunflower Fest'),
-            Festival(name='Oppie Koppie'),
+            Festival(name='Rocking The Daisies', starts_on=now,  ends_on=now),
+            Festival(name='Sunflower Fest', starts_on=now,  ends_on=now),
+            Festival(name='Oppie Koppie', starts_on=now, ends_on=now),
         ]
         things = users + products + festivals
         for thing in things:
