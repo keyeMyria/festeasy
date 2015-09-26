@@ -1,9 +1,10 @@
 app = angular.module('app', [
     'base'
-    'landing',
-    'auth',
-    'account',
-    'festivals',
+    'landing'
+    'auth'
+    'account'
+    'festivals'
+    'howItWorks'
 ])
 
 app.config(($locationProvider) ->
