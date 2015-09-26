@@ -19,7 +19,7 @@ dependencies:
 
 test:
   override:
-    - nose2
+    - nose2 --plugin nose2.plugins.junitxml --junit-xml
 
 deployment:
   staging:
