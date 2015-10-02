@@ -1,1 +1,1 @@
-web: newrelic-admin run-program python gunicorn backend.wsgi:app --log-file=-
+web: newrelic-admin run-program gunicorn backend.wsgi:app --log-file=-
