@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
+  <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -15,24 +15,48 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li ui-sref-active="active">
-          <a ui-sref="base.festivals" ui-sref-opts="{reload:true}">Festivals</a>
+          <a ui-sref="base.festivals" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+            Festivals
+          </a>
         </li>
         <li ui-sref-active="active">
-          <a ui-sref="base.how-it-works" ui-sref-opts="{reload:true}">How It Works</a>
+          <a ui-sref="base.store" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+            Store
+          </a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="base.how-it-works" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            How It Works
+          </a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.account" ui-sref-opts="{reload:true}">Account</a>
+          <a ui-sref="base.account" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            Account
+          </a>
         </li>
         <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
-          <a ng-controller="signoutController" ng-click="signout()">Sign out</a>
+          <a ng-controller="signoutController" ng-click="signout()">
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+            Sign out
+          </a>
         </li>
         <li ng-hide="authService.isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.signin" ui-sref-opts="{reload:true}">Sign in</a>
+          <a ui-sref="base.signin" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+            Sign in
+          </a>
         </li>
         <li ng-hide="authService.isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.signup" ui-sref-opts="{reload:true}">Sign up</a>
+          <a ui-sref="base.signup" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-collapse-up" aria-hidden="true"></span>
+            Sign up
+          </a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

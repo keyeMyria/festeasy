@@ -10,7 +10,10 @@ module.exports = function(grunt) {
         cssDest: 'dist/bower.css',
         devDependencies: true,
         mainFiles: {
-          bootstrap: ['dist/css/bootstrap.css']
+          bootstrap: [
+            // Bootstrap font files are copied in 'copy' task below.
+            'dist/css/bootstrap.css',
+            ]
         }
       }
     },
@@ -37,7 +40,13 @@ module.exports = function(grunt) {
           src: 'app/assets/**',
           dest: 'dist/',
           expand: true,
-        },]
+        }, {
+          // Copy bootstrap font files
+          src: 'bower_components/bootstrap/dist/fonts/*',
+          dest: 'dist/fonts',
+          expand: true,
+          flatten: true,
+        }]
       }
     },
     template: {

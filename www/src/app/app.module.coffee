@@ -4,6 +4,7 @@ app = angular.module('app', [
     'auth'
     'account'
     'festivals'
+    'store'
     'howItWorks'
 ])
 
