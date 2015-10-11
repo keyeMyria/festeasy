@@ -70,6 +70,9 @@ from .resources.payments import PaymentSingleton
 v1_api.add_resource(PaymentSingleton,
                     '/payments/<int:payment_id>')
 
+from .resources.products import ProductCollection
+v1_api.add_resource(ProductCollection,
+                    '/products')
 from .resources.products import ProductSingleton
 v1_api.add_resource(ProductSingleton,
                     '/products/<int:product_id>')
