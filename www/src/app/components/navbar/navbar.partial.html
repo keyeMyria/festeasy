@@ -41,6 +41,12 @@
           </a>
         </li>
         <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
+          <a ui-sref="base.cart" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+            Cart
+          </a>
+        </li>
+        <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
           <a ng-controller="signoutController" ng-click="signout()">
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
             Sign out
