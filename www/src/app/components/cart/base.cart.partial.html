@@ -1,0 +1,13 @@
+<div class="container">
+	<div ng-hide="cart || error" class="text-center">
+		<p class="lead">Loading...</p>
+	</div>
+	<div ng-show="error" class="col-md-6 col-md-offset-3 alert alert-warning text-center" role="alert">
+		<strong>Oh snap!</strong> Something has gone wrong. Please try again.
+	</div>
+	<div ng-show="cart">
+		Festival: {{cart.festival_id}}
+		<br/>
+		Total: {{cart.total_rands}}
+	</div>
+</div>
