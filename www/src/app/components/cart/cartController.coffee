@@ -3,7 +3,6 @@ cart.controller('cartController', ($scope, $auth, userService) ->
 	promise = userService.one(user_id).one('cart').get()
 	promise.then((response) ->
 		$scope.cart = response
-		console.log response
 	)
 	promise.catch((response) ->
 		$scope.error = true
