@@ -1,6 +1,6 @@
 from flask_restful import Resource
 
-from backend.models import Cart, User
+from backend.models import User
 from backend.api.utils import get_or_404
 from backend.api.v1.schemas import CartSchema
 
