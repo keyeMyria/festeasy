@@ -5,6 +5,7 @@ var mainBowerFiles = require('main-bower-files')
 var debug = require('gulp-debug')
 var gulpFilter = require('gulp-filter')
 var concat = require('gulp-concat')
+var less = require('gulp-less')
 
 
 gulp.task('clean', function () {
@@ -17,11 +18,17 @@ gulp.task('wiredep', function () {
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('default', function () {
-	var jsFilter = gulpFilter(['**/*.js']);
+gulp.task('bower', function () {
+	var jsFilter = gulpFilter(['**/*.js'], {restore: true});
+	var lessFilter = gulpFilter(['**/*.less'], {restore: true});
 	gulp.src(mainBowerFiles(), {base: 'bower_components'})
 		.pipe(jsFilter)
 		.pipe(concat('bower.js'))
+		.pipe(jsFilter.restore)
+		.pipe(lessFilter)
+		.pipe(less())
+		.pipe(concat('bower.css'))
+		.pipe(lessFilter.restore)
 		.pipe(debug())
 		.pipe(gulp.dest('./dist'));
 });
