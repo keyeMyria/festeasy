@@ -24,13 +24,13 @@ auth.config(($stateProvider) ->
     $stateProvider
         .state('base.signin', {
             url: '/signin'
-            templateUrl: 'partials/signin.partial.html'
+            templateUrl: 'signin.partial.html'
             controller: 'signinController'
             params: {redirectReason: null}
         })
         .state('base.signup', {
             url: '/signup'
-            templateUrl: 'partials/signup.partial.html'
+            templateUrl: 'signup.partial.html'
             controller: 'signupController'
         })
 )

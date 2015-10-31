@@ -9,16 +9,18 @@ var coffee = require('gulp-coffee');
 var flatten = require('gulp-flatten');
 var order = require('gulp-order');
 var livereload = require('gulp-livereload');
+var templateCache = require('gulp-angular-templatecache');
 
 
 gulp.task('clean', function (cb) {
 	return del(['./dist/*'], cb);
 });
 
-gulp.task('html', function () {
+gulp.task('partials', function () {
 	return gulp.src('./src/**/*.partial.html')
 		.pipe(flatten())
-		.pipe(gulp.dest('./dist/partials'));
+		.pipe(templateCache({module: 'app'}))
+		.pipe(gulp.dest('./dist'));
 });
 
 gulp.task('coffee', function () {
@@ -63,7 +65,7 @@ gulp.task('bower', ['bootstrap-fonts'], function () {
 gulp.task('watch', function () {
 	gulp.watch('./src/index.html', ['index']);
 	gulp.watch('./bower_components/**', ['bower']);
-	gulp.watch('./src/**/*.partial.html', ['html']);
+	gulp.watch('./src/**/*.partial.html', ['partials']);
 	gulp.watch('./src/**/*.coffee', ['coffee']);
 	gulp.watch('./src/app/assets/**', ['assets']);
 	livereload.listen();
@@ -71,5 +73,5 @@ gulp.task('watch', function () {
 })
 
 gulp.task('default', ['clean'], function () {
-	gulp.start('html', 'coffee', 'assets', 'bower', 'index');
+	gulp.start('partials', 'coffee', 'assets', 'bower', 'index');
 });
