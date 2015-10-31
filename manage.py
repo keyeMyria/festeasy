@@ -1,3 +1,4 @@
+import datetime
 from IPython.terminal.interactiveshell import TerminalInteractiveShell
 from flask import current_app
 from flask.ext.script import Manager, Command
@@ -47,7 +48,6 @@ class InitDB(Command):
             first_name='TestName',
             cart=Cart()
             )
-        import datetime
         now = datetime.datetime.now()
         never = now + datetime.timedelta(days=1000)
         session = Session(user=test_user, expires_on=never)
