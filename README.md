@@ -53,7 +53,7 @@ Start hacking!
 
 Install grunt-cli:
 
-`sudo npm install -g grunt-cli`
+`sudo npm install -g grunt-cli gulp`
 
 Install bower:
 
@@ -69,12 +69,18 @@ From the www directory of the repository, run:
 
 `bower install`
 
-#### Start the grunt watch task
+#### Optionally install livereload plugin
+
+
+[livereload at Chrome Store](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en)
+
+#### Start the gulp watch task
 
 From the www directory, run:
 
-`grunt watch`
+`gulp`
 
+`gulp watch`
 
 #### Start dev HTTP server
 
