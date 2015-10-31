@@ -12,6 +12,7 @@ dependencies:
     - sudo ldconfig
   override:
     - if [ ! -e ~/nvm/v0.10.33/bin/divshot ]; then npm install -g divshot-cli; else echo "Divshot seems to be cached."; fi;
+    - if [ ! -e ~/nvm/v0.10.33/bin/gulp ]; then npm install -g gulp; else echo "gulp seems to be cached."; fi;
     - cd www && bower install
     - pip install -r requirements.txt
     - cd www && npm install
