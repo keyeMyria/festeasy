@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var wiredep = require('wiredep').stream;
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
 var debug = require('gulp-debug');
