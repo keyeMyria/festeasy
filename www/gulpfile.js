@@ -64,11 +64,13 @@ gulp.task('partials', function () {
 
 gulp.task('scripts', function () {
     return gulp.src('./src/**/*.coffee')
+        .pipe(sourcemaps.init())
         .pipe(coffee({bare: true}))
         .pipe(order([
             "**/*.module.js"
         ]))
         .pipe(concat('src.js'))
+        .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest('./dist'));
 });
 
