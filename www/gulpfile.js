@@ -13,6 +13,7 @@ var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var minifyCss = require('gulp-minify-css');
+var sourcemaps = require('gulp-sourcemaps');
 
 
 gulp.task('clean', function (cb) {
@@ -29,6 +30,7 @@ gulp.task('bower', ['bootstrap-fonts'], function () {
     var lessFilter = gulpFilter(['**/*.less'], {restore: true});
     var cssFilter = gulpFilter(['**/*.css'], {restore: true});
     return gulp.src(mainBowerFiles(), {base: 'bower_components'})
+        .pipe(sourcemaps.init())
         .pipe(jsFilter)
         .pipe(concat('bower.js'))
         .pipe(gulp.dest('./dist'))
@@ -36,6 +38,7 @@ gulp.task('bower', ['bootstrap-fonts'], function () {
         .pipe(rename({
             suffix: ".min"
         }))
+        .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest('./dist'))
         .pipe(jsFilter.restore)
         .pipe(lessFilter)
@@ -48,6 +51,7 @@ gulp.task('bower', ['bootstrap-fonts'], function () {
         .pipe(rename({
             suffix: ".min"
         }))
+        .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest('./dist'));
 });
 
