@@ -33,7 +33,6 @@ gulp.task('bower', ['bootstrap-fonts'], function () {
         .pipe(sourcemaps.init())
         .pipe(jsFilter)
         .pipe(concat('bower.js'))
-        .pipe(gulp.dest('./dist'))
         .pipe(uglify())
         .pipe(rename({
             suffix: ".min"
@@ -46,7 +45,6 @@ gulp.task('bower', ['bootstrap-fonts'], function () {
         .pipe(lessFilter.restore)
         .pipe(cssFilter)
         .pipe(concat('bower.css'))
-        .pipe(gulp.dest('./dist'))
         .pipe(minifyCss())
         .pipe(rename({
             suffix: ".min"
@@ -64,17 +62,24 @@ gulp.task('partials', function () {
 
 gulp.task('scripts', function () {
     return gulp.src('./src/**/*.coffee')
+        .pipe(sourcemaps.init())
         .pipe(coffee({bare: true}))
         .pipe(order([
             "**/*.module.js"
         ]))
         .pipe(concat('src.js'))
+        .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('styles', function () {
     return gulp.src('./src/**/*.css')
+        .pipe(sourcemaps.init())
         .pipe(concat('styles.css'))
+        .pipe(minifyCss())
+        .pipe(rename({
+            suffix: ".min"
+        }))
         .pipe(gulp.dest('./dist'));
 })
 
