@@ -7,7 +7,7 @@ store.config(($stateProvider) ->
     $stateProvider
         .state('base.store', {
             url: '/store'
-            templateUrl: 'partials/store.partial.html'
+            templateUrl: 'store.partial.html'
             controller: 'storeController'
         })
 )

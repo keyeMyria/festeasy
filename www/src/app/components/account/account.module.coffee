@@ -7,7 +7,7 @@ account.config(($stateProvider) ->
 	$stateProvider
         .state('base.account', {
             url: '/account'
-            templateUrl: 'partials/account.partial.html'
+            templateUrl: 'account.partial.html'
             controller: 'accountController'
             auth: true
         })

@@ -6,6 +6,6 @@ landing.config(($stateProvider) ->
     $stateProvider
         .state('base.landing', {
             url: '/'
-            templateUrl: 'partials/landing.partial.html'
+            templateUrl: 'landing.partial.html'
         })
 )

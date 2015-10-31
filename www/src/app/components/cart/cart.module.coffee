@@ -8,6 +8,6 @@ cart.config(($stateProvider) ->
 		.state('base.cart', {
 			url: '/cart'
 			controller: 'cartController'
-			templateUrl: 'partials/base.cart.partial.html'
+			templateUrl: 'cart.partial.html'
 		})
 )

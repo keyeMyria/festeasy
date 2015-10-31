@@ -6,6 +6,6 @@ base.config(($stateProvider) ->
 	$stateProvider
 		.state('base', {
 			abstract: true
-			templateUrl: 'partials/base.partial.html'
+			templateUrl: 'base.partial.html'
 		})
 )
