@@ -1,14 +1,15 @@
-var gulp = require('gulp')
-var wiredep = require('wiredep').stream
-var del = require('del')
-var mainBowerFiles = require('main-bower-files')
-var debug = require('gulp-debug')
-var gulpFilter = require('gulp-filter')
-var concat = require('gulp-concat')
-var less = require('gulp-less')
-var coffee = require('gulp-coffee')
-var flatten = require('gulp-flatten')
-var order = require('gulp-order')
+var gulp = require('gulp');
+var wiredep = require('wiredep').stream;
+var del = require('del');
+var mainBowerFiles = require('main-bower-files');
+var debug = require('gulp-debug');
+var gulpFilter = require('gulp-filter');
+var concat = require('gulp-concat');
+var less = require('gulp-less');
+var coffee = require('gulp-coffee');
+var flatten = require('gulp-flatten');
+var order = require('gulp-order');
+var livereload = require('gulp-livereload');
 
 
 gulp.task('clean', function (cb) {
@@ -59,6 +60,16 @@ gulp.task('bower', ['bootstrap-fonts'], function () {
 		.pipe(lessFilter.restore)
 		.pipe(gulp.dest('./dist'));
 });
+
+gulp.task('watch', function () {
+	gulp.watch('./src/index.html', ['index']);
+	gulp.watch('./bower_components/**', ['bower']);
+	gulp.watch('./src/**/*.partial.html', ['html']);
+	gulp.watch('./src/**/*.coffee', ['coffee']);
+	gulp.watch('./src/app/assets/**', ['assets']);
+	livereload.listen();
+	gulp.watch('./dist/**').on('change', livereload.changed);
+})
 
 gulp.task('default', ['clean'], function () {
 	gulp.start('html', 'coffee', 'assets', 'bower', 'index');
