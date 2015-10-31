@@ -16,33 +16,6 @@ gulp.task('clean', function (cb) {
 	return del(['./dist/*'], cb);
 });
 
-gulp.task('partials', function () {
-	return gulp.src('./src/**/*.partial.html')
-		.pipe(flatten())
-		.pipe(templateCache({module: 'app'}))
-		.pipe(gulp.dest('./dist'));
-});
-
-gulp.task('coffee', function () {
-	return gulp.src('./src/**/*.coffee')
-		.pipe(coffee({bare: true}))
-		.pipe(order([
-			"**/*.module.js"
-		]))
-		.pipe(concat('src.js'))
-		.pipe(gulp.dest('./dist'));
-});
-
-gulp.task('assets', function () {
-	return gulp.src('./src/app/assets/**')
-		.pipe(gulp.dest('./dist/assets'));
-});
-
-gulp.task('index', function () {
-	return gulp.src('./src/index.html')
-		.pipe(gulp.dest('./dist'));
-});
-
 gulp.task('bootstrap-fonts', function () {
 	return gulp.src('./bower_components/bootstrap/fonts/**')
 		.pipe(gulp.dest('./dist/fonts'));
@@ -62,16 +35,50 @@ gulp.task('bower', ['bootstrap-fonts'], function () {
 		.pipe(gulp.dest('./dist'));
 });
 
+gulp.task('partials', function () {
+	return gulp.src('./src/**/*.partial.html')
+		.pipe(flatten())
+		.pipe(templateCache({module: 'app'}))
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('scripts', function () {
+	return gulp.src('./src/**/*.coffee')
+		.pipe(coffee({bare: true}))
+		.pipe(order([
+			"**/*.module.js"
+		]))
+		.pipe(concat('src.js'))
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('styles', function () {
+	return gulp.src('./src/**/*.css')
+		.pipe(concat('styles.css'))
+		.pipe(gulp.dest('./dist'));
+})
+
+gulp.task('assets', function () {
+	return gulp.src('./src/app/assets/**')
+		.pipe(gulp.dest('./dist/assets'));
+});
+
+gulp.task('index', function () {
+	return gulp.src('./src/index.html')
+		.pipe(gulp.dest('./dist'));
+});
+
 gulp.task('watch', function () {
-	gulp.watch('./src/index.html', ['index']);
 	gulp.watch('./bower_components/**', ['bower']);
 	gulp.watch('./src/**/*.partial.html', ['partials']);
-	gulp.watch('./src/**/*.coffee', ['coffee']);
+	gulp.watch('./src/**/*.coffee', ['scripts']);
+	gulp.watch('./src/**/*.css', ['styles']);
 	gulp.watch('./src/app/assets/**', ['assets']);
+	gulp.watch('./src/index.html', ['index']);
 	livereload.listen();
 	gulp.watch('./dist/**').on('change', livereload.changed);
 })
 
 gulp.task('default', ['clean'], function () {
-	gulp.start('partials', 'coffee', 'assets', 'bower', 'index');
+	gulp.start('partials', 'scripts', 'assets', 'bower', 'index', 'styles');
 });
