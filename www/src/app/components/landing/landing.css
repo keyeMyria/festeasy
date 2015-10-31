@@ -1,11 +1,11 @@
+.logo-image {
+	padding-top: 80px;
+}
+
 .top-section {
 	background-image: url("/app/assets/images/top-background.png");
 	background-size: 100%;
 	height: 60vw;
-}
-
-.top-section .logo-image {
-	padding-top: 1cm;
 }
 
 .top-section h1 {

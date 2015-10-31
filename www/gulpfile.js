@@ -80,6 +80,7 @@ gulp.task('styles', function () {
         .pipe(rename({
             suffix: ".min"
         }))
+        .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest('./dist'));
 })
 
