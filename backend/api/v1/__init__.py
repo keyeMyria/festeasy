@@ -42,6 +42,9 @@ v1_api.add_resource(CartSingleton,
 from .resources.cart_products import CartProductSingleton
 v1_api.add_resource(CartProductSingleton,
                     '/cart-products/<int:cart_product_id>')
+from .resources.cart_products import CartProductCollection
+v1_api.add_resource(CartProductCollection,
+                    '/cart-products')
 
 from .resources.festivals import FestivalSingleton
 v1_api.add_resource(FestivalSingleton,
