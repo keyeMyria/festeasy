@@ -9,6 +9,6 @@ shared.directive('addToCartButton', () ->
 			user_id = authService.signedinUserId()
 			user = userService.one(user_id)
 			$scope.addToCart = () ->
-				return
+				alert('Not implemented yet.')
 	}
 )
