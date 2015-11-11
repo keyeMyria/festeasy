@@ -15,7 +15,7 @@ class APITestCase(BackendTestCase):
                 session_token = with_session.token
                 a = b64encode(
                     bytes('api:{0}'.format(session_token), 'utf-8')
-                    ).decode('utf-8')
+                ).decode('utf-8')
                 headers['Authorization'] = 'xBasic {0}'.format(a)
 
         f = getattr(self.client, method)
