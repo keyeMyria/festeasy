@@ -28,11 +28,16 @@ services.factory('authService', ($q, $auth) ->
 			deferred.reject(response)
 		)
 		return deferred.promise
+
 	isAuthenticated = ->
 		return $auth.isAuthenticated()
+
+	signedinUserId = ->
+		return $auth.getPayload().sub
 
 	api.signin = signin
 	api.signup = signup
 	api.isAuthenticated = isAuthenticated
+	api.signedinUserId = signedinUserId
 	return api
 )
