@@ -1,6 +1,7 @@
 store = angular.module('store', [
 	'ui.router'
 	'services'
+	'shared'
 ])
 
 store.config(($stateProvider) ->

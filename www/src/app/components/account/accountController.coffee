@@ -1,5 +1,5 @@
-account.controller('accountController', ($scope, $auth, userService) ->
-	user_id = $auth.getPayload().sub
+account.controller('accountController', ($scope, $auth, userService, authService) ->
+	user_id = authService.signedinUserId()
 	promise = userService.one(user_id).get()
 	promise.then((response) ->
 		$scope.user = response
