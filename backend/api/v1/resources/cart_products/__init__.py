@@ -1,1 +1,2 @@
 from .cart_product_singleton import CartProductSingleton
+from .cart_product_collection import CartProductCollection

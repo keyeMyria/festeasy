@@ -9,5 +9,10 @@
 		Festival: {{cart.festival_id}}
 		<br/>
 		Total: {{cart.total_rands}}
+
+		<div ng-repeat="cartProduct in cartProducts">
+			{{cartProduct}}
+		</div>
+
 	</div>
 </div>

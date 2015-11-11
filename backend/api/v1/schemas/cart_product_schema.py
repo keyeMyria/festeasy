@@ -1,6 +1,7 @@
 from marshmallow import fields
 
 from backend.api.utils import EntitySchema
+from . import ProductSchema
 
 
 class CartProductSchema(EntitySchema):
@@ -8,6 +9,7 @@ class CartProductSchema(EntitySchema):
     cart_id = fields.Integer()
     sub_total_rands = fields.Float()
     quantity = fields.Integer()
+    product = fields.Nested(ProductSchema)
 
     class Meta:
         strict = True
