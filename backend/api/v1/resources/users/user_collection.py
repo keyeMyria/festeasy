@@ -3,6 +3,7 @@ from flask_restful import Resource
 
 from backend import db
 from backend.models import User, Cart
+from backend.api.utils import marshal_or_fail
 from backend.api.v1.schemas import UserSchema
 
 
@@ -12,8 +13,7 @@ class UserCollection(Resource):
 
     def get(self):
         users = User.query.all()
-        data, errors = self.user_schema.dump(users, many=True)
-        return data
+        return marshal_or_fail(users, schema=UserSchema, many=True)
 
     def post(self):
         load_data, load_errors = self.user_schema.load(request.get_json())
@@ -21,5 +21,4 @@ class UserCollection(Resource):
         user.cart = Cart()
         db.session.add(user)
         db.session.commit()
-        data, errors = self.user_schema.dump(user)
-        return data
+        return marshal_or_fail(user, schema=UserSchema)
