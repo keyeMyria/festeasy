@@ -3,3 +3,4 @@ from .user_collection import UserCollection
 from .user_cart_singleton import UserCartSingleton
 from .user_order_singleton import UserOrderSingleton
 from .user_order_collection import UserOrderCollection
+from .user_cart_cart_product_collection import UserCartCartProductCollection
