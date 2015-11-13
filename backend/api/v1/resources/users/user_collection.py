@@ -8,21 +8,18 @@ from backend.api.v1.schemas import UserSchema
 
 
 class UserCollection(Resource):
-    def __init__(self):
-        self.user_schema = UserSchema()
-
     def get(self):
         users = User.query.all()
-        return marshal_or_fail('dump', users, schema=UserSchema, many=True)
+        return marshal_or_fail('dump', users, schema=UserSchema(), many=True)
 
     def post(self):
         data = marshal_or_fail(
             'load',
             request.get_json(),
-            schema=UserSchema,
+            schema=UserSchema(),
         )
         user = User(**data)
         user.cart = Cart()
         db.session.add(user)
         db.session.commit()
-        return marshal_or_fail('dump', user, schema=UserSchema)
+        return marshal_or_fail('dump', user, schema=UserSchema())
