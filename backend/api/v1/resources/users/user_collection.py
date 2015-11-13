@@ -13,12 +13,16 @@ class UserCollection(Resource):
 
     def get(self):
         users = User.query.all()
-        return marshal_or_fail(users, schema=UserSchema, many=True)
+        return marshal_or_fail('dump', users, schema=UserSchema, many=True)
 
     def post(self):
-        load_data, load_errors = self.user_schema.load(request.get_json())
+        load_data = marshal_or_fail(
+            'load',
+            request.get_json(),
+            schema=UserSchema,
+        )
         user = User(**load_data)
         user.cart = Cart()
         db.session.add(user)
         db.session.commit()
-        return marshal_or_fail(user, schema=UserSchema)
+        return marshal_or_fail('dump', user, schema=UserSchema)
