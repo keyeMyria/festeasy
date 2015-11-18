@@ -9,6 +9,7 @@ class UserCartCartProductCollection(Resource):
         self.cart_product_schema = CartProductSchema()
 
     def get(self, user_id):
+        # TODO: Play with this query
         cart_products = (CartProduct.query.join(Cart).join(User)
                         .filter(User.id == user_id)
                         .all())

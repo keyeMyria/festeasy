@@ -33,7 +33,9 @@ services.factory('authService', ($q, $auth) ->
 		return $auth.isAuthenticated()
 
 	signedinUserId = ->
-		return $auth.getPayload().sub
+		if $auth.isAuthenticated()
+			return $auth.getPayload().sub
+		return null
 
 	api.signin = signin
 	api.signup = signup

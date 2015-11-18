@@ -6,9 +6,12 @@ shared.directive('addToCartButton', () ->
 			product: '='
 		}
 		controller: ($scope, authService, userService) ->
-			user_id = authService.signedinUserId()
-			user = userService.one(user_id)
 			$scope.addToCart = () ->
+				if authService.isAuthenticated()
+					user_id = authService.signedinUserId()
+					user = userService.one(user_id)
+				else
+					console.log 'Authenticate to add product to cart.'
 				alert('Not implemented yet.')
 	}
 )
