@@ -9,11 +9,6 @@ from backend.models import Entity, Product
 class CartProduct(db.Model, Entity):
     __tablename__ = 'cart_product'
 
-    def __init__(self, quantity=None, product=None, cart=None):
-        self.quantity = quantity
-        self.product = product
-        self.cart = cart
-
     def __repr__(self):
         return '<CartProduct {id}>'.format(id=self.id)
 
