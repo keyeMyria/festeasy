@@ -10,8 +10,16 @@ shared.directive('addToCartButton', () ->
 				if authService.isAuthenticated()
 					user_id = authService.signedinUserId()
 					user = userService.one(user_id)
+					cart = user.one('cart')
+					cart_promise = cart.get()
+					cart_promise.then((data) ->
+						console.log data.id
+						cart.post('cart-products', {
+							product_id: $scope.product.id,
+							cart_id: data.id
+						})
+					)
 				else
 					console.log 'Authenticate to add product to cart.'
-				alert('Not implemented yet.')
 	}
 )
