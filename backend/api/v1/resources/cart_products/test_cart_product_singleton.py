@@ -44,3 +44,18 @@ class TestCartProductSingleton(APITestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['quantity'], new_quantity)
+
+    def test_delete(self):
+        cart_product = CartProduct(
+            product=self.create_product(create_valid_product=True),
+            cart=self.create_cart(),
+        )
+        db.session.add(cart_product)
+        db.session.commit()
+        response = self.api_request(
+            'delete',
+            url_for(endpoint, cart_product_id=cart_product.id)
+        )
+        self.assertEqual(response.status_code, 200)
+        cart_products = CartProduct.query.all()
+        self.assertEqual(cart_products, [])
