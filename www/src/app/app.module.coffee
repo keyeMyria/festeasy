@@ -1,4 +1,5 @@
 app = angular.module('app', [
+    'cgNotify'
     'base'
     'landing'
     'auth'
@@ -20,6 +21,11 @@ app.config(($stateProvider, $urlRouterProvider) ->
         .otherwise('/')
 )
 
+app.run((notify) ->
+    notify.config({
+        duration: 2000
+    })
+)
 app.run(($rootScope, authService, $state) ->
     $rootScope.$on('$stateChangeStart',
         (event, toState, toParams, fromState, fromParams) ->
