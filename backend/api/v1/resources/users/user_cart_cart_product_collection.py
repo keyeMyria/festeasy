@@ -19,6 +19,14 @@ class UserCartCartProductCollection(Resource):
     def post(self, user_id):
         load_data = marshal_or_fail('load', request.get_json(),
             CartProductSchema())
+
+        existing_cart_product = (CartProduct.query
+            .filter(CartProduct.product_id == load_data['product_id'])
+            .filter(CartProduct.cart_id == load_data['cart_id'])
+            .first())
+        if existing_cart_product:
+            return dict(message='CartProduct already exists.'), 409
+
         cart_product = CartProduct(**load_data)
         db.session.add(cart_product)
         db.session.commit()
