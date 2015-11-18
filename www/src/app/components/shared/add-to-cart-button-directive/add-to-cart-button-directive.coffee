@@ -10,6 +10,7 @@ shared.directive('addToCartButton', () ->
 				if authService.isAuthenticated()
 					user_id = authService.signedinUserId()
 					user = userService.one(user_id)
+					#TODO: Sort out needing to get the cart here.
 					cart = user.one('cart')
 					cart_promise = cart.get()
 					cart_promise.then((data) ->
