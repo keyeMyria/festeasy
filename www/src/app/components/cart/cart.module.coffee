@@ -9,5 +9,6 @@ cart.config(($stateProvider) ->
 			url: '/cart'
 			controller: 'cartController'
 			templateUrl: 'cart.partial.html'
+			auth: true
 		})
 )
