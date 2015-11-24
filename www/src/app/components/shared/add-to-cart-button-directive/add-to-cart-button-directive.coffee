@@ -7,25 +7,25 @@ shared.directive('addToCartButton', () ->
 		}
 		controller: ($scope, authService, userService, notify) ->
 			$scope.addToCart = () ->
-				if authService.isAuthenticated()
-					user_id = authService.signedinUserId()
-					user = userService.one(user_id)
-					#TODO: Sort out needing to get the cart here.
-					cart = user.one('cart')
-					cart_promise = cart.get()
-					cart_promise.then((data) ->
-						promise = cart.post('cart-products', {
-							product_id: $scope.product.id,
-							cart_id: data.id
-						})
-						promise.then((response) ->
-							notify 'Added to cart.'
-						, (response) ->
-							if response.status == 409
-								notify 'Item already in cart.'
-						)
+				authenticatedUser = authService.authenticatedUser()
+				if not authenticatedUser
+					console.log 'Authenticate to add a product to a cart.'
+					return
+				user = userService.one(authenticatedUser.id)
+				#TODO: Sort out needing to get the cart here.
+				cart = user.one('cart')
+				getCart = cart.get()
+				getCart.then((data) ->
+					createCartProduct = cart.post('cart-products', {
+						product_id: $scope.product.id,
+						cart_id: data.id
+					})
+					createCartProduct.then((response) ->
+						notify 'Added to cart.'
+					, (response) ->
+						if response.status == 409
+							notify 'Item already in cart.'
 					)
-				else
-					console.log 'Authenticate to add product to cart.'
+				)
 	}
 )

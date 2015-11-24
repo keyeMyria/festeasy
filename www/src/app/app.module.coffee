@@ -29,7 +29,7 @@ app.run((notify) ->
 app.run(($rootScope, authService, $state) ->
     $rootScope.$on('$stateChangeStart',
         (event, toState, toParams, fromState, fromParams) ->
-            if toState.auth and not authService.isAuthenticated()
+            if toState.auth and not authService.authenticatedUser()
                 event.preventDefault()
                 $state.go('base.signin', {redirectReason: 'Auth needed.'})
     )

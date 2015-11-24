@@ -1,9 +1,9 @@
 store.controller('storeController', ($scope, productService) ->
-	promise = productService.getList()
-	promise.then((response) ->
+	getProducts = productService.getList()
+	getProducts.then((response) ->
 		$scope.products = response
 	)
-	promise.catch((response) ->
+	getProducts.catch((response) ->
 		$scope.error = true
 	)
 )

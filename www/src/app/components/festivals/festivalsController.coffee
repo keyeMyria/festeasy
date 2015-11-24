@@ -1,9 +1,9 @@
 festivals.controller('festivalsController', ($scope, festivalService) ->
-	promise = festivalService.getList()
-	promise.then((response) ->
+	getFestivals = festivalService.getList()
+	getFestivals.then((response) ->
 		$scope.festivals = response
 	)
-	promise.catch((response) ->
+	getFestivals.catch((response) ->
 		$scope.error = true
 	)
 )
