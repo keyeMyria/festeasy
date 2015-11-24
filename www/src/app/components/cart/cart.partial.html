@@ -22,6 +22,11 @@
 				<td><button class="btn btn-warning" ng-click="remove(cartProduct)">Remove</button></td>
 			</tr>
 		</table>
-		Total: {{cart.total_rands}}
+		<div class="pull-right">
+			<p class="lead">
+				Total: {{cart.total_rands}}
+			</p>
+			<button ng-click="checkout()" class="btn btn-success btn-lg">Secure Checkout</button>
+		</div>
 	</div>
 </div>

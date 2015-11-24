@@ -21,5 +21,7 @@ cart.controller('cartController', ($scope, authService, $auth, userService, cart
 		removeCartProduct.then((response) ->
 			updateCart()
 		)
+	$scope.checkout = () ->
+		alert 'Would be checking out.'
 	updateCart()
 )
