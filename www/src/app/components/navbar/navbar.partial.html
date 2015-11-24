@@ -34,31 +34,31 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ui-sref-active="active">
           <a ui-sref="base.account" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             Account
           </a>
         </li>
-        <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ui-sref-active="active">
           <a ui-sref="base.cart" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
             Cart
           </a>
         </li>
-        <li ng-show="authService.isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ui-sref-active="active">
           <a ng-controller="signoutController" ng-click="signout()">
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
             Sign out
           </a>
         </li>
-        <li ng-hide="authService.isAuthenticated()" ui-sref-active="active">
+        <li ng-hide="isAuthenticated()" ui-sref-active="active">
           <a ui-sref="base.signin" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
             Sign in
           </a>
         </li>
-        <li ng-hide="authService.isAuthenticated()" ui-sref-active="active">
+        <li ng-hide="isAuthenticated()" ui-sref-active="active">
           <a ui-sref="base.signup" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-collapse-up" aria-hidden="true"></span>
             Sign up

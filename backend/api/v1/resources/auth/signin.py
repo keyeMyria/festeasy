@@ -1,22 +1,17 @@
 import datetime
-import jwt
 from flask_restful import Resource
-from flask import request, jsonify, make_response
+from flask import request
 
 from backend import db
 from backend.models import User, Session
-from backend.api.v1.schemas import SigninSchema, UserSchema, SessionSchema
+from backend.api.utils import marshal_or_fail
+from backend.api.v1.schemas import SigninSchema, SessionSchema
 from backend.api.v1.exceptions import APIException
 
 
 class Signin(Resource):
-    def __init__(self):
-        self.signin_schema = SigninSchema()
-        self.user_schema = UserSchema()
-        self.session_schema = SessionSchema()
-
     def post(self):
-        load_data, load_erros = self.signin_schema.load(request.get_json())
+        load_data = marshal_or_fail('load', request.get_json(), SigninSchema())
         email_address = load_data['email_address']
         password = load_data['password']
         user = User.query.filter(
@@ -36,5 +31,4 @@ class Signin(Resource):
         session.generate_token()
         db.session.add(session)
         db.session.commit()
-        session_data, session_errors = self.session_schema.dump(session)
-        return make_response(jsonify(session_data), 201)
+        return marshal_or_fail('dump', session, SessionSchema())

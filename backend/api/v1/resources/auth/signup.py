@@ -1,21 +1,17 @@
 import datetime
 from flask_restful import Resource
-from flask import request, jsonify, make_response
+from flask import request
 
 from backend import db
 from backend.models import User, Session, Cart
-from backend.api.v1.schemas import SignupSchema, UserSchema, SessionSchema
+from backend.api.utils import marshal_or_fail
+from backend.api.v1.schemas import SignupSchema, SessionSchema
 from backend.api.v1.exceptions import APIException
 
 
 class Signup(Resource):
-    def __init__(self):
-        self.signup_schema = SignupSchema()
-        self.user_schema = UserSchema()
-        self.session_schema = SessionSchema()
-
     def post(self):
-        load_data, load_erros = self.signup_schema.load(request.get_json())
+        load_data = marshal_or_fail('load', request.get_json(), SignupSchema())
         existing_user = User.query.filter(
             User.email_address == load_data['email_address']
             ).first()
@@ -34,5 +30,4 @@ class Signup(Resource):
         session.generate_token()
         db.session.add(session)
         db.session.commit()
-        session_data, session_errors = self.session_schema.dump(session)
-        return make_response(jsonify(session_data), 201)
+        return marshal_or_fail('dump', session, SessionSchema())

@@ -1,18 +1,27 @@
-cart.controller('cartController', ($scope, $auth, userService, cartProductService) ->
-	user_id = $auth.getPayload().sub
-
-	cart = userService.one(user_id).one('cart')
-
-	cart_promise = cart.get()
-	cart_promise.then((response) ->
-		$scope.cart = response
-	)
-	cart_promise.catch((response) ->
-		$scope.error = true
-	)
-
-	cart_product_promise = cart.all('cart-products').getList()
-	cart_product_promise.then((response) ->
-		$scope.cartProducts = response
-	)
+cart.controller('cartController', ($scope, authService, $auth, userService, cartProductService) ->
+	authenticatedUser = authService.authenticatedUser()
+	if not authenticatedUser
+		console.log "Please authenticated" 
+		return
+	cart = userService.one(authenticatedUser.id).one('cart')
+	updateCart = () ->
+		getCart = cart.get()
+		getCart.then((response) ->
+			$scope.cart = response
+		)
+		getCart.catch((response) ->
+			$scope.error = true
+		)
+		getCartProducts = cart.all('cart-products').getList()
+		getCartProducts.then((response) ->
+			$scope.cartProducts = response
+		)
+	$scope.remove = (cartProduct) ->
+		removeCartProduct = cartProductService.one(cartProduct.id).remove()
+		removeCartProduct.then((response) ->
+			updateCart()
+		)
+	$scope.checkout = () ->
+		alert 'Would be checking out.'
+	updateCart()
 )

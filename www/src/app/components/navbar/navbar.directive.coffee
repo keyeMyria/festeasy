@@ -4,7 +4,9 @@ app.directive('navbar', () ->
 		transclude: true
 		templateUrl: 'navbar.partial.html'
 		controller: ($scope, authService) ->
-			$scope.authService = authService
-			return
+			$scope.isAuthenticated = () ->
+				if authService.authenticatedUser()
+					return true
+				return false
 	}
 )
