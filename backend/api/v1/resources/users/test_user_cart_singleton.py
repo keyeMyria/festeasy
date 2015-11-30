@@ -21,3 +21,17 @@ class TestUserCartSingleton(APITestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['id'], user.id)
+
+    def test_patch(self):
+        user = self.create_user(normal_user=True, with_cart=True)
+        festival = self.create_festival(pre_populate=True)
+        db.session.add(festival)
+        db.session.add(user)
+        db.session.commit()
+        response = self.api_request(
+            'patch',
+            url_for(endpoint, user_id=user.id),
+            data=dict(festival_id=festival.id),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(user.cart.festival_id, festival.id)
