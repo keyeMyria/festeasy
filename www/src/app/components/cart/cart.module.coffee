@@ -1,6 +1,7 @@
 cart = angular.module('cart', [
 	'ui.router'
 	'services'
+	'ui.select'
 ])
 
 cart.config(($stateProvider) ->

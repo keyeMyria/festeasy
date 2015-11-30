@@ -6,7 +6,15 @@
 		<strong>Oh snap!</strong> Something has gone wrong. Please try again.
 	</div>
 	<div ng-show="cart">
-		Festival: {{cart.festival_id}}
+		Festival:
+		<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
+		    <ui-select-match placeholder="Select a festival">
+		        <span ng-bind="$select.selected.name"></span>
+		    </ui-select-match>
+		    <ui-select-choices repeat="festival in (festivals | filter: $select.search) track by festival.id">
+		        <span ng-bind="festival.name"></span>
+		    </ui-select-choices>
+		</ui-select>
 		<br/>
 		<table class="table">
 			<th>Item Description</th>
