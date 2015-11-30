@@ -1,4 +1,13 @@
-cart.controller('cartController', ($scope, authService, $auth, userService, cartProductService, festivalService) ->
+cart.controller('cartController', (
+		$scope,
+		authService,
+		$auth,
+		$state,
+		userService,
+		cartProductService,
+		festivalService,
+		cartService) ->
+	
 	authenticatedUser = authService.getAuthenticatedUser()
 	if not authenticatedUser
 		console.log "Please authenticated" 
@@ -39,7 +48,7 @@ cart.controller('cartController', ($scope, authService, $auth, userService, cart
 		)
 
 	$scope.checkout = () ->
-		alert 'Would be checking out.'
+		$state.go('base.checkout')
 
 	updateCart()
 )
