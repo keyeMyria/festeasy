@@ -5,7 +5,7 @@ shared.directive('addToCartButton', () ->
 		scope: {
 			product: '='
 		}
-		controller: ($scope, authService, userService, notify) ->
+		controller: ($scope, authService, userService, ngNotify) ->
 			$scope.addToCart = () ->
 				authenticatedUser = authService.authenticatedUser()
 				if not authenticatedUser
@@ -21,10 +21,10 @@ shared.directive('addToCartButton', () ->
 						cart_id: data.id
 					})
 					createCartProduct.then((response) ->
-						notify 'Added to cart.'
+						ngNotify.set 'Added to cart.'
 					, (response) ->
 						if response.status == 409
-							notify 'Item already in cart.'
+							ngNotify.set 'Item already in cart.'
 					)
 				)
 	}
