@@ -9,6 +9,7 @@ app = angular.module('app', [
     'howItWorks'
     'cart'
     'orders'
+    'checkout'
 ])
 
 app.config(($locationProvider) ->
