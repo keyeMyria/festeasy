@@ -27,7 +27,7 @@ app.run(($rootScope, authService, $state) ->
         (event, toState, toParams, fromState, fromParams) ->
             if toState.auth and not authService.authenticatedUser()
                 event.preventDefault()
-                $state.go('base.signin', {redirectReason: 'Auth needed.'})
+                $state.go('base.signin', {redirectReason: 'Auth needed.', message: 'Please sign in to see that page.'})
     )
     $rootScope.$on('$stateNotFound',
         (event, unfoundState, fromState, fromParams) ->
