@@ -1,5 +1,5 @@
 account.controller('accountController', ($scope, $auth, userService, authService) ->
-	user = authService.authenticatedUser()
+	user = authService.getAuthenticatedUser()
 	promise = userService.one(user.id).get()
 	promise.then((response) ->
 		$scope.user = response

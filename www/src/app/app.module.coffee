@@ -25,7 +25,7 @@ app.config(($stateProvider, $urlRouterProvider) ->
 app.run(($rootScope, authService, $state) ->
     $rootScope.$on('$stateChangeStart',
         (event, toState, toParams, fromState, fromParams) ->
-            if toState.auth and not authService.authenticatedUser()
+            if toState.auth and not authService.getAuthenticatedUser()
                 event.preventDefault()
                 $state.go('base.signin', {redirectReason: 'Auth needed.', message: 'Please sign in to see that page.'})
     )

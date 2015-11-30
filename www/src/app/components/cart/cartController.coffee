@@ -1,5 +1,5 @@
 cart.controller('cartController', ($scope, authService, $auth, userService, cartProductService, festivalService) ->
-	authenticatedUser = authService.authenticatedUser()
+	authenticatedUser = authService.getAuthenticatedUser()
 	if not authenticatedUser
 		console.log "Please authenticated" 
 		return

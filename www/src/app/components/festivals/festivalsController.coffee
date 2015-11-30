@@ -8,7 +8,7 @@ festivals.controller('festivalsController', ($scope, $state, festivalService, au
 	)
 	
 	$scope.selectFestival = (festival) ->
-		authenticatedUser = authService.authenticatedUser()
+		authenticatedUser = authService.getAuthenticatedUser()
 		if authenticatedUser
 			cart = userService.one(authenticatedUser.id).one('cart')
 			console.log 'signed in'
