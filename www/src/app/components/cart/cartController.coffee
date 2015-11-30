@@ -7,7 +7,6 @@ cart.controller('cartController', ($scope, authService, $auth, userService, cart
 	cart = userService.one(authenticatedUser.id).one('cart')
 
 	$scope.updateSelectedFestival = (item, model) ->
-		console.log item
 		cart.patch({festival_id: item.id})
 
 	updateCart = () ->
