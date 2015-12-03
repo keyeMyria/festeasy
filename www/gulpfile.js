@@ -20,12 +20,17 @@ gulp.task('clean', function (cb) {
     return del(['./dist/*'], cb);
 });
 
+gulp.task('fontawesome-fonts', function () {
+    return gulp.src('./bower_components/font-awesome/fonts/**')
+        .pipe(gulp.dest('./dist/fonts'));
+});
+
 gulp.task('bootstrap-fonts', function () {
     return gulp.src('./bower_components/bootstrap/fonts/**')
         .pipe(gulp.dest('./dist/fonts'));
 });
 
-gulp.task('bower', ['bootstrap-fonts'], function () {
+gulp.task('bower', ['bootstrap-fonts', 'fontawesome-fonts'], function () {
     var jsFilter = gulpFilter(['**/*.js'], {restore: true});
     var lessFilter = gulpFilter(['**/*.less'], {restore: true});
     var cssFilter = gulpFilter(['**/*.css'], {restore: true});
