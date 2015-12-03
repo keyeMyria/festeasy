@@ -1,12 +1,12 @@
 <div class="container">
-	<loading-indicator data="orders" error="error"></loading-indicator>
-	<div ng-show="orders">
+	<loading-indicator data="order" error="error"></loading-indicator>
+	<div ng-show="order">
 		<table class="table">
 			<th>ID</th>
 			<th>Festival</th>
 			<th>Total</th>
-			<tr ng-repeat="order in orders">
-				<td><a ui-sref="base.order({orderId: order.id})">{{order.id}}</a></td>
+			<tr>
+				<td>{{order.id}}</td>
 				<td>{{order.festival.name}}</td>
 				<td>{{order.total_rands}}</td>
 			</tr>

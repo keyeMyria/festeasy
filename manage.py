@@ -75,9 +75,24 @@ class InitDB(Command):
                     cost_rands=10, is_enabled=True, price_rands=7),
         ]
         festivals = [
-            Festival(name='Rocking The Daisies', starts_on=now,  ends_on=now),
-            Festival(name='Sunflower Fest', starts_on=now,  ends_on=now),
-            Festival(name='Oppie Koppie', starts_on=now, ends_on=now),
+            Festival(
+                name='Rocking The Daisies',
+                starts_on=now,
+                ends_on=now,
+                description='This is a description.'
+            ),
+            Festival(
+                name='Sunflower Fest',
+                starts_on=now,
+                ends_on=now,
+                description='This is a another description.'
+            ),
+            Festival(
+                name='Oppie Koppie',
+                starts_on=now,
+                ends_on=now,
+                description='This is a another description.'
+            ),
         ]
         things = users + products + festivals
         for thing in things:

@@ -1,14 +1,11 @@
 <div class="container">
-	<div ng-hide="user || error" class="text-center">
-		<p class="lead">Loading...</p>
-	</div>
-	<div ng-show="error" class="col-md-6 col-md-offset-3 alert alert-warning text-center" role="alert">
-		<strong>Oh snap!</strong> Something has gone wrong. Please try again.
-	</div>
+	<loading-indicator data="user" error="error"></loading-indicator>
 	<div ng-show="user">
 		Hi {{user.first_name}}!
 		<br/>
 		Your email address is {{user.email_address}}
-	</div>
+	<br/>
+	<br/>
 	<a ui-sref="base.orders">Orders</a>
+	</div>
 </div>

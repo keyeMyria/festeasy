@@ -1,6 +1,8 @@
 cart = angular.module('cart', [
 	'ui.router'
 	'services'
+	'ui.select'
+	'shared'
 ])
 
 cart.config(($stateProvider) ->

@@ -22,12 +22,14 @@ class Order(db.Model, Entity):
             for cart_product in cart.cart_products:
                 # TODO: There is an issue with cascade
                 # on products and order_products
-                self.order_products.append(OrderProduct(
-                    product=cart_product.product,
-                    quantity=cart_product.quantity,
-                    order=self,
-                    unit_price_rands=cart_product.product.price_rands,
-                    ))
+                self.order_products.append(
+                    OrderProduct(
+                        product=cart_product.product,
+                        quantity=cart_product.quantity,
+                        order=self,
+                        unit_price_rands=cart_product.product.price_rands,
+                    )
+                )
 
     def __repr__(self):
         return '<Order {id}>'.format(id=self.id)

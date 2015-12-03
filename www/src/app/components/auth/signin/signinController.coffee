@@ -1,5 +1,7 @@
 auth.controller('signinController', ($scope, authService, $state, $stateParams) ->
 	$scope.redirectReason = $stateParams.redirectReason
+	$scope.redirectMessage = $stateParams.message
+	console.log $stateParams
 	$scope.user = {
 		email_address: null
 		password: null

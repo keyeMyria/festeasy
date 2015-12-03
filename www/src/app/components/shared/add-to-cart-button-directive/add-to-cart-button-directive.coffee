@@ -5,10 +5,11 @@ shared.directive('addToCartButton', () ->
 		scope: {
 			product: '='
 		}
-		controller: ($scope, authService, userService, ngNotify) ->
+		controller: ($scope, authService, userService, ngNotify, $state) ->
 			$scope.addToCart = () ->
-				authenticatedUser = authService.authenticatedUser()
+				authenticatedUser = authService.getAuthenticatedUser()
 				if not authenticatedUser
+					$state.go('base.signin', {redirectReason: 'Auth needed.', message: 'Please sign in to add an item to your cart.'})
 					console.log 'Authenticate to add a product to a cart.'
 					return
 				user = userService.one(authenticatedUser.id)

@@ -19,12 +19,14 @@ class Invoice(db.Model, Entity):
         with db.session.no_autoflush:
             self.order = order
             for order_product in order.order_products:
-                self.invoice_products.append(InvoiceProduct(
-                    product=order_product.product,
-                    unit_price_rands=order_product.unit_price_rands,
-                    quantity=order_product.quantity,
-                    invoice=self,
-                ))
+                self.invoice_products.append(
+                    InvoiceProduct(
+                        product=order_product.product,
+                        unit_price_rands=order_product.unit_price_rands,
+                        quantity=order_product.quantity,
+                        invoice=self,
+                    )
+                )
 
     def __repr__(self):
         return '<Invoice {id}>'.format(id=self.id)

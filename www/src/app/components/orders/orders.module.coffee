@@ -1,5 +1,6 @@
 orders = angular.module('orders', [
 	'ui.router'
+	'shared'
 ])
 
 orders.config(($stateProvider) ->
@@ -8,5 +9,10 @@ orders.config(($stateProvider) ->
 			url: '/account/orders'
 			templateUrl: 'orders.partial.html'
 			controller: 'ordersController'
+		})
+		.state('base.order', {
+			url: '/account/orders/{orderId:int}'
+			templateUrl: 'order.partial.html'
+			controller: 'orderController'
 		})
 )

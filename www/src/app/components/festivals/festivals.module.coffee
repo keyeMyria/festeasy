@@ -1,5 +1,6 @@
 festivals = angular.module('festivals', [
 	'ui.router',
+	'shared'
 ])
 
 festivals.config(($stateProvider) ->
