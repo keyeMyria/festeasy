@@ -1,14 +1,14 @@
 <div class="container">
-	<div ng-hide="orders || error" class="text-center">
+	<div ng-hide="order || error" class="text-center">
 		<p class="lead">Loading...</p>
 	</div>
-	<div ng-show="orders">
+	<div ng-show="order">
 		<table class="table">
 			<th>ID</th>
 			<th>Festival</th>
 			<th>Total</th>
-			<tr ng-repeat="order in orders">
-				<td><a ui-sref="base.order({orderId: order.id})">{{order.id}}</a></td>
+			<tr>
+				<td>{{order.id}}</td>
 				<td>{{order.festival.name}}</td>
 				<td>{{order.total_rands}}</td>
 			</tr>
