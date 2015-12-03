@@ -1,15 +1,8 @@
 <div class="container">
 	<loading-indicator data="order" error="error"></loading-indicator>
 	<div ng-show="order">
-		<table class="table">
-			<th>ID</th>
-			<th>Festival</th>
-			<th>Total</th>
-			<tr>
-				<td>{{order.id}}</td>
-				<td>{{order.festival.name}}</td>
-				<td>{{order.total_rands}}</td>
-			</tr>
-		</table>
+		<p>Order number: {{order.id}}</p>
+		<p>{{order.festival.name}}</p>
+		<p>{{order.total_rands}}</p>
 	</div>
 </div>
