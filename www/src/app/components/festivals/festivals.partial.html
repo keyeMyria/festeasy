@@ -1,14 +1,14 @@
 <div class="container">
 	<loading-indicator data="festivals" error="error"></loading-indicator>
-	<div ng-show="festivals" class="well" ng-repeat="festival in festivals">
+	<div ng-show="festivals" class="well col-md-3 col-md-offset-1" ng-repeat="festival in festivals">
 		<p class="lead">
 			{{festival.name}}
 		</p>
 		<p>
-			Starts: {{festival.starts_on}}
+			Starts: {{festival.starts_on | date: 'hh:mm EEEE  MMMM d, y '}}
 		</p>
 		<p>
-			Ends: {{festival.ends_on}}
+			Ends: {{festival.ends_on | date: 'EEEE, MMMM d, y'}}
 		</p>
 		<button ng-click="selectFestival(festival)" class="btn btn-default">Select</button>
 	</div>
