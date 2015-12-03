@@ -79,20 +79,29 @@ class InitDB(Command):
                 name='Rocking The Daisies',
                 starts_on=now,
                 ends_on=now,
-                description='This is a description.'
+                description='This is a description.',
+                website_link='http://rockingthedaisies.com/',
+                ticket_link='http://seed.nutickets.co.za/RTD2016',
+                facebook_link='https://www.facebook.com/rockingthedaisiesfestival/?fref=ts',
             ),
             Festival(
                 name='Sunflower Fest',
                 starts_on=now,
                 ends_on=now,
-                description='This is a another description.'
+                description='This is a another description.',
+                website_link='http://www.capetownmagazine.com/events/sunflower-outdoor-music-festival/11_37_55771',
+                ticket_link='http://www.capetownmagazine.com/events/sunflower-outdoor-music-festival/11_37_55771',
+                facebook_link='https://www.facebook.com/SunflowerFest',
             ),
             Festival(
                 name='Oppie Koppie',
                 starts_on=now,
                 ends_on=now,
-                description='This is a another description.'
-            ),
+                description='This is a another description.',
+                website_link='http://www.oppikoppi.co.za/',
+                ticket_link='http://www.oppikoppi.co.za/',
+                facebook_link='https://www.facebook.com/oppikoppifestival/',
+                ),
         ]
         things = users + products + festivals
         for thing in things:
