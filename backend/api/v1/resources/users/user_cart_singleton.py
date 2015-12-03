@@ -18,8 +18,8 @@ class UserCartSingleton(Resource):
     def patch(self, user_id):
         user = get_or_404(User, User.id == user_id)
         cart = user.cart
-        data = request.get_json()
-        for key, val in data.items():
+        load_data = marshal_or_fail('load', request.get_json(), CartSchema())
+        for key, val in load_data.items():
             setattr(cart, key, val)
         db.session.add(cart)
         db.session.commit()
