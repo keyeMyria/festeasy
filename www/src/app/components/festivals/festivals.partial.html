@@ -1,10 +1,5 @@
 <div class="container">
-	<div ng-hide="festivals || error" class="text-center">
-		<p class="lead">Loading...</p>
-	</div>
-	<div ng-show="error" class="col-md-6 col-md-offset-3 alert alert-warning text-center" role="alert">
-		<strong>Oh snap!</strong> Something has gone wrong. Please try again.
-	</div>
+	<loading-indicator data="festivals" error="error"></loading-indicator>
 	<div ng-show="festivals" class="well" ng-repeat="festival in festivals">
 		<p class="lead">
 			{{festival.name}}

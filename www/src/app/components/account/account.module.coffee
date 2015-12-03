@@ -1,6 +1,7 @@
 account = angular.module('account', [
 	'ui.router'
 	'services'
+	'shared'
 ])
 
 account.config(($stateProvider) ->

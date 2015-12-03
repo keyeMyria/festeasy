@@ -1,5 +1,6 @@
 orders = angular.module('orders', [
 	'ui.router'
+	'shared'
 ])
 
 orders.config(($stateProvider) ->

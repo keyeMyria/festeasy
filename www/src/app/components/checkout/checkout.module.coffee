@@ -1,5 +1,6 @@
 checkout = angular.module('checkout', [
 	'ui.router'
+	'shared'
 ])
 
 checkout.config(($stateProvider) ->

@@ -1,7 +1,5 @@
 <div class="container">
-	<div ng-hide="order || error" class="text-center">
-		<p class="lead">Loading...</p>
-	</div>
+	<loading-indicator data="order" error="error"></loading-indicator>
 	<div ng-show="order">
 		<table class="table">
 			<th>ID</th>
