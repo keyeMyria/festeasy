@@ -1,7 +1,7 @@
 <div class="container">
 	<loading-indicator data="products" error="error"></loading-indicator>
 	<div ng-show="products" class="well col-md-3 col-md-offset-1" ng-repeat="product in products">
-		<p class="lead">{{product.name}}</p>
+		<p class="lead"><a ui-sref="base.product({productId: product.id})">{{product.name}}</a></p>
 		<p>{{product.description}}</p>
 		<p>{{product.price_rands}}</p>
 		<add-to-cart-button product="product"></add-to-cart-button>
