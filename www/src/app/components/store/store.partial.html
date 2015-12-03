@@ -1,6 +1,6 @@
 <div class="container">
 	<loading-indicator data="products" error="error"></loading-indicator>
-	<div ng-show="products" class="well" ng-repeat="product in products">
+	<div ng-show="products" class="well col-md-3 col-md-offset-1" ng-repeat="product in products">
 		<p class="lead">{{product.name}}</p>
 		<add-to-cart-button product="product"></add-to-cart-button>
 	</div>
