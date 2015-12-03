@@ -60,19 +60,47 @@ class InitDB(Command):
         ]
         products = [
             Product(name='Castle Lite Beer',
-                    cost_rands=10, is_enabled=True, price_rands=20),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=20,
+                    description='A description.'
+                    ),
             Product(name='Lays Small Pack',
-                    cost_rands=10, is_enabled=True, price_rands=9),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=9,
+                    description='A description.'
+                    ),
             Product(name='Coke Can',
-                    cost_rands=10, is_enabled=True, price_rands=9),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=9,
+                    description='A description.'
+                    ),
             Product(name='Windhoek Beer',
-                    cost_rands=10, is_enabled=True, price_rands=21),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=21,
+                    description='A description',
+                    ),
             Product(name='Text Chocolate',
-                    cost_rands=10, is_enabled=True, price_rands=9),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=9,
+                    description='A description',
+                    ),
             Product(name='KitKat Chocolate',
-                    cost_rands=10, is_enabled=True, price_rands=8),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=8,
+                    description='A description.'
+                    ),
             Product(name='Jelly Beans',
-                    cost_rands=10, is_enabled=True, price_rands=7),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=7,
+                    description='A description.'
+                    ),
         ]
         festivals = [
             Festival(

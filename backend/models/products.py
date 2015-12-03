@@ -9,15 +9,6 @@ from backend.models import Entity
 class Product(db.Model, Entity):
     __tablename__ = 'product'
 
-    def __init__(self, is_enabled=None, name=None, price_rands=None,
-            cost_rands=None, orders=[], order_products=[]):
-        self.is_enabled = is_enabled
-        self.name = name
-        self.price_rands = price_rands
-        self.cost_rands = cost_rands
-        self.orders = orders
-        self.order_products = order_products
-
     def __repr__(self):
         return '<Product {id}>'.format(id=self.id)
 
@@ -28,6 +19,8 @@ class Product(db.Model, Entity):
     cost_rands = Column(Numeric, nullable=False)
     # Should a Product show up on the products list.
     is_enabled = Column(Boolean, default=False, nullable=False)
+
+    description = Column(String)
 
     carts = relationship(
         'Cart',
