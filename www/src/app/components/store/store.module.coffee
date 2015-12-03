@@ -7,8 +7,13 @@ store = angular.module('store', [
 store.config(($stateProvider) ->
     $stateProvider
         .state('base.store', {
-            url: '/store'
+            url: '/store/products'
             templateUrl: 'store.partial.html'
             controller: 'storeController'
         })
+        .state('base.product', {
+        	url: '/store/products/{productId:int}'
+        	templateUrl: 'product.partial.html'
+        	controller: 'productController'
+       	})
 )

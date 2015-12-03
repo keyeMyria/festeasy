@@ -60,39 +60,76 @@ class InitDB(Command):
         ]
         products = [
             Product(name='Castle Lite Beer',
-                    cost_rands=10, is_enabled=True, price_rands=20),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=20,
+                    description='A description.'
+                    ),
             Product(name='Lays Small Pack',
-                    cost_rands=10, is_enabled=True, price_rands=9),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=9,
+                    description='A description.'
+                    ),
             Product(name='Coke Can',
-                    cost_rands=10, is_enabled=True, price_rands=9),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=9,
+                    description='A description.'
+                    ),
             Product(name='Windhoek Beer',
-                    cost_rands=10, is_enabled=True, price_rands=21),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=21,
+                    description='A description',
+                    ),
             Product(name='Text Chocolate',
-                    cost_rands=10, is_enabled=True, price_rands=9),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=9,
+                    description='A description',
+                    ),
             Product(name='KitKat Chocolate',
-                    cost_rands=10, is_enabled=True, price_rands=8),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=8,
+                    description='A description.'
+                    ),
             Product(name='Jelly Beans',
-                    cost_rands=10, is_enabled=True, price_rands=7),
+                    cost_rands=10,
+                    is_enabled=True,
+                    price_rands=7,
+                    description='A description.'
+                    ),
         ]
         festivals = [
             Festival(
                 name='Rocking The Daisies',
                 starts_on=now,
                 ends_on=now,
-                description='This is a description.'
+                description='This is a description.',
+                website_link='http://rockingthedaisies.com/',
+                ticket_link='http://seed.nutickets.co.za/RTD2016',
+                facebook_link='https://www.facebook.com/rockingthedaisiesfestival/?fref=ts',
             ),
             Festival(
                 name='Sunflower Fest',
                 starts_on=now,
                 ends_on=now,
-                description='This is a another description.'
+                description='This is a another description.',
+                website_link='http://www.capetownmagazine.com/events/sunflower-outdoor-music-festival/11_37_55771',
+                ticket_link='http://www.capetownmagazine.com/events/sunflower-outdoor-music-festival/11_37_55771',
+                facebook_link='https://www.facebook.com/SunflowerFest',
             ),
             Festival(
                 name='Oppie Koppie',
                 starts_on=now,
                 ends_on=now,
-                description='This is a another description.'
-            ),
+                description='This is a another description.',
+                website_link='http://www.oppikoppi.co.za/',
+                ticket_link='http://www.oppikoppi.co.za/',
+                facebook_link='https://www.facebook.com/oppikoppifestival/',
+                ),
         ]
         things = users + products + festivals
         for thing in things:

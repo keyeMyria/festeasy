@@ -1,18 +1,36 @@
 <div class="container">
 	<loading-indicator data="festivals" error="error"></loading-indicator>
-	<div ng-show="festivals" class="well col-md-3 col-md-offset-1" ng-repeat="festival in festivals">
-		<p class="lead">
-			{{festival.name}}
-		</p>
-		<p>
-			Starts: {{festival.starts_on | date: 'hh:mm EEEE  MMMM d, y '}}
-		</p>
-		<p>
-			Ends: {{festival.ends_on | date: 'EEEE, MMMM d, y'}}
-		</p>
-		<p>
-			{{festival.description}}
-		</p>
-		<button ng-click="selectFestival(festival)" class="btn btn-default">Select</button>
+	<div ng-show="festivals">
+		<div class="input-group">
+		    <span class="input-group-addon" id="basic-addon1">Search Festivals</span>
+		    <input type="text" class="form-control" ng-model="searchText" aria-describedby="basic-addon1">
+		</div>
+		<br/>
+		<div class="well col-md-3 col-md-offset-1" ng-repeat="festival in festivals | filter:searchText">
+			<p class="lead">
+				<a ui-sref="base.festival({festivalId:festival.id})">
+					{{festival.name}}
+				</a>
+			</p>
+			<p>
+				Starts: {{festival.starts_on | date: 'hh:mm EEEE  MMMM d, y '}}
+			</p>
+			<p>
+				Ends: {{festival.ends_on | date: 'EEEE, MMMM d, y'}}
+			</p>
+			<p>
+				{{festival.description}}
+			</p>
+			<p>
+				<a target="_blank" ng-href="{{festival.website_link}}">Website</a>
+			</p>
+			<p>
+				<a target="_blank" ng-href="{{festival.facebook_link}}">Facebook</a>
+			</p>
+			<p>
+				<a target="_blank" ng-href="{{festival.ticket_link}}">Tickets</a>
+			</p>
+			<button ng-click="selectFestival(festival)" class="btn btn-default">Select</button>
+		</div>
 	</div>
 </div>

@@ -1,5 +1,4 @@
 from sqlalchemy import Column, String, DateTime
-from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -16,6 +15,9 @@ class Festival(db.Model, Entity):
     starts_on = Column(DateTime)
     ends_on = Column(DateTime)
     description = Column(String)
+    website_link = Column(String)
+    ticket_link = Column(String)
+    facebook_link = Column(String)
 
     orders = relationship(
         'Order',

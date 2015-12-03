@@ -1,0 +1,22 @@
+<div class="container">
+	<loading-indicator data="festival" error="error"></loading-indicator>
+	<div ng-show="festival" class="well">
+		<p class="lead">{{festival.name}}</p>
+		<p>{{festival.description}}</p>
+		<p>
+			Starts: {{festival.starts_on | date: 'hh:mm EEEE  MMMM d, y '}}
+		</p>
+		<p>
+			Ends: {{festival.ends_on | date: 'EEEE, MMMM d, y'}}
+		</p>
+		<p>
+			<a target="_blank" ng-href="{{festival.website_link}}">Website</a>
+		</p>
+		<p>
+			<a target="_blank" ng-href="{{festival.facebook_link}}">Facebook</a>
+		</p>
+		<p>
+			<a target="_blank" ng-href="{{festival.ticket_link}}">Tickets</a>
+		</p>
+	</div>
+</div>

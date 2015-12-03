@@ -8,6 +8,9 @@ class FestivalSchema(EntitySchema):
     starts_on = fields.DateTime()
     ends_on = fields.DateTime()
     description = fields.String()
+    website_link = fields.Url()
+    facebook_link = fields.Url()
+    ticket_link = fields.Url()
 
     class Meta:
         strict = True
