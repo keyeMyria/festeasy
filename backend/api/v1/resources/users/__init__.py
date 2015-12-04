@@ -21,4 +21,4 @@ v1_api.add_resource(UserCartCartProductCollection,
                     '/users/<int:user_id>/cart/cart-products')
 
 v1_api.add_resource(ChangePassword,
-                    '/users/<int:user_id>/changepassword')
+                    '/users/<int:user_id>/change-password')
