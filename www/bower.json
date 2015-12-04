@@ -17,7 +17,6 @@
   "description": "landing and store for festeasy",
   "dependencies": {
     "angular": "~1.4.4",
-    "angular-notify": "~2.5.0",
     "angular-ui-router": "~0.2.15",
     "bootstrap": "~3.3.5",
     "restangular": "~1.5.1",
@@ -25,8 +24,5 @@
     "ng-notify": "~0.7.1",
     "ui-select": "angular-ui-select#~0.13.2",
     "font-awesome": "fontawesome#~4.5.0"
-  },
-  "resolutions": {
-    "angular": "~1.4.4"
   }
 }

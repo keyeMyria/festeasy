@@ -11,3 +11,4 @@ from .cart_schema import CartSchema
 from .cart_product_schema import CartProductSchema
 from .signup_schema import SignupSchema
 from .signin_schema import SigninSchema
+from .change_password_schema import ChangePasswordSchema
