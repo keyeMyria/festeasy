@@ -100,6 +100,7 @@ gulp.task('index', function () {
 });
 
 gulp.task('watch', function () {
+    gulp.start('default')
     gulp.watch('./bower_components/**', ['bower']);
     gulp.watch('./src/**/*.partial.html', ['partials']);
     gulp.watch('./src/**/*.coffee', ['scripts']);
