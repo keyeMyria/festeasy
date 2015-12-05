@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy import ForeignKey, UniqueConstraint, select
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
 from backend import db
 from backend.models import Entity

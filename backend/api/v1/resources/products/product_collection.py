@@ -6,13 +6,18 @@ from backend.api.utils import marshal_or_fail
 from backend.api.v1.schemas import ProductSchema
 
 
+def filter_categories(q):
+    category = request.args.get('category')
+    if category:
+        q = q.join(ProductCategory)
+        q = q.join(Category)
+        q = q.filter(Category.name == category)
+    return q
+
+
 class ProductCollection(Resource):
     def get(self):
-        category = request.args.get('category')
         q = Product.query
-        if category:
-            q = q.join(ProductCategory)
-            q = q.join(Category)
-            q = q.filter(Category.name == category)
+        q = filter_categories(q)
         products = q.all()
         return marshal_or_fail('dump', products, ProductSchema(), many=True)
