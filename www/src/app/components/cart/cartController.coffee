@@ -10,9 +10,6 @@ cart.controller('cartController', (
 		cartService) ->
 	
 	authenticatedUser = authService.getAuthenticatedUser()
-	if not authenticatedUser
-		console.log "Please authenticated" 
-		return
 
 	cart = userService.one(authenticatedUser.id).one('cart')
 
