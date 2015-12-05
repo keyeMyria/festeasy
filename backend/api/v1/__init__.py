@@ -17,6 +17,7 @@ from .resources import payments
 from .resources import products
 from .resources import sessions
 from .resources import users
+from .resources import categories
 
 @v1_bp.route('/')
 def hi():

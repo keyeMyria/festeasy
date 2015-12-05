@@ -1,18 +1,21 @@
 <div class="container">
-	<div class="row">
+	<loading-indicator data="categories" error="false"></loading-indicator>
+	<div class="row" ng-show="categories">
 		<div class="col-md-2">
 			<ul class="nav nav-pills nav-stacked">
 				<li role="presentation">
-					<a ui-sref="base.store.products" ui-sref-opts="{reload: true, inherit: false}">All</a>
+					<a 
+						ui-sref="base.store.products" 
+						ui-sref-opts="{reload: true, inherit: false}">
+						All
+					</a>
 				</li>
-				<li role="presentation">
-					<a ui-sref="base.store.products({category:'food'})" ui-sref-opts="{reload: true}">Food</a>
-				</li>
-				<li role="presentation">
-					<a ui-sref="base.store.products({category:'drinks'})" ui-sref-opts="{reload: true}">Drinks</a>
-				</li>
-				<li role="presentation">
-					<a ui-sref="base.store.products({category:'beer'})" ui-sref-opts="{reload: true}">Beer</a>
+				<li role="presentation" ng-repeat="category in categories">
+					<a 
+						ui-sref="base.store.products({category: category.name})"
+						ui-sref-opts="{reload: true, inherit: false}">
+						{{category.name}}
+					</a>
 				</li>
 			</ul>
 		</div>

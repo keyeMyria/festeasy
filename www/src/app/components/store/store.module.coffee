@@ -9,6 +9,7 @@ store.config(($stateProvider) ->
         .state('base.store', {
             url: '/store'
             templateUrl: 'store.partial.html'
+            controller: 'storeController'
             abstract: true
         })
         .state('base.store.products', {
