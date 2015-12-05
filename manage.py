@@ -59,9 +59,9 @@ class InitDB(Command):
         users = [
             test_user,
         ]
-        drinks = Category(name='drinks')
-        beer = Category(name='beer')
-        food = Category(name='food')
+        drinks = Category(name='Drinks')
+        beer = Category(name='Beer')
+        food = Category(name='Food')
         products = [
             Product(name='Castle Lite Beer',
                     cost_rands=10,
