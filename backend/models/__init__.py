@@ -31,3 +31,5 @@ from .carts import Cart
 from .invoice_products import InvoiceProduct
 from .payments import Payment
 from .invoices import Invoice
+from .categories import Category
+from .product_categories import ProductCategory

@@ -51,4 +51,13 @@ class Product(db.Model, Entity):
         secondary='invoice_product',
         back_populates='products',
     )
-    invoice_products = relationship('InvoiceProduct', back_populates='product')
+    invoice_products = relationship(
+        'InvoiceProduct',
+        back_populates='product',
+    )
+
+    categories = relationship(
+        'Category',
+        secondary='product_category',
+        back_populates='products',
+    )

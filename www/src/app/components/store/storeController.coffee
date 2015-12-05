@@ -1,5 +1,5 @@
-store.controller('storeController', ($scope, productService) ->
-	getProducts = productService.getList()
+store.controller('storeController', ($scope, productService, $stateParams) ->
+	getProducts = productService.getList($stateParams)
 	getProducts.then((response) ->
 		$scope.products = response
 	)
