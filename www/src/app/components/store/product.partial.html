@@ -1,9 +1,7 @@
-<div class="container">
-	<loading-indicator data="product" error="error"></loading-indicator>
-	<div ng-show="product" class="well">
-		<p class="lead">{{product.name}}</p>
-		<p>{{product.description}}</p>
-		<p>{{product.price_rands}}</p>
-		<add-to-cart-button product="product"></add-to-cart-button>
-	</div>
+<loading-indicator data="product" error="error"></loading-indicator>
+<div ng-show="product" class="well">
+	<p class="lead">{{product.name}}</p>
+	<p>{{product.description}}</p>
+	<p>{{product.price_rands}}</p>
+	<add-to-cart-button product="product"></add-to-cart-button>
 </div>
