@@ -1,7 +1,7 @@
 auth.controller('signinController', ($scope, authService, $state, $stateParams) ->
 	$scope.redirectReason = $stateParams.redirectReason
 	$scope.redirectMessage = $stateParams.message
-	console.log $stateParams
+	returnStateName = $stateParams.returnStateName
 	$scope.user = {
 		email_address: null
 		password: null
@@ -17,7 +17,11 @@ auth.controller('signinController', ($scope, authService, $state, $stateParams) 
 		promise = authService.signin($scope.user)
 		promise.then((response) ->
 			console.log 'success'
-			$state.go('base.account')
+			if returnStateName
+				console.log returnStateName
+				$state.go(returnStateName)
+			else
+				$state.go('base.store.products')
 		, (response) ->
 			console.log 'fail'
 			status_code = response.status

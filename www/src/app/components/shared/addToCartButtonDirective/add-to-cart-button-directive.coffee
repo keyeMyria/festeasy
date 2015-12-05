@@ -9,7 +9,11 @@ shared.directive('addToCartButton', () ->
 			$scope.addToCart = () ->
 				authenticatedUser = authService.getAuthenticatedUser()
 				if not authenticatedUser
-					$state.go('base.signin', {redirectReason: 'Auth needed.', message: 'Please sign in to add an item to your cart.'})
+					$state.go('base.signin', {
+						redirectReason: 'Auth needed.', 
+						message: 'Please sign in to add an item to your cart.'
+						returnStateName: $state.current.name
+					})
 					console.log 'Authenticate to add a product to a cart.'
 					return
 				user = userService.one(authenticatedUser.id)
