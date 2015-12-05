@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from sqlalchemy import or_
 
 from backend.models import Product, Category, ProductCategory
 from backend.api.utils import marshal_or_fail
@@ -15,9 +16,22 @@ def filter_categories(q):
     return q
 
 
+def search(q):
+    search_term = request.args.get('search')
+    if search_term:
+        q = q.filter(
+            or_(
+                Product.name.like("%{0}%".format(search_term)),
+                Product.description.like("%{0}%".format(search_term)),
+            )
+        )
+    return q
+
+
 class ProductCollection(Resource):
     def get(self):
         q = Product.query
+        q = search(q)
         q = filter_categories(q)
         products = q.all()
         return marshal_or_fail('dump', products, ProductSchema(), many=True)

@@ -7,7 +7,7 @@ store = angular.module('store', [
 store.config(($stateProvider) ->
     $stateProvider
         .state('base.store', {
-            url: '/store?category'
+            url: '/store?category&search'
             templateUrl: 'store.partial.html'
             controller: 'storeController'
         })

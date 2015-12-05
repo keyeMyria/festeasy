@@ -15,12 +15,16 @@
 				<a ui-sref="base.store({category:'beer'})" ui-sref-opts="{reload: true}">Beer</a>
 			</li>
 		</ul>
-		<div class="input-group">
-		    <span class="input-group-addon" id="basic-addon1">Search Products</span>
-		    <input type="text" class="form-control" ng-model="searchText" aria-describedby="basic-addon1">
-		</div>
+		<form class="form-inline" ng-submit="search()">
+		  	<div class="form-group">
+		    	<div class="input-group">
+		      		<input type="text" class="form-control" ng-model="searchTerm" id="exampleInputAmount" placeholder="{{placeholder}}">
+		    	</div>
+		  	</div>
+			<button type="submit" class="btn btn-primary">Search</button>
+		</form>
 		<br/>
-		<div class="well col-md-3 col-md-offset-1" ng-repeat="product in products | filter:searchText">
+		<div class="well col-md-3 col-md-offset-1" ng-repeat="product in products">
 			<p class="lead"><a ui-sref="base.product({productId: product.id})">{{product.name}}</a></p>
 			<p>{{product.description}}</p>
 			<p>{{product.price_rands}}</p>
