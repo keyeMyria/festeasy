@@ -5,7 +5,7 @@ from backend import create_app, db
 from backend.models import User, Session, Product
 from backend.models import Festival, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct
-from backend.models import Payment, InvoiceProduct
+from backend.models import Payment, InvoiceProduct, Category
 from backend.testing.utils import template_entity
 
 
@@ -20,6 +20,10 @@ class BackendTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def create_category(self, *args, **kwargs):
+        category = Category(*args, **kwargs)
+        return category
 
     def create_cart(self, *args, **kwargs):
         cart = Cart(*args, **kwargs)

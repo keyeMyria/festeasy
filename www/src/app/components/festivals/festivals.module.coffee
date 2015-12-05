@@ -10,8 +10,8 @@ festivals.config(($stateProvider) ->
             templateUrl: 'festivals.partial.html'
             controller: 'festivalsController'
         })
-        .state('base.festival', {
-        	url: '/festivals/{festivalId:int}'
+        .state('base.festivals.festival', {
+        	url: '/{festivalId:int}'
         	templateUrl: 'festival.partial.html'
         	controller: 'festivalController'
         })

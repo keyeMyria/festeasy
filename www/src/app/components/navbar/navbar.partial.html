@@ -14,14 +14,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ui-sref-active="active">
+        <li ng-class="{'active': state.includes('base.festivals')}">
           <a ui-sref="base.festivals" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             Festivals
           </a>
         </li>
-        <li ui-sref-active="active">
-          <a ui-sref="base.store" ui-sref-opts="{reload:true}">
+        <li ng-class="{'active': state.includes('base.store')}">
+          <a ui-sref="base.store.products" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
             Store
           </a>

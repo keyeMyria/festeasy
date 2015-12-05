@@ -1,9 +1,7 @@
-store.controller('storeController', ($scope, productService) ->
-	getProducts = productService.getList()
-	getProducts.then((response) ->
-		$scope.products = response
-	)
-	getProducts.catch((response) ->
-		$scope.error = true
+store.controller('storeController', ($scope, categoryService, $stateParams) ->
+	$scope.cat = $stateParams.category
+	getCategories = categoryService.getList()
+	getCategories.then((response) ->
+		$scope.categories = response
 	)
 )

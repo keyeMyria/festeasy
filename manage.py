@@ -7,6 +7,7 @@ from flask.ext.script import Shell, Server
 from backend import create_app, db
 from backend import models
 from backend.models import User, Product, Festival, Cart, Session
+from backend.models import Category
 
 
 manager = Manager(create_app, with_default_commands=False)
@@ -58,48 +59,58 @@ class InitDB(Command):
         users = [
             test_user,
         ]
+        drinks = Category(name='Drinks')
+        beer = Category(name='Beer')
+        food = Category(name='Food')
         products = [
             Product(name='Castle Lite Beer',
                     cost_rands=10,
                     is_enabled=True,
                     price_rands=20,
-                    description='A description.'
+                    description='A description.',
+                    categories=[beer, drinks]
                     ),
             Product(name='Lays Small Pack',
                     cost_rands=10,
                     is_enabled=True,
                     price_rands=9,
-                    description='A description.'
+                    description='A description.',
+                    categories=[food],
                     ),
             Product(name='Coke Can',
                     cost_rands=10,
                     is_enabled=True,
                     price_rands=9,
-                    description='A description.'
+                    description='A description.',
+                    categories=[drinks],
                     ),
             Product(name='Windhoek Beer',
                     cost_rands=10,
                     is_enabled=True,
                     price_rands=21,
                     description='A description',
+                    categories=[drinks, beer],
                     ),
             Product(name='Text Chocolate',
                     cost_rands=10,
                     is_enabled=True,
                     price_rands=9,
                     description='A description',
+                    categories=[food],
                     ),
             Product(name='KitKat Chocolate',
                     cost_rands=10,
                     is_enabled=True,
                     price_rands=8,
-                    description='A description.'
+                    description='A description.',
+                    categories=[food],
                     ),
             Product(name='Jelly Beans',
                     cost_rands=10,
                     is_enabled=True,
                     price_rands=7,
-                    description='A description.'
+                    description='A description.',
+                    categories=[food],
                     ),
         ]
         festivals = [
