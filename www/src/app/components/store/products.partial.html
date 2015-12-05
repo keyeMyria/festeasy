@@ -1,27 +1,25 @@
-<div>
-	<div class="text-center">
-		<form class="form-inline" ng-submit="search()">
-		  	<div class="form-group">
-		    	<div class="input-group">
-		      		<input type="text" class="form-control" ng-model="searchTerm" id="exampleInputAmount" placeholder="{{placeholder}}">
-		    	</div>
-		  	</div>
-			<button type="submit" class="btn btn-primary">Search</button>
-		</form>
+<div class="text-center">
+	<form class="form-inline" ng-submit="search()">
+	  	<div class="form-group">
+	    	<div class="input-group">
+	      		<input type="text" class="form-control" ng-model="searchTerm" id="exampleInputAmount" placeholder="{{placeholder}}">
+	    	</div>
+	  	</div>
+		<button type="submit" class="btn btn-primary">Search</button>
+	</form>
+</div>
+<br/>
+<loading-indicator data="products" error="error"></loading-indicator>
+<div ng-show="products">
+	<div ng-show="!products.length" class="text-center">
+		<p class="lead">
+			No results
+		</p>
 	</div>
-	<br/>
-	<loading-indicator data="products" error="error"></loading-indicator>
-	<div ng-show="products">
-		<div ng-show="!products.length" class="text-center">
-			<p class="lead">
-				No results
-			</p>
-		</div>
-		<div class="well col-md-3 col-md-offset-1" ng-repeat="product in products">
-			<p class="lead"><a ui-sref="base.store.product({productId: product.id})">{{product.name}}</a></p>
-			<p>{{product.description}}</p>
-			<p>{{product.price_rands}}</p>
-			<add-to-cart-button product="product"></add-to-cart-button>
-		</div>
+	<div class="well col-md-3 col-md-offset-1" ng-repeat="product in products">
+		<p class="lead"><a ui-sref="base.store.product({productId: product.id})">{{product.name}}</a></p>
+		<p>{{product.description}}</p>
+		<p>{{product.price_rands}}</p>
+		<add-to-cart-button product="product"></add-to-cart-button>
 	</div>
 </div>
