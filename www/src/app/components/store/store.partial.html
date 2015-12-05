@@ -23,9 +23,14 @@
 			<button type="submit" class="btn btn-primary">Search</button>
 		</form>
 	</div>
+	<br/>
 	<loading-indicator data="products" error="error"></loading-indicator>
 	<div ng-show="products">
-		<br/>
+		<div ng-show="!products.length" class="text-center">
+			<p class="lead">
+				No results
+			</p>
+		</div>
 		<div class="well col-md-3 col-md-offset-1" ng-repeat="product in products">
 			<p class="lead"><a ui-sref="base.product({productId: product.id})">{{product.name}}</a></p>
 			<p>{{product.description}}</p>
