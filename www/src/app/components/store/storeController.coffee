@@ -6,7 +6,7 @@ store.controller('storeController', ($scope, $state, productService, $stateParam
 
 	$scope.search = () ->
 		$state.go('base.store', {search: $scope.searchTerm}, {}, {reload: true})
-		
+
 	getProducts = productService.getList($stateParams)
 	getProducts.then((response) ->
 		$scope.products = response
