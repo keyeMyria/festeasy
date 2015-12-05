@@ -1,7 +1,7 @@
 <div class="container">
-	<loading-indicator data="cart" error="error"></loading-indicator>
-	<div ng-show="cart">
-		Festival: {{cart.festival_id}}
+	<loading-indicator data="cart && festival && cartProducts" error="error"></loading-indicator>
+	<div ng-show="cart && festival && cartProducts">
+		Festival: {{festival.name}}
 		<br/>
 		<table class="table">
 			<th>Item Description</th>
