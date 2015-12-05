@@ -1,5 +1,5 @@
 store.controller('storeController', ($scope, categoryService, $stateParams) ->
-	$scope.cat = $stateParams.category
+	$scope.currentCategory = $stateParams.category
 	getCategories = categoryService.getList()
 	getCategories.then((response) ->
 		$scope.categories = response
