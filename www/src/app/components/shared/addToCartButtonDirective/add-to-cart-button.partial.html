@@ -1,1 +1,6 @@
-<button ng-click="addToCart()" class="btn btn-success">Add to cart</button>
+<button 
+	ng-click="addToCart()" 
+	ng-class="{'active': isLoading}" 
+	class="btn btn-success">
+	{{buttonText}}
+</button>
