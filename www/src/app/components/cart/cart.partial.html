@@ -1,6 +1,6 @@
 <div class="container">
 	<loading-indicator data="cart && cartProducts" error="error"></loading-indicator>
-	<div ng-show="cart && !cartProducts.length">
+	<div ng-show="cart && cartProducts && !cartProducts.length">
 		<div class="text-center">
 			<p class="lead">
 				Your cart is empty
