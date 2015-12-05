@@ -18,8 +18,7 @@ auth.controller('signinController', ($scope, authService, $state, $stateParams) 
 		promise.then((response) ->
 			console.log 'success'
 			if returnStateName
-				console.log returnStateName
-				$state.go(returnStateName)
+				window.history.back()
 			else
 				$state.go('base.store.products')
 		, (response) ->
