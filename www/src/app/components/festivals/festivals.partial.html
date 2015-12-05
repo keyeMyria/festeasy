@@ -7,7 +7,9 @@
 			    <input type="text" class="form-control" ng-model="searchText" aria-describedby="basic-addon1">
 			</div>
 			<br/>
-			<div class="well col-md-3 col-md-offset-1" ng-repeat="festival in festivals | filter:searchText">
+			<div class="well col-md-3 col-md-offset-1" 
+				ng-repeat="festival in festivals | filter:searchText"
+				ng-style="style(festival)">
 				<p class="lead">
 					<a ui-sref="base.festivals.festival({festivalId:festival.id})">
 						{{festival.name}}
