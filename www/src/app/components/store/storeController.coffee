@@ -1,7 +1,8 @@
-store.controller('storeController', ($scope, categoryService, $stateParams) ->
-	$scope.cat = $stateParams.category
+store.controller('storeController', ($scope, $rootScope, categoryService, $stateParams) ->
+	$scope.currentCategory = $stateParams.category
 	getCategories = categoryService.getList()
 	getCategories.then((response) ->
-		$scope.categories = response
+		# Storing categories on the rootScope to prevent flickering.
+		$rootScope.categories = response
 	)
 )

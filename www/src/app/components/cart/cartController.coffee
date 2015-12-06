@@ -6,17 +6,18 @@ cart.controller('cartController', (
 		userService,
 		cartProductService,
 		festivalService,
+		ngNotify,
 		cartService) ->
 	
 	authenticatedUser = authService.getAuthenticatedUser()
-	if not authenticatedUser
-		console.log "Please authenticated" 
-		return
 
 	cart = userService.one(authenticatedUser.id).one('cart')
 
 	$scope.updateSelectedFestival = (item, model) ->
-		cart.patch({festival_id: item.id})
+		patchCart = cart.patch({festival_id: item.id})
+		patchCart.then((response) ->
+			updateCart()
+		)
 
 	updateCart = () ->
 		getCart = cart.get()
@@ -48,6 +49,12 @@ cart.controller('cartController', (
 		)
 
 	$scope.checkout = () ->
+		if not $scope.cartProducts.length
+			ngNotify.set('Please add at least one item to your cart.', 'error')
+			return
+		if not $scope.cart.festival_id
+			ngNotify.set('Please select a festival.', 'error')
+			return
 		$state.go('base.checkout')
 
 	updateCart()

@@ -6,10 +6,18 @@ shared.directive('addToCartButton', () ->
 			product: '='
 		}
 		controller: ($scope, authService, userService, ngNotify, $state) ->
+			$scope.buttonText = 'Add to cart'
+			$scope.isLoading = false
 			$scope.addToCart = () ->
+				$scope.buttonText = 'Adding to cart'
+				$scope.isLoading = true
 				authenticatedUser = authService.getAuthenticatedUser()
 				if not authenticatedUser
-					$state.go('base.signin', {redirectReason: 'Auth needed.', message: 'Please sign in to add an item to your cart.'})
+					$state.go('base.signin', {
+						redirectReason: 'Auth needed.', 
+						message: 'Please sign in to add an item to your cart.'
+						returnStateName: $state.current.name
+					})
 					console.log 'Authenticate to add a product to a cart.'
 					return
 				user = userService.one(authenticatedUser.id)
@@ -26,6 +34,10 @@ shared.directive('addToCartButton', () ->
 					, (response) ->
 						if response.status == 409
 							ngNotify.set 'Item already in cart.'
+					)
+					createCartProduct.finally((response) ->
+						$scope.buttonText = 'Add to cart'
+						$scope.isLoading = false
 					)
 				)
 	}

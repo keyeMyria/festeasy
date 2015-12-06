@@ -1,14 +1,17 @@
-checkout.controller('checkoutController', ($state, $scope, authService, cartService, userService) ->
+checkout.controller('checkoutController', (
+	$state, $scope, authService, cartService, userService, festivalService) ->
 	authenticatedUser = authService.getAuthenticatedUser()
-	if not authenticatedUser
-		console.log "Please authenticated" 
-		return
 
 	cart = userService.one(authenticatedUser.id).one('cart')
 
 	getCart = cart.get()
 	getCart.then((response) ->
 		$scope.cart = response
+		festival = festivalService.one($scope.cart.festival_id)
+		getFestival = festival.get()
+		getFestival.then((response) ->
+			$scope.festival = response
+		)
 	)
 
 	getCart.catch((response) ->

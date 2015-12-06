@@ -23,7 +23,7 @@ auth.config(($authProvider, API_END_POINT) ->
 auth.config(($stateProvider) ->
     $stateProvider
         .state('base.signin', {
-            url: '/signin'
+            url: '/signin?returnStateName'
             templateUrl: 'signin.partial.html'
             controller: 'signinController'
             params: {
@@ -32,7 +32,7 @@ auth.config(($stateProvider) ->
             }
         })
         .state('base.signup', {
-            url: '/signup'
+            url: '/signup?returnStateName'
             templateUrl: 'signup.partial.html'
             controller: 'signupController'
         })

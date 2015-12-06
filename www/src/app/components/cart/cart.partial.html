@@ -1,6 +1,16 @@
 <div class="container">
-	<loading-indicator data="cart" error="error"></loading-indicator>
-	<div ng-show="cart">
+	<loading-indicator data="cart && cartProducts" error="error"></loading-indicator>
+	<div ng-show="cart && cartProducts && !cartProducts.length">
+		<div class="text-center">
+			<p class="lead">
+				Your cart is empty
+			</p>
+			<button class="btn btn-primary" ui-sref="base.store.products">
+				Continue shopping
+			</button> 
+		</div>
+	</div>
+	<div ng-show="cart && cartProducts.length">
 		Festival:
 		<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
 		    <ui-select-match placeholder="Select a festival">
