@@ -1,10 +1,9 @@
 from sqlalchemy import Column, Integer
-from sqlalchemy import ForeignKey, func, select
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity, CartProduct
-from backend.models import Festival
+from backend.models import Entity
 
 
 class Cart(db.Model, Entity):

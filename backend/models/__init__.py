@@ -35,3 +35,5 @@ from .invoices import Invoice
 from .categories import Category
 from .product_categories import ProductCategory
 from .base_festivals import BaseFestival
+from .suppliers import Supplier
+from .base_suppliers import BaseSupplier
