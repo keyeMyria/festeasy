@@ -74,3 +74,9 @@ class Product(db.Model, Entity):
         secondary='product_category',
         back_populates='products',
     )
+
+    suppliers = relationship(
+        'Supplier',
+        secondary='product_supplier',
+        back_populates='products',
+    )

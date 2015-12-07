@@ -29,3 +29,9 @@ class Supplier(db.Model, Entity):
         'BaseSupplier',
         back_populates="suppliers",
     )
+
+    products = relationship(
+        'Product',
+        secondary='product_supplier',
+        back_populates='suppliers',
+    )
