@@ -12,6 +12,9 @@ shared.directive('changeUserPreferences', () ->
 				$scope.data.user = response
 				ngNotify.set('Saved changes')
 			)
+			patchUser.catch((response) ->
+				ngNotify.set('Failed to save changes.', 'error')
+			)
 	return {
 		restrict: 'E'
 		templateUrl: 'change-user-preferences.partial.html'
