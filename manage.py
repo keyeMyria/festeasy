@@ -7,7 +7,7 @@ from flask.ext.script import Shell, Server
 from backend import create_app, db
 from backend import models
 from backend.models import User, Product, Festival, Cart, Session
-from backend.models import Category
+from backend.models import Category, BaseFestival
 
 
 manager = Manager(create_app, with_default_commands=False)
@@ -113,8 +113,12 @@ class InitDB(Command):
                     categories=[food],
                     ),
         ]
+        rtd = BaseFestival(name='Rocking The Diasies')
+        sun = BaseFestival(name='Sunflower Fest')
+        oppi = BaseFestival(name='Oppie Koppie')
         festivals = [
             Festival(
+                base_festival=rtd,
                 name='Rocking The Daisies',
                 starts_on=now + datetime.timedelta(days=2),
                 ends_on=now + datetime.timedelta(days=4),
@@ -124,6 +128,7 @@ class InitDB(Command):
                 facebook_link='https://www.facebook.com/rockingthedaisiesfestival/?fref=ts',
             ),
             Festival(
+                base_festival=sun,
                 name='Sunflower Fest',
                 starts_on=now + datetime.timedelta(days=20),
                 ends_on=now + datetime.timedelta(days=25),
@@ -133,6 +138,7 @@ class InitDB(Command):
                 facebook_link='https://www.facebook.com/SunflowerFest',
             ),
             Festival(
+                base_festival=oppi,
                 name='Oppie Koppie',
                 starts_on=now + datetime.timedelta(days=27),
                 ends_on=now + datetime.timedelta(days=30),

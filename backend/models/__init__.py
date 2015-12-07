@@ -33,3 +33,4 @@ from .payments import Payment
 from .invoices import Invoice
 from .categories import Category
 from .product_categories import ProductCategory
+from .base_festival import BaseFestival

@@ -54,7 +54,11 @@ class User(db.Model, Entity):
         cascade='save-update, merge, delete, delete-orphan',
     )
 
-    cart_id = Column(Integer, ForeignKey('cart.id'), nullable=False)
+    cart_id = Column(
+        Integer,
+        ForeignKey('cart.id'),
+        nullable=False,
+    )
     cart = relationship(
         'Cart',
         back_populates='user',
