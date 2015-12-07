@@ -116,8 +116,8 @@ class InitDB(Command):
         festivals = [
             Festival(
                 name='Rocking The Daisies',
-                starts_on=now,
-                ends_on=now,
+                starts_on=now + datetime.timedelta(days=2),
+                ends_on=now + datetime.timedelta(days=4),
                 description='This is a description.',
                 website_link='http://rockingthedaisies.com/',
                 ticket_link='http://seed.nutickets.co.za/RTD2016',
@@ -125,8 +125,8 @@ class InitDB(Command):
             ),
             Festival(
                 name='Sunflower Fest',
-                starts_on=now,
-                ends_on=now,
+                starts_on=now + datetime.timedelta(days=20),
+                ends_on=now + datetime.timedelta(days=25),
                 description='This is a another description.',
                 website_link='http://www.capetownmagazine.com/events/sunflower-outdoor-music-festival/11_37_55771',
                 ticket_link='http://www.capetownmagazine.com/events/sunflower-outdoor-music-festival/11_37_55771',
@@ -134,8 +134,8 @@ class InitDB(Command):
             ),
             Festival(
                 name='Oppie Koppie',
-                starts_on=now,
-                ends_on=now,
+                starts_on=now + datetime.timedelta(days=27),
+                ends_on=now + datetime.timedelta(days=30),
                 description='This is a another description.',
                 website_link='http://www.oppikoppi.co.za/',
                 ticket_link='http://www.oppikoppi.co.za/',
