@@ -3,7 +3,7 @@ from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity
+from backend.models import Entity, ProductPrice
 
 
 class Product(db.Model, Entity):
@@ -13,14 +13,27 @@ class Product(db.Model, Entity):
         return '<Product {id}>'.format(id=self.id)
 
     name = Column(String(150), nullable=False)
-    # The price of a Product in Rands.
-    price_rands = Column(Numeric, nullable=False)
     # The cost of a Product in Rands.
     cost_rands = Column(Numeric, nullable=False)
     # Should a Product show up on the products list.
     is_enabled = Column(Boolean, default=False, nullable=False)
 
     description = Column(String)
+
+    @property
+    def price_rands(self):
+        product_price = (
+            ProductPrice.query
+            .filter(ProductPrice.product_id == self.id)
+            .order_by(ProductPrice.created_on.desc())
+            .first()
+        )
+        return product_price.amount_rands
+
+    product_prices = relationship(
+        'ProductPrice',
+        back_populates='product',
+    )
 
     carts = relationship(
         'Cart',

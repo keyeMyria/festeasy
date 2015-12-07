@@ -5,7 +5,7 @@ from backend import create_app, db
 from backend.models import User, Session, Product
 from backend.models import Festival, Order, Cart, Invoice
 from backend.models import OrderProduct, CartProduct, BaseFestival
-from backend.models import Payment, InvoiceProduct, Category
+from backend.models import Payment, InvoiceProduct, Category, ProductPrice
 from backend.testing.utils import template_entity
 
 
@@ -20,6 +20,10 @@ class BackendTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+    def create_product_price(self, *args, **kwargs):
+        product_price = ProductPrice(*args, **kwargs)
+        return product_price
 
     def create_category(self, *args, **kwargs):
         category = Category(*args, **kwargs)
@@ -67,15 +71,18 @@ class BackendTestCase(TestCase):
         return festival
 
     def create_product(self, *args, create_valid_product=None, **kwargs):
-        if create_valid_product:
-            product_template = {
-                'name': 'Auto Product',
-                'price_rands': 999.12345,
-                'cost_rands': 88.12345
-            }
-            #kwargs = dict(chain(product_template.items(), kwargs.items()))
-            kwargs = template_entity(product_template, kwargs)
         product = Product(*args, **kwargs)
+        if create_valid_product:
+            if 'name' not in kwargs.keys():
+                product.name = 'Auto Product'
+            if 'cost_rands' not in kwargs.keys():
+                product.cost_rands = 88.12345
+            if 'product_prices' not in kwargs.keys():
+                product.product_prices.append(
+                    ProductPrice(
+                        amount_rands=12.1234,
+                    )
+                )
         return product
 
     def create_session(self, *args, valid_session=False, **kwargs):

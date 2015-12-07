@@ -42,7 +42,9 @@ class Cart(db.Model, Entity):
         cascade='save-update, merge, delete, delete-orphan'
     )
 
-Cart.total_rands = column_property(
-    select([func.sum(CartProduct.sub_total_rands)]).where(
-        CartProduct.cart_id == Cart.id).correlate(Cart)
-)
+    @property
+    def total_rands(self):
+        total_rands = 0
+        for cart_product in self.cart_products:
+            total_rands += cart_product.sub_total_rands
+        return total_rands

@@ -7,7 +7,7 @@ from flask.ext.script import Shell, Server
 from backend import create_app, db
 from backend import models
 from backend.models import User, Product, Festival, Cart, Session
-from backend.models import Category, BaseFestival
+from backend.models import Category, BaseFestival, ProductPrice
 
 
 manager = Manager(create_app, with_default_commands=False)
@@ -67,7 +67,9 @@ class InitDB(Command):
                 name='Castle Lite Beer',
                 cost_rands=10,
                 is_enabled=True,
-                price_rands=20,
+                product_prices=[
+                    ProductPrice(amount_rands=10),
+                ],
                 description='A description.',
                 categories=[beer, drinks]
                 ),
@@ -75,7 +77,9 @@ class InitDB(Command):
                 name='Lays Small Pack',
                 cost_rands=10,
                 is_enabled=True,
-                price_rands=9,
+                product_prices=[
+                    ProductPrice(amount_rands=10),
+                ],
                 description='A description.',
                 categories=[food],
                 ),
@@ -83,7 +87,9 @@ class InitDB(Command):
                 name='Coke Can',
                 cost_rands=10,
                 is_enabled=True,
-                price_rands=9,
+                product_prices=[
+                    ProductPrice(amount_rands=10),
+                ],
                 description='A description.',
                 categories=[drinks],
                 ),
@@ -91,7 +97,9 @@ class InitDB(Command):
                 name='Windhoek Beer',
                 cost_rands=10,
                 is_enabled=True,
-                price_rands=21,
+                product_prices=[
+                    ProductPrice(amount_rands=10),
+                ],
                 description='A description',
                 categories=[drinks, beer],
                 ),
@@ -99,7 +107,9 @@ class InitDB(Command):
                 name='Text Chocolate',
                 cost_rands=10,
                 is_enabled=True,
-                price_rands=9,
+                product_prices=[
+                    ProductPrice(amount_rands=10),
+                ],
                 description='A description',
                 categories=[food],
                 ),
@@ -107,7 +117,9 @@ class InitDB(Command):
                 name='KitKat Chocolate',
                 cost_rands=10,
                 is_enabled=True,
-                price_rands=8,
+                product_prices=[
+                    ProductPrice(amount_rands=10),
+                ],
                 description='a description.',
                 categories=[food],
                 ),
@@ -115,7 +127,9 @@ class InitDB(Command):
                 name='Jelly Beans',
                 cost_rands=10,
                 is_enabled=True,
-                price_rands=7,
+                product_prices=[
+                    ProductPrice(amount_rands=10),
+                ],
                 description='A description.',
                 categories=[food],
                 ),
