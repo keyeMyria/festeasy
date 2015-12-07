@@ -22,6 +22,7 @@ class Entity(object):
 # All the models
 from .sessions import Session
 from .users import User
+from .product_prices import ProductPrice
 from .products import Product
 from .festivals import Festival
 from .order_products import OrderProduct
@@ -33,4 +34,4 @@ from .payments import Payment
 from .invoices import Invoice
 from .categories import Category
 from .product_categories import ProductCategory
-from .base_festival import BaseFestival
+from .base_festivals import BaseFestival

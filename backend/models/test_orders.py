@@ -15,14 +15,30 @@ class TestOrder(ModelTestCase):
         price = 10
         product_1 = self.create_product(
             create_valid_product=True,
-            price_rands=price
+            product_prices=[
+                self.create_product_price(
+                    amount_rands=price,
+                )
+            ],
         )
         product_2 = self.create_product(
             create_valid_product=True,
-            price_rands=price
+            product_prices=[
+                self.create_product_price(
+                    amount_rands=price,
+                )
+            ],
+        )
+        db.session.add(product_1)
+        db.session.add(product_2)
+        db.session.commit()
+        user = self.create_user(
+            normal_user=True,
+            with_cart=True
         )
         order = self.create_order(
             festival=festival,
+            user=user,
         )
         order_product_1 = self.create_order_product(
             unit_price_rands=product_1.price_rands,
@@ -36,11 +52,6 @@ class TestOrder(ModelTestCase):
             order=order,
             product=product_2,
         )
-        user = self.create_user(
-            normal_user=True,
-            orders=[order],
-            with_cart=True
-        )
         db.session.add(user)
         db.session.commit()
         fetched_order = Order.query.one()
@@ -53,7 +64,11 @@ class TestOrder(ModelTestCase):
         user = self.create_user(normal_user=True, with_cart=True)
         product = self.create_product(
             create_valid_product=True,
-            price_rands=11,
+            product_prices=[
+                self.create_product_price(
+                    amount_rands=11,
+                )
+            ],
         )
         festival = self.create_festival(
             name='qwe',
