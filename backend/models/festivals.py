@@ -1,4 +1,5 @@
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, Integer
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -19,9 +20,23 @@ class Festival(db.Model, Entity):
     ticket_link = Column(String)
     facebook_link = Column(String)
 
+    base_festival_id = Column(
+        Integer,
+        ForeignKey('base_festival.id'),
+        nullable=False,
+    )
+    base_festival = relationship(
+        'BaseFestival',
+        back_populates='festivals',
+        cascade='save-update, merge, delete'
+    )
+
     orders = relationship(
         'Order',
         back_populates='festival',
         cascade='save-update, merge'
     )
-    carts = relationship('Cart', back_populates='festival')
+    carts = relationship(
+        'Cart',
+        back_populates='festival',
+    )

@@ -7,7 +7,7 @@ from flask.ext.script import Shell, Server
 from backend import create_app, db
 from backend import models
 from backend.models import User, Product, Festival, Cart, Session
-from backend.models import Category
+from backend.models import Category, BaseFestival
 
 
 manager = Manager(create_app, with_default_commands=False)
@@ -63,58 +63,69 @@ class InitDB(Command):
         beer = Category(name='Beer')
         food = Category(name='Food')
         products = [
-            Product(name='Castle Lite Beer',
-                    cost_rands=10,
-                    is_enabled=True,
-                    price_rands=20,
-                    description='A description.',
-                    categories=[beer, drinks]
-                    ),
-            Product(name='Lays Small Pack',
-                    cost_rands=10,
-                    is_enabled=True,
-                    price_rands=9,
-                    description='A description.',
-                    categories=[food],
-                    ),
-            Product(name='Coke Can',
-                    cost_rands=10,
-                    is_enabled=True,
-                    price_rands=9,
-                    description='A description.',
-                    categories=[drinks],
-                    ),
-            Product(name='Windhoek Beer',
-                    cost_rands=10,
-                    is_enabled=True,
-                    price_rands=21,
-                    description='A description',
-                    categories=[drinks, beer],
-                    ),
-            Product(name='Text Chocolate',
-                    cost_rands=10,
-                    is_enabled=True,
-                    price_rands=9,
-                    description='A description',
-                    categories=[food],
-                    ),
-            Product(name='KitKat Chocolate',
-                    cost_rands=10,
-                    is_enabled=True,
-                    price_rands=8,
-                    description='A description.',
-                    categories=[food],
-                    ),
-            Product(name='Jelly Beans',
-                    cost_rands=10,
-                    is_enabled=True,
-                    price_rands=7,
-                    description='A description.',
-                    categories=[food],
-                    ),
+            Product(
+                name='Castle Lite Beer',
+                cost_rands=10,
+                is_enabled=True,
+                price_rands=20,
+                description='A description.',
+                categories=[beer, drinks]
+                ),
+            Product(
+                name='Lays Small Pack',
+                cost_rands=10,
+                is_enabled=True,
+                price_rands=9,
+                description='A description.',
+                categories=[food],
+                ),
+            Product(
+                name='Coke Can',
+                cost_rands=10,
+                is_enabled=True,
+                price_rands=9,
+                description='A description.',
+                categories=[drinks],
+                ),
+            Product(
+                name='Windhoek Beer',
+                cost_rands=10,
+                is_enabled=True,
+                price_rands=21,
+                description='A description',
+                categories=[drinks, beer],
+                ),
+            Product(
+                name='Text Chocolate',
+                cost_rands=10,
+                is_enabled=True,
+                price_rands=9,
+                description='A description',
+                categories=[food],
+                ),
+            Product(
+                name='KitKat Chocolate',
+                cost_rands=10,
+                is_enabled=True,
+                price_rands=8,
+                description='a description.',
+                categories=[food],
+                ),
+            Product(
+                name='Jelly Beans',
+                cost_rands=10,
+                is_enabled=True,
+                price_rands=7,
+                description='A description.',
+                categories=[food],
+                ),
         ]
+        rtd = BaseFestival(name='Rocking The Diasies')
+        sun = BaseFestival(name='Sunflower Fest')
+        oppi = BaseFestival(name='Oppie Koppie')
         festivals = [
             Festival(
+                base_festival=rtd,
                 name='Rocking The Daisies',
                 starts_on=now + datetime.timedelta(days=2),
                 ends_on=now + datetime.timedelta(days=4),
@@ -124,6 +135,7 @@ class InitDB(Command):
                 facebook_link='https://www.facebook.com/rockingthedaisiesfestival/?fref=ts',
             ),
             Festival(
+                base_festival=sun,
                 name='Sunflower Fest',
                 starts_on=now + datetime.timedelta(days=20),
                 ends_on=now + datetime.timedelta(days=25),
@@ -133,6 +145,7 @@ class InitDB(Command):
                 facebook_link='https://www.facebook.com/SunflowerFest',
             ),
             Festival(
+                base_festival=oppi,
                 name='Oppie Koppie',
                 starts_on=now + datetime.timedelta(days=27),
                 ends_on=now + datetime.timedelta(days=30),
