@@ -14,6 +14,9 @@ class Supplier(db.Model, Entity):
     """
     __tablename__ = 'supplier'
 
+    def __repr__(self):
+        return '<Supplier {id}>'.format(id=self.id)
+
     name = Column(String)
     location = Column(String)
     contact_numer = Column(String)

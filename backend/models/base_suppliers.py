@@ -12,6 +12,9 @@ class BaseSupplier(db.Model, Entity):
     """
     __tablename__ = 'base_supplier'
 
+    def __repr__(self):
+        return '<BaseSupplier {id}>'.format(id=self.id)
+
     name = Column(String)
 
     suppliers = relationship(
