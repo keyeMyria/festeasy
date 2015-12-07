@@ -17,6 +17,7 @@ def create_app(config):
 
     app.config['PROPAGATE_EXCEPTIONS'] = True
     app.config['BUNDLE_ERRORS'] = True
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     if config == 'testing':
         app.config['TESTING'] = True
