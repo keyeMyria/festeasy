@@ -31,7 +31,7 @@ deployment:
     commands:
       - curl http://festeasy-staging.herokuapp.com:
           background: true
-      - echo "angular.module('conf', []).constant('API_END_POINT', 'http://festeasy-staging.herokuapp.com/api/v1');" > www/src/app/settings.coffee
+      - echo "angular.module('conf', []).constant('API_END_POINT', 'https://festeasy-staging.herokuapp.com/api/v1');" > www/src/app/settings.coffee
       - cd www && gulp
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
       - cd www && firebase deploy -f festeasy-staging --token=$FIREBASE_TOKEN --non-interactive
@@ -40,7 +40,7 @@ deployment:
     commands:
       - curl http://festeasy-production.herokuapp.com:
           background: true
-      - echo "angular.module('conf', []).constant('API_END_POINT', 'http://festeasy-production.herokuapp.com/api/v1');" > www/src/app/settings.coffee
+      - echo "angular.module('conf', []).constant('API_END_POINT', 'https://festeasy-production.herokuapp.com/api/v1');" > www/src/app/settings.coffee
       - cd www && gulp
       - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
       - cd www && firebase deploy -f festeasy-production --token=$FIREBASE_TOKEN --non-interactive
