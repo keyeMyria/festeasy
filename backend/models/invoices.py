@@ -15,18 +15,21 @@ class Invoice(db.Model, Entity):
         self.invoice_products = invoice_products
         self.products = products
 
-    def from_order(self, order):
+    @staticmethod
+    def from_order(order):
+        invoice = Invoice()
         with db.session.no_autoflush:
-            self.order = order
+            invoice.order = order
             for order_product in order.order_products:
-                self.invoice_products.append(
+                invoice.invoice_products.append(
                     InvoiceProduct(
                         product=order_product.product,
                         unit_price_rands=order_product.unit_price_rands,
                         quantity=order_product.quantity,
-                        invoice=self,
+                        invoice=invoice,
                     )
                 )
+        return invoice
 
     def __repr__(self):
         return '<Invoice {id}>'.format(id=self.id)
