@@ -5,4 +5,7 @@ products.controller('productController', ($scope, productService, $stateParams) 
 	getProduct.then((repsonse) ->
 		$scope.product = repsonse
 	)
+
+	$scope.updateProduct = () ->
+		patchProduct = product.patch($scope.product)
 )
