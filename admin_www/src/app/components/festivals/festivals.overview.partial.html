@@ -1,0 +1,17 @@
+<loading-indicator data="festivals" error="false"></loading-indicator>
+<div ng-show="festivals">
+	<table class="table table-hover">
+		<th>ID</th>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Starts</th>
+		<th>Ends</th>
+		<tr style="cursor: pointer;" ui-sref="base.products.product({productId:product.id})" ng-repeat="festival in festivals">
+			<td>{{festival.id}}</td>
+			<td>{{festival.name}}</td>
+			<td>{{festival.description}}</td>
+			<td>{{festival.starts_on}}</td>
+			<td>{{festival.ends_on}}</td>
+		</tr>
+	</table>
+</div>
