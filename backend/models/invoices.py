@@ -10,11 +10,6 @@ from backend.models import Payment
 class Invoice(db.Model, Entity):
     __tablename__ = 'invoice'
 
-    def __init__(self, order=None, invoice_products=[], products=[]):
-        self.order = order
-        self.invoice_products = invoice_products
-        self.products = products
-
     @staticmethod
     def from_order(order):
         invoice = Invoice()
