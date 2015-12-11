@@ -46,7 +46,7 @@
             Cart
           </a>
         </li>
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
+        <li style="cursor: pointer;" ng-show="isAuthenticated()" ui-sref-active="active">
           <a ng-controller="signoutController" ng-click="signout()">
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
             Sign out
