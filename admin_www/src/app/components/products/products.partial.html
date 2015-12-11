@@ -1,1 +1,17 @@
-Products here
+<div class="container">
+	<loading-indicator data="products" error="false"></loading-indicator>
+	<div ng-show="products">
+		<table class="table">
+			<th>Name</th>
+			<th>Description</th>
+			<th>Cost</th>
+			<th>Price</th>
+			<tr ng-repeat="product in products">
+				<td>{{product.name}}</td>
+				<td>{{product.description}}</td>
+				<td>{{product.cost_rands}}</td>
+				<td>{{product.price_rands}}</td>
+			</tr>
+		</table>
+	</div>
+</div>

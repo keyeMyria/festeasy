@@ -1,5 +1,7 @@
 products = angular.module('products', [
 	'ui.router',
+	'shared',
+	'services',
 ])
 
 base.config(($stateProvider) ->
