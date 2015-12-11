@@ -6,8 +6,8 @@ products.controller('productController', ($scope, productService, ngNotify, $sta
 		$scope.product = repsonse
 	)
 
-	$scope.updateProduct = () ->
-		patchProduct = product.patch($scope.product)
+	$scope.updateProduct = (product) ->
+		patchProduct = product.patch(product)
 		patchProduct.then((repsonse) ->
 			ngNotify.set('Successfully updated product.')
 		)

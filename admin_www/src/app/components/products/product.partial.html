@@ -2,7 +2,7 @@
 	<loading-indicator data="product" error="false"></loading-indicator>
 	<div ng-show="product" class="col-md-5">
 		<h1>{{product.name}}</h1>
-		<form class="form-horizontal" ng-submit="updateProduct()">
+		<form class="form-horizontal" ng-submit="updateProduct(product)">
 			<div class="form-group">
 		    	<label for="inputName" class="col-sm-2 control-label">ID</label>
 		    	<div class="col-sm-10">

@@ -8,25 +8,26 @@ base.config(($stateProvider) ->
 	$stateProvider
 		.state('base.products', {
 			templateUrl: 'products.partial.html'
-			controller: 'productsController'
 			url: '/products'
 			auth: true
 			abstract: true
 		})
 		.state('base.products.overview', {
 			templateUrl: 'products.overview.partial.html'
+			controller: 'productsOverviewController'
 			url: '/overview'
 			auth: true
 		})
 		.state('base.products.create', {
 			templateUrl: 'products.create.partial.html'
+			controller: 'createProductController'
 			url: '/create'
 			auth: true
 		})
 		.state('base.products.product', {
 			templateUrl: 'product.partial.html'
-			url: '/{productId:int}'
 			controller: 'productController'
+			url: '/{productId:int}'
 			auth: true
 		})
 )

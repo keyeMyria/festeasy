@@ -1,1 +1,24 @@
-Create a new Product here.
+<div class="container-fluid">
+	<div class="col-md-5">
+		<h1>Create new Product</h1>
+		<form class="form-horizontal" ng-submit="createProduct(product)">
+		  	<div class="form-group">
+		    	<label for="inputName" class="col-sm-2 control-label">Name</label>
+		    	<div class="col-sm-10">
+		      		<input type="text" class="form-control" ng-model="product.name" id="inputName">
+		    	</div>
+		  	</div>
+		  	<div class="form-group">
+		    	<label for="inputDescription" class="col-sm-2 control-label">Description</label>
+		    	<div class="col-sm-10">
+		    		<textarea class="form-control" rows="3" ng-model="product.description"></textarea>
+		    	</div>
+		  	</div>
+		  	<div class="form-group">
+		    	<div class="col-sm-offset-2 col-sm-10">
+		      		<button type="submit" class="btn btn-default">Create</button>
+		    	</div>
+		  	</div>
+		</form>
+	</div>
+</div>
