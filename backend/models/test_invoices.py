@@ -1,5 +1,5 @@
 from backend import db
-from backend.models import Invoice
+from backend.models import Invoice, Order
 from backend.testing import ModelTestCase
 
 
@@ -19,7 +19,6 @@ class TestInvoice(ModelTestCase):
                 )
             ],
         )
-        order = self.create_order()
         festival = self.create_festival(
             name='asd',
             base_festival=self.create_base_festival(),
@@ -28,7 +27,7 @@ class TestInvoice(ModelTestCase):
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()
-        order.from_cart(user.cart)
+        order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
         invoice = Invoice()
@@ -53,7 +52,6 @@ class TestInvoice(ModelTestCase):
                 )
             ],
         )
-        order = self.create_order()
         festival = self.create_festival(
             name='asd',
             base_festival=self.create_base_festival(),
@@ -62,7 +60,7 @@ class TestInvoice(ModelTestCase):
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()
-        order.from_cart(user.cart)
+        order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
         invoice = Invoice()
@@ -85,7 +83,6 @@ class TestInvoice(ModelTestCase):
                 )
             ],
         )
-        order = self.create_order()
         festival = self.create_festival(
             name='asd',
             base_festival=self.create_base_festival(),
@@ -94,7 +91,7 @@ class TestInvoice(ModelTestCase):
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()
-        order.from_cart(user.cart)
+        order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
         invoice = Invoice()
@@ -123,7 +120,6 @@ class TestInvoice(ModelTestCase):
                 )
             ],
         )
-        order = self.create_order()
         festival = self.create_festival(
             name='asd',
             base_festival=self.create_base_festival(),
@@ -132,7 +128,7 @@ class TestInvoice(ModelTestCase):
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()
-        order.from_cart(user.cart)
+        order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
         invoice = Invoice()

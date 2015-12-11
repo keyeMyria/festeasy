@@ -19,8 +19,7 @@ class CartSingletonCheckout(Resource):
                 status_code=400,
                 message="Cart needs some Products."
             )
-        order = Order()
-        order.from_cart(cart)
+        order = Order.from_cart(cart)
         cart.products = []
         cart.festival = None
         db.session.add(cart)
