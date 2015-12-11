@@ -63,9 +63,12 @@ venv/
 
 # Bower components
 www/bower_components/
+admin_www/bower_components/
 
 # Node modules
 www/node_modules/
+admin_www/node_modules/
 
 # Compile directory
 www/dist/
+admin_www/dist/
