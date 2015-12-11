@@ -20,10 +20,11 @@ cart.controller('cartController', (
 		)
 
 	updateCart = () ->
+		festivalStart = moment().add(7, 'days').format()
 		getCart = cart.get()
 		getCart.then((response) ->
 			$scope.cart = response
-			getFestivals = festivalService.getList()
+			getFestivals = festivalService.getList({'starts-on-gt': festivalStart})
 			getFestivals.then((response) ->
 				$scope.festivals = response
 				if $scope.cart.festival_id

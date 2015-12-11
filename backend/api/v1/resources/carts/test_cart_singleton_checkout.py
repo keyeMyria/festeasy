@@ -10,7 +10,10 @@ endpoint = 'v1.cartsingletoncheckout'
 class TestCartSingletonCheckout(APITestCase):
     def test_post(self):
         user = self.create_user(normal_user=True, with_cart=True)
-        festival = self.create_festival(pre_populate=True)
+        festival = self.create_festival(
+            pre_populate=True,
+            base_festival=self.create_base_festival(),
+        )
         product = self.create_product(create_valid_product=True)
         user.cart.products.append(product)
         user.cart.festival = festival

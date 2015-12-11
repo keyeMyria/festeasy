@@ -12,8 +12,8 @@ dependencies:
     - sudo apt-get update; sudo apt-get -y install python3-dev gcc
     - sudo ldconfig
   override:
-    - if [ ! -e ~/nvm/v0.10.33/bin/divshot ]; then npm install -g divshot-cli; else echo "Divshot seems to be cached."; fi;
-    - if [ ! -e ~/nvm/v0.10.33/bin/gulp ]; then npm install -g gulp; else echo "gulp seems to be cached."; fi;
+    - if [ ! -e ~/nvm/v0.10.33/bin/firebase ]; then npm install -g firebase-tools; else echo "Not installing firebase-tools because it seems to be cached."; fi;
+    - if [ ! -e ~/nvm/v0.10.33/bin/gulp ]; then npm install -g gulp; else echo "Not installing gulp because it seems to be cached."; fi;
     - cd www && bower install
     - pip install -r requirements.txt
     - cd www && npm install
@@ -31,16 +31,16 @@ deployment:
     commands:
       - curl http://festeasy-staging.herokuapp.com:
           background: true
-      - echo "angular.module('conf', []).constant('API_END_POINT', 'http://festeasy-staging.herokuapp.com/api/v1');" > www/src/app/settings.coffee
+      - echo "angular.module('conf', []).constant('API_END_POINT', 'https://festeasy-staging.herokuapp.com/api/v1');" > www/src/app/settings.coffee
       - cd www && gulp
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
-      - cd www && divshot push staging --token $DIVSHOT_TOKEN
+      - cd www && firebase deploy -f festeasy-staging --token=$FIREBASE_TOKEN --non-interactive
   production:
     branch: production
     commands:
       - curl http://festeasy-production.herokuapp.com:
           background: true
-      - echo "angular.module('conf', []).constant('API_END_POINT', 'http://festeasy-production.herokuapp.com/api/v1');" > www/src/app/settings.coffee
+      - echo "angular.module('conf', []).constant('API_END_POINT', 'https://festeasy-production.herokuapp.com/api/v1');" > www/src/app/settings.coffee
       - cd www && gulp
       - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
-      - cd www && divshot push production --token $DIVSHOT_TOKEN
+      - cd www && firebase deploy -f festeasy-production --token=$FIREBASE_TOKEN --non-interactive

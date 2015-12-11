@@ -22,7 +22,10 @@ class TestCartSingleton(APITestCase):
 
     def test_patch(self):
         cart = Cart()
-        festival = Festival(name='Test Event')
+        festival = Festival(
+            name='Test Event',
+            base_festival=self.create_base_festival(),
+        )
         db.session.add(cart)
         db.session.add(festival)
         db.session.commit()

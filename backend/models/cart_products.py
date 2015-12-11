@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Integer
-from sqlalchemy import ForeignKey, UniqueConstraint, select
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import ForeignKey, UniqueConstraint
+from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity, Product
+from backend.models import Entity
 
 
 class CartProduct(db.Model, Entity):
@@ -12,7 +12,12 @@ class CartProduct(db.Model, Entity):
     def __repr__(self):
         return '<CartProduct {id}>'.format(id=self.id)
 
-    quantity = Column(Integer, default=1, nullable=False)
+    quantity = Column(
+        Integer,
+        default=1,
+        nullable=False,
+    )
+
     product_id = Column(
         Integer,
         ForeignKey('product.id'),
@@ -23,6 +28,7 @@ class CartProduct(db.Model, Entity):
         back_populates='cart_products',
         cascade='save-update, merge'
     )
+
     cart_id = Column(
         Integer,
         ForeignKey('cart.id'),
@@ -32,11 +38,10 @@ class CartProduct(db.Model, Entity):
         'Cart',
         back_populates='cart_products',
     )
-    sub_total_rands = column_property(
-        quantity * select([(Product.price_rands)]).where(
-            Product.id == product_id
-        )
-    )
+
+    @property
+    def sub_total_rands(self):
+        return self.quantity * self.product.price_rands
 
     __table_args__ = (
         UniqueConstraint('cart_id', 'product_id'),

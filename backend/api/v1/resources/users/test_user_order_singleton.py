@@ -11,7 +11,10 @@ class TestUserOrderSingleton(APITestCase):
     def test_get(self):
         user = self.create_user(normal_user=True, with_cart=True)
         order = self.create_order(
-            festival=self.create_festival(name='asdf'),
+            festival=self.create_festival(
+                name='asdf',
+                base_festival=self.create_base_festival(),
+            ),
             user=user,
         )
         db.session.add(order)

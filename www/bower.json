@@ -23,6 +23,7 @@
     "satellizer": "~0.12.5",
     "ng-notify": "~0.7.1",
     "ui-select": "angular-ui-select#~0.13.2",
-    "font-awesome": "fontawesome#~4.5.0"
+    "font-awesome": "fontawesome#~4.5.0",
+    "moment": "~2.10.6"
   }
 }
