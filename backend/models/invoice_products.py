@@ -9,13 +9,6 @@ from backend.models import Entity
 class InvoiceProduct(db.Model, Entity):
     __tablename__ = 'invoice_product'
 
-    def __init__(self, unit_price_rands=None,
-            quantity=None, product=None, invoice=None):
-        self.unit_price_rands = unit_price_rands
-        self.quantity = quantity
-        self.product = product
-        self.invoice = invoice
-
     def __repr__(self):
         return '<InvoiceProduct {id}>'.format(id=self.id)
 
@@ -30,7 +23,7 @@ class InvoiceProduct(db.Model, Entity):
 
     sub_total_rands = column_property(
         unit_price_rands * quantity
-        )
+    )
 
     __table_args__ = (
         UniqueConstraint('invoice_id', 'product_id'),

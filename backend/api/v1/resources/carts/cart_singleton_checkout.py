@@ -1,7 +1,7 @@
 from flask_restful import Resource
 
 from backend import db
-from backend.models import Cart, Order
+from backend.models import Cart, Order, Invoice
 from backend.api.utils import get_or_404
 from backend.api.v1.exceptions import APIException
 
@@ -24,4 +24,8 @@ class CartSingletonCheckout(Resource):
         cart.festival = None
         db.session.add(cart)
         db.session.add(order)
+        db.session.commit()
+        # TODO: Sort out issue with flushing (Or something)
+        invoice = Invoice.from_order(order)
+        db.session.add(invoice)
         db.session.commit()

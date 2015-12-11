@@ -9,13 +9,6 @@ from backend.models import Entity
 class OrderProduct(db.Model, Entity):
     __tablename__ = 'order_product'
 
-    def __init__(self, unit_price_rands=None, quantity=None,
-            order=None, product=None):
-        self.unit_price_rands = unit_price_rands
-        self.quantity = quantity
-        self.order = order
-        self.product = product
-
     def __repr__(self):
         return '<OrderProduct {id}>'.format(id=self.id)
 

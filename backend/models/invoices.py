@@ -12,18 +12,19 @@ class Invoice(db.Model, Entity):
 
     @staticmethod
     def from_order(order):
+        if not order.order_products:
+            raise Exception('Order has not products.')
         invoice = Invoice()
-        with db.session.no_autoflush:
-            invoice.order = order
-            for order_product in order.order_products:
-                invoice.invoice_products.append(
-                    InvoiceProduct(
-                        product=order_product.product,
-                        unit_price_rands=order_product.unit_price_rands,
-                        quantity=order_product.quantity,
-                        invoice=invoice,
-                    )
+        invoice.order = order
+        for order_product in order.order_products:
+            invoice.invoice_products.append(
+                InvoiceProduct(
+                    product=order_product.product,
+                    unit_price_rands=order_product.unit_price_rands,
+                    quantity=order_product.quantity,
+                    invoice=invoice,
                 )
+            )
         return invoice
 
     def __repr__(self):

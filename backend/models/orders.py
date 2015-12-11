@@ -13,21 +13,22 @@ class Order(db.Model, Entity):
     def from_cart(cart):
         if not cart.festival:
             raise Exception('Cart does not have a festival.')
+        if cart.products == []:
+            raise Exception('Cart does not have any products.')
         order = Order()
-        with db.session.no_autoflush:
-            order.user = cart.user
-            order.festival = cart.festival
-            for cart_product in cart.cart_products:
-                # TODO: There is an issue with cascade
-                # on products and order_products
-                order.order_products.append(
-                    OrderProduct(
-                        product=cart_product.product,
-                        quantity=cart_product.quantity,
-                        order=order,
-                        unit_price_rands=cart_product.product.price_rands,
-                    )
+        order.user = cart.user
+        order.festival = cart.festival
+        for cart_product in cart.cart_products:
+            # TODO: There is an issue with cascade
+            # on products and order_products
+            order.order_products.append(
+                OrderProduct(
+                    product=cart_product.product,
+                    quantity=cart_product.quantity,
+                    order=order,
+                    unit_price_rands=cart_product.product.price_rands,
                 )
+            )
         return order
 
     def __repr__(self):
