@@ -34,7 +34,7 @@ deployment:
       - echo "angular.module('conf', []).constant('API_END_POINT', 'http://festeasy-staging.herokuapp.com/api/v1');" > www/src/app/settings.coffee
       - cd www && gulp
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
-      - cd www && firebase deploy --token=$FIREBASE_TOKEN --non-interactive
+      - cd www && firebase deploy -f festeasy-staging --token=$FIREBASE_TOKEN --non-interactive
   production:
     branch: production
     commands:
@@ -43,4 +43,4 @@ deployment:
       - echo "angular.module('conf', []).constant('API_END_POINT', 'http://festeasy-production.herokuapp.com/api/v1');" > www/src/app/settings.coffee
       - cd www && gulp
       - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
-      - cd www && divshot push production --token $DIVSHOT_TOKEN
+      - cd www && firebase deploy -f festeasy-production --token=$FIREBASE_TOKEN --non-interactive

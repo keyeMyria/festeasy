@@ -1,5 +1,4 @@
 {
-  "firebase": "festeasy",
   "public": "./dist",
   "ignore": [
     "firebase.json",
