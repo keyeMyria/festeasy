@@ -12,8 +12,10 @@ from backend.models import Category, BaseFestival, ProductPrice
 
 manager = Manager(create_app, with_default_commands=False)
 manager.add_option(
-    '-c', '--config',
-    dest='config', default='file', required=False,
+    '-c',
+    '--config',
+    dest='config',
+    required=True,
 )
 
 

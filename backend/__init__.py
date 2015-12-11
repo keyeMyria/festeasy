@@ -15,21 +15,19 @@ def create_app(config):
     app = Flask(__name__)
     CORS(app)
 
-    app.config['PROPAGATE_EXCEPTIONS'] = True
-    app.config['BUNDLE_ERRORS'] = True
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config.from_pyfile('config/default.py'.format(config))
 
     if config == 'testing':
-        app.config['TESTING'] = True
+        logger.warn('Loading config from backend/config/testing.py')
         app.config.from_pyfile('config/testing.py'.format(config))
     elif config == 'file':
+        logger.warn('Loading additional config from backend/config/live.py')
         app.config.from_pyfile('config/live.py'.format(config))
-        logger.warn('Loading config from config/live.py')
     elif config == 'env':
+        logger.warn('Loading additional config from environment variables.')
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
-        logger.warn('Loading config from environment variables.')
     else:
-        raise('No config specified.')
+        raise Exception('Unrecognized config paramter.')
 
     from backend.api import bp
     app.register_blueprint(bp, url_prefix='/api')

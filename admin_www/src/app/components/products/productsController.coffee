@@ -1,0 +1,3 @@
+products.controller('productsController', ($scope) ->
+
+)
