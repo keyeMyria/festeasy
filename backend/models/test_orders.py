@@ -9,6 +9,7 @@ class TestOrder(ModelTestCase):
         of all OrderProduct.sub_total_rands for an Order.
         """
         festival = self.create_festival(
+            pre_populate=True,
             name='test',
             base_festival=self.create_base_festival(),
         )
@@ -71,6 +72,7 @@ class TestOrder(ModelTestCase):
             ],
         )
         festival = self.create_festival(
+            pre_populate=True,
             name='qwe',
             base_festival=self.create_base_festival(),
         )

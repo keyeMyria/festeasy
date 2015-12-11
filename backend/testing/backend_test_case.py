@@ -67,6 +67,9 @@ class BackendTestCase(TestCase):
                 'name': 'My Festival',
             }
             kwargs = template_entity(template, kwargs)
+            now = datetime.datetime.now()
+            if 'starts_on' not in kwargs:
+                kwargs['starts_on'] = now + datetime.timedelta(days=8)
         festival = Festival(*args, **kwargs)
         return festival
 

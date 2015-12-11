@@ -22,7 +22,8 @@ class TestCartSingleton(APITestCase):
 
     def test_patch(self):
         cart = Cart()
-        festival = Festival(
+        festival = self.create_festival(
+            pre_populate=True,
             name='Test Event',
             base_festival=self.create_base_festival(),
         )

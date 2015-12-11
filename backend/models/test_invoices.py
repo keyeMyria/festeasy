@@ -20,6 +20,7 @@ class TestInvoice(ModelTestCase):
             ],
         )
         festival = self.create_festival(
+            pre_populate=True,
             name='asd',
             base_festival=self.create_base_festival(),
         )
@@ -52,6 +53,7 @@ class TestInvoice(ModelTestCase):
             ],
         )
         festival = self.create_festival(
+            pre_populate=True,
             name='asd',
             base_festival=self.create_base_festival(),
         )
@@ -82,6 +84,7 @@ class TestInvoice(ModelTestCase):
             ],
         )
         festival = self.create_festival(
+            pre_populate=True,
             name='asd',
             base_festival=self.create_base_festival(),
         )
@@ -118,6 +121,7 @@ class TestInvoice(ModelTestCase):
             ],
         )
         festival = self.create_festival(
+            pre_populate=True,
             name='asd',
             base_festival=self.create_base_festival(),
         )

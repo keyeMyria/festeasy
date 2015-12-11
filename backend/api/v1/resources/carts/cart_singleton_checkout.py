@@ -1,3 +1,4 @@
+import datetime
 from flask_restful import Resource
 
 from backend import db
@@ -14,7 +15,13 @@ class CartSingletonCheckout(Resource):
                 status_code=400,
                 message="Cart needs a Festival."
             )
-        if cart.products == []:
+        now = datetime.datetime.now()
+        if cart.festival.starts_on < now + datetime.timedelta(days=7):
+            raise APIException(
+                status_code=400,
+                message="Festival starts too soon."
+            )
+        if not cart.products:
             raise APIException(
                 status_code=400,
                 message="Cart needs some Products."
