@@ -2,6 +2,7 @@ from flask import url_for
 
 from backend import db
 from backend.testing import APITestCase
+from backend.models import Order
 
 
 endpoint = 'v1.cartsingletoncheckout'
@@ -26,3 +27,5 @@ class TestCartSingletonCheckout(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(user.cart.products, [])
         self.assertEqual(len(user.orders), 1)
+        fetched_order = Order.query.first()
+        self.assertEqual(len(fetched_order.invoices), 1)

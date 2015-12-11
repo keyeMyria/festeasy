@@ -10,7 +10,7 @@ endpoint = 'v1.festivalsingleton'
 class TestFestivalSingleton(APITestCase):
     def test_get(self):
         festival = self.create_festival(
-            name='Test',
+            pre_populate=True,
             base_festival=self.create_base_festival(),
         )
         db.session.add(festival)
@@ -25,6 +25,7 @@ class TestFestivalSingleton(APITestCase):
     def test_patch(self):
         new_name = 'aaa'
         festival = self.create_festival(
+            pre_populate=True,
             name='bbb',
             base_festival=self.create_base_festival(),
         )

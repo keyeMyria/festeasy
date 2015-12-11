@@ -13,7 +13,7 @@ class Festival(db.Model, Entity):
         return '<Festival {id}>'.format(id=self.id)
 
     name = Column(String(150), nullable=False)
-    starts_on = Column(DateTime)
+    starts_on = Column(DateTime, nullable=False)
     ends_on = Column(DateTime)
     description = Column(String)
     website_link = Column(String)

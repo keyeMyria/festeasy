@@ -1,5 +1,5 @@
 from backend import db
-from backend.models import Invoice
+from backend.models import Invoice, Order
 from backend.testing import ModelTestCase
 
 
@@ -19,8 +19,8 @@ class TestInvoice(ModelTestCase):
                 )
             ],
         )
-        order = self.create_order()
         festival = self.create_festival(
+            pre_populate=True,
             name='asd',
             base_festival=self.create_base_festival(),
         )
@@ -28,11 +28,10 @@ class TestInvoice(ModelTestCase):
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()
-        order.from_cart(user.cart)
+        order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
-        invoice = Invoice()
-        invoice.from_order(order)
+        invoice = Invoice.from_order(order)
         db.session.add(invoice)
         db.session.commit()
         fetched_invoice = Invoice.query.first()
@@ -53,8 +52,8 @@ class TestInvoice(ModelTestCase):
                 )
             ],
         )
-        order = self.create_order()
         festival = self.create_festival(
+            pre_populate=True,
             name='asd',
             base_festival=self.create_base_festival(),
         )
@@ -62,11 +61,10 @@ class TestInvoice(ModelTestCase):
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()
-        order.from_cart(user.cart)
+        order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
-        invoice = Invoice()
-        invoice.from_order(order)
+        invoice = Invoice.from_order(order)
         db.session.add(invoice)
         db.session.commit()
         fetched_invoice = Invoice.query.first()
@@ -85,8 +83,8 @@ class TestInvoice(ModelTestCase):
                 )
             ],
         )
-        order = self.create_order()
         festival = self.create_festival(
+            pre_populate=True,
             name='asd',
             base_festival=self.create_base_festival(),
         )
@@ -94,11 +92,10 @@ class TestInvoice(ModelTestCase):
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()
-        order.from_cart(user.cart)
+        order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
-        invoice = Invoice()
-        invoice.from_order(order)
+        invoice = Invoice.from_order(order)
         db.session.add(invoice)
         db.session.commit()
         payment = self.create_payment(
@@ -123,8 +120,8 @@ class TestInvoice(ModelTestCase):
                 )
             ],
         )
-        order = self.create_order()
         festival = self.create_festival(
+            pre_populate=True,
             name='asd',
             base_festival=self.create_base_festival(),
         )
@@ -132,11 +129,10 @@ class TestInvoice(ModelTestCase):
         user.cart.products.append(product)
         db.session.add(user)
         db.session.commit()
-        order.from_cart(user.cart)
+        order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
-        invoice = Invoice()
-        invoice.from_order(order)
+        invoice = Invoice.from_order(order)
         db.session.add(invoice)
         db.session.commit()
         fetched_invoice = Invoice.query.first()

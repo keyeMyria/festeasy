@@ -13,8 +13,8 @@ cart.controller('cartController', (
 
 	cart = userService.one(authenticatedUser.id).one('cart')
 
-	$scope.updateSelectedFestival = (item, model) ->
-		patchCart = cart.patch({festival_id: item.id})
+	$scope.updateSelectedFestival = (festival, model) ->
+		patchCart = cart.patch({festival_id: festival.id})
 		patchCart.then((response) ->
 			updateCart()
 		)

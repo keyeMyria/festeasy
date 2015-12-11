@@ -1,0 +1,19 @@
+<form name="changePreferencesForm" ng-submit="changeUserPreferences()">
+  	<div class="form-group">
+    	<label for="firstnameInput">First Name</label>
+    	<input type="text" 
+    		class="form-control" 
+    		ng-model="tmp.first_name" 
+    		name="firstnameInput" 
+    		id="firstnameInput">
+  	</div>
+  	<div class="form-group">
+    	<label for="LastnameInput">Last Name</label>
+    	<input type="text" 
+    		class="form-control" 
+    		ng-model="tmp.last_name" 
+    		name="LastnameInput" 
+    		id="LastnameInput" >
+  	</div>
+  	<button type="submit" class="btn btn-default">Save</button>
+</form>

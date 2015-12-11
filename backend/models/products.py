@@ -14,7 +14,7 @@ class Product(db.Model, Entity):
 
     name = Column(String(150), nullable=False)
     # The cost of a Product in Rands.
-    cost_rands = Column(Numeric, nullable=False)
+    cost_rands = Column(Numeric)
     # Should a Product show up on the products list.
     is_enabled = Column(Boolean, default=False, nullable=False)
 

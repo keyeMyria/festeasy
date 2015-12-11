@@ -14,6 +14,7 @@ class TestOrderProductSingleton(APITestCase):
             quantity=3,
             order=self.create_order(
                 festival=self.create_festival(
+                    pre_populate=True,
                     name='as',
                     base_festival=self.create_base_festival(),
                 ),

@@ -12,6 +12,7 @@ class TestUserOrderCollection(APITestCase):
         user = self.create_user(normal_user=True, with_cart=True)
         order = self.create_order(
             festival=self.create_festival(
+                pre_populate=True,
                 name='asdf',
                 base_festival=self.create_base_festival(),
             ),
