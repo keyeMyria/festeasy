@@ -3,14 +3,8 @@ app = angular.module('app', [
     'base'
     'landing'
     'auth'
-    'account'
-    'festivals'
-    'store'
-    'howItWorks'
-    'cart'
-    'orders'
-    'checkout'
     'services'
+    'products'
 ])
 
 app.config(($locationProvider) ->
