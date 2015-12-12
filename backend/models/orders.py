@@ -9,6 +9,7 @@ from backend.models import Entity, OrderProduct
 class Order(db.Model, Entity):
     __tablename__ = 'order'
 
+    # TODO: Imporve testing
     @staticmethod
     def from_cart(cart):
         if not cart.festival:
@@ -21,14 +22,14 @@ class Order(db.Model, Entity):
         for cart_product in cart.cart_products:
             # TODO: There is an issue with cascade
             # on products and order_products
-            order.order_products.append(
-                OrderProduct(
-                    product=cart_product.product,
-                    quantity=cart_product.quantity,
-                    order=order,
-                    unit_price_rands=cart_product.product.price_rands,
+            for i in range(cart_product.quantity):
+                order.order_products.append(
+                    OrderProduct(
+                        product=cart_product.product,
+                        order=order,
+                        unit_price_rands=cart_product.product.price_rands,
+                    )
                 )
-            )
         return order
 
     def __repr__(self):
@@ -65,7 +66,7 @@ class Order(db.Model, Entity):
 
 # Total amount for an Order.
 Order.total_rands = column_property(
-    select([func.sum(OrderProduct.sub_total_rands)]).where(
+    select([func.sum(OrderProduct.unit_price_rands)]).where(
         OrderProduct.order_id == Order.id
     ).correlate(Order)
 )

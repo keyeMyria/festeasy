@@ -11,7 +11,6 @@ class TestOrderProductSingleton(APITestCase):
     def test_get(self):
         order_product = self.create_order_product(
             unit_price_rands=10,
-            quantity=3,
             order=self.create_order(
                 festival=self.create_festival(
                     pre_populate=True,
