@@ -1,5 +1,7 @@
+from sqlalchemy import func
+
 from backend import db
-from backend.models import Order
+from backend.models import Order, OrderProduct
 from backend.testing import ModelTestCase
 
 
@@ -61,11 +63,20 @@ class TestOrder(ModelTestCase):
         from a Cart.
         """
         user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(
+        product_1 = self.create_product(
+            name='asdd',
             create_valid_product=True,
             product_prices=[
                 self.create_product_price(
-                    amount_rands=11,
+                    amount_rands=1,
+                )
+            ],
+        )
+        product_2 = self.create_product(
+            create_valid_product=True,
+            product_prices=[
+                self.create_product_price(
+                    amount_rands=2,
                 )
             ],
         )
@@ -74,12 +85,41 @@ class TestOrder(ModelTestCase):
             name='qwe',
             base_festival=self.create_base_festival(),
         )
+        quantity_1 = 1
+        quantity_2 = 2
         user.cart.festival = festival
-        user.cart.products.append(product)
+        cart_product_1 = self.create_cart_product(
+            cart=user.cart,
+            product=product_1,
+            quantity=quantity_1,
+        )
+        cart_product_2 = self.create_cart_product(
+            cart=user.cart,
+            product=product_2,
+            quantity=quantity_2,
+        )
+        db.session.add(cart_product_1)
+        db.session.add(cart_product_2)
         db.session.add(user)
         db.session.commit()
+
         order = Order.from_cart(user.cart)
         db.session.add(order)
         db.session.commit()
-        self.assertEqual(order.total_rands, 11)
-        self.assertEqual(order.products, [product])
+
+        self.assertEqual(order.total_rands, 5)
+        order_product_1, order_product_1_quantity = (db.session.query(
+            OrderProduct, func.count(OrderProduct.product_id))
+            .filter(OrderProduct.order == order)
+            .filter(OrderProduct.product == product_1)
+            .group_by(OrderProduct.product_id)
+            .one())
+        self.assertEqual(order_product_1_quantity, quantity_1)
+
+        order_product_2, order_product_2_quantity = (db.session.query(
+            OrderProduct, func.count(OrderProduct.product_id))
+            .filter(OrderProduct.order == order)
+            .filter(OrderProduct.product == product_2)
+            .group_by(OrderProduct.product_id)
+            .one())
+        self.assertEqual(order_product_2_quantity, quantity_2)
