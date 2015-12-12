@@ -43,20 +43,18 @@ class TestOrder(ModelTestCase):
         )
         order_product_1 = self.create_order_product(
             unit_price_rands=product_1.price_rands,
-            quantity=1,
             order=order,
             product=product_1,
         )
         order_product_2 = self.create_order_product(
             unit_price_rands=product_2.price_rands,
-            quantity=2,
             order=order,
             product=product_2,
         )
         db.session.add(user)
         db.session.commit()
         fetched_order = Order.query.one()
-        self.assertEqual(fetched_order.total_rands, price * 3)
+        self.assertEqual(fetched_order.total_rands, price * 2)
 
     def test_from_cart(self):
         """ Test that Order.from_cart creates an order

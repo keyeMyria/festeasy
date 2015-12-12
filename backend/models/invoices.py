@@ -4,24 +4,30 @@ from sqlalchemy.orm import relationship, column_property
 
 from backend import db
 from backend.models import Entity, InvoiceProduct
-from backend.models import Payment
+from backend.models import Payment, OrderProduct
 
 
 class Invoice(db.Model, Entity):
     __tablename__ = 'invoice'
 
+    # TODO: Imporve testing
     @staticmethod
     def from_order(order):
         if not order.order_products:
             raise Exception('Order has not products.')
         invoice = Invoice()
         invoice.order = order
-        for order_product in order.order_products:
+        things = (db.session.query(
+            OrderProduct, func.count(OrderProduct.product_id))
+            .filter(OrderProduct.order == order)
+            .group_by(OrderProduct.product_id)
+            .all())
+        for order_product, quantity in things:
             invoice.invoice_products.append(
                 InvoiceProduct(
                     product=order_product.product,
                     unit_price_rands=order_product.unit_price_rands,
-                    quantity=order_product.quantity,
+                    quantity=quantity,
                     invoice=invoice,
                 )
             )
