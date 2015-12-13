@@ -28,4 +28,12 @@ whatToBuy.controller('whatToBuyOverviewController', ($scope, $state, orderProduc
 	$scope.updateSelectedFestival = (festival, something) ->
 		params['festival-id'] = festival.id
 		$state.go('base.whatToBuy.overview', params, {reload: true})
+
+	$scope.players = [
+  {name: 'Gene', team: {name: 'alpha'}},
+  {name: 'George', team: {name: 'alpha'}},
+  {name: 'Steve', team: {name: 'alpha'}},
+  {name: 'Paula', team: {name: 'alpha'}},
+  {name: 'Scruath', team: {name: 'alpha'}}
+];
 )

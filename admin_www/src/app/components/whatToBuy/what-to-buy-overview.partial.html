@@ -11,19 +11,18 @@
 	    </ui-select-choices>
 	</ui-select>
 	<br/>
-
-	<table class="table table-hover">
-		<th>ID</th>
-		<th>Product</th>
-		<th>Price</th>
-		<th>User ID</th>
-		<th>Festival</th>
-		<tr ng-repeat="orderProduct in orderProducts | unique: 'orderProduct.product.id'">
-			<td>{{orderProduct.id}}</td>
-			<td>{{orderProduct.product.id}}</td>
-			<td>{{orderProduct.unit_price_rands}}</td>
-			<td>{{orderProduct.order.user_id}}</td>
-			<td>{{orderProduct.order.festival.name}}</td>
-		</tr>
-	</table>
 </div>
+
+
+<ul>
+  <li ng-repeat="(key, value) in orderProducts | groupBy: 'product.id'">
+    Product ID: {{ key }}
+    <br/>
+    Count {{value.length}}
+    <ul>
+      <li ng-repeat="orderProduct in value">
+        Ordder Product ID: {{ orderProduct.id }}
+      </li>
+    </ul>
+  </li>
+</ul>
