@@ -4,6 +4,6 @@ from .order_product_singleton import OrderProductSingleton
 
 
 v1_api.add_resource(OrderProductCollection,
-                    '/order-produts')
+                    '/order-products')
 v1_api.add_resource(OrderProductSingleton,
                     '/order-products/<int:order_product_id>')
