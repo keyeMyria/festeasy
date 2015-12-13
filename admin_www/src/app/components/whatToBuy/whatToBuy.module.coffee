@@ -2,6 +2,7 @@ whatToBuy = angular.module('whatToBuy', [
 	'ui.router'
 	'services'
 	'ui.select'
+	'angular.filter'
 ])
 
 whatToBuy.config(($stateProvider) ->
@@ -13,7 +14,7 @@ whatToBuy.config(($stateProvider) ->
 			auth: true
 		})
 		.state('base.whatToBuy.overview', {
-			url: '/overview'
+			url: '/overview?festival-id'
 			templateUrl: 'what-to-buy-overview.partial.html'
 			controller: 'whatToBuyOverviewController'
 			auth: true
