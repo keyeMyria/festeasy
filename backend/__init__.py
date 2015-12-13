@@ -18,7 +18,6 @@ def create_app(config):
     app.config.from_pyfile('config/default.py'.format(config))
 
     if config == 'testing':
-        logger.warn('Loading config from backend/config/testing.py')
         app.config.from_pyfile('config/testing.py'.format(config))
     elif config == 'file':
         logger.warn('Loading additional config from backend/config/live.py')
