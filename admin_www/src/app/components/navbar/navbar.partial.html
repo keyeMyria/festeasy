@@ -15,6 +15,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li ng-show="isAuthenticated()" ui-sref-active="active">
+          <a ui-sref="base.whatToBuy.overview" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+            What To Buy
+          </a>
+        </li>
+        <li ng-show="isAuthenticated()" ui-sref-active="active">
           <a ui-sref="base.users" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             Users

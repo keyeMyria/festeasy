@@ -1,0 +1,27 @@
+<loading-indicator data="orderProducts" error="false"></loading-indicator>
+For Festival:
+<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
+    <ui-select-match placeholder="Select a festival">
+        <span ng-bind="$select.selected.name"></span>
+    </ui-select-match>
+    <ui-select-choices repeat="festival in (festivals | filter: $select.search) track by festival.id">
+        <span ng-bind="festival.name"></span>
+    </ui-select-choices>
+</ui-select>
+<br/>
+<div ng-show="orderProducts">
+	<table class="table table-hover">
+		<th>ID</th>
+		<th>Product</th>
+		<th>Price</th>
+		<th>User ID</th>
+		<th>Festival</th>
+		<tr ng-repeat="orderProduct in orderProducts">
+			<td>{{orderProduct.id}}</td>
+			<td>{{orderProduct.product.name}}</td>
+			<td>{{orderProduct.unit_price_rands}}</td>
+			<td>{{orderProduct.order.user_id}}</td>
+			<td>{{orderProduct.order.festival.name}}</td>
+		</tr>
+	</table>
+</div>
