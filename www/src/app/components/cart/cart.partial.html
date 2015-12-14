@@ -14,10 +14,10 @@
 		Festival:
 		<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
 		    <ui-select-match placeholder="Select a festival">
-		        <span ng-bind="$select.selected.name"></span>
+		        <span ng-bind="$select.selected.name + ' ' + ($select.selected.starts_on | date: 'yyyy')"></span>
 		    </ui-select-match>
 		    <ui-select-choices repeat="festival in (festivals | filter: $select.search) track by festival.id">
-		        <span ng-bind="festival.name"></span>
+		        <span ng-bind="festival.name + ' ' + (festival.starts_on | date: 'yyyy')"></span>
 		    </ui-select-choices>
 		</ui-select>
 		<br/>
