@@ -31,7 +31,7 @@
 				<td>{{cartProduct.product.name}}</td>
 				<td>	
 					<div class="input-group">
-					  	<input max="20" type="number" ng-model="cartProduct.quantity">
+					  	<input max="20" min="1" type="number" ng-model="cartProduct.quantity">
 					</div>
 				</td>
 				<td><rands amount-rands="cartProduct.product.price_rands"></rands></td>
