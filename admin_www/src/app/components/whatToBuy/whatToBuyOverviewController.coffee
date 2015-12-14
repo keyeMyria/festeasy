@@ -22,10 +22,10 @@ whatToBuy.controller('whatToBuyOverviewController', ($scope, $state, orderProduc
 			setSelectedFestival(params)
 		)
 
-	fetchOrderProducts(params)
-	fetchFestivals()
-
 	$scope.updateSelectedFestival = (festival, something) ->
 		params['festival-id'] = festival.id
 		$state.go('base.whatToBuy.overview', params, {reload: true})
+
+	fetchOrderProducts(params)
+	fetchFestivals()
 )
