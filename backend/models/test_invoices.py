@@ -1,5 +1,5 @@
 from backend import db
-from backend.models import Invoice, Order
+from backend.models import Invoice, Order, InvoiceProduct
 from backend.testing import ModelTestCase
 
 
@@ -60,10 +60,11 @@ class TestInvoice(ModelTestCase):
         self.assertEqual(fetched_invoice.total_rands, 5 * price)
         self.assertEqual(fetched_invoice.products, order.products)
 
-        self.assertEqual(user.cart.cart_products[0].quantity,
-                        fetched_invoice.invoice_products[0].quantity)
-        self.assertEqual(user.cart.cart_products[1].quantity,
-                        fetched_invoice.invoice_products[1].quantity)
+        ip1 = InvoiceProduct.query.filter(InvoiceProduct.product == product_1).all()
+        self.assertEqual(len(ip1), 2)
+
+        ip2 = InvoiceProduct.query.filter(InvoiceProduct.product == product_2).all()
+        self.assertEqual(len(ip2), 3)
 
     def test_invoice_total_rands(self):
         """ Test that Invoice.total_rands is correct.
