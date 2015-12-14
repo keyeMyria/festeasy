@@ -18,6 +18,12 @@ cart.controller('cartController', (
 	$scope.updateSelectedFestival = (festival, model) ->
 		patchCart = cart.patch({festival_id: festival.id})
 		patchCart.then((response) ->
+			ngNotify.set('Successfully selected festival.')
+		)
+		patchCart.catch((response) ->
+			ngNotify.set('Failed to select festival.', 'error')
+		)
+		patchCart.finally((response) ->
 			updateCart()
 		)
 
