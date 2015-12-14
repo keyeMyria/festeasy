@@ -36,13 +36,14 @@
 				</td>
 				<td>{{cartProduct.product.price_rands}}</td>
 				<td>{{cartProduct.sub_total_rands}}</td>
-				<td><button class="btn btn-warning" ng-click="remove(cartProduct)">Remove</button></td>
+				<td><button class="btn btn-warning" ng-click="removeCartProduct(cartProduct)">Remove</button></td>
 			</tr>
 		</table>
 		<div class="pull-right">
 			<p class="lead">
 				Total: {{cart.total_rands}}
 			</p>
+			<button ng-click="updateCartProducts(cartProducts)" class="btn btn-info btn-lg">Update</button>
 			<button ng-click="checkout()" class="btn btn-success btn-lg">Secure Checkout</button>
 		</div>
 	</div>

@@ -7,7 +7,9 @@ cart.controller('cartController', (
 		cartProductService,
 		festivalService,
 		ngNotify,
-		cartService) ->
+		cartService
+		$q
+		) ->
 	
 	authenticatedUser = authService.getAuthenticatedUser()
 
@@ -43,10 +45,23 @@ cart.controller('cartController', (
 			$scope.cartProducts = response
 		)
 
-	$scope.remove = (cartProduct) ->
+	$scope.removeCartProduct = (cartProduct) ->
 		removeCartProduct = cartProductService.one(cartProduct.id).remove()
 		removeCartProduct.then((response) ->
 			updateCart()
+		)
+
+	$scope.updateCartProducts = (cartProducts) ->
+		promises = []
+		for cartProduct in cartProducts
+			promises.push(cartProductService.one(cartProduct.id).patch(cartProduct))
+		all = $q.all(promises)
+		all.then((response) ->
+			updateCart()
+			ngNotify.set('Successfully updated cart.')
+		)
+		all.catch((response) ->
+			ngNotify.set('Failed to update cart.', 'error')
 		)
 
 	$scope.checkout = () ->
