@@ -57,11 +57,13 @@ cart.controller('cartController', (
 			promises.push(cartProductService.one(cartProduct.id).patch(cartProduct))
 		all = $q.all(promises)
 		all.then((response) ->
-			updateCart()
 			ngNotify.set('Successfully updated cart.')
 		)
 		all.catch((response) ->
 			ngNotify.set('Failed to update cart.', 'error')
+		)
+		all.finally((response) ->
+			updateCart()
 		)
 
 	$scope.checkout = () ->
