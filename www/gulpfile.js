@@ -14,8 +14,8 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var minifyCss = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
-var batch = require('gulp-batch');
 var watch = require('gulp-watch');
+var batch = require('gulp-batch');
 
 
 gulp.task('clean', function (cb) {
@@ -102,26 +102,26 @@ gulp.task('index', function () {
 });
 
 gulp.task('watch', function () {
-    livereload.listen();
-    watch('./bower_components/**', batch(function(events, done) {
+    watch('./bower_components/**', batch(function (events, done) {
         gulp.start('bower', done);
-    }))
-    watch('./src/**/*.partial.html', batch(function(events, done) {
+    }));
+    watch('./src/**/*.partial.html', batch(function (events, done) {
         gulp.start('partials', done);
-    }))
-    watch('./src/**/*.coffee', batch(function(events, done) {
+    }));
+    watch('./src/**/*.coffee', batch(function (events, done) {
         gulp.start('scripts', done);
-    }))
-    watch('./src/**/*.css', batch(function(events, done) {
+    }));
+    watch('./src/**/*.css', batch(function (events, done) {
         gulp.start('styles', done);
-    }))
-    watch('./src/app/assets/**', batch(function(events, done) {
+    }));
+    watch('./src/app/assets/**', batch(function (events, done) {
         gulp.start('assets', done);
-    }))
-    watch('./src/index.html', batch(function(events, done) {
+    }));
+    watch('./src/index.html', batch(function (events, done) {
         gulp.start('index', done);
-    }))
-    
+    }));
+    livereload.listen();
+    gulp.watch('./dist/**').on('change', livereload.changed);
 })
 
 gulp.task('default', ['clean'], function () {
