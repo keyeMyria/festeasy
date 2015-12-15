@@ -13,18 +13,9 @@ class InvoiceProduct(db.Model, Entity):
         return '<InvoiceProduct {id}>'.format(id=self.id)
 
     unit_price_rands = Column(Numeric, nullable=False)
-    quantity = Column(Integer, default=1, nullable=False)
 
     product_id = Column(Integer, ForeignKey('product.id'), nullable=False)
     product = relationship('Product', back_populates='invoice_products')
 
     invoice_id = Column(Integer, ForeignKey('invoice.id'), nullable=False)
     invoice = relationship('Invoice', back_populates='invoice_products')
-
-    sub_total_rands = column_property(
-        unit_price_rands * quantity
-    )
-
-    __table_args__ = (
-        UniqueConstraint('invoice_id', 'product_id'),
-    )

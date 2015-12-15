@@ -1,13 +1,14 @@
 from marshmallow import fields
 
 from backend.api.utils import EntitySchema
+from .order_schema import OrderSchema
+from .product_schema import ProductSchema
 
 
 class OrderProductSchema(EntitySchema):
-    event_id = fields.Integer()
-    user_id = fields.Integer()
-    total_rands = fields.Float()
-    amount_rands = fields.Float()
+    unit_price_rands = fields.Float()
+    order = fields.Nested(OrderSchema)
+    product = fields.Nested(ProductSchema)
 
     class Meta:
         strict = True

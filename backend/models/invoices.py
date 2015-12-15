@@ -4,24 +4,27 @@ from sqlalchemy.orm import relationship, column_property
 
 from backend import db
 from backend.models import Entity, InvoiceProduct
-from backend.models import Payment
+from backend.models import Payment, OrderProduct
 
 
 class Invoice(db.Model, Entity):
     __tablename__ = 'invoice'
 
+    # TODO: Imporve testing
     @staticmethod
     def from_order(order):
         if not order.order_products:
             raise Exception('Order has not products.')
         invoice = Invoice()
         invoice.order = order
-        for order_product in order.order_products:
+        order_products = (OrderProduct.query
+            .filter(OrderProduct.order == order)
+            .all())
+        for order_product in order_products:
             invoice.invoice_products.append(
                 InvoiceProduct(
                     product=order_product.product,
                     unit_price_rands=order_product.unit_price_rands,
-                    quantity=order_product.quantity,
                     invoice=invoice,
                 )
             )
@@ -57,7 +60,7 @@ class Invoice(db.Model, Entity):
 
 # Total amount for an Invoice
 Invoice.total_rands = column_property(
-    select([func.sum(InvoiceProduct.sub_total_rands)]).where(
+    select([func.sum(InvoiceProduct.unit_price_rands)]).where(
         InvoiceProduct.invoice_id == Invoice.id).correlate(Invoice)
 )
 

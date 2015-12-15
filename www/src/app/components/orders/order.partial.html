@@ -2,7 +2,7 @@
 	<loading-indicator data="order" error="error"></loading-indicator>
 	<div ng-show="order">
 		<p>Order number: {{order.id}}</p>
-		<p>{{order.festival.name}}</p>
-		<p>{{order.total_rands}}</p>
+		<p>Festival: {{order.festival.name + ' ' + (order.festival.starts_on | date: 'yyyy')}}</p>
+		<p>Total: <rands amount-rands="order.total_rands"></rands></p>
 	</div>
 </div>
