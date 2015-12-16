@@ -1,6 +1,7 @@
 from backend import db
 from backend.models import Cart
 from backend.testing import ModelTestCase
+from backend.testing import factories
 
 
 class TestCart(ModelTestCase):
@@ -10,31 +11,23 @@ class TestCart(ModelTestCase):
         CartProduct sub_total_rands.
         """
         price = 10
-        user = self.create_user(normal_user=True, with_cart=True)
-        product_1 = self.create_product(
-            name='A',
-            cost_rands=10,
+        user = factories.UserFactory()
+        product_1 = factories.ProductFactory(
             product_prices=[
-                self.create_product_price(
-                    amount_rands=price,
-                )
+                factories.ProductPriceFactory(amount_rands=price),
             ],
         )
-        product_2 = self.create_product(
-            name='B',
-            cost_rands=10,
+        product_2 = factories.ProductFactory(
             product_prices=[
-                self.create_product_price(
-                    amount_rands=price * 2,
-                )
+                factories.ProductPriceFactory(amount_rands=price * 2),
             ],
         )
-        cart_product_1 = self.create_cart_product(
+        cart_product_1 = factories.CartProductFactory(
             cart=user.cart,
             product=product_1,
             quantity=2,
         )
-        cart_product_2 = self.create_cart_product(
+        cart_product_2 = factories.CartProductFactory(
             cart=user.cart,
             product=product_2,
             quantity=1,

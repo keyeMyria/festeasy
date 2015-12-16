@@ -1,24 +1,18 @@
 from backend import db
 from backend.testing import ModelTestCase
+from backend.testing import factories
 
 
 class TestCartProduct(ModelTestCase):
     def test_cart_product_sub_total_rands(self):
         price = 10
-        user = self.create_user(
-            normal_user=True,
-            with_cart=True,
-        )
-        product = self.create_product(
-            name='Test',
-            cost_rands=10,
+        user = factories.UserFactory()
+        product = factories.ProductFactory(
             product_prices=[
-                self.create_product_price(
-                    amount_rands=price,
-                )
-            ]
+                factories.ProductPriceFactory(amount_rands=price),
+            ],
         )
-        cart_product = self.create_cart_product(
+        cart_product = factories.CartProductFactory(
             product=product,
             quantity=2,
         )

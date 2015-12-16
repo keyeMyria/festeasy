@@ -1,6 +1,7 @@
-from factory import Factory
+from factory import Factory, SubFactory
 
 from backend.models import ProductPrice
+from . import ProductFactory
 
 
 class ProductPriceFactory(Factory):
@@ -9,3 +10,4 @@ class ProductPriceFactory(Factory):
 
     amount_rands = 9.99
     info = None
+    product = SubFactory(ProductFactory)

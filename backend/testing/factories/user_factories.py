@@ -13,4 +13,5 @@ class UserFactory(Factory):
     email_address = 'johndoe@gmail.com'
     guest_token = None
     is_admin = False
+    password = '123'
     cart = SubFactory(CartFactory)

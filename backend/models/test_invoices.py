@@ -1,6 +1,7 @@
 from backend import db
 from backend.models import Invoice, Order, InvoiceProduct
 from backend.testing import ModelTestCase
+from backend.testing import factories
 
 
 class TestInvoice(ModelTestCase):
@@ -10,35 +11,25 @@ class TestInvoice(ModelTestCase):
         Order correctly.
         """
         price = 10
-        user = self.create_user(normal_user=True, with_cart=True)
-        product_1 = self.create_product(
-            create_valid_product=True,
+        user = factories.UserFactory()
+        product_1 = factories.ProductFactory(
             product_prices=[
-                self.create_product_price(
-                    amount_rands=price,
-                )
+                factories.ProductPriceFactory(amount_rands=price),
             ],
         )
-        product_2 = self.create_product(
-            create_valid_product=True,
+        product_2 = factories.ProductFactory(
             product_prices=[
-                self.create_product_price(
-                    amount_rands=price,
-                )
+                factories.ProductPriceFactory(amount_rands=price),
             ],
         )
-        festival = self.create_festival(
-            pre_populate=True,
-            name='asd',
-            base_festival=self.create_base_festival(),
-        )
+        festival = factories.FestivalFactory()
         user.cart.festival = festival
-        cart_product_1 = self.create_cart_product(
+        cart_product_1 = factories.CartProductFactory(
             cart=user.cart,
             product=product_1,
             quantity=2,
         )
-        cart_product_2 = self.create_cart_product(
+        cart_product_2 = factories.CartProductFactory(
             cart=user.cart,
             product=product_2,
             quantity=3,
@@ -70,20 +61,13 @@ class TestInvoice(ModelTestCase):
         """ Test that Invoice.total_rands is correct.
         """
         price = 99
-        user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(
-            create_valid_product=True,
+        user = factories.UserFactory()
+        product = factories.ProductFactory(
             product_prices=[
-                self.create_product_price(
-                    amount_rands=price,
-                )
+                factories.ProductPriceFactory(amount_rands=price),
             ],
         )
-        festival = self.create_festival(
-            pre_populate=True,
-            name='asd',
-            base_festival=self.create_base_festival(),
-        )
+        festival = factories.FestivalFactory()
         user.cart.festival = festival
         user.cart.products.append(product)
         db.session.add(user)
@@ -101,20 +85,13 @@ class TestInvoice(ModelTestCase):
         """ Test that Invoice.amount_due_rands is correct with a Payment.
         """
         price = 99
-        user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(
-            create_valid_product=True,
+        user = factories.UserFactory()
+        product = factories.ProductFactory(
             product_prices=[
-                self.create_product_price(
-                    amount_rands=price,
-                )
+                factories.ProductPriceFactory(amount_rands=price),
             ],
         )
-        festival = self.create_festival(
-            pre_populate=True,
-            name='asd',
-            base_festival=self.create_base_festival(),
-        )
+        festival = factories.FestivalFactory()
         user.cart.festival = festival
         user.cart.products.append(product)
         db.session.add(user)
@@ -125,7 +102,7 @@ class TestInvoice(ModelTestCase):
         invoice = Invoice.from_order(order)
         db.session.add(invoice)
         db.session.commit()
-        payment = self.create_payment(
+        payment = factories.PaymentFactory(
             amount_rands=price - 9,
             invoice=invoice,
         )
@@ -138,20 +115,13 @@ class TestInvoice(ModelTestCase):
         """ Test that Invoice.amount_due_rands is correct with no Payments.
         """
         price = 99
-        user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(
-            create_valid_product=True,
+        user = factories.UserFactory()
+        product = factories.ProductFactory(
             product_prices=[
-                self.create_product_price(
-                    amount_rands=price,
-                )
+                factories.ProductPriceFactory(amount_rands=price),
             ],
         )
-        festival = self.create_festival(
-            pre_populate=True,
-            name='asd',
-            base_festival=self.create_base_festival(),
-        )
+        festival = factories.FestivalFactory()
         user.cart.festival = festival
         user.cart.products.append(product)
         db.session.add(user)

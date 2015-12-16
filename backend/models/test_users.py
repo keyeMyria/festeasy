@@ -42,7 +42,8 @@ class TestUser(ModelTestCase):
         user = factories.UserFactory(
             email_address=None,
             first_name=None,
-            guest_token='jasduqwejj'
+            guest_token='jasduqwejj',
+            password=None,
         )
         db.session.add(user)
         db.session.commit()
