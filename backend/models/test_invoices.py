@@ -51,10 +51,14 @@ class TestInvoice(ModelTestCase):
         self.assertEqual(fetched_invoice.total_rands, 5 * price)
         self.assertEqual(fetched_invoice.products, order.products)
 
-        ip1 = InvoiceProduct.query.filter(InvoiceProduct.product == product_1).all()
+        ip1 = (InvoiceProduct.query.filter(
+            InvoiceProduct.product == product_1)
+            .all())
         self.assertEqual(len(ip1), 2)
 
-        ip2 = InvoiceProduct.query.filter(InvoiceProduct.product == product_2).all()
+        ip2 = (InvoiceProduct.query.filter(
+            InvoiceProduct.product == product_2)
+            .all())
         self.assertEqual(len(ip2), 3)
 
     def test_invoice_total_rands(self):
