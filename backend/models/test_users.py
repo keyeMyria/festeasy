@@ -1,6 +1,7 @@
 from backend import db
 from backend.models import User
 from backend.testing import ModelTestCase
+from backend.testing import factories
 
 
 class TestUser(ModelTestCase):
@@ -9,9 +10,9 @@ class TestUser(ModelTestCase):
         Test that user.is_guest is False if a user
         has an email_address, first_name and password set.
         """
-        user = self.create_user(email_address='asd@asd.com', with_cart=True)
+        #user = self.create_user(email_address='asd@asd.com', with_cart=True)
+        user = factories.UserFactory()
         user.guest_token = None
-        user.first_name = 'Asd'
         user.set_password('123')
         db.session.add(user)
         db.session.commit()
@@ -23,7 +24,7 @@ class TestUser(ModelTestCase):
         Test that user.is_guest is False if a user
         has an email_address, first_name, password and guest_token set.
         """
-        user = self.create_user(email_address='asd@asd.com', with_cart=True)
+        user = factories.UserFactory()
         user.email_address = 'asd@asd.com'
         user.first_name = 'Asd'
         user.set_password('asd')
@@ -38,24 +39,30 @@ class TestUser(ModelTestCase):
         Test that user.is_guest is True if a user
         has only a guest_token set.
         """
-        user = self.create_user(with_cart=True)
-        user.guest_token = 'jasduqwejj'
+        user = factories.UserFactory(
+            email_address=None,
+            first_name=None,
+            guest_token='jasduqwejj'
+        )
         db.session.add(user)
         db.session.commit()
         fetched_user = User.query.first()
         self.assertTrue(fetched_user.is_guest)
 
+    # TODO: What is this for?
     def test_user_check_constraint_as_guest(self):
         """
         Test CheckConstraint for a guest user.
         """
-        user = self.create_user(with_cart=True)
-        user.guest_token = 'asd'
+        user = factories.UserFactory(
+            guest_token='asd',
+        )
         db.session.add(user)
         db.session.commit()
         fetched_user = User.query.first()
         self.assertIsNotNone(fetched_user)
 
+    # TODO: What is this for?
     def test_user_check_constraint_non_guest(self):
         """
         Test CheckConstraint for a normal user.
