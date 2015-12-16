@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Numeric
-from sqlalchemy import ForeignKey, UniqueConstraint
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 from backend import db
 from backend.models import Entity

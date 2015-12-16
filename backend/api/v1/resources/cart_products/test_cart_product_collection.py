@@ -1,16 +1,17 @@
 from flask import url_for
 
-from backend.testing import APITestCase
 from backend import db
+from backend.testing import APITestCase, factories
+
 
 endpoint = 'v1.cartproductcollection'
 
 
 class TestCartProductCollection(APITestCase):
     def test_get(self):
-        cart_product = self.create_cart_product(
-            product=self.create_product(create_valid_product=True),
-            cart=self.create_cart(),
+        cart_product = factories.CartProductFactory(
+            product=factories.ProductFactory(),
+            cart=factories.CartFactory(),
         )
         db.session.add(cart_product)
         db.session.commit()

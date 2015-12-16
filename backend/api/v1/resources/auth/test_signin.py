@@ -2,8 +2,7 @@ from flask import url_for
 
 from backend import db
 from backend.models import Session
-from backend.testing import APITestCase
-
+from backend.testing import APITestCase, factories
 
 endpoint = 'v1.signin'
 
@@ -13,11 +12,10 @@ class TestSignin(APITestCase):
         email_address = 'asd@asdf.com'
         password = '123'
         first_name = 'Juan'
-        user = self.create_user(
+        user = factories.UserFactory(
             email_address=email_address,
             password=password,
             first_name=first_name,
-            with_cart=True,
         )
         db.session.add(user)
         db.session.commit()

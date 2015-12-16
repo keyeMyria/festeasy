@@ -1,7 +1,7 @@
 from flask import url_for
 
 from backend import db
-from backend.testing import APITestCase
+from backend.testing import APITestCase, factories
 
 
 endpoint = 'v1.categorycollection'
@@ -9,7 +9,7 @@ endpoint = 'v1.categorycollection'
 
 class TestCategoryCollection(APITestCase):
     def test_get(self):
-        category = self.create_category(name='Drinks')
+        category = factories.CategoryFactory()
         db.session.add(category)
         db.session.commit()
         response = self.api_request(

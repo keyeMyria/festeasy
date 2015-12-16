@@ -1,7 +1,7 @@
 from flask import url_for
 
 from backend import db
-from backend.testing import APITestCase
+from backend.testing import APITestCase, factories
 from backend.models import CartProduct
 
 
@@ -10,9 +10,9 @@ endpoint = 'v1.cartproductsingleton'
 
 class TestCartProductSingleton(APITestCase):
     def test_get(self):
-        cart_product = CartProduct(
-            product=self.create_product(create_valid_product=True),
-            cart=self.create_cart(),
+        cart_product = factories.CartProductFactory(
+            product=factories.ProductFactory(),
+            cart=factories.CartFactory(),
         )
         db.session.add(cart_product)
         db.session.commit()
@@ -27,9 +27,9 @@ class TestCartProductSingleton(APITestCase):
 
     def test_patch(self):
         new_quantity = 3
-        cart_product = CartProduct(
-            product=self.create_product(create_valid_product=True),
-            cart=self.create_cart(),
+        cart_product = factories.CartProductFactory(
+            product=factories.ProductFactory(),
+            cart=factories.CartFactory(),
         )
         db.session.add(cart_product)
         db.session.commit()
@@ -46,9 +46,9 @@ class TestCartProductSingleton(APITestCase):
         self.assertEqual(response.json['quantity'], new_quantity)
 
     def test_delete(self):
-        cart_product = CartProduct(
-            product=self.create_product(create_valid_product=True),
-            cart=self.create_cart(),
+        cart_product = factories.CartProductFactory(
+            product=factories.ProductFactory(),
+            cart=factories.CartFactory(),
         )
         db.session.add(cart_product)
         db.session.commit()

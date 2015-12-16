@@ -1,7 +1,7 @@
 from flask import url_for
 
 from backend import db
-from backend.testing import APITestCase
+from backend.testing import APITestCase, factories
 from backend.models import User
 
 
@@ -10,7 +10,7 @@ endpoint = 'v1.usercollection'
 
 class TestUserCollection(APITestCase):
     def test_get(self):
-        user = self.create_user(normal_user=True, with_cart=True)
+        user = factories.UserFactory()
         db.session.add(user)
         db.session.commit()
         response = self.api_request(

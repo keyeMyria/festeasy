@@ -1,7 +1,7 @@
 from flask import url_for
 
 from backend import db
-from backend.testing import APITestCase
+from backend.testing import APITestCase, factories
 from backend.models import CartProduct
 
 
@@ -14,21 +14,24 @@ class TestUserCartCartProductCollection(APITestCase):
         Test that only a specific user's cart products are returned,
         with a 200 status.
         """
-        user = self.create_user(
-            normal_user=True,
-            with_cart=True,
-        )
-        cart_product = self.create_cart_product(
-            product=self.create_product(create_valid_product=True),
+        user = factories.UserFactory()
+        cart_product = factories.CartProductFactory(
+            product=factories.ProductFactory(
+                product_prices=[
+                    factories.ProductPriceFactory(),
+                ],
+            ),
             cart=user.cart,
         )
-        other_user = self.create_user(
-            normal_user=True,
-            with_cart=True,
-            email_address='NotTheSame@different.com'
+        other_user = factories.UserFactory(
+            email_address='NotTheSame@different',
         )
-        other_cart_product = self.create_cart_product(
-            product=self.create_product(create_valid_product=True),
+        other_cart_product = factories.CartProductFactory(
+            product=factories.ProductFactory(
+                product_prices=[
+                    factories.ProductPriceFactory(),
+                ],
+            ),
             cart=other_user.cart,
         )
         db.session.add(user)
@@ -48,8 +51,8 @@ class TestUserCartCartProductCollection(APITestCase):
         self.assertNotEqual(response.json[0]['id'], other_cart_product.id)
 
     def test_post(self):
-        user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(create_valid_product=True)
+        user = factories.UserFactory()
+        product = factories.ProductFactory()
         db.session.add(user)
         db.session.add(product)
         db.session.commit()

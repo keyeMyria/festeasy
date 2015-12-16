@@ -1,7 +1,7 @@
 from flask import url_for
 
 from backend import db
-from backend.testing import APITestCase
+from backend.testing import APITestCase, factories
 
 
 endpoint = 'v1.userordersingleton'
@@ -9,13 +9,8 @@ endpoint = 'v1.userordersingleton'
 
 class TestUserOrderSingleton(APITestCase):
     def test_get(self):
-        user = self.create_user(normal_user=True, with_cart=True)
-        order = self.create_order(
-            festival=self.create_festival(
-                pre_populate=True,
-                name='asdf',
-                base_festival=self.create_base_festival(),
-            ),
+        user = factories.UserFactory()
+        order = factories.OrderFactory(
             user=user,
         )
         db.session.add(order)

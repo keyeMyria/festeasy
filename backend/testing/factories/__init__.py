@@ -10,3 +10,5 @@ from .order_factories import OrderFactory
 from .invoice_factories import InvoiceFactory
 from .payment_factories import PaymentFactory
 from .order_product_factories import OrderProductFactory
+from .invoice_product_factories import InvoiceProductFactory
+from .session_factories import SessionFactory
