@@ -9,3 +9,4 @@ from .category_factories import CategoryFactory
 from .order_factories import OrderFactory
 from .invoice_factories import InvoiceFactory
 from .payment_factories import PaymentFactory
+from .order_product_factories import OrderProductFactory

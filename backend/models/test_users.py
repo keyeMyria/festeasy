@@ -10,10 +10,10 @@ class TestUser(ModelTestCase):
         Test that user.is_guest is False if a user
         has an email_address, first_name and password set.
         """
-        #user = self.create_user(email_address='asd@asd.com', with_cart=True)
-        user = factories.UserFactory()
-        user.guest_token = None
-        user.set_password('123')
+        user = factories.UserFactory(
+            guest_token=None,
+            password='123',
+        )
         db.session.add(user)
         db.session.commit()
         fetched_user = User.query.first()
@@ -25,10 +25,10 @@ class TestUser(ModelTestCase):
         has an email_address, first_name, password and guest_token set.
         """
         user = factories.UserFactory()
-        user.email_address = 'asd@asd.com'
-        user.first_name = 'Asd'
-        user.set_password('asd')
-        user.guest_token = 'jasduqwejj'
+        user = factories.UserFactory(
+            password='123',
+            guest_token='asdf',
+        )
         db.session.add(user)
         db.session.commit()
         fetched_user = User.query.first()
@@ -50,7 +50,7 @@ class TestUser(ModelTestCase):
         fetched_user = User.query.first()
         self.assertTrue(fetched_user.is_guest)
 
-    # TODO: What is this for?
+    # TODO: Improve test.
     def test_user_check_constraint_as_guest(self):
         """
         Test CheckConstraint for a guest user.
@@ -63,12 +63,18 @@ class TestUser(ModelTestCase):
         fetched_user = User.query.first()
         self.assertIsNotNone(fetched_user)
 
-    # TODO: What is this for?
+    # TODO: Improve test.
     def test_user_check_constraint_non_guest(self):
         """
         Test CheckConstraint for a normal user.
         """
-        user = self.create_user(with_cart=True)
+        user = factories.UserFactory(
+            first_name=None,
+            last_name=None,
+            email_address=None,
+            guest_token=None,
+            password=None,
+        )
         db.session.add(user)
         try:
             db.session.commit()

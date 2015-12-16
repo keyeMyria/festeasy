@@ -1,36 +1,27 @@
-from backend.testing import ModelTestCase
 from backend import db
-
 from backend.models import Product
+from backend.testing import factories
+from backend.testing import ModelTestCase
 
 
 class TestProduct(ModelTestCase):
     def test_product_price_rands(self):
-        product_1 = self.create_product(
+        product_1 = factories.ProductFactory(
             name='10',
-            cost_rands=10,
             product_prices=[
-                self.create_product_price(
-                    amount_rands=10,
-                )
+                factories.ProductPriceFactory(amount_rands=10),
             ],
         )
-        product_2 = self.create_product(
+        product_2 = factories.ProductFactory(
             name='20',
-            cost_rands=10,
             product_prices=[
-                self.create_product_price(
-                    amount_rands=20,
-                )
+                factories.ProductPriceFactory(amount_rands=20),
             ],
         )
-        product_3 = self.create_product(
+        product_3 = factories.ProductFactory(
             name='30',
-            cost_rands=10,
             product_prices=[
-                self.create_product_price(
-                    amount_rands=30,
-                )
+                factories.ProductPriceFactory(amount_rands=30),
             ],
         )
         db.session.add(product_1)
