@@ -3,7 +3,10 @@
 		<loading-indicator data="cart && festival && cartProducts" error="error"></loading-indicator>
 		<div ng-show="cart && festival && cartProducts">
 			<p class="lead">
-				Order for {{festival.name + ' ' + (festival.starts_on | date: 'yyyy')}}
+				Order for: 
+				<a style="cursor:pointer;" ui-sref="base.festivals.festival({festivalId:festival.id})">
+					{{festival.name + ' ' + (festival.starts_on | date: 'yyyy')}}
+				</a>
 			</p>
 			<div>
 				<p>Starts: {{festival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
@@ -16,7 +19,13 @@
 				<th>Unit Price</th>
 				<th>Sub Total</th>
 				<tr ng-repeat="cartProduct in cartProducts">
-					<td>{{cartProduct.product.name}}</td>
+					<td>
+						<a 
+							ui-sref="base.store.product({productId: cartProduct.product.id})" 
+							ui-sref-opts="{inherit: false}">
+							{{cartProduct.product.name}}
+						</a>
+					</td>
 					<td>{{cartProduct.quantity}}</td>
 					<td><rands amount-rands="cartProduct.product.price_rands"></rands></td>
 					<td><rands amount-rands="cartProduct.sub_total_rands"></rands></td>

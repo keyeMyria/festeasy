@@ -38,7 +38,13 @@
 				<th>Sub Total</th>
 				<th>Remove</th>
 				<tr ng-repeat="cartProduct in cartProducts">
-					<td>{{cartProduct.product.name}}</td>
+					<td>
+						<a 
+							ui-sref="base.store.product({productId: cartProduct.product.id})" 
+							ui-sref-opts="{inherit: false}">
+							{{cartProduct.product.name}}
+						</a>
+					</td>
 					<td>	
 						<div class="input-group">
 						  	<input max="20" min="1" type="number" ng-model="cartProduct.quantity">
