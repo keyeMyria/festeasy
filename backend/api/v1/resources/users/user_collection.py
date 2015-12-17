@@ -5,6 +5,7 @@ from backend import db
 from backend.models import User, Cart
 from backend.api.utils import marshal_or_fail
 from backend.api.v1.schemas import UserSchema
+from backend.api.v1.exceptions import APIException
 
 
 class UserCollection(Resource):
