@@ -1,8 +1,11 @@
 from flask_restful import Resource
 
 from backend.models import OrderProduct
-from backend.api.utils import get_or_404, marshal_or_fail
+from backend.api.utils import get_or_404
 from backend.api.v1.schemas import OrderProductSchema
+
+
+order_product_schema = OrderProductSchema()
 
 
 class OrderProductSingleton(Resource):
@@ -11,4 +14,4 @@ class OrderProductSingleton(Resource):
             OrderProduct,
             OrderProduct.id == order_product_id,
         )
-        return marshal_or_fail('dump', order_product, OrderProductSchema())
+        return order_product_schema.dump(order_product).data

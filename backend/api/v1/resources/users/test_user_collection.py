@@ -17,8 +17,8 @@ class TestUserCollection(APITestCase):
             'get',
             url_for(endpoint),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json[0]['id'], user.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json[0]['id'], user.id, response.json)
 
     def test_post(self):
         first_name = 'Test Name'
@@ -34,6 +34,14 @@ class TestUserCollection(APITestCase):
             )
         )
         fetched_user = User.query.first()
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(fetched_user.email_address, email_address)
-        self.assertEqual(response.json['email_address'], email_address)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(
+            fetched_user.email_address,
+            email_address,
+            response.json,
+        )
+        self.assertEqual(
+            response.json['email_address'],
+            email_address,
+            response.json,
+        )

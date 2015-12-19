@@ -17,8 +17,8 @@ class TestProductCollection(APITestCase):
             'get',
             url_for(endpoint),
         )
-        self.assertEqual(repsonse.status_code, 200)
-        self.assertEqual(repsonse.json[0]['id'], product.id)
+        self.assertEqual(repsonse.status_code, 200, repsonse.json)
+        self.assertEqual(repsonse.json[0]['id'], product.id, repsonse.json)
 
     def test_post(self):
         product_name = 'asdf'
@@ -31,7 +31,7 @@ class TestProductCollection(APITestCase):
             url_for(endpoint),
             data=data,
         )
-        self.assertEqual(repsonse.status_code, 200)
+        self.assertEqual(repsonse.status_code, 200, repsonse.json)
         fetched_product = Product.query.first()
-        self.assertIsNotNone(fetched_product)
-        self.assertEqual(fetched_product.name, product_name)
+        self.assertIsNotNone(fetched_product, repsonse.json)
+        self.assertEqual(fetched_product.name, product_name, repsonse.json)

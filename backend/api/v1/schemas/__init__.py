@@ -1,3 +1,4 @@
+from .entity_schema import EntitySchema
 from .user_schema import UserSchema
 from .session_schema import SessionSchema
 from .product_schema import ProductSchema

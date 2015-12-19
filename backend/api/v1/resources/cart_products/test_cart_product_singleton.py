@@ -22,8 +22,8 @@ class TestCartProductSingleton(APITestCase):
                     cart_product_id=cart_product.id
                     ),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], cart_product.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], cart_product.id, response.json)
 
     def test_patch(self):
         new_quantity = 3
@@ -42,8 +42,8 @@ class TestCartProductSingleton(APITestCase):
                 quantity=new_quantity,
             )
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['quantity'], new_quantity)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['quantity'], new_quantity, response.json)
 
     def test_delete(self):
         cart_product = factories.CartProductFactory(
@@ -56,6 +56,6 @@ class TestCartProductSingleton(APITestCase):
             'delete',
             url_for(endpoint, cart_product_id=cart_product.id)
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.json)
         cart_products = CartProduct.query.all()
-        self.assertEqual(cart_products, [])
+        self.assertEqual(cart_products, [], response.json)

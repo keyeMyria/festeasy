@@ -4,13 +4,13 @@ from backend import db
 from backend.testing import APITestCase, factories
 
 
-endpoint = 'v1.categorycollection'
+endpoint = 'v1.festivalcollection'
 
 
-class TestCategoryCollection(APITestCase):
+class TestFestivalCollection(APITestCase):
     def test_get(self):
-        category = factories.CategoryFactory()
-        db.session.add(category)
+        festival = factories.FestivalFactory()
+        db.session.add(festival)
         db.session.commit()
         response = self.api_request(
             'get',
@@ -19,6 +19,6 @@ class TestCategoryCollection(APITestCase):
         self.assertEqual(response.status_code, 200, response.json)
         self.assertEqual(
             response.json[0]['name'],
-            category.name,
+            festival.name,
             response.json,
         )

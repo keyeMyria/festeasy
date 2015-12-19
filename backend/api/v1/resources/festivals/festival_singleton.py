@@ -3,21 +3,23 @@ from flask import request
 
 from backend import db
 from backend.models import Festival
-from backend.api.utils import get_or_404, marshal_or_fail
+from backend.api.utils import get_or_404
 from backend.api.v1.schemas import FestivalSchema
+
+
+festival_schema = FestivalSchema()
 
 
 class FestivalSingleton(Resource):
     def get(self, festival_id):
         festival = get_or_404(Festival, Festival.id == festival_id)
-        return marshal_or_fail('dump', festival, FestivalSchema())
+        return festival_schema.dump(festival).data
 
     def patch(self, festival_id):
         festival = get_or_404(Festival, Festival.id == festival_id)
-        load_data = marshal_or_fail(
-            'load', request.get_json(), FestivalSchema())
+        load_data = festival_schema.load(request.get_json()).data
         for arg in load_data:
             setattr(festival, arg, load_data[arg])
         db.session.add(festival)
         db.session.commit()
-        return marshal_or_fail('dump', festival, FestivalSchema())
+        return festival_schema.dump(festival).data

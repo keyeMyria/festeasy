@@ -1,6 +1,6 @@
 from marshmallow import fields
 
-from backend.api.utils import EntitySchema
+from . import EntitySchema
 from .festival_schema import FestivalSchema
 
 

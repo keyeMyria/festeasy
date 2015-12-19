@@ -17,8 +17,8 @@ class TestUserSingleton(APITestCase):
             'get',
             url_for(endpoint, user_id=user.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], user.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], user.id, response.json)
 
     def test_patch(self):
         user = factories.UserFactory()
@@ -33,6 +33,10 @@ class TestUserSingleton(APITestCase):
             data=data,
         )
         fetched_user = User.query.first()
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(fetched_user.first_name, data['first_name'])
-        self.assertEqual(response.json['id'], user.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(
+            fetched_user.first_name,
+            data['first_name'],
+            response.json,
+        )
+        self.assertEqual(response.json['id'], user.id, response.json)

@@ -1,6 +1,6 @@
 from marshmallow import fields
 
-from backend.api.utils import EntitySchema
+from . import EntitySchema
 from .order_schema import OrderSchema
 from .product_schema import ProductSchema
 

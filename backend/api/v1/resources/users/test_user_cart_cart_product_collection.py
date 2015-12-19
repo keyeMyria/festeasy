@@ -45,10 +45,18 @@ class TestUserCartCartProductCollection(APITestCase):
             'get',
             url_for(endpoint, user_id=user.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json), 1)
-        self.assertEqual(response.json[0]['id'], cart_product.id)
-        self.assertNotEqual(response.json[0]['id'], other_cart_product.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(len(response.json), 1, response.json)
+        self.assertEqual(
+            response.json[0]['id'],
+            cart_product.id,
+            response.json,
+        )
+        self.assertNotEqual(
+            response.json[0]['id'],
+            other_cart_product.id,
+            response.json,
+        )
 
     def test_post(self):
         user = factories.UserFactory()
@@ -66,6 +74,6 @@ class TestUserCartCartProductCollection(APITestCase):
             data=new_cart_product,
         )
         cart_products = CartProduct.query.all()
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(cart_products), 1)
-        self.assertEqual(cart_products[0].cart_id, user.cart.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(len(cart_products), 1, response.json)
+        self.assertEqual(cart_products[0].cart_id, user.cart.id, response.json)

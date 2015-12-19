@@ -18,5 +18,9 @@ class TestInvoiceProductSingleton(APITestCase):
                     invoice_product_id=invoice_product.id
                     ),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], invoice_product.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(
+            response.json['id'],
+            invoice_product.id,
+            response.json,
+        )

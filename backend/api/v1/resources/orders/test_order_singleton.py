@@ -16,5 +16,5 @@ class TestOrderSingleton(APITestCase):
             'get',
             url_for(endpoint, order_id=order.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], order.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], order.id, response.json)

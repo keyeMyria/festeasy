@@ -2,8 +2,10 @@ from flask import request
 from flask_restful import Resource
 
 from backend.models import OrderProduct, Festival, Order
-from backend.api.utils import marshal_or_fail
 from backend.api.v1.schemas import OrderProductSchema
+
+
+order_product_schema = OrderProductSchema()
 
 
 def filter_festival(q):
@@ -20,9 +22,4 @@ class OrderProductCollection(Resource):
         q = OrderProduct.query
         q = filter_festival(q)
         order_products = q.all()
-        return marshal_or_fail(
-            'dump',
-            order_products,
-            OrderProductSchema(),
-            many=True,
-        )
+        return order_product_schema.dump(order_products, many=True).data

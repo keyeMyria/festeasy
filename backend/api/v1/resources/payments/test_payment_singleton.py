@@ -16,5 +16,5 @@ class TestPaymentSingleton(APITestCase):
             'get',
             url_for(endpoint, payment_id=payment.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], payment.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], payment.id, response.json)

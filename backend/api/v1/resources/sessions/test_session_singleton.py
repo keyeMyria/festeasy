@@ -16,5 +16,5 @@ class TestSessionSingleton(APITestCase):
             'get',
             url_for(endpoint, session_id=session.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], session.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], session.id, response.json)

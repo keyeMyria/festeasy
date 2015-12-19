@@ -16,5 +16,5 @@ class TestInvoiceSingleton(APITestCase):
             'get',
             url_for(endpoint, invoice_id=invoice.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], invoice.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], invoice.id, response.json)

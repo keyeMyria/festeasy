@@ -1,15 +1,12 @@
-from marshmallow import fields, Schema
-
+from marshmallow import Schema, fields
 
 from backend.api.v1.exceptions import APIException
 
 
-class SigninSchema(Schema):
-    email_address = fields.Email(load_only=True, required=True)
-    password = fields.String(load_only=True, required=True)
-
-    class Meta:
-        strict = True
+class EntitySchema(Schema):
+    id = fields.Integer(dump_only=True)
+    created_on = fields.DateTime(dump_only=True)
+    last_updated_on = fields.DateTime(dump_only=True)
 
     def handle_error(self, error, data):
         raise APIException(

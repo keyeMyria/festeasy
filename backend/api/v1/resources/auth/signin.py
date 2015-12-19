@@ -4,14 +4,17 @@ from flask import request
 
 from backend import db
 from backend.models import User, Session
-from backend.api.utils import marshal_or_fail
 from backend.api.v1.schemas import SigninSchema, SessionSchema
 from backend.api.v1.exceptions import APIException
 
 
+signin_schema = SigninSchema()
+session_schema = SessionSchema()
+
+
 class Signin(Resource):
     def post(self):
-        load_data = marshal_or_fail('load', request.get_json(), SigninSchema())
+        load_data = signin_schema.load(request.get_json()).data
         email_address = load_data['email_address']
         password = load_data['password']
         user = User.query.filter(
@@ -31,4 +34,4 @@ class Signin(Resource):
         session.generate_token()
         db.session.add(session)
         db.session.commit()
-        return marshal_or_fail('dump', session, SessionSchema())
+        return session_schema.dump(session).data

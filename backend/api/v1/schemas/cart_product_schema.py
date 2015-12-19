@@ -1,7 +1,6 @@
 from marshmallow import fields
 
-from backend.api.utils import EntitySchema
-from . import ProductSchema
+from . import ProductSchema, EntitySchema
 
 
 class CartProductSchema(EntitySchema):

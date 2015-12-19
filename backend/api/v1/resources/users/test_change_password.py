@@ -23,9 +23,11 @@ class TestChangePassword(APITestCase):
             url_for(endpoint, user_id=user.id),
             data=data,
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertFalse(user.has_password(data['current_password']))
-        self.assertTrue(user.has_password(data['new_password']))
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertFalse(
+            user.has_password(data['current_password']), response.json
+        )
+        self.assertTrue(user.has_password(data['new_password']), response.json)
 
     def test_incorrect_password(self):
         current_password = 'a'
@@ -43,5 +45,5 @@ class TestChangePassword(APITestCase):
             url_for(endpoint, user_id=user.id),
             data=data,
         )
-        self.assertEqual(response.status_code, 401)
-        self.assertTrue(user.has_password(current_password))
+        self.assertEqual(response.status_code, 401, response.json)
+        self.assertTrue(user.has_password(current_password), response.json)

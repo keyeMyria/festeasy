@@ -19,5 +19,5 @@ class TestCartProductCollection(APITestCase):
             'get',
             url_for(endpoint),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json[0]['id'], cart_product.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json[0]['id'], cart_product.id, response.json)

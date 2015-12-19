@@ -17,8 +17,8 @@ class TestUserCartSingleton(APITestCase):
             'get',
             url_for(endpoint, user_id=user.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], user.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], user.id, response.json)
 
     def test_patch(self):
         user = factories.UserFactory()
@@ -31,5 +31,6 @@ class TestUserCartSingleton(APITestCase):
             url_for(endpoint, user_id=user.id),
             data=dict(festival_id=festival.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(user.cart.festival_id, festival.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(user.cart.festival_id, festival.id, response.json)
+        self.assertEqual(response.json['id'], user.cart.id, response.json)

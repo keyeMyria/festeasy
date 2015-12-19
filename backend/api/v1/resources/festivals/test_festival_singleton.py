@@ -16,8 +16,8 @@ class TestFestivalSingleton(APITestCase):
             'get',
             url_for(endpoint, festival_id=festival.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], festival.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], festival.id, response.json)
 
     def test_patch(self):
         new_name = 'aaa'
@@ -31,5 +31,5 @@ class TestFestivalSingleton(APITestCase):
                 name=new_name,
             )
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['name'], new_name)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['name'], new_name, response.json)

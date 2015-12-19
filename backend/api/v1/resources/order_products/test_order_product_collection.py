@@ -19,5 +19,5 @@ class TestOrderProductCollection(APITestCase):
                 order_product_id=order_product.id
             ),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json[0]['id'], order_product.id)
+        self.assertEqual(response.status_code, 200, response.data)
+        self.assertEqual(response.json[0]['id'], order_product.id, response.data)
