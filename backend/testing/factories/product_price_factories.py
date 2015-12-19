@@ -9,5 +9,5 @@ class ProductPriceFactory(Factory):
         model = ProductPrice
 
     amount_rands = 9.99
-    info = None
+    notes = None
     product = SubFactory(ProductFactory)
