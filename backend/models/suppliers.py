@@ -35,3 +35,8 @@ class Supplier(db.Model, Entity):
         secondary='product_supplier',
         back_populates='suppliers',
     )
+
+    product_stocks = relationship(
+        'ProductStock',
+        back_populates='supplier',
+    )

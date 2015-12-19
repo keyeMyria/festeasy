@@ -1,12 +1,14 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy import ForeignKey, UniqueConstraint, select
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import Column, Integer
+from sqlalchemy import ForeignKey
 
 from backend import db
 from backend.models import Entity
 
 
 class ProductCategory(db.Model, Entity):
+    """
+    Represents a Product belonging to a Category.
+    """
     __tablename__ = 'product_category'
 
     def __repr__(self):

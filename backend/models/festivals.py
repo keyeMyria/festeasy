@@ -12,7 +12,7 @@ class Festival(db.Model, Entity):
     def __repr__(self):
         return '<Festival {id}>'.format(id=self.id)
 
-    name = Column(String(150), nullable=False)
+    name = Column(String, nullable=False)
     starts_on = Column(DateTime, nullable=False)
     ends_on = Column(DateTime)
     description = Column(String)
