@@ -5,7 +5,7 @@ from flask.ext.script import Shell, Server
 
 from backend import create_app, db
 from backend import models
-from backend.utils import get_test_data
+from backend.utils import get_dummy_data
 
 
 manager = Manager(
@@ -50,8 +50,8 @@ class InitDB(Command):
     def run(self):
         db.drop_all()
         db.create_all()
-        test_data = get_test_data()
-        for item in test_data:
+        dummy_data = get_dummy_data()
+        for item in dummy_data:
             db.session.add(item)
         db.session.commit()
 manager.add_command('init-db', InitDB())

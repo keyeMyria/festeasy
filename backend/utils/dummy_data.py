@@ -4,9 +4,9 @@ from backend.models import User, Product, Festival, Cart, Session
 from backend.models import Category, BaseFestival, ProductPrice
 
 
-def get_test_data():
+def get_dummy_data():
     """
-    Returns a list of test data.
+    Returns a list of dummy data.
     """
     test_user = User(
         email_address='test@festeasy.co.za',

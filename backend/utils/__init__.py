@@ -1,1 +1,1 @@
-from .test_data import get_test_data
+from .dummy_data import get_dummy_data
