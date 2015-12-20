@@ -18,7 +18,11 @@ class TestProductStockCollection(APITestCase):
             url_for(endpoint),
         )
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
-        self.assertEqual(repsonse.json[0]['id'], product_stock.id, repsonse.json)
+        self.assertEqual(
+            repsonse.json[0]['id'],
+            product_stock.id,
+            repsonse.json,
+        )
 
     def test_post(self):
         product = factories.ProductFactory()
@@ -39,4 +43,8 @@ class TestProductStockCollection(APITestCase):
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
         fetched_product_stock = ProductStock.query.first()
         self.assertIsNotNone(fetched_product_stock, repsonse.json)
-        self.assertEqual(fetched_product_stock.product_id, product.id, repsonse.json)
+        self.assertEqual(
+            fetched_product_stock.product_id,
+            product.id,
+            repsonse.json,
+        )

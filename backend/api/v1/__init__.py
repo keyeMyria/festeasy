@@ -19,6 +19,8 @@ from .resources import products
 from .resources import sessions
 from .resources import users
 from .resources import categories
+from .resources import suppliers
+from .resources import product_stocks
 
 
 @v1_bp.errorhandler(APIException)

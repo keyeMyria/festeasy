@@ -2,6 +2,7 @@ import datetime
 
 from backend.models import User, Product, Festival, Cart, Session
 from backend.models import Category, BaseFestival, ProductPrice
+from backend.models import Supplier
 
 
 def get_dummy_data():
@@ -28,6 +29,8 @@ def get_dummy_data():
     drinks = Category(name='Drinks')
     beer = Category(name='Beer')
     food = Category(name='Food')
+    woolies = Supplier(name='Woolies')
+    pp = Supplier(name='Pick n Pay')
     products = [
         Product(
             name='Castle Lite Beer',
@@ -37,7 +40,8 @@ def get_dummy_data():
                 ProductPrice(amount_rands=10),
             ],
             description='A description.',
-            categories=[beer, drinks]
+            categories=[beer, drinks],
+            suppliers=[woolies, pp],
             ),
         Product(
             name='Lays Small Pack',
@@ -48,6 +52,7 @@ def get_dummy_data():
             ],
             description='A description.',
             categories=[food],
+            suppliers=[woolies],
             ),
         Product(
             name='Coke Can',
@@ -58,6 +63,7 @@ def get_dummy_data():
             ],
             description='A description.',
             categories=[drinks],
+            suppliers=[pp],
             ),
         Product(
             name='Windhoek Beer',
@@ -68,6 +74,7 @@ def get_dummy_data():
             ],
             description='A description',
             categories=[drinks, beer],
+            suppliers=[woolies, pp],
             ),
         Product(
             name='Text Chocolate',
@@ -78,6 +85,7 @@ def get_dummy_data():
             ],
             description='A description',
             categories=[food],
+            suppliers=[woolies, pp],
             ),
         Product(
             name='KitKat Chocolate',
@@ -88,6 +96,7 @@ def get_dummy_data():
             ],
             description='a description.',
             categories=[food],
+            suppliers=[woolies],
             ),
         Product(
             name='Jelly Beans',
@@ -98,6 +107,7 @@ def get_dummy_data():
             ],
             description='A description.',
             categories=[food],
+            suppliers=[woolies],
             ),
     ]
     rtd = BaseFestival(name='Rocking The Diasies')
