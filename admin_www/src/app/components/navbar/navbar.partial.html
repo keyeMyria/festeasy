@@ -21,6 +21,12 @@
           </a>
         </li>
         <li ng-show="isAuthenticated()" ui-sref-active="active">
+          <a ui-sref="base.stock.overview" ui-sref-opts="{reload:true}">
+            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+            Stock
+          </a>
+        </li>
+        <li ng-show="isAuthenticated()" ui-sref-active="active">
           <a ui-sref="base.users" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             Users

@@ -8,6 +8,7 @@ app = angular.module('app', [
     'users'
     'festivals'
     'whatToBuy'
+    'stock'
 ])
 
 app.config(($locationProvider) ->
