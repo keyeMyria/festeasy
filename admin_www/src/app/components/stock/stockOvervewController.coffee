@@ -4,10 +4,13 @@ stock.controller('stockOverviewController', ($scope, supplierService, productSer
 	$scope.costRands = null
 	$scope.quantity = null
 
-	getProductStocks = productStockService.getList()
-	getProductStocks.then((response) ->
-		$scope.productStocks = response
-	)
+	$scope.fetchProductStocks = () ->
+		getProductStocks = productStockService.getList()
+		getProductStocks.then((response) ->
+			$scope.productStocks = response
+		)
+
+	$scope.fetchProductStocks()
 
 	getSuppliers = supplierService.getList()
 	getSuppliers.then((response) ->
@@ -34,5 +37,9 @@ stock.controller('stockOverviewController', ($scope, supplierService, productSer
 		post = productStockService.post(params)
 		post.then((response) ->
 			ngNotify.set('Successfully created new stock product.')
+		)
+		post.finally((response) ->
+			console.log 'finally'
+			$scope.fetchProductStocks()
 		)
 )
