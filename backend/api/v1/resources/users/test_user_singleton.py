@@ -1,7 +1,7 @@
 from flask import url_for
 
 from backend import db
-from backend.testing import APITestCase
+from backend.testing import APITestCase, factories
 from backend.models import User
 
 
@@ -10,34 +10,33 @@ endpoint = 'v1.usersingleton'
 
 class TestUserSingleton(APITestCase):
     def test_get(self):
-        user = self.create_user(normal_user=True, with_cart=True)
+        user = factories.UserFactory()
         db.session.add(user)
         db.session.commit()
         response = self.api_request(
             'get',
             url_for(endpoint, user_id=user.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], user.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], user.id, response.json)
 
     def test_patch(self):
-        first_name = 'a'
-        new_first_name = 'b'
-        user = self.create_user(
-            first_name=first_name,
-            normal_user=True,
-            with_cart=True
+        user = factories.UserFactory()
+        data = dict(
+            first_name='b',
         )
         db.session.add(user)
         db.session.commit()
         response = self.api_request(
             'patch',
             url_for(endpoint, user_id=user.id),
-            data=dict(
-                first_name=new_first_name,
-            )
+            data=data,
         )
         fetched_user = User.query.first()
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(fetched_user.first_name, new_first_name)
-        self.assertEqual(response.json['id'], user.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(
+            fetched_user.first_name,
+            data['first_name'],
+            response.json,
+        )
+        self.assertEqual(response.json['id'], user.id, response.json)

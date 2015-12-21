@@ -72,3 +72,6 @@ admin_www/node_modules/
 # Compile directory
 www/dist/
 admin_www/dist/
+
+# Live config file
+backend/config/live.py

@@ -1,25 +1,42 @@
 <div class="container">
-	<loading-indicator data="cart && festival && cartProducts" error="error"></loading-indicator>
-	<div ng-show="cart && festival && cartProducts">
-		Festival: {{festival.name}}
-		<br/>
-		<table class="table">
-			<th>Item Description</th>
-			<th>Quantity</th>
-			<th>Unit Price</th>
-			<th>Sub Total</th>
-			<tr ng-repeat="cartProduct in cartProducts">
-				<td>{{cartProduct.product.name}}</td>
-				<td>{{cartProduct.quantity}}</td>
-				<td>{{cartProduct.product.price_rands}}</td>
-				<td>{{cartProduct.sub_total_rands}}</td>
-			</tr>
-		</table>
-		<div class="pull-right">
+	<div class="col-md-8 col-md-offset-2">
+		<loading-indicator data="cart && festival && cartProducts" error="error"></loading-indicator>
+		<div ng-show="cart && festival && cartProducts">
 			<p class="lead">
-				Total: {{cart.total_rands}}
+				Order for: 
+				<a style="cursor:pointer;" ui-sref="base.festivals.festival({festivalId:festival.id})">
+					{{festival.name + ' ' + (festival.starts_on | date: 'yyyy')}}
+				</a>
 			</p>
-			<button ng-click="checkout()" class="btn btn-success btn-lg">Place order</button>
+			<div>
+				<p>Starts: {{festival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
+				<p>Ends: {{festival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
+			</div>
+			<br/>
+			<table class="table">
+				<th>Item Description</th>
+				<th>Quantity</th>
+				<th>Unit Price</th>
+				<th>Sub Total</th>
+				<tr ng-repeat="cartProduct in cartProducts">
+					<td>
+						<a 
+							ui-sref="base.store.product({productId: cartProduct.product.id})" 
+							ui-sref-opts="{inherit: false}">
+							{{cartProduct.product.name}}
+						</a>
+					</td>
+					<td>{{cartProduct.quantity}}</td>
+					<td><rands amount-rands="cartProduct.product.price_rands"></rands></td>
+					<td><rands amount-rands="cartProduct.sub_total_rands"></rands></td>
+				</tr>
+			</table>
+			<div class="pull-right">
+				<p class="lead">
+					Total: <rands amount-rands="cart.total_rands"></rands>
+				</p>
+				<button ng-click="checkout()" class="btn btn-success btn-lg">Place order</button>
+			</div>
 		</div>
 	</div>
 </div>

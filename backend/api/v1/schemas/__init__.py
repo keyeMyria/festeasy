@@ -1,3 +1,4 @@
+from .entity_schema import EntitySchema
 from .user_schema import UserSchema
 from .session_schema import SessionSchema
 from .product_schema import ProductSchema
@@ -13,3 +14,5 @@ from .signup_schema import SignupSchema
 from .signin_schema import SigninSchema
 from .change_password_schema import ChangePasswordSchema
 from .category_schema import CategorySchema
+from .supplier_schema import SupplierSchema
+from .product_stock_schema import ProductStockSchema

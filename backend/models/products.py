@@ -80,3 +80,8 @@ class Product(db.Model, Entity):
         secondary='product_supplier',
         back_populates='products',
     )
+
+    product_stocks = relationship(
+        'ProductStock',
+        back_populates='product',
+    )

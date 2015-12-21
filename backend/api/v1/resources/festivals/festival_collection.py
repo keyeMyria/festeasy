@@ -3,8 +3,10 @@ from flask_restful import Resource
 from dateutil.parser import parse
 
 from backend.models import Festival
-from backend.api.utils import marshal_or_fail
 from backend.api.v1.schemas import FestivalSchema
+
+
+festival_schema = FestivalSchema()
 
 
 def filter_starts_on(q):
@@ -24,4 +26,4 @@ class FestivalCollection(Resource):
         q = Festival.query
         q = filter_starts_on(q)
         festivals = q.all()
-        return marshal_or_fail('dump', festivals, FestivalSchema(), many=True)
+        return festival_schema.dump(festivals, many=True).data

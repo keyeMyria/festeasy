@@ -1,6 +1,7 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 from flask_restful import Api
 
+from .exceptions import APIException
 
 v1_bp = Blueprint('v1', __name__)
 v1_api = Api(v1_bp)
@@ -18,6 +19,16 @@ from .resources import products
 from .resources import sessions
 from .resources import users
 from .resources import categories
+from .resources import suppliers
+from .resources import product_stocks
+
+
+@v1_bp.errorhandler(APIException)
+def handle_api_exception(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
 
 @v1_bp.route('/')
 def hi():

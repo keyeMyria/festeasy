@@ -3,12 +3,14 @@ import logging
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
+from flask_mail import Mail
 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARN)
 
 db = SQLAlchemy()
+mail = Mail()
 
 
 def create_app(config):
@@ -18,7 +20,6 @@ def create_app(config):
     app.config.from_pyfile('config/default.py'.format(config))
 
     if config == 'testing':
-        logger.warn('Loading config from backend/config/testing.py')
         app.config.from_pyfile('config/testing.py'.format(config))
     elif config == 'file':
         logger.warn('Loading additional config from backend/config/live.py')
@@ -36,5 +37,6 @@ def create_app(config):
     app.register_blueprint(v1_bp, url_prefix='/api/v1')
 
     db.init_app(app)
+    mail.init_app(app)
 
     return app

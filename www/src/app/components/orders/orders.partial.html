@@ -7,8 +7,8 @@
 			<th>Total</th>
 			<tr ng-repeat="order in orders">
 				<td><a ui-sref="base.order({orderId: order.id})">{{order.id}}</a></td>
-				<td>{{order.festival.name}}</td>
-				<td>{{order.total_rands}}</td>
+				<td>{{order.festival.name + ' ' + (order.festival.starts_on | date: 'yyyy')}}</td>
+				<td><rands amount-rands="order.total_rands"></rands></td>
 			</tr>
 		</table>
 	</div>

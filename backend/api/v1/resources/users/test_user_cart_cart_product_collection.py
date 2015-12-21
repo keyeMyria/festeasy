@@ -1,7 +1,7 @@
 from flask import url_for
 
 from backend import db
-from backend.testing import APITestCase
+from backend.testing import APITestCase, factories
 from backend.models import CartProduct
 
 
@@ -14,21 +14,24 @@ class TestUserCartCartProductCollection(APITestCase):
         Test that only a specific user's cart products are returned,
         with a 200 status.
         """
-        user = self.create_user(
-            normal_user=True,
-            with_cart=True,
-        )
-        cart_product = self.create_cart_product(
-            product=self.create_product(create_valid_product=True),
+        user = factories.UserFactory()
+        cart_product = factories.CartProductFactory(
+            product=factories.ProductFactory(
+                product_prices=[
+                    factories.ProductPriceFactory(),
+                ],
+            ),
             cart=user.cart,
         )
-        other_user = self.create_user(
-            normal_user=True,
-            with_cart=True,
-            email_address='NotTheSame@different.com'
+        other_user = factories.UserFactory(
+            email_address='NotTheSame@different',
         )
-        other_cart_product = self.create_cart_product(
-            product=self.create_product(create_valid_product=True),
+        other_cart_product = factories.CartProductFactory(
+            product=factories.ProductFactory(
+                product_prices=[
+                    factories.ProductPriceFactory(),
+                ],
+            ),
             cart=other_user.cart,
         )
         db.session.add(user)
@@ -42,14 +45,22 @@ class TestUserCartCartProductCollection(APITestCase):
             'get',
             url_for(endpoint, user_id=user.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json), 1)
-        self.assertEqual(response.json[0]['id'], cart_product.id)
-        self.assertNotEqual(response.json[0]['id'], other_cart_product.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(len(response.json), 1, response.json)
+        self.assertEqual(
+            response.json[0]['id'],
+            cart_product.id,
+            response.json,
+        )
+        self.assertNotEqual(
+            response.json[0]['id'],
+            other_cart_product.id,
+            response.json,
+        )
 
     def test_post(self):
-        user = self.create_user(normal_user=True, with_cart=True)
-        product = self.create_product(create_valid_product=True)
+        user = factories.UserFactory()
+        product = factories.ProductFactory()
         db.session.add(user)
         db.session.add(product)
         db.session.commit()
@@ -63,6 +74,6 @@ class TestUserCartCartProductCollection(APITestCase):
             data=new_cart_product,
         )
         cart_products = CartProduct.query.all()
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(cart_products), 1)
-        self.assertEqual(cart_products[0].cart_id, user.cart.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(len(cart_products), 1, response.json)
+        self.assertEqual(cart_products[0].cart_id, user.cart.id, response.json)

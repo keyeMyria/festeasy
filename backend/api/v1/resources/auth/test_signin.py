@@ -2,8 +2,7 @@ from flask import url_for
 
 from backend import db
 from backend.models import Session
-from backend.testing import APITestCase
-
+from backend.testing import APITestCase, factories
 
 endpoint = 'v1.signin'
 
@@ -13,11 +12,10 @@ class TestSignin(APITestCase):
         email_address = 'asd@asdf.com'
         password = '123'
         first_name = 'Juan'
-        user = self.create_user(
+        user = factories.UserFactory(
             email_address=email_address,
             password=password,
             first_name=first_name,
-            with_cart=True,
         )
         db.session.add(user)
         db.session.commit()
@@ -31,7 +29,7 @@ class TestSignin(APITestCase):
             )
         )
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['user_id'], user.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['user_id'], user.id, response.json)
         fetched_session = Session.query.first()
-        self.assertEqual(fetched_session.user, user)
+        self.assertEqual(fetched_session.user, user, response.json)

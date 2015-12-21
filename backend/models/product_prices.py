@@ -7,13 +7,19 @@ from backend.models import Entity
 
 
 class ProductPrice(db.Model, Entity):
+    """
+    Represents the retail price for a Product.
+    """
     __tablename__ = 'product_price'
 
     def __repr__(self):
         return '<ProductPrice {id}>'.format(id=self.id)
 
     amount_rands = Column(Numeric)
-    info = Column(String)
+    notes = Column(String)
+
+    # TODO: Implement ProductPrice coming into effect after date.
+    # effective_from = Column(Datetime)
 
     product_id = Column(
         Integer,

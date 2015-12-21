@@ -4,14 +4,17 @@ from flask import request
 
 from backend import db
 from backend.models import User, Session, Cart
-from backend.api.utils import marshal_or_fail
 from backend.api.v1.schemas import SignupSchema, SessionSchema
 from backend.api.v1.exceptions import APIException
 
 
+signup_schema = SignupSchema()
+session_schema = SessionSchema()
+
+
 class Signup(Resource):
     def post(self):
-        load_data = marshal_or_fail('load', request.get_json(), SignupSchema())
+        load_data = signup_schema.load(request.get_json()).data
         existing_user = User.query.filter(
             User.email_address == load_data['email_address']
             ).first()
@@ -30,4 +33,4 @@ class Signup(Resource):
         session.generate_token()
         db.session.add(session)
         db.session.commit()
-        return marshal_or_fail('dump', session, SessionSchema())
+        return session_schema.dump(session).data

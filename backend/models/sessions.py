@@ -10,10 +10,6 @@ from backend.models import Entity
 class Session(db.Model, Entity):
     __tablename__ = 'session'
 
-    def __init__(self, expires_on, user):
-        self.expires_on = expires_on
-        self.user = user
-
     def generate_token(self):
         payload = {
             'sub': self.user.id,

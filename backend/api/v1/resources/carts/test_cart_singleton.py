@@ -1,7 +1,7 @@
 from flask import url_for
 
 from backend import db
-from backend.testing import APITestCase
+from backend.testing import APITestCase, factories
 from backend.models import Cart, Festival
 
 
@@ -10,23 +10,19 @@ endpoint = 'v1.cartsingleton'
 
 class TestCartSingleton(APITestCase):
     def test_get(self):
-        cart = Cart()
+        cart = factories.CartFactory()
         db.session.add(cart)
         db.session.commit()
         response = self.api_request(
             'get',
             url_for(endpoint, cart_id=cart.id),
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['id'], cart.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.json['id'], cart.id, response.json)
 
     def test_patch(self):
-        cart = Cart()
-        festival = self.create_festival(
-            pre_populate=True,
-            name='Test Event',
-            base_festival=self.create_base_festival(),
-        )
+        cart = factories.CartFactory()
+        festival = factories.FestivalFactory()
         db.session.add(cart)
         db.session.add(festival)
         db.session.commit()
@@ -37,5 +33,9 @@ class TestCartSingleton(APITestCase):
                 festival_id=festival.id,
             )
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['festival_id'], festival.id)
+        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(
+            response.json['festival_id'],
+            festival.id,
+            response.json,
+        )
