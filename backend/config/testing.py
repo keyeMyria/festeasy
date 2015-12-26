@@ -1,2 +1,3 @@
 TESTING = True
 SQLALCHEMY_DATABASE_URI = 'sqlite://'
+EMAILER_BACKEND = 'DummyEmailer'

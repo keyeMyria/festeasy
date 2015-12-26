@@ -1,9 +1,9 @@
-from . import Emailer
+from . import BaseEmailer
 
 
-class DummyEmailer(Emailer):
+class DummyEmailer(BaseEmailer):
     """
-    Emailer which is to be used for tests.
+    Emailer which does nothing.
     """
     def send_email(to, from_name, from_address, subject, body):
         pass

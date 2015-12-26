@@ -4,11 +4,14 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
 
+from backend.emailer import Emailer
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARN)
 
 db = SQLAlchemy()
+emailer = Emailer()
 
 
 def create_app(config):
@@ -35,5 +38,6 @@ def create_app(config):
     app.register_blueprint(v1_bp, url_prefix='/api/v1')
 
     db.init_app(app)
+    emailer.init_app(app)
 
     return app
