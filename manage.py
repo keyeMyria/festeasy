@@ -17,7 +17,7 @@ manager.add_option(
     '-c',
     '--config',
     dest='config',
-    required=True,
+    default='file',
 )
 
 
