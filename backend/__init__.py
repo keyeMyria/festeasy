@@ -28,6 +28,9 @@ def create_app(config):
     elif config == 'env':
         logger.warn('Loading additional config from environment variables.')
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
+        app.config['EMAILER_BACKEND'] = os.environ["EMAILER_BACKEND"]
+        app.config['MAILGUN_DOMAIN'] = os.environ["MAILGUN_DOMAIN"]
+        app.config['MAILGUN_API_KEY'] = os.environ["MAILGUN_API_KEY"]
     else:
         raise Exception('Unrecognized config paramter.')
 
