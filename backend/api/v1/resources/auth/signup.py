@@ -37,7 +37,13 @@ class Signup(Resource):
         session.generate_token()
         db.session.add(session)
         db.session.commit()
-        emailer.send_email(user.email_address, 'FestEasy', 'info@festeasy.co.za', 'Welcome', template.render(
-            first_name=user.first_name,
-        ))
+        emailer.send_email(
+            user.email_address,
+            'FestEasy',
+            'info@festeasy.co.za',
+            'Welcome',
+            template.render(
+                first_name=user.first_name,
+            )
+        )
         return session_schema.dump(session).data
