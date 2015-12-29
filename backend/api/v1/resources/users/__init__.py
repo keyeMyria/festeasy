@@ -19,6 +19,5 @@ v1_api.add_resource(UserOrderSingleton,
                     '/users/<int:user_id>/orders/<order_id>')
 v1_api.add_resource(UserCartCartProductCollection,
                     '/users/<int:user_id>/cart/cart-products')
-
 v1_api.add_resource(ChangePassword,
                     '/users/<int:user_id>/change-password')
