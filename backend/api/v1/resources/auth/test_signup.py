@@ -1,4 +1,4 @@
-from flask import url_for
+from flask import url_for, current_app
 
 from backend.models import User, Session
 from backend.testing import APITestCase
@@ -30,3 +30,5 @@ class TestSignup(APITestCase):
         self.assertEqual(fetched_user.email_address, email_address, response.json)
         self.assertTrue(fetched_user.has_password(password), response.json)
         self.assertIsNotNone(fetched_session, response.json)
+        with open(current_app.config['FILE_EMAILER_PATH']) as f:
+            self.assertTrue(f, f.readlines())

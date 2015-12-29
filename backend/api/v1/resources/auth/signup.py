@@ -1,9 +1,9 @@
 import datetime
 from flask_restful import Resource
 from flask import request
-from jinja2 import Environment, PackageLoader
 
-from backend import db, emailer
+from backend import db
+from backend.tasks import send_templated_email
 from backend.models import User, Session, Cart
 from backend.api.v1.schemas import SignupSchema, SessionSchema
 from backend.api.v1.exceptions import APIException
@@ -11,9 +11,6 @@ from backend.api.v1.exceptions import APIException
 
 signup_schema = SignupSchema()
 session_schema = SessionSchema()
-
-env = Environment(loader=PackageLoader('backend', 'email_templates'))
-template = env.get_template('signup.tmpl.html')
 
 
 class Signup(Resource):
@@ -26,7 +23,7 @@ class Signup(Resource):
             raise APIException(
                 'A user with that email address already exists.',
                 409,
-                )
+            )
         user = User(**load_data)
         user.cart = Cart()
         now = datetime.datetime.now()
@@ -37,13 +34,9 @@ class Signup(Resource):
         session.generate_token()
         db.session.add(session)
         db.session.commit()
-        emailer.send_email(
-            user.email_address,
-            'FestEasy',
-            'info@festeasy.co.za',
-            'Welcome',
-            template.render(
-                first_name=user.first_name,
-            )
+        send_templated_email(user.email_address, 'Welcome', 'signup.html',
+            {
+                'first_name': user.first_name,
+            },
         )
         return session_schema.dump(session).data
