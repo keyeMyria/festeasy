@@ -30,7 +30,7 @@ class TestForgotPasswordTokenCollection(APITestCase):
         db.session.add(user)
         db.session.commit()
         data = dict(
-            user_id=user.id,
+            email_address=user.email_address,
         )
         response = self.api_request(
             'post',
