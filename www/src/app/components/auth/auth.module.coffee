@@ -2,6 +2,7 @@ auth = angular.module('auth', [
 	'ui.router',
 	'satellizer',
 	'conf',
+	'services',
 ])
 
 auth.config(($authProvider, API_END_POINT) ->
@@ -35,5 +36,10 @@ auth.config(($stateProvider) ->
             url: '/signup?returnStateName'
             templateUrl: 'signup.partial.html'
             controller: 'signupController'
+        })
+        .state('base.forgot-password', {
+        	url: '/forgot-password'
+        	templateUrl: 'forgot-password.partial.html'
+        	controller: 'forgotPasswordController'
         })
 )
