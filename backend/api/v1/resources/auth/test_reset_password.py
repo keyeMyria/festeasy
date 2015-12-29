@@ -1,3 +1,4 @@
+import datetime
 from flask import url_for
 
 from backend import db
@@ -47,3 +48,24 @@ class TestResetPassword(APITestCase):
             data=data,
         )
         self.assertEqual(response.status_code, 404, response.json)
+
+    def test_invalid_token(self):
+        now = datetime.datetime.utcnow()
+        new_password = '123321'
+        user = factories.UserFactory()
+        fpt = ForgotPasswordToken.create_for_user(user)
+        fpt.used_on = now
+        db.session.add(fpt)
+        db.session.add(user)
+        db.session.commit()
+        data = dict(
+            token=fpt.token,
+            password=new_password,
+        )
+        response = self.api_request(
+            'post',
+            url_for(endpoint),
+            data=data,
+        )
+        self.assertEqual(response.status_code, 400, response.json)
+        self.assertFalse(user.has_password(new_password))

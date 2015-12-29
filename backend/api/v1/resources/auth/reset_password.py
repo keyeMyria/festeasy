@@ -25,7 +25,10 @@ class ResetPassword(Resource):
             ForgotPasswordToken.token == token,
         )
         if not forgot_password_token.is_valid():
-            raise APIException(code=402)
+            raise APIException(
+                status_code=400,
+                message='Invalid or expired token.'
+            )
         forgot_password_token.used_on = now
         user = forgot_password_token.user
         user.set_password(password)
