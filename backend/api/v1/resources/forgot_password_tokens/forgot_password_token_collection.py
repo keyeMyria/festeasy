@@ -34,10 +34,12 @@ class ForgotPasswordTokenCollection(Resource):
         forgot_password_token = ForgotPasswordToken.create_for_user(user)
         db.session.add(forgot_password_token)
         db.session.commit()
+        host_url = (request.environ['HTTP_ORIGIN']
+                    if 'HTTP_ORIGIN' in request.environ.keys() else None)
         url = (
             '{host_url}/reset-password?token={token}'
             .format(
-                host_url=request.environ['HTTP_ORIGIN'],
+                host_url=host_url,
                 token=forgot_password_token.token,
             )
         )

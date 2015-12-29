@@ -28,6 +28,7 @@ class TestResetPassword(APITestCase):
         self.assertEqual(response.status_code, 200, response.json)
         fetched_user = User.query.one()
         self.assertTrue(fetched_user.has_password(new_password))
+        self.assertFalse(fpt.is_valid())
 
     def test_incorrect_token(self):
         new_password = '123321'

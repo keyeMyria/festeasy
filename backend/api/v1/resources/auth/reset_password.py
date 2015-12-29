@@ -1,4 +1,5 @@
 import logging
+import datetime
 from flask_restful import Resource
 from flask import request
 
@@ -15,6 +16,7 @@ reset_password_schema = ResetPasswordSchema()
 
 class ResetPassword(Resource):
     def post(self):
+        now = datetime.datetime.utcnow()
         load_data = reset_password_schema.load(request.get_json()).data
         token = load_data['token']
         password = load_data['password']
@@ -24,8 +26,10 @@ class ResetPassword(Resource):
         )
         if not forgot_password_token.is_valid():
             raise APIException(code=402)
+        forgot_password_token.used_on = now
         user = forgot_password_token.user
         user.set_password(password)
+        db.session.add(forgot_password_token)
         db.session.add(user)
         db.session.commit()
         return
