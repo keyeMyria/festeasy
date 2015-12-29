@@ -17,7 +17,7 @@ def send_templated_email(to, subject, template_name, data, from_name=None,
         to,
         'FestEasy',
         'info@festeasy.co.za',
-        'Welcome',
+        subject,
         template.render(
             data,
         )

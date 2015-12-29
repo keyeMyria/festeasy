@@ -5,6 +5,7 @@ from backend import db
 from backend.models import User, ForgotPasswordToken
 from backend.api.v1.schemas import ForgotPasswordTokenSchema
 from backend.api.utils import get_or_404
+from backend.tasks import send_templated_email
 
 
 forgot_password_token_schema = ForgotPasswordTokenSchema()
@@ -33,4 +34,20 @@ class ForgotPasswordTokenCollection(Resource):
         forgot_password_token = ForgotPasswordToken.create_for_user(user)
         db.session.add(forgot_password_token)
         db.session.commit()
+        url = (
+            '{host_url}/reset-password?token={token}'
+            .format(
+                host_url=request.environ['HTTP_ORIGIN'],
+                token=forgot_password_token.token,
+            )
+        )
+        send_templated_email(
+            user.email_address,
+            'Forgot Password',
+            'forgot-password.html',
+            data=dict(
+                first_name=user.first_name,
+                url=url,
+            ),
+        )
         return forgot_password_token_schema.dump(forgot_password_token).data

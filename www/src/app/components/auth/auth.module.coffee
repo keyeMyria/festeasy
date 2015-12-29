@@ -42,4 +42,9 @@ auth.config(($stateProvider) ->
         	templateUrl: 'forgot-password.partial.html'
         	controller: 'forgotPasswordController'
         })
+        .state('base.reset-password', {
+            url: '/reset-password?token'
+            templateUrl: 'reset-password.partial.html'
+            controller: 'resetPasswordController'
+        })
 )
