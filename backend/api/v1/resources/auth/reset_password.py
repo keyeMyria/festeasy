@@ -15,6 +15,7 @@ reset_password_schema = ResetPasswordSchema()
 
 
 class ResetPassword(Resource):
+    # TODO: Invalidate all current sessions
     def post(self):
         now = datetime.datetime.utcnow()
         load_data = reset_password_schema.load(request.get_json()).data
