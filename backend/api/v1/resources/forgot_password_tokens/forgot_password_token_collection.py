@@ -10,7 +10,23 @@ from backend.api.utils import get_or_404
 forgot_password_token_schema = ForgotPasswordTokenSchema()
 
 
+def token_filter(token, q):
+    q = q.filter_by(token=token)
+    return q
+
+
 class ForgotPasswordTokenCollection(Resource):
+    def get(self):
+        q = ForgotPasswordToken.query
+        token = request.args.get('token')
+        if token:
+            q = token_filter(token, q)
+        forgot_password_tokens = q.all()
+        return (forgot_password_token_schema.dump(
+                forgot_password_tokens,
+                many=True)
+                .data)
+
     def post(self):
         data = forgot_password_token_schema.load(request.get_json()).data
         user = get_or_404(User, User.id == data['user_id'])
