@@ -18,5 +18,9 @@ auth.controller('resetPasswordController', ($scope, $stateParams, authService,
 		)
 		post.catch((response) ->
 			ngNotify.set('Failed to reset password.', 'error')
+			if response.status == 400
+				$scope.message = 'Token invalid or expired. Please try again.'
+			else if response.status == 404
+				$scope.message = 'Token not found. Please try again.'	
 		)
 )
