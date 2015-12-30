@@ -1,7 +1,14 @@
-whatToBuy.controller('whatToBuyOverviewController', ($scope, $state, orderProductService, festivalService, $stateParams) ->
+whatToBuy.controller('whatToBuyOverviewController', (
+		$scope, $state, orderProductService, festivalService, $stateParams, productStockService) ->
 	params = {}
 	if $stateParams['festival-id']
 		params['festival-id'] = $stateParams['festival-id']
+
+	fetchProductStocks = () ->
+		getProductStocks = productStockService.getList()
+		getProductStocks.then((response) ->
+			$scope.productStocks = response
+		)
 
 	fetchOrderProducts = (params) ->
 		getOrderProducts = orderProductService.getList(params)
@@ -26,6 +33,14 @@ whatToBuy.controller('whatToBuyOverviewController', ($scope, $state, orderProduc
 		params['festival-id'] = festival.id
 		$state.go('base.whatToBuy.overview', params, {reload: true})
 
+	$scope.countProductStocks = (product, productStocks) ->
+		count = 0
+		for produtStock in productStocks
+			if product.id == produtStock.product.id
+				count += 1
+		return count
+
 	fetchOrderProducts(params)
+	fetchProductStocks()
 	fetchFestivals()
 )
