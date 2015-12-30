@@ -45,7 +45,6 @@ stock.controller('stockOverviewController', (
 			ngNotify.set('Successfully created new stock products.')
 		)
 		post.finally((response) ->
-			console.log 'finally'
 			$scope.fetchProductStocks()
 		)
 )
