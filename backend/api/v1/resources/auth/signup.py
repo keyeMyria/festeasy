@@ -34,9 +34,12 @@ class Signup(Resource):
         session.generate_token()
         db.session.add(session)
         db.session.commit()
-        send_templated_email(user.email_address, 'Welcome', 'signup.html',
-            {
-                'first_name': user.first_name,
-            },
+        send_templated_email(
+            user.email_address,
+            'Welcome',
+            'signup.html',
+            dict(
+                first_name=user.first_name,
+            ),
         )
         return session_schema.dump(session).data

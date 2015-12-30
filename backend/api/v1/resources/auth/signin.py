@@ -19,7 +19,7 @@ class Signin(Resource):
         password = load_data['password']
         user = User.query.filter(
             User.email_address == email_address,
-            ).first()
+        ).first()
         if not user or not user.has_password(password):
             raise APIException(
                 'Incorrect email address and password combination.',

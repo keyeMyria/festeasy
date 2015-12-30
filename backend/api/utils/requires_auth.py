@@ -30,6 +30,8 @@ def requires_auth(f):
         user_id = payload['sub']
         user = User.query.filter(User.id == user_id).first()
         if not user:
-            raise Exception('No user for given token. This should never happen.')
+            raise Exception(
+                'No user for given token. This should never happen.'
+            )
         return f(*args, authenticated_user=user, **kwargs)
     return decorated
