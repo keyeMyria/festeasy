@@ -25,7 +25,7 @@ class Signin(Resource):
                 'Incorrect email address and password combination.',
                 401,
             )
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
         expires_on = now + datetime.timedelta(days=14)
         session = Session(
             expires_on=expires_on,

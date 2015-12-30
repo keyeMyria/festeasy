@@ -18,7 +18,7 @@ class TestForgotPasswordToken(ModelTestCase):
         self.assertTrue(forgot_password_token.is_valid())
 
     def test_is_valid(self):
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
         past_date = now - datetime.timedelta(seconds=10)
         future_date = now + datetime.timedelta(seconds=10)
 

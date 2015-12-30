@@ -7,7 +7,7 @@ from backend.testing import factories
 
 class TestSession(ModelTestCase):
     def test_is_valid_with_future_date(self):
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
         future_date = now + datetime.timedelta(days=1)
         session = factories.SessionFactory(user=None)
         user = factories.UserFactory()
@@ -21,7 +21,7 @@ class TestSession(ModelTestCase):
         self.assertTrue(session.is_valid())
 
     def test_is_valid_with_past_date(self):
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
         past_date = now - datetime.timedelta(days=1)
         session = factories.SessionFactory(user=None)
         user = factories.UserFactory()

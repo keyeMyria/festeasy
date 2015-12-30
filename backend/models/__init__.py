@@ -9,13 +9,13 @@ class Entity(object):
     id = Column(Integer, primary_key=True)
     created_on = Column(
         DateTime,
-        default=datetime.datetime.utcnow,
+        default=datetime.datetime.now,
         nullable=False,
     )
     last_updated_on = db.Column(
         db.DateTime,
-        default=datetime.datetime.utcnow,
-        onupdate=datetime.datetime.utcnow,
+        default=datetime.datetime.now,
+        onupdate=datetime.datetime.now,
         nullable=False,
     )
 

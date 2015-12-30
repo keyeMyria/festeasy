@@ -50,7 +50,7 @@ class TestResetPassword(APITestCase):
         self.assertEqual(response.status_code, 404, response.json)
 
     def test_invalid_token(self):
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
         new_password = '123321'
         user = factories.UserFactory()
         fpt = ForgotPasswordToken.create_for_user(user)
