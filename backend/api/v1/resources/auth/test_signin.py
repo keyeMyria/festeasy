@@ -29,7 +29,7 @@ class TestSignin(APITestCase):
             )
         )
 
-        self.assertEqual(response.status_code, 200, response.json)
+        self.assertEqual(response.status_code, 202, response.json)
         self.assertEqual(response.json['user_id'], user.id, response.json)
         fetched_session = Session.query.first()
         self.assertEqual(fetched_session.user, user, response.json)
