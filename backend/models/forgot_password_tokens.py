@@ -19,7 +19,7 @@ class ForgotPasswordToken(db.Model, Entity):
     )
 
     def is_valid(self):
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
         return self.expires_on > now and not self.used_on
 
     @staticmethod
@@ -28,7 +28,7 @@ class ForgotPasswordToken(db.Model, Entity):
 
     @staticmethod
     def create_for_user(user):
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
         token = str(uuid4())
         expires_on = now + datetime.timedelta(days=7)
         return ForgotPasswordToken(

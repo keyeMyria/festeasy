@@ -1,3 +1,4 @@
+import datetime
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy import ForeignKey, CheckConstraint
 from sqlalchemy import or_, and_
@@ -6,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 from backend import db
-from backend.models import Entity
+from backend.models import Entity, Session
 
 
 class User(db.Model, Entity):
@@ -34,6 +35,18 @@ class User(db.Model, Entity):
 
     def has_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def invalidate_active_sessions(self):
+        now = datetime.datetime.now()
+        active_sessions = (
+            Session.query
+            .filter(Session.user_id == self.id)
+            .filter(Session.expires_on >= now)
+            .all())
+        for active_session in active_sessions:
+            active_session.expires_on = now
+            db.session.add(active_session)
+        db.session.commit()
 
     email_address = Column(String(200), unique=True, nullable=True)
     password_hash = Column(String(200), nullable=True)

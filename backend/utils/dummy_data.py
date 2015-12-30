@@ -1,6 +1,6 @@
 import datetime
 
-from backend.models import User, Product, Festival, Cart, Session
+from backend.models import User, Product, Festival, Cart
 from backend.models import Category, BaseFestival, ProductPrice
 from backend.models import Supplier
 
@@ -17,12 +17,6 @@ def get_dummy_data():
         cart=Cart()
         )
     now = datetime.datetime.now()
-    never = now + datetime.timedelta(days=1000)
-    session = Session(user=test_user, expires_on=never)
-    session.generate_token()
-    test_user.sessions.append(
-        session,
-    )
     users = [
         test_user,
     ]

@@ -12,6 +12,7 @@ class Session(db.Model, Entity):
     __tablename__ = 'session'
 
     def generate_token(self):
+        # TODO: Sort out token generation mess
         assert self.user.id is not None
         payload = {
             'sub': self.user.id,
@@ -34,5 +35,5 @@ class Session(db.Model, Entity):
     )
 
     def is_valid(self):
-        now = datetime.datetime.utcnow()
+        now = datetime.datetime.now()
         return self.expires_on > now
