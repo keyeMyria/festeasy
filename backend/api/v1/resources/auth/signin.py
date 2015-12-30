@@ -5,7 +5,7 @@ from flask import request
 from backend import db
 from backend.models import User, Session
 from backend.api.v1.schemas import SigninSchema, SessionSchema
-from backend.api.v1.exceptions import APIException
+from backend.exceptions import APIException
 
 
 signin_schema = SigninSchema()

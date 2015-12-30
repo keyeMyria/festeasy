@@ -1,6 +1,6 @@
 from sqlalchemy.orm import exc
 
-from backend.api.v1.exceptions import APIException
+from backend.exceptions import APIException
 
 
 def get_or_404(model, *criterion):

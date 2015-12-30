@@ -6,7 +6,7 @@ from backend import db
 from backend.tasks import send_templated_email
 from backend.models import User, Session, Cart
 from backend.api.v1.schemas import SignupSchema, SessionSchema
-from backend.api.v1.exceptions import APIException
+from backend.exceptions import APIException
 
 
 signup_schema = SignupSchema()

@@ -6,7 +6,7 @@ from flask import request
 from backend import db
 from backend.models import ForgotPasswordToken
 from backend.api.utils import get_or_404
-from backend.api.v1.exceptions import APIException
+from backend.exceptions import APIException
 from backend.api.v1.schemas import ResetPasswordSchema
 
 

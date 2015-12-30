@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields
 
-from backend.api.v1.exceptions import APIException
+from backend.exceptions import APIException
 
 
 class EntitySchema(Schema):
