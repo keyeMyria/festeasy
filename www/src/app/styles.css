@@ -1,3 +1,9 @@
 html {
 	overflow-y: scroll;
 }
+
+.footer {
+  bottom: 0;
+  height: 100px;
+  background-color: #f5f5f5;
+}

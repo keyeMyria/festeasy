@@ -3,14 +3,15 @@ import logging
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
-from flask_mail import Mail
+
+from backend.emailer import Emailer
 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARN)
 
 db = SQLAlchemy()
-mail = Mail()
+emailer = Emailer()
 
 
 def create_app(config):
@@ -27,6 +28,9 @@ def create_app(config):
     elif config == 'env':
         logger.warn('Loading additional config from environment variables.')
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
+        app.config['EMAILER_BACKEND'] = os.environ["EMAILER_BACKEND"]
+        app.config['MAILGUN_DOMAIN'] = os.environ["MAILGUN_DOMAIN"]
+        app.config['MAILGUN_API_KEY'] = os.environ["MAILGUN_API_KEY"]
     else:
         raise Exception('Unrecognized config paramter.')
 
@@ -37,6 +41,6 @@ def create_app(config):
     app.register_blueprint(v1_bp, url_prefix='/api/v1')
 
     db.init_app(app)
-    mail.init_app(app)
+    emailer.init_app(app)
 
     return app

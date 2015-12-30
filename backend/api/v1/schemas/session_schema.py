@@ -1,7 +1,7 @@
 from marshmallow import fields
 
 from . import EntitySchema
-from backend.api.v1.exceptions import APIException
+from backend.exceptions import APIException
 
 
 class SessionSchema(EntitySchema):

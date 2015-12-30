@@ -16,3 +16,5 @@ from .change_password_schema import ChangePasswordSchema
 from .category_schema import CategorySchema
 from .supplier_schema import SupplierSchema
 from .product_stock_schema import ProductStockSchema
+from .forgot_password_token_schema import ForgotPasswordTokenSchema
+from .reset_password_schema import ResetPasswordSchema

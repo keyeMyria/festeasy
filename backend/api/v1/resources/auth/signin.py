@@ -5,7 +5,7 @@ from flask import request
 from backend import db
 from backend.models import User, Session
 from backend.api.v1.schemas import SigninSchema, SessionSchema
-from backend.api.v1.exceptions import APIException
+from backend.exceptions import APIException
 
 
 signin_schema = SigninSchema()
@@ -19,7 +19,7 @@ class Signin(Resource):
         password = load_data['password']
         user = User.query.filter(
             User.email_address == email_address,
-            ).first()
+        ).first()
         if not user or not user.has_password(password):
             raise APIException(
                 'Incorrect email address and password combination.',

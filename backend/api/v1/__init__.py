@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_restful import Api
 
-from .exceptions import APIException
+from backend.exceptions import APIException
 
 v1_bp = Blueprint('v1', __name__)
 v1_api = Api(v1_bp)
@@ -21,6 +21,7 @@ from .resources import users
 from .resources import categories
 from .resources import suppliers
 from .resources import product_stocks
+from .resources import forgot_password_tokens
 
 
 @v1_bp.errorhandler(APIException)

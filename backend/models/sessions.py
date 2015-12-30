@@ -1,3 +1,4 @@
+import datetime
 import jwt
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy import ForeignKey
@@ -11,6 +12,7 @@ class Session(db.Model, Entity):
     __tablename__ = 'session'
 
     def generate_token(self):
+        assert self.user.id is not None
         payload = {
             'sub': self.user.id,
             'iat': self.created_on,
@@ -30,3 +32,7 @@ class Session(db.Model, Entity):
         back_populates='sessions',
         cascade='save-update, merge',
     )
+
+    def is_valid(self):
+        now = datetime.datetime.utcnow()
+        return self.expires_on > now

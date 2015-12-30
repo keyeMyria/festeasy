@@ -4,7 +4,7 @@ from flask_restful import Resource
 from backend import db
 from backend.models import Cart, Order, Invoice
 from backend.api.utils import get_or_404
-from backend.api.v1.exceptions import APIException
+from backend.exceptions import APIException
 
 
 class CartSingletonCheckout(Resource):

@@ -14,3 +14,4 @@ from .invoice_product_factories import InvoiceProductFactory
 from .session_factories import SessionFactory
 from .supplier_factories import SupplierFactory
 from .product_stock_factories import ProductStockFactory
+from .forgot_password_token_factories import ForgotPasswordTokenFactory

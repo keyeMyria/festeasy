@@ -23,9 +23,9 @@ dependencies:
 
 test:
   override:
-    - nose2 --plugin nose2.plugins.junitxml --junit-xml
+    - py.test --junitxml=pytest-junit.xml
   post:
-    - cp ./nose2-junit.xml $CIRCLE_TEST_REPORTS
+    - cp ./pytest-junit.xml $CIRCLE_TEST_REPORTS
 
 deployment:
   staging:

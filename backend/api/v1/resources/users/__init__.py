@@ -7,6 +7,7 @@ from .user_order_collection import UserOrderCollection
 from .user_cart_cart_product_collection import UserCartCartProductCollection
 from .change_password import ChangePassword
 
+
 v1_api.add_resource(UserCollection,
                     '/users')
 v1_api.add_resource(UserSingleton,
@@ -19,6 +20,5 @@ v1_api.add_resource(UserOrderSingleton,
                     '/users/<int:user_id>/orders/<order_id>')
 v1_api.add_resource(UserCartCartProductCollection,
                     '/users/<int:user_id>/cart/cart-products')
-
 v1_api.add_resource(ChangePassword,
                     '/users/<int:user_id>/change-password')

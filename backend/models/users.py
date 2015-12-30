@@ -66,6 +66,11 @@ class User(db.Model, Entity):
         cascade='save-update, merge, delete',
     )
 
+    forgot_password_tokens = relationship(
+        'ForgotPasswordToken',
+        back_populates='user',
+    )
+
     __table_args__ = (
         CheckConstraint(
             or_(
