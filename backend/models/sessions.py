@@ -12,6 +12,7 @@ class Session(db.Model, Entity):
     __tablename__ = 'session'
 
     def generate_token(self):
+        assert self.user.id is not None
         payload = {
             'sub': self.user.id,
             'iat': self.created_on,
