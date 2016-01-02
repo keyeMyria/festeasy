@@ -5,17 +5,18 @@ from sqlalchemy import or_, and_
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 from backend import db
-from backend.models import Entity, Session
+
+from . import Session
+from .utils import Entity
 
 
 class User(db.Model, Entity):
     __tablename__ = 'user'
 
     def __init__(self, email_address=None, password=None, first_name=None,
-            last_name=None, cart=None, is_admin=None, guest_token=None,
-            sessions=[], orders=[]):
+                last_name=None, cart=None, is_admin=None, guest_token=None,
+                sessions=[], orders=[]):
         self.is_admin = is_admin
         self.email_address = email_address
         if password:

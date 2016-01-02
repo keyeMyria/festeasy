@@ -4,7 +4,7 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.cors import CORS
 
-from backend.emailer import Emailer
+from .emailer import Emailer
 
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ def create_app(config):
     from backend.api import bp
     app.register_blueprint(bp, url_prefix='/api')
 
-    from backend.api import v1_bp
+    from backend.api.v1 import v1_bp
     app.register_blueprint(v1_bp, url_prefix='/api/v1')
 
     db.init_app(app)

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     connect: {
       server: {
         options: {
-          port: 8000,
+          port: 8001,
           base: 'dist',
           keepalive: true,
           middleware: function(connect, options, middleware) {

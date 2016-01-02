@@ -1,7 +1,8 @@
 from backend import db
-from backend.models import Product
 from backend.testing import factories
 from backend.testing import ModelTestCase
+
+from . import Product
 
 
 class TestProduct(ModelTestCase):

@@ -1,8 +1,9 @@
-stock.controller('stockOverviewController', ($scope, supplierService, productService, productStockService, ngNotify) ->
+stock.controller('stockOverviewController', (
+		$scope, supplierService, productService, productStockService, ngNotify, $q) ->
 	$scope.selectedSupplier = null
 	$scope.selectedProduct = null
 	$scope.costRands = null
-	$scope.quantity = null
+	$scope.quantity = 1
 
 	$scope.fetchProductStocks = () ->
 		getProductStocks = productStockService.getList()
@@ -29,17 +30,21 @@ stock.controller('stockOverviewController', ($scope, supplierService, productSer
 		$scope.selectedProduct = product
 
 	$scope.createProductStock = () ->
+		promises = []
 		params = {
 			product_id: $scope.selectedProduct.id,
 			supplier_id: $scope.selectedSupplier.id,
 			cost_rands: $scope.costRands
 		}
-		post = productStockService.post(params)
+		for i in [1..$scope.quantity]
+			promises.push(
+				productStockService.post(params)
+			)
+		post = $q.all(promises)
 		post.then((response) ->
-			ngNotify.set('Successfully created new stock product.')
+			ngNotify.set('Successfully created new stock products.')
 		)
 		post.finally((response) ->
-			console.log 'finally'
 			$scope.fetchProductStocks()
 		)
 )

@@ -3,7 +3,9 @@ from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity, ProductPrice
+
+from . import ProductPrice
+from .utils import Entity
 
 
 class Product(db.Model, Entity):
