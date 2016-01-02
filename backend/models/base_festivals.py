@@ -2,6 +2,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 from backend import db
+
 from .utils import Entity
 
 

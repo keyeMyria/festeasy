@@ -3,8 +3,9 @@ from sqlalchemy import ForeignKey, func, select
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models.utils import Entity
+
 from . import Payment, OrderProduct, InvoiceProduct
+from .utils import Entity
 
 
 class Invoice(db.Model, Entity):

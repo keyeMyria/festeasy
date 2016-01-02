@@ -3,8 +3,9 @@ from sqlalchemy import ForeignKey, func, select
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from .utils import Entity
+
 from . import OrderProduct
+from .utils import Entity
 
 
 class Order(db.Model, Entity):

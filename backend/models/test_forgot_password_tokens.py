@@ -1,9 +1,10 @@
 import datetime
 
 from backend import db
-from backend.models import ForgotPasswordToken
 from backend.testing import factories
 from backend.testing import ModelTestCase
+
+from . import ForgotPasswordToken
 
 
 class TestForgotPasswordToken(ModelTestCase):

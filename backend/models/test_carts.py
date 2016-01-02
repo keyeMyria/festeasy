@@ -1,7 +1,8 @@
 from backend import db
-from backend.models import Cart
 from backend.testing import ModelTestCase
 from backend.testing import factories
+
+from . import Cart
 
 
 class TestCart(ModelTestCase):

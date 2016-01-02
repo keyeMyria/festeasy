@@ -1,9 +1,10 @@
 from sqlalchemy import func
 
 from backend import db
-from backend.models import Order, OrderProduct
 from backend.testing import ModelTestCase
 from backend.testing import factories
+
+from . import Order, OrderProduct
 
 
 class TestOrder(ModelTestCase):

@@ -2,8 +2,9 @@ from sqlalchemy import Column, String, Numeric
 from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
 
-from . import ProductPrice
 from backend import db
+
+from . import ProductPrice
 from .utils import Entity
 
 
