@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, ForeignKey, Numeric
 from sqlalchemy.orm import relationship
 
 from backend import db
-from backend.models import Entity
+from backend.models.utils import Entity
 
 
 class ProductStock(db.Model, Entity):

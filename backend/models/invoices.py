@@ -3,8 +3,8 @@ from sqlalchemy import ForeignKey, func, select
 from sqlalchemy.orm import relationship, column_property
 
 from backend import db
-from backend.models import Entity, InvoiceProduct
-from backend.models import Payment, OrderProduct
+from backend.models.utils import Entity
+from . import Payment, OrderProduct, InvoiceProduct
 
 
 class Invoice(db.Model, Entity):
@@ -17,9 +17,11 @@ class Invoice(db.Model, Entity):
             raise Exception('Order has not products.')
         invoice = Invoice()
         invoice.order = order
-        order_products = (OrderProduct.query
+        order_products = (
+            OrderProduct.query
             .filter(OrderProduct.order == order)
-            .all())
+            .all()
+        )
         for order_product in order_products:
             invoice.invoice_products.append(
                 InvoiceProduct(

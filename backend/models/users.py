@@ -5,9 +5,9 @@ from sqlalchemy import or_, and_
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
+from . import Session
 from backend import db
-from backend.models import Entity, Session
+from .utils import Entity
 
 
 class User(db.Model, Entity):

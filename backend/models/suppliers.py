@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 
 from backend import db
-from backend.models import Entity
+from backend.models.utils import Entity
 
 
 class Supplier(db.Model, Entity):

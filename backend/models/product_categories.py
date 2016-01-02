@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer
 from sqlalchemy import ForeignKey
 
 from backend import db
-from backend.models import Entity
+from backend.models.utils import Entity
 
 
 class ProductCategory(db.Model, Entity):

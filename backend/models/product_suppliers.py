@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, Numeric
 from sqlalchemy import ForeignKey
 
 from backend import db
-from backend.models import Entity
+from backend.models.utils import Entity
 
 
 class ProductSupplier(db.Model, Entity):
