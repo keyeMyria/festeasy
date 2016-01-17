@@ -9,7 +9,7 @@ MarkupSafe==0.23
 PyJWT==1.4.0
 SQLAlchemy==1.0.11
 Werkzeug==0.11.3
-amqp==1.4.8
+amqp==1.4.9
 aniso8601==1.1.0
 anyjson==0.3.3
 apipkg==1.4
@@ -17,7 +17,7 @@ argparse==1.4.0
 billiard==3.3.0.22
 blinker==1.4
 celery==3.1.19
-colorama==0.3.5
+colorama==0.3.6
 cov-core==1.15.0
 coverage==4.0.3
 decorator==4.0.6
@@ -26,17 +26,17 @@ execnet==1.4.1
 factory-boy==2.6.0
 fake-factory==0.5.3
 greenlet==0.4.9
-gunicorn==19.4.1
-ipython==4.0.1
+gunicorn==19.4.5
+ipython==4.0.2
 ipython-genutils==0.1.0
 itsdangerous==0.24
-kombu==3.0.32
+kombu==3.0.33
 logutils==0.3.3
-marshmallow==2.4.2
+marshmallow==2.5.0
 newrelic==2.60.0.46
 nose2==0.5.0
 path.py==8.1.2
-pep8==1.6.2
+pep8==1.7.0
 pexpect==4.0.1
 pickleshare==0.5
 psycopg2==2.6.1
@@ -52,4 +52,4 @@ requests==2.9.1
 simplegeneric==0.8.1
 simplejson==3.8.1
 six==1.10.0
-traitlets==4.0.0
+traitlets==4.1.0
