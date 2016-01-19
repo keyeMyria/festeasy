@@ -4,7 +4,7 @@ from . import EntitySchema
 from . import ProductSchema, SupplierSchema
 
 
-class ProductStockSchema(EntitySchema):
+class StockUnitSchema(EntitySchema):
     cost_rands = fields.Float(required=True)
     product_id = fields.Integer(required=True)
     product = fields.Nested(ProductSchema)

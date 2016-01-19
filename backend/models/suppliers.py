@@ -37,7 +37,7 @@ class Supplier(db.Model, Entity):
         back_populates='suppliers',
     )
 
-    product_stocks = relationship(
-        'ProductStock',
+    stock_units = relationship(
+        'StockUnit',
         back_populates='supplier',
     )

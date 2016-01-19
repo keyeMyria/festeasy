@@ -1,12 +1,12 @@
 from factory import Factory, SubFactory
 
-from backend.models import ProductStock
+from backend.models import StockUnit
 from . import ProductFactory, SupplierFactory
 
 
-class ProductStockFactory(Factory):
+class StockUnitFactory(Factory):
     class Meta:
-        model = ProductStock
+        model = StockUnit
 
     product = SubFactory(ProductFactory)
     supplier = SubFactory(SupplierFactory)
