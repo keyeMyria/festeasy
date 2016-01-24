@@ -49,13 +49,15 @@
 	<div class="row">
 		<p class="lead">Stock:</p>
 		<div ng-show="stockUnits" class="col-md-6">
-			<table class="table table-hover">
+			<table class="table table-hover table-bordered">
 				<th>ID</th>
+				<th>Date added</th>
 				<th>Product</th>
 				<th>Supplier</th>
 				<th>Cost</th>
 				<tr ng-repeat="stockUnit in stockUnits | orderBy: id : true">
 					<td>{{stockUnit.id}}</td>
+					<td>{{stockUnit.created_on}}</td>
 					<td>{{stockUnit.product.name}}</td>
 					<td>{{stockUnit.supplier.name}}</td>
 					<td><rands amount-rands="stockUnit.cost_rands"></rands></td>
