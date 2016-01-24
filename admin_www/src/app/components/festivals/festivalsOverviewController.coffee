@@ -3,4 +3,7 @@ festivals.controller('festivalsOverviewController', ($scope, festivalService) ->
 	getFestivals.then((response) ->
 		$scope.festivals = response
 	)
+	getFestivals.catch((response) ->
+		$scope.error = true
+	)
 )

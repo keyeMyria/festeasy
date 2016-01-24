@@ -1,9 +1,13 @@
 products.controller('productController', ($scope, productService, ngNotify, $stateParams) ->
+	$scope.error = false
 	productId = $stateParams.productId
 	product = productService.one(productId)
 	getProduct = product.get()
 	getProduct.then((repsonse) ->
 		$scope.product = repsonse
+	)
+	getProduct.catch((repsonse) ->
+		$scope.error = true
 	)
 
 	$scope.updateProduct = (product) ->

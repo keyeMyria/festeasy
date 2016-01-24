@@ -1,5 +1,6 @@
 stock.controller('stockOverviewController', (
 		$scope, supplierService, productService, stockUnitService, ngNotify, $q) ->
+	$scope.error = false
 	$scope.selectedSupplier = null
 	$scope.selectedProduct = null
 	$scope.costRands = null
@@ -10,6 +11,9 @@ stock.controller('stockOverviewController', (
 		getStockUnits.then((response) ->
 			$scope.stockUnits = response
 		)
+		getStockUnits.catch((response) ->
+			$scope.error = true
+		)
 
 	$scope.fetchStockUnits()
 
@@ -17,10 +21,16 @@ stock.controller('stockOverviewController', (
 	getSuppliers.then((response) ->
 		$scope.suppliers = response
 	)
+	getSuppliers.catch((response) ->
+		$scope.error = true
+	)
 
 	getProducts = productService.getList()
 	getProducts.then((response) ->
 		$scope.products = response
+	)
+	getProducts.catch((response) ->
+		$scope.error = true
 	)
 
 	$scope.updateSelectedSupplier = (supplier, something) ->
