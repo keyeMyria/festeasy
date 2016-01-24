@@ -1,4 +1,4 @@
-<loading-indicator data="orderProducts && festivals && stockUnits" error="false"></loading-indicator>
+<loading-indicator data="orderProducts && festivals && stockUnits" error="error"></loading-indicator>
 <div ng-if="orderProducts && festivals && stockUnits">
 	For Festival:
 	<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">

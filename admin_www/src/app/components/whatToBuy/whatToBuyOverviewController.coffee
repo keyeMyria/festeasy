@@ -1,6 +1,7 @@
 whatToBuy.controller('whatToBuyOverviewController', (
 		$scope, $state, orderProductService, festivalService, $stateParams, stockUnitService) ->
 	params = {}
+	$scope.error = false
 	if $stateParams['festival-id']
 		params['festival-id'] = $stateParams['festival-id']
 
@@ -9,11 +10,17 @@ whatToBuy.controller('whatToBuyOverviewController', (
 		getStockUnits.then((response) ->
 			$scope.stockUnits = response
 		)
+		getStockUnits.catch((response) ->
+			$scope.error = true
+		)
 
 	fetchOrderProducts = (params) ->
 		getOrderProducts = orderProductService.getList(params)
 		getOrderProducts.then((response) ->
 			$scope.orderProducts = response
+		)
+		getOrderProducts.catch((response) ->
+			$scope.error = true
 		)
 
 	setSelectedFestival = (params) ->
@@ -27,6 +34,9 @@ whatToBuy.controller('whatToBuyOverviewController', (
 		getFestivals.then((response) ->
 			$scope.festivals = response
 			setSelectedFestival(params)
+		)
+		getFestivals.catch((response) ->
+			$scope.error = true
 		)
 
 	$scope.updateSelectedFestival = (festival, something) ->
