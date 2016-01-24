@@ -101,7 +101,7 @@ gulp.task('index', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', ['default'], function () {
     watch('./bower_components/**', batch(function (events, done) {
         gulp.start('bower', done);
     }));
