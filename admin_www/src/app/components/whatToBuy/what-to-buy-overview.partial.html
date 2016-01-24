@@ -15,14 +15,16 @@
 			No results
 		</p>
 	</div>
-	<ul>
-	  	<li ng-repeat="(key, value) in orderProducts | groupBy: 'product.id'">
-	    	<p><b>Product:</b> {{ value[0].product.name }}</p>
-	    	<b>Total wanted:</b> {{value.length}}
-	    	<br/>
-	    	<b>In stock:</b> {{countStockUnits(value[0].product, stockUnits)}}
-	    	<br/>
-				<br/>
-	  	</li>
-	</ul>
+	<table ng-show="orderProducts.length" class="table table-bordered table-hover">
+			<tr>
+				<th>Product</th>
+				<th>Wanted</th>
+				<th>In Stock</th>
+			<tr>
+	  	<tr ng-class="{'warning': (countStockUnits(value[0].product, stockUnits) < value.length)}" ng-repeat="(key, value) in orderProducts | groupBy: 'product.id'">
+	    	<td>{{value[0].product.name}}</td>
+	    	<td>{{value.length}}</td>
+				<td>{{countStockUnits(value[0].product, stockUnits)}}
+	  	</tr>
+	</table>
 </div>
