@@ -2,16 +2,16 @@ from flask import url_for
 
 from backend import db
 from backend.testing import APITestCase, factories
-from backend.models import ProductStock
+from backend.models import StockUnit
 
 
-endpoint = 'v1.productstockcollection'
+endpoint = 'v1.stockunitcollection'
 
 
-class TestProductStockCollection(APITestCase):
+class TestStockUnitCollection(APITestCase):
     def test_get(self):
-        product_stock = factories.ProductStockFactory()
-        db.session.add(product_stock)
+        stock_unit = factories.StockUnitFactory()
+        db.session.add(stock_unit)
         db.session.commit()
         repsonse = self.api_request(
             'get',
@@ -20,7 +20,7 @@ class TestProductStockCollection(APITestCase):
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
         self.assertEqual(
             repsonse.json[0]['id'],
-            product_stock.id,
+            stock_unit.id,
             repsonse.json,
         )
 
@@ -41,10 +41,10 @@ class TestProductStockCollection(APITestCase):
             data=data,
         )
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
-        fetched_product_stock = ProductStock.query.first()
-        self.assertIsNotNone(fetched_product_stock, repsonse.json)
+        fetched_stock_unit = StockUnit.query.first()
+        self.assertIsNotNone(fetched_stock_unit, repsonse.json)
         self.assertEqual(
-            fetched_product_stock.product_id,
+            fetched_stock_unit.product_id,
             product.id,
             repsonse.json,
         )

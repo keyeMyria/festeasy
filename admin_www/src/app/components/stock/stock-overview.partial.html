@@ -1,8 +1,8 @@
-<loading-indicator data="productStocks && suppliers && products" error="false"></loading-indicator>
-<div ng-show="productStocks && suppliers && products">
+<loading-indicator data="stockUnits && suppliers && products" error="error"></loading-indicator>
+<div ng-show="stockUnits && suppliers && products">
 	<div class="row">
 		<div class="col-md-6">
-			<form class="form-horizontal" ng-submit="createProductStock()">
+			<form class="form-horizontal" ng-submit="createStockUnit()">
 			    <fieldset>
 			      	<legend>Add Stock:</legend>
 			      	<div class="form-group">
@@ -48,17 +48,19 @@
 	</div>
 	<div class="row">
 		<p class="lead">Stock:</p>
-		<div ng-show="productStocks" class="col-md-6">
-			<table class="table table-hover">
+		<div ng-show="stockUnits" class="col-md-6">
+			<table class="table table-hover table-bordered">
 				<th>ID</th>
+				<th>Date added</th>
 				<th>Product</th>
 				<th>Supplier</th>
 				<th>Cost</th>
-				<tr ng-repeat="productStock in productStocks | orderBy: id : true">
-					<td>{{productStock.id}}</td>
-					<td>{{productStock.product.name}}</td>
-					<td>{{productStock.supplier.name}}</td>
-					<td><rands amount-rands="productStock.cost_rands"></rands></td>
+				<tr ng-repeat="stockUnit in stockUnits | orderBy: id : true">
+					<td>{{stockUnit.id}}</td>
+					<td>{{stockUnit.created_on}}</td>
+					<td>{{stockUnit.product.name}}</td>
+					<td>{{stockUnit.supplier.name}}</td>
+					<td><rands amount-rands="stockUnit.cost_rands"></rands></td>
 				</tr>
 			</table>
 		</div>

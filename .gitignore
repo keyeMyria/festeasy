@@ -78,3 +78,6 @@ backend/config/live.py
 
 # Email test file
 backend/email.txt
+
+# pyenv version file
+.python-version

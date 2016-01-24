@@ -3,4 +3,7 @@ products.controller('productsOverviewController', ($scope, productService) ->
 	getProducts.then((repsonse) ->
 		$scope.products = repsonse
 	)
+	getProducts.catch((repsonse) ->
+		$scope.error = true
+	)
 )

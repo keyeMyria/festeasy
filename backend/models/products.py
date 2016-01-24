@@ -83,7 +83,7 @@ class Product(db.Model, Entity):
         back_populates='products',
     )
 
-    product_stocks = relationship(
-        'ProductStock',
+    stock_units = relationship(
+        'StockUnit',
         back_populates='product',
     )

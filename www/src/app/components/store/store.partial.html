@@ -1,20 +1,20 @@
 <div class="container">
-	<loading-indicator data="categories" error="false"></loading-indicator>
+	<loading-indicator data="categories" error="error"></loading-indicator>
 	<div class="row" ng-show="categories">
 		<div class="col-md-2">
 			<ul class="nav nav-pills nav-stacked">
 				<li role="presentation"
 					ng-class="{'active': currentCategory == null}">
-					<a 
-						ui-sref="base.store.products" 
+					<a
+						ui-sref="base.store.products"
 						ui-sref-opts="{reload: true, inherit: false}">
 						All
 					</a>
 				</li>
-				<li role="presentation" 
+				<li role="presentation"
 					ng-repeat="category in categories"
 					ng-class="{'active': currentCategory == category.name}">
-					<a 
+					<a
 						ui-sref="base.store.products({category: category.name})"
 						ui-sref-opts="{reload: true, inherit: false}">
 						{{category.name}}

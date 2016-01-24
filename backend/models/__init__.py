@@ -16,5 +16,5 @@ from .base_festivals import BaseFestival
 from .suppliers import Supplier
 from .base_suppliers import BaseSupplier
 from .product_suppliers import ProductSupplier
-from .product_stocks import ProductStock
+from .stock_units import StockUnit
 from .forgot_password_tokens import ForgotPasswordToken
