@@ -10,6 +10,3 @@ class StockUnitSchema(EntitySchema):
     product = fields.Nested(ProductSchema)
     supplier_id = fields.Integer(required=True)
     supplier = fields.Nested(SupplierSchema)
-
-    class Meta:
-        strict = True

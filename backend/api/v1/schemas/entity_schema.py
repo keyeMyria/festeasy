@@ -1,18 +1,9 @@
-from marshmallow import Schema, fields
+from marshmallow import fields
 
-from backend.exceptions import APIException
+from .base_schema import BaseSchema
 
 
-class EntitySchema(Schema):
+class EntitySchema(BaseSchema):
     id = fields.Integer(dump_only=True)
     created_on = fields.DateTime(dump_only=True)
     last_updated_on = fields.DateTime(dump_only=True)
-
-    def handle_error(self, error, data):
-        raise APIException(
-            message='Something went wrong.',
-            payload=dict(
-                errors=error.messages,
-                data=data,
-            ),
-        )
