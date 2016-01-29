@@ -43,7 +43,7 @@ Now if you navigate to [localhost:5000/api/v1/](http://localhost:5000/api/v1/), 
 
 Start hacking!
 
-### Frontend
+### Frontend (www or admin_www)
 
 #### Install some apt dependencies
 
@@ -77,8 +77,6 @@ From the www directory of the repository, run:
 #### Start the gulp watch task
 
 From the www directory, run:
-
-`gulp`
 
 `gulp watch`
 
