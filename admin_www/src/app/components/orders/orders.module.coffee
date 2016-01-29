@@ -18,4 +18,10 @@ base.config(($stateProvider) ->
       url: '/overview'
       auth: true
     })
+		.state('base.orders.order', {
+			templateUrl: 'order.partial.html'
+			controller: 'orderController'
+			url: '/{orderId:int}'
+			auth: true
+		})
 )
