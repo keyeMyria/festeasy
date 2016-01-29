@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     '-e',
     '--environment',
-    required=True,
+    default='local',
     type=str,
     action='store',
     choices=['staging', 'production', 'local'],
