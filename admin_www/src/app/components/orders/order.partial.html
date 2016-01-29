@@ -1,0 +1,24 @@
+<div class="container-fluid">
+	<loading-indicator data="order" error="error"></loading-indicator>
+	<div ng-show="order" class="col-md-5">
+		<h1>Order {{order.id}}</h1>
+      <div class="row">
+    	  <label for="inputName" class="col-sm-3 control-label">ID</label>
+      	<div class="col-sm-9">
+          <span>{{order.id}}</span>
+      	</div>
+      </div>
+      <div class="row">
+    	  <label for="inputName" class="col-sm-3 control-label">Created On</label>
+      	<div class="col-sm-9">
+          <span>{{order.created_on}}</span>
+      	</div>
+      </div>
+      <div class="row">
+    	  <label for="inputName" class="col-sm-3 control-label">Festival</label>
+      	<div class="col-sm-9">
+          <span><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
+      	</div>
+      </div>
+	</div>
+</div>
