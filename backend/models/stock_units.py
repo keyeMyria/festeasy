@@ -28,4 +28,10 @@ class StockUnit(db.Model, Entity):
         back_populates='stock_units',
     )
 
+    packaged_stock_unit = relationship(
+        'PackagedStockUnit',
+        back_populates='stock_unit',
+        uselist=False,
+    )
+
     cost_rands = Column(Numeric, nullable=False)

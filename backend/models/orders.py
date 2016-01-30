@@ -51,7 +51,10 @@ class Order(db.Model, Entity):
         cascade='save-update, merge'
     )
 
-    invoices = relationship('Invoice', back_populates='order')
+    invoices = relationship(
+        'Invoice',
+        back_populates='order',
+    )
 
     products = relationship(
         'Product',
@@ -64,6 +67,11 @@ class Order(db.Model, Entity):
         'OrderProduct',
         back_populates='order',
         cascade='save-update, merge'
+    )
+
+    packages = relationship(
+        'Package',
+        back_populates='order',
     )
 
 # Total amount for an Order.
