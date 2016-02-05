@@ -1,0 +1,2 @@
+orders.controller('ordersControlller', () ->
+)

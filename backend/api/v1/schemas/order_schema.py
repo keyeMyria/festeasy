@@ -9,6 +9,3 @@ class OrderSchema(EntitySchema):
     festival = fields.Nested(FestivalSchema)
     user_id = fields.Integer()
     total_rands = fields.Float()
-
-    class Meta:
-        strict = True

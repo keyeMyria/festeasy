@@ -1,9 +1,8 @@
-from marshmallow import Schema, fields
+from marshmallow import fields
+
+from .base_schema import BaseSchema
 
 
-class ResetPasswordSchema(Schema):
+class ResetPasswordSchema(BaseSchema):
     token = fields.String()
     password = fields.String()
-
-    class Meta:
-        strict = True

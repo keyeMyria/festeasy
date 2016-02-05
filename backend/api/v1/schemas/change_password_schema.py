@@ -1,9 +1,8 @@
-from marshmallow import Schema, fields
+from marshmallow import fields
+
+from .base_schema import BaseSchema
 
 
-class ChangePasswordSchema(Schema):
+class ChangePasswordSchema(BaseSchema):
     current_password = fields.String()
     new_password = fields.String()
-
-    class Meta:
-        strict = True

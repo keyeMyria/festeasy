@@ -9,6 +9,3 @@ class CartProductSchema(EntitySchema):
     sub_total_rands = fields.Float(dump_only=True)
     quantity = fields.Integer()
     product = fields.Nested(ProductSchema, dump_only=True)
-
-    class Meta:
-        strict = True

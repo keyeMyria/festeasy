@@ -10,6 +10,3 @@ class UserSchema(EntitySchema):
     is_admin = fields.Boolean(dump_only=True)
     cart_id = fields.Integer(dump_only=True)
     password = fields.String()
-
-    class Meta:
-        strict = True

@@ -8,6 +8,3 @@ class ForgotPasswordTokenSchema(EntitySchema):
     token = fields.String()
     is_valid = fields.Boolean()
     email_address = fields.String()
-
-    class Meta:
-        strict = True

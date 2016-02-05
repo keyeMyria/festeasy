@@ -1,4 +1,3 @@
-from IPython.terminal.interactiveshell import TerminalInteractiveShell
 from flask import current_app
 from flask.ext.script import Manager, Command
 from flask.ext.script import Shell, Server
@@ -67,5 +66,4 @@ def _make_context():
 manager.add_command('shell', Shell(make_context=_make_context))
 
 if __name__ == '__main__':
-    TerminalInteractiveShell.confirm_exit.default_value = False
     manager.run()

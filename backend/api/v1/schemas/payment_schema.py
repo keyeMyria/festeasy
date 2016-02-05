@@ -5,6 +5,3 @@ from . import EntitySchema
 
 class PaymentSchema(EntitySchema):
     amount_rands = fields.Float()
-
-    class Meta:
-        strict = True
