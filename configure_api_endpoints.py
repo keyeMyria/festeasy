@@ -9,15 +9,19 @@ parser = argparse.ArgumentParser(
     description='Set API endpoints for www and admin_www.'
 )
 
+choices = ['staging', 'production', 'local']
 parser.add_argument(
     '-e',
     '--environment',
     required=True,
     type=str,
     action='store',
-    choices=['staging', 'production', 'local'],
 )
 args = parser.parse_args()
+
+if args.environment not in choices:
+    print('Unkown environment supplied, assuming local.')
+    args.environment = 'local'
 
 tmp = {
     'local': ANGULAR.format(
