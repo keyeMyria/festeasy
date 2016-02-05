@@ -35,11 +35,13 @@ class TestOrder(ModelTestCase):
         order_product_1 = factories.OrderProductFactory(
             unit_price_rands=product_1.price_rands,
             order=order,
+            quantity=1,
             product=product_1,
         )
         order_product_2 = factories.OrderProductFactory(
             unit_price_rands=product_2.price_rands,
             order=order,
+            quantity=1,
             product=product_2,
         )
         db.session.add(user)
@@ -63,8 +65,8 @@ class TestOrder(ModelTestCase):
             ],
         )
         festival = factories.FestivalFactory()
-        quantity_1 = 1
-        quantity_2 = 2
+        quantity_1 = 7
+        quantity_2 = 4
         user.cart.festival = festival
         cart_product_1 = factories.CartProductFactory(
             cart=user.cart,
@@ -85,19 +87,17 @@ class TestOrder(ModelTestCase):
         db.session.add(order)
         db.session.commit()
 
-        self.assertEqual(order.total_rands, 5)
-        order_product_1, order_product_1_quantity = (db.session.query(
-            OrderProduct, func.count(OrderProduct.product_id))
+        self.assertEqual(order.total_rands, 15)
+        order_product_1 = (db.session.query(
+            OrderProduct)
             .filter(OrderProduct.order == order)
             .filter(OrderProduct.product == product_1)
-            .group_by(OrderProduct.product_id)
             .one())
-        self.assertEqual(order_product_1_quantity, quantity_1)
+        self.assertEqual(order_product_1.quantity, quantity_1)
 
-        order_product_2, order_product_2_quantity = (db.session.query(
-            OrderProduct, func.count(OrderProduct.product_id))
+        order_product_2 = (db.session.query(
+            OrderProduct)
             .filter(OrderProduct.order == order)
             .filter(OrderProduct.product == product_2)
-            .group_by(OrderProduct.product_id)
             .one())
-        self.assertEqual(order_product_2_quantity, quantity_2)
+        self.assertEqual(order_product_2.quantity, quantity_2)

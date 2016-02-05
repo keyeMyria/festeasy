@@ -24,14 +24,14 @@ class Order(db.Model, Entity):
         for cart_product in cart.cart_products:
             # TODO: There is an issue with cascade
             # on products and order_products
-            for i in range(cart_product.quantity):
-                order.order_products.append(
-                    OrderProduct(
-                        product=cart_product.product,
-                        order=order,
-                        unit_price_rands=cart_product.product.price_rands,
-                    )
+            order.order_products.append(
+                OrderProduct(
+                    product=cart_product.product,
+                    order=order,
+                    quantity=cart_product.quantity,
+                    unit_price_rands=cart_product.product.price_rands,
                 )
+            )
         return order
 
     def __repr__(self):
@@ -74,9 +74,9 @@ class Order(db.Model, Entity):
         back_populates='order',
     )
 
-# Total amount for an Order.
-Order.total_rands = column_property(
-    select([func.sum(OrderProduct.unit_price_rands)]).where(
-        OrderProduct.order_id == Order.id
-    ).correlate(Order)
-)
+    @property
+    def total_rands(self):
+        total = 0
+        for op in self.order_products:
+            total += op.sub_total_rands
+        return total

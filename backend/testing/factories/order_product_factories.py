@@ -9,5 +9,6 @@ class OrderProductFactory(Factory):
         model = OrderProduct
 
     unit_price_rands = 10
+    quantity = 1
     order = SubFactory(OrderFactory)
     product = SubFactory(ProductFactory)

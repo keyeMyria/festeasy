@@ -54,13 +54,13 @@ class TestInvoice(ModelTestCase):
 
         ip1 = (InvoiceProduct.query.filter(
             InvoiceProduct.product == product_1)
-            .all())
-        self.assertEqual(len(ip1), 2)
+            .first())
+        self.assertEqual(ip1.quantity, 2)
 
         ip2 = (InvoiceProduct.query.filter(
             InvoiceProduct.product == product_2)
-            .all())
-        self.assertEqual(len(ip2), 3)
+            .first())
+        self.assertEqual(ip2.quantity, 3)
 
     def test_invoice_total_rands(self):
         """ Test that Invoice.total_rands is correct.
