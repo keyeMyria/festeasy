@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, Numeric
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -14,6 +14,7 @@ class OrderProduct(db.Model, Entity):
         return '<OrderProduct {id}>'.format(id=self.id)
 
     unit_price_rands = Column(Numeric, nullable=False)
+    quantity = Column(Integer, nullable=False)
 
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     order = relationship(
@@ -27,4 +28,8 @@ class OrderProduct(db.Model, Entity):
         'Product',
         back_populates='order_products',
         cascade='save-update, merge'
+    )
+
+    __table_args__ = (
+        UniqueConstraint('order_id', 'product_id'),
     )

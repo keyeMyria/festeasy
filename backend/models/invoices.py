@@ -15,7 +15,7 @@ class Invoice(db.Model, Entity):
     @staticmethod
     def from_order(order):
         if not order.order_products:
-            raise Exception('Order has not products.')
+            raise Exception('Order has no products.')
         invoice = Invoice()
         invoice.order = order
         order_products = (
@@ -28,6 +28,7 @@ class Invoice(db.Model, Entity):
                 InvoiceProduct(
                     product=order_product.product,
                     unit_price_rands=order_product.unit_price_rands,
+                    quantity=order_product.quantity,
                     invoice=invoice,
                 )
             )
