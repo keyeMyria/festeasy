@@ -21,7 +21,7 @@
 				<th>Wanted</th>
 				<th>In Stock</th>
 			<tr>
-	  	<tr ng-class="{'warning': (countStockUnits(value[0].product, stockUnits) < value.length)}" ng-repeat="(key, value) in orderProducts | groupBy: 'product.id'">
+	  	<tr ng-class="{'warning': (countStockUnits(value[0].product, stockUnits) < sumOrderProductQuantities(orderProducts)[key])}" ng-repeat="(key, value) in orderProducts | groupBy: 'product.id'">
 	    	<td>{{value[0].product.name}}</td>
 	    	<td>{{sumOrderProductQuantities(orderProducts)[key]}}</td>
 				<td>{{countStockUnits(value[0].product, stockUnits)}}
