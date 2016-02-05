@@ -66,9 +66,9 @@ class Order(db.Model, Entity):
         cascade='save-update, merge'
     )
 
-# Total amount for an Order.
-Order.total_rands = column_property(
-    select([func.sum(OrderProduct.unit_price_rands)]).where(
-        OrderProduct.order_id == Order.id
-    ).correlate(Order)
-)
+    @property
+    def total_rands(self):
+        total = 0
+        for op in self.order_products:
+            total += op.sub_total_rands
+        return total

@@ -13,6 +13,10 @@ class OrderProduct(db.Model, Entity):
     def __repr__(self):
         return '<OrderProduct {id}>'.format(id=self.id)
 
+    @property
+    def sub_total_rands(self):
+        return self.quantity * self.unit_price_rands
+
     unit_price_rands = Column(Numeric, nullable=False)
     quantity = Column(Integer, nullable=False)
 
