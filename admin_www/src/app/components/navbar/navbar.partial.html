@@ -14,43 +14,43 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ng-class="{'active': state.includes('base.whatToBuy')}">
           <a ui-sref="base.whatToBuy.overview" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             What To Buy
           </a>
         </li>
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ng-class="{'active': state.includes('base.stock')}">
           <a ui-sref="base.stock.overview" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             Stock
           </a>
         </li>
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ng-class="{'active': state.includes('base.orders')}">
           <a ui-sref="base.orders.overview" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
             Orders
           </a>
         </li>
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ng-class="{'active': state.includes('base.packages')}">
           <a ui-sref="base.packages.overview" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
             Packages
           </a>
         </li>
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ng-class="{'active': state.includes('base.users')}">
           <a ui-sref="base.users" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             Users
           </a>
         </li>
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ng-class="{'active': state.includes('base.products')}">
           <a ui-sref="base.products.overview" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             Products
           </a>
         </li>
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
+        <li ng-show="isAuthenticated()" ng-class="{'active': state.includes('base.festivals')}">
           <a ui-sref="base.festivals.overview" ui-sref-opts="{reload:true}">
             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             Festivals
