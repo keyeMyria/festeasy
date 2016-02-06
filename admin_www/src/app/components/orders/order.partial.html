@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<loading-indicator data="order" error="error"></loading-indicator>
-	<div ng-show="order" class="col-md-5">
+	<div ng-show="order" class="row">
 		<h1>Order {{order.id}}</h1>
       <div class="row">
     	  <label for="inputName" class="col-sm-3 control-label">ID</label>
@@ -20,5 +20,16 @@
           <span><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
       	</div>
       </div>
+	</div>
+	<div class="row">
+		<h3>Packages</h3>
+		<table class="table table-hover table-bordered">
+				<th>ID</th>
+				<th>Date added</th>
+				<tr style="cursor: pointer;" ng-repeat="package in packages">
+					<td>{{package.id}}</td>
+					<td>{{package.created_on}}</td>
+				</tr>
+			</table>
 	</div>
 </div>
