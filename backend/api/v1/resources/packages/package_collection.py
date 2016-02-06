@@ -9,10 +9,19 @@ from backend.api.v1.schemas import PackageSchema
 package_schema = PackageSchema()
 
 
+# TODO: Needs testing.
+def filter_orders(q, order_id):
+    q = q.filter(Package.order_id == order_id)
+    return q
+
+
 class PackageCollection(Resource):
     def get(self):
-        packages = Package.query.all()
-        return package_schema.dump(packages, many=True).data
+        q = Package.query
+        order_id = request.args.get('order-id')
+        if order_id:
+            q = filter_orders(q, order_id)
+        return package_schema.dump(q.all(), many=True).data
 
     def post(self):
         load_data = package_schema.load(request.get_json()).data
