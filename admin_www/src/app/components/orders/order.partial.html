@@ -23,6 +23,21 @@
       </div>
 		</div>
 		<div class="row">
+			<h3>Products</h3>
+			<table class="table table-hover table-bordered">
+				<th>ID</th>
+				<th>Date added</th>
+				<th>Product</th>
+				<th>Quantity</th>
+				<tr style="cursor: pointer;" ng-repeat="op in orderProducts" ui-sref="base.products.product({productId: op.product.id})">
+					<td>{{op.id}}</td>
+					<td>{{op.created_on}}</td>
+					<td>{{op.product.name}}</td>
+					<td>{{op.quantity}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="row">
 			<h3>Packages</h3>
 			<table class="table table-hover table-bordered">
 				<th>ID</th>
