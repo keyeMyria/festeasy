@@ -10,6 +10,7 @@ app = angular.module('app', [
     'whatToBuy'
     'stock'
     'orders'
+    'packages'
 ])
 
 app.config(($locationProvider) ->

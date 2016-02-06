@@ -18,3 +18,5 @@ from .base_suppliers import BaseSupplier
 from .product_suppliers import ProductSupplier
 from .stock_units import StockUnit
 from .forgot_password_tokens import ForgotPasswordToken
+from .packages import Package
+from .packaged_stock_unit import PackagedStockUnit
