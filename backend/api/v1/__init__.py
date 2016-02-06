@@ -14,6 +14,7 @@ from .resources import invoice_products
 from .resources import invoices
 from .resources import order_products
 from .resources import orders
+from .resources import packages
 from .resources import payments
 from .resources import products
 from .resources import sessions
