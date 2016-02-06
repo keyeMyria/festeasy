@@ -1,0 +1,3 @@
+packages.controller('packageController', ($scope) ->
+
+)

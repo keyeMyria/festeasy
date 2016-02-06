@@ -1,20 +1,18 @@
 <loading-indicator data="orders" error="false"></loading-indicator>
 <div ng-show="orders">
+	<h1>Orders</h1>
 	<div class="row">
-		<p class="lead">Orders:</p>
-		<div>
-			<table class="table table-hover table-bordered">
-				<th>ID</th>
-				<th>Date added</th>
-				<th>Festival</th>
-				<th>Total Rands</th>
-				<tr style="cursor: pointer;" ng-repeat="order in orders" ui-sref="base.orders.order({orderId: order.id})">
-					<td>{{order.id}}</td>
-					<td>{{order.created_on}}</td>
-					<td>{{order.festival.name}}</td>
-					<td><rands amount-rands="order.total_rands"></rands></td>
-				</tr>
-			</table>
-		</div>
+		<table class="table table-hover table-bordered">
+			<th>ID</th>
+			<th>Date added</th>
+			<th>Festival</th>
+			<th>Total Rands</th>
+			<tr style="cursor: pointer;" ng-repeat="order in orders" ui-sref="base.orders.order({orderId: order.id})">
+				<td>{{order.id}}</td>
+				<td>{{order.created_on}}</td>
+				<td>{{order.festival.name}}</td>
+				<td><rands amount-rands="order.total_rands"></rands></td>
+			</tr>
+		</table>
 	</div>
 </div>
