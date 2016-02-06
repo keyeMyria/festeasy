@@ -3,35 +3,36 @@
 	<div ng-show="order && packages">
 		<div class="row">
 			<h1>Order {{order.id}}</h1>
-	      <div class="row">
-	    	  <label for="inputName" class="col-sm-3 control-label">ID</label>
-	      	<div class="col-sm-9">
-	          <span>{{order.id}}</span>
-	      	</div>
-	      </div>
-	      <div class="row">
-	    	  <label for="inputName" class="col-sm-3 control-label">Created On</label>
-	      	<div class="col-sm-9">
-	          <span>{{order.created_on}}</span>
-	      	</div>
-	      </div>
-	      <div class="row">
-	    	  <label for="inputName" class="col-sm-3 control-label">Festival</label>
-	      	<div class="col-sm-9">
-	          <span><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
-	      	</div>
-	      </div>
+      <div class="row">
+    	  <label for="inputName" class="col-sm-3 control-label">ID</label>
+      	<div class="col-sm-9">
+          <span>{{order.id}}</span>
+      	</div>
+      </div>
+      <div class="row">
+    	  <label for="inputName" class="col-sm-3 control-label">Created On</label>
+      	<div class="col-sm-9">
+          <span>{{order.created_on}}</span>
+      	</div>
+      </div>
+      <div class="row">
+    	  <label for="inputName" class="col-sm-3 control-label">Festival</label>
+      	<div class="col-sm-9">
+          <span><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
+      	</div>
+      </div>
 		</div>
 		<div class="row">
 			<h3>Packages</h3>
 			<table class="table table-hover table-bordered">
-					<th>ID</th>
-					<th>Date added</th>
-					<tr style="cursor: pointer;" ng-repeat="package in packages">
-						<td>{{package.id}}</td>
-						<td>{{package.created_on}}</td>
-					</tr>
-				</table>
+				<th>ID</th>
+				<th>Date added</th>
+				<tr style="cursor: pointer;" ng-repeat="package in packages">
+					<td>{{package.id}}</td>
+					<td>{{package.created_on}}</td>
+				</tr>
+			</table>
+			<button class="btn btn-success">Create Package</button>
 		</div>
 	</div>
 </div>
