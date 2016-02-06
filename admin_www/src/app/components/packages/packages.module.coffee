@@ -24,4 +24,10 @@ base.config(($stateProvider) ->
       url: '/{packageId:int}'
       auth: true
     })
+		.state('base.packages.create', {
+			templateUrl: 'create-package.partial.html'
+			controller: 'createPackageController'
+			url: '/create'
+			auth: true
+		})
 )
