@@ -1,7 +1,8 @@
 <div class="container-fluid">
-	<loading-indicator data="order" error="error"></loading-indicator>
-	<div ng-show="order" class="col-md-5">
-		<h1>Order {{order.id}}</h1>
+	<loading-indicator data="order && packages" error="error"></loading-indicator>
+	<div ng-show="order && packages">
+		<div class="row">
+			<h1>Order {{order.id}}</h1>
       <div class="row">
     	  <label for="inputName" class="col-sm-3 control-label">ID</label>
       	<div class="col-sm-9">
@@ -20,5 +21,33 @@
           <span><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
       	</div>
       </div>
+		</div>
+		<div class="row">
+			<h3>Products</h3>
+			<table class="table table-hover table-bordered">
+				<th>ID</th>
+				<th>Date added</th>
+				<th>Product</th>
+				<th>Quantity</th>
+				<tr style="cursor: pointer;" ng-repeat="op in orderProducts" ui-sref="base.products.product({productId: op.product.id})">
+					<td>{{op.id}}</td>
+					<td>{{op.created_on}}</td>
+					<td>{{op.product.name}}</td>
+					<td>{{op.quantity}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="row">
+			<h3>Packages</h3>
+			<table class="table table-hover table-bordered">
+				<th>ID</th>
+				<th>Date added</th>
+				<tr style="cursor: pointer;" ng-repeat="package in packages" ui-sref="base.packages.package({packageId: package.id})">
+					<td>{{package.id}}</td>
+					<td>{{package.created_on}}</td>
+				</tr>
+			</table>
+			<button class="btn btn-success" ng-click="createPackage()">Create Package</button>
+		</div>
 	</div>
 </div>

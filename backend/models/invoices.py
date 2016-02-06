@@ -15,7 +15,7 @@ class Invoice(db.Model, Entity):
     @staticmethod
     def from_order(order):
         if not order.order_products:
-            raise Exception('Order has not products.')
+            raise Exception('Order has no products.')
         invoice = Invoice()
         invoice.order = order
         order_products = (
@@ -28,10 +28,18 @@ class Invoice(db.Model, Entity):
                 InvoiceProduct(
                     product=order_product.product,
                     unit_price_rands=order_product.unit_price_rands,
+                    quantity=order_product.quantity,
                     invoice=invoice,
                 )
             )
         return invoice
+
+    @property
+    def total_rands(self):
+        total = 0
+        for ip in self.invoice_products:
+            total += ip.sub_total_rands
+        return total
 
     def __repr__(self):
         return '<Invoice {id}>'.format(id=self.id)
@@ -61,15 +69,13 @@ class Invoice(db.Model, Entity):
         back_populates='invoice'
     )
 
-# Total amount for an Invoice
-Invoice.total_rands = column_property(
-    select([func.sum(InvoiceProduct.unit_price_rands)]).where(
-        InvoiceProduct.invoice_id == Invoice.id).correlate(Invoice)
-)
+    @property
+    def payments_total_rands(self):
+        total = 0
+        for p in self.payments:
+            total += p.amount_rands
+        return total
 
-# Total amount which needs to be paid.
-Invoice.amount_due_rands = column_property(
-    Invoice.total_rands - select(
-        [func.coalesce(func.sum(Payment.amount_rands), 0)]
-    ).where(Payment.invoice_id == Invoice.id).correlate(Invoice)
-)
+    @property
+    def amount_due_rands(self):
+        return self.total_rands - self.payments_total_rands

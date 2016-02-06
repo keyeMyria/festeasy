@@ -8,8 +8,14 @@ from backend.api.v1.schemas import OrderProductSchema
 order_product_schema = OrderProductSchema()
 
 
-def filter_festival(q):
-    festival_id = request.args.get('festival-id')
+# TODO: Needs testing.
+def filter_order(q, order_id):
+    q = q.filter(OrderProduct.order_id == order_id)
+    return q
+
+
+# TODO: Needs testing.
+def filter_festival(q, festival_id):
     if festival_id:
         q = q.join(Order)
         q = q.join(Festival)
@@ -20,6 +26,11 @@ def filter_festival(q):
 class OrderProductCollection(Resource):
     def get(self):
         q = OrderProduct.query
-        q = filter_festival(q)
+        festival_id = request.args.get('festival-id')
+        if festival_id:
+            q = filter_festival(q, festival_id)
+        order_id = request.args.get('order-id')
+        if order_id:
+            q = filter_order(q, order_id)
         order_products = q.all()
         return order_product_schema.dump(order_products, many=True).data

@@ -9,5 +9,6 @@ class InvoiceProductFactory(Factory):
         model = InvoiceProduct
 
     unit_price_rands = 10
+    quantity = 1
     product = SubFactory(ProductFactory)
     invoice = SubFactory(InvoiceFactory)

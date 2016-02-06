@@ -43,6 +43,17 @@ whatToBuy.controller('whatToBuyOverviewController', (
 		params['festival-id'] = festival.id
 		$state.go('base.whatToBuy.overview', params, {reload: true})
 
+	# TODO: Implement proper solution for this.
+	# This is being called for each row in a table in the view, help!
+	$scope.sumOrderProductQuantities = (orderProducts) ->
+		result = {}
+		for op in orderProducts
+			if op.product.id in result
+				result[op.product.id] += op.quantity
+			else
+				result[op.product.id] = op.quantity
+		return result
+
 	$scope.countStockUnits = (product, stockUnits) ->
 		count = 0
 		for stockUnit in stockUnits
