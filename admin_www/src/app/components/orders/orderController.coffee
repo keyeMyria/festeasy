@@ -1,5 +1,6 @@
-orders.controller('orderController', ($scope, $stateParams, orderService,
-    $state, ngNotify, packageService, orderProductService, psuService) ->
+orders.controller('orderController', ($scope, $stateParams, orderService, $q,
+    $state, ngNotify, packageService, orderProductService, psuService,
+    productService) ->
 
   orderId = $stateParams.orderId
   getOrder = orderService.one(orderId).get()
@@ -10,13 +11,46 @@ orders.controller('orderController', ($scope, $stateParams, orderService,
   getPackages.then((response) ->
     $scope.packages = response
   )
-  getOrderProducts = orderProductService.getList({'order-id': orderId})
-  getOrderProducts.then((response) ->
-    $scope.orderProducts = response
-  )
-  getPSUs = psuService.getList({'order-id': orderId})
-  getPSUs.then((response) ->
-    $scope.psus = response
+
+  meh = (psus) ->
+    result = {}
+    for psu in psus
+      pid = psu.stock_unit.product.id
+      if result[pid]
+        result[pid] += 1
+      else
+        result[pid] = 1
+    return result
+
+  meh2 = (ops) ->
+    result = {}
+    for op in ops
+      pid = op.product.id
+      if result[pid]
+        result[pid] += op.quantity
+      else
+        result[pid] = op.quantity
+    return result
+
+  ops = orderProductService.getList({'order-id': orderId})
+  psus = psuService.getList({'order-id': orderId})
+  ps = productService.getList()
+
+  $q.all([ps, ops, psus]).then((response) ->
+    data = []
+    [ps, ops, psus] = response
+    orderProductsByProductId = meh2(ops)
+    packagedStockUnitsByProductId = meh(psus)
+    for p in ps
+      if orderProductsByProductId[p.id] || packagedStockUnitsByProductId[p.id]
+        data.push({
+          'productId': p.id
+          'productName': p.name
+          'demand': orderProductsByProductId[p.id]
+          'packaged': packagedStockUnitsByProductId[p.id]
+          'toPack': (orderProductsByProductId[p.id] || 0) - (packagedStockUnitsByProductId[p.id] || 0)
+        })
+    $scope.data = data
   )
 
   $scope.createPackage = () ->
