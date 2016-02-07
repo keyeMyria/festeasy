@@ -1,5 +1,5 @@
-<loading-indicator data="orderProducts && festivals && stockUnits" error="error"></loading-indicator>
-<div ng-if="orderProducts && festivals && stockUnits">
+<loading-indicator data="data" error="error"></loading-indicator>
+<div ng-show="data">
 	For Festival:
 	<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
 	    <ui-select-match placeholder="Select a festival">
@@ -10,23 +10,19 @@
 	    </ui-select-choices>
 	</ui-select>
 	<br/>
-	<div ng-show="!orderProducts.length" class="text-center">
-		<p class="lead">
-			No results
-		</p>
-	</div>
-	<table ng-show="orderProducts.length" class="table table-bordered table-hover">
-			<tr>
-				<th>Product</th>
-				<th>Wanted</th>
-				<th>Packaged</th>
-				<th>Availiable In Stock</th>
-			<tr>
-	  	<tr ng-class="{'warning': (countStockUnits(value[0].product, stockUnits) < sumOrderProductQuantities(orderProducts)[key])}" ng-repeat="(key, value) in orderProducts | groupBy: 'product.id'">
-	    	<td>{{value[0].product.name}}</td>
-	    	<td>{{sumOrderProductQuantities(orderProducts)[key]}}</td>
-				<td>Unknown</td>
-				<td>{{countStockUnits(value[0].product, stockUnits)}}
-	  	</tr>
+	<table class="table table-bordered table-hover">
+		<tr>
+			<th>Product</th>
+			<th>Demand</th>
+			<th>Packaged</th>
+			<th>Availiable In Stock</th>
+			<th>To buy</th>
+		<tr ng-class="{'warning': entry.toBuy > 0}" ng-repeat="entry in data">
+    	<td>{{entry.productName}}</td>
+    	<td>{{entry.demand}}</td>
+			<td>{{entry.packagedStockUnits}}</td>
+			<td>{{entry.availiableStockUnits}}</td>
+			<td>{{entry.toBuy}}</td>
+  	</tr>
 	</table>
 </div>
