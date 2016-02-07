@@ -1,5 +1,6 @@
-orders.controller('orderController', ($scope, $stateParams, orderService, $state, ngNotify,
-  packageService, orderProductService) ->
+orders.controller('orderController', ($scope, $stateParams, orderService,
+    $state, ngNotify, packageService, orderProductService, psuService) ->
+
   orderId = $stateParams.orderId
   getOrder = orderService.one(orderId).get()
   getOrder.then((response) ->
@@ -12,6 +13,10 @@ orders.controller('orderController', ($scope, $stateParams, orderService, $state
   getOrderProducts = orderProductService.getList({'order-id': orderId})
   getOrderProducts.then((response) ->
     $scope.orderProducts = response
+  )
+  getPSUs = psuService.getList({'order-id': orderId})
+  getPSUs.then((response) ->
+    $scope.psus = response
   )
 
   $scope.createPackage = () ->

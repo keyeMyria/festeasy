@@ -1,6 +1,6 @@
 <div class="container-fluid">
-	<loading-indicator data="order && packages" error="error"></loading-indicator>
-	<div ng-show="order && packages">
+	<loading-indicator data="order && packages && orderProducts" error="error"></loading-indicator>
+	<div ng-show="order && packages && orderProducts">
 		<div class="row">
 			<h1>Order {{order.id}}</h1>
       <div class="row">
@@ -29,10 +29,12 @@
 				<th>Date added</th>
 				<th>Product</th>
 				<th>Quantity</th>
+				<th>To pack</th>
 				<tr style="cursor: pointer;" ng-repeat="op in orderProducts" ui-sref="base.products.product({productId: op.product.id})">
 					<td>{{op.id}}</td>
 					<td>{{op.created_on}}</td>
 					<td>{{op.product.name}}</td>
+					<td>{{op.quantity}}</td>
 					<td>{{op.quantity}}</td>
 				</tr>
 			</table>
