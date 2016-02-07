@@ -33,36 +33,39 @@ orders.controller('orderController', ($scope, $stateParams, orderService, $q,
       else
         result[pid] = op.quantity
     return result
+  fetchData = () ->
+    ops = orderProductService.getList({'order-id': orderId})
+    psus = psuService.getList({'order-id': orderId})
+    ps = productService.getList()
 
-  ops = orderProductService.getList({'order-id': orderId})
-  psus = psuService.getList({'order-id': orderId})
-  ps = productService.getList()
-
-  $q.all([ps, ops, psus]).then((response) ->
-    data = []
-    [ps, ops, psus] = response
-    orderProductsByProductId = meh2(ops)
-    packagedStockUnitsByProductId = meh(psus)
-    for p in ps
-      if orderProductsByProductId[p.id] || packagedStockUnitsByProductId[p.id]
-        data.push({
-          'productId': p.id
-          'productName': p.name
-          'demand': orderProductsByProductId[p.id] || 0
-          'packaged': packagedStockUnitsByProductId[p.id] || 0
-          'toPack': (orderProductsByProductId[p.id] || 0) - (packagedStockUnitsByProductId[p.id] || 0)
-        })
-    $scope.data = data
-  )
+    $q.all([ps, ops, psus]).then((response) ->
+      data = []
+      [ps, ops, psus] = response
+      orderProductsByProductId = meh2(ops)
+      packagedStockUnitsByProductId = meh(psus)
+      for p in ps
+        if orderProductsByProductId[p.id] || packagedStockUnitsByProductId[p.id]
+          data.push({
+            'productId': p.id
+            'productName': p.name
+            'demand': orderProductsByProductId[p.id] || 0
+            'packaged': packagedStockUnitsByProductId[p.id] || 0
+            'toPack': (orderProductsByProductId[p.id] || 0) - (packagedStockUnitsByProductId[p.id] || 0)
+          })
+      $scope.data = data
+    )
+  fetchData()
 
   $scope.deletePackage = (p) ->
     deletePackage = packageService.one(p.id).remove()
     deletePackage.then((response) ->
       ngNotify.set('Successfully deleted package.')
-      fetchPackages()
     )
     deletePackage.catch((response) ->
       ngNotify.set('Failed to delete package.', 'error')
+    )
+    deletePackage.finally((response) ->
+      fetchData()
       fetchPackages()
     )
 

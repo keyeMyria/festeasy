@@ -7,10 +7,10 @@
 			<th>Date added</th>
 			<th>Festival</th>
 			<th>Total Rands</th>
-			<tr style="cursor: pointer;" ng-repeat="order in orders" ui-sref="base.orders.order({orderId: order.id})">
-				<td>{{order.id}}</td>
+			<tr ng-repeat="order in orders">
+				<td><a ui-sref="base.orders.order({orderId: order.id})">{{order.id}}</a></td>
 				<td>{{order.created_on}}</td>
-				<td>{{order.festival.name}}</td>
+				<td><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></td>
 				<td><rands amount-rands="order.total_rands"></rands></td>
 			</tr>
 		</table>
