@@ -21,4 +21,5 @@ class Package(db.Model, Entity):
     packaged_stock_units = relationship(
         'PackagedStockUnit',
         back_populates='package',
+        cascade='save-update, merge, delete, delete-orphan'
     )

@@ -1,6 +1,6 @@
 <div class="container-fluid">
-	<loading-indicator data="order && packages" error="error"></loading-indicator>
-	<div ng-show="order && packages">
+	<loading-indicator data="order && packages && data" error="error"></loading-indicator>
+	<div ng-show="order && packages && data">
 		<div class="row">
 			<h1>Order {{order.id}}</h1>
       <div class="row">
@@ -21,30 +21,39 @@
           <span><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
       	</div>
       </div>
+			<div class="row">
+    	  <label for="inputName" class="col-sm-3 control-label">User</label>
+      	<div class="col-sm-9">
+          <span><a ui-sref="base.users">{{order.user_id}}</a></span>
+      	</div>
+      </div>
 		</div>
 		<div class="row">
-			<h3>Products</h3>
+			<h2>Products</h2>
 			<table class="table table-hover table-bordered">
-				<th>ID</th>
-				<th>Date added</th>
 				<th>Product</th>
-				<th>Quantity</th>
-				<tr style="cursor: pointer;" ng-repeat="op in orderProducts" ui-sref="base.products.product({productId: op.product.id})">
-					<td>{{op.id}}</td>
-					<td>{{op.created_on}}</td>
-					<td>{{op.product.name}}</td>
-					<td>{{op.quantity}}</td>
+				<th>Demand</th>
+				<th>Packaged</th>
+				<th>To pack</th>
+				<tr ng-repeat="entry in data">
+					<td><a ui-sref="base.products.product({productId: entry.productId})">{{entry.productName}}</a></td>
+					<td>{{entry.demand}}</td>
+					<td>{{entry.packaged}}</td>
+					<td>{{entry.toPack}}</td>
 				</tr>
 			</table>
 		</div>
 		<div class="row">
-			<h3>Packages</h3>
-			<table class="table table-hover table-bordered">
+			<h2>Packages</h2>
+			<p ng-show="packages.length == 0" class="lead">This order has no packages yet.</p>
+			<table class="table table-hover table-bordered" ng-show="packages.length">
 				<th>ID</th>
 				<th>Date added</th>
-				<tr style="cursor: pointer;" ng-repeat="package in packages" ui-sref="base.packages.package({packageId: package.id})">
-					<td>{{package.id}}</td>
+				<th>Delete</th>
+				<tr ng-repeat="package in packages">
+					<td><a ui-sref="base.packages.package({packageId: package.id})">{{package.id}}</a></td>
 					<td>{{package.created_on}}</td>
+					<td><button class="btn btn-warning" ng-click="deletePackage(package)">Delete</button>
 				</tr>
 			</table>
 			<button class="btn btn-success" ng-click="createPackage()">Create Package</button>
