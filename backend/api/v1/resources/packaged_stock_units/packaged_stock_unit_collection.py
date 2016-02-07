@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 
 from backend import db
-from backend.models import PackagedStockUnit, Package, Order
+from backend.models import PackagedStockUnit, Package, Order, Festival
 from backend.api.v1.schemas import PackagedStockUnitSchema
 
 
@@ -23,9 +23,18 @@ def filter_package_id(q, package_id):
     return q
 
 
+def filter_festival_id(q, festival_id):
+    q = q.join(Package).join(Order).join(Festival)
+    q = q.filter(Festival.id == festival_id)
+    return q
+
+
 class PackagedStockUnitCollection(Resource):
     def get(self):
         q = PackagedStockUnit.query
+        festival_id = request.args.get('festival-id')
+        if festival_id:
+            q = filter_festival_id(q, festival_id)
         package_id = request.args.get('package-id')
         if package_id:
             q = filter_package_id(q, package_id)
