@@ -10,7 +10,7 @@ whatToBuy.controller('whatToBuyOverviewController', ($scope, $state, $q,
 
 	ps = productService.getList()
 	ops = orderProductService.getList({'festival-id': festivalId})
-	sus = stockUnitService.getList({'availiable': true})
+	sus = stockUnitService.getList({'available': true})
 	psus = psuService.getList({'festival-id': festivalId})
 
 	# TODO: Learn map and reduce
@@ -48,16 +48,16 @@ whatToBuy.controller('whatToBuyOverviewController', ($scope, $state, $q,
 		data = []
 		[ps, ops, sus, psus] = response
 		demandByProductId = meh(ops)
-		availiableStockUnitsByProductId = meh2(sus)
+		availableStockUnitsByProductId = meh2(sus)
 		packagedStockUnitsByProductId = meh3(psus)
 		for p in ps
 			if demandByProductId[p.id]
 				data.push({
 					'productName': p.name || 0
 					'demand': demandByProductId[p.id] || 0
-					'availiableStockUnits': availiableStockUnitsByProductId[p.id] || 0
+					'availableStockUnits': availableStockUnitsByProductId[p.id] || 0
 					'packagedStockUnits': packagedStockUnitsByProductId[p.id] || 0
-					'toBuy': (demandByProductId[p.id] || 0) - (packagedStockUnitsByProductId[p.id] || 0) - (availiableStockUnitsByProductId[p.id] || 0)
+					'toBuy': (demandByProductId[p.id] || 0) - (packagedStockUnitsByProductId[p.id] || 0) - (availableStockUnitsByProductId[p.id] || 0)
 				})
 		$scope.data = data
 	)

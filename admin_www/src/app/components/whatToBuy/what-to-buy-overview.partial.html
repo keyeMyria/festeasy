@@ -15,13 +15,13 @@
 			<th>Product</th>
 			<th>Demand</th>
 			<th>Packaged</th>
-			<th>Availiable In Stock</th>
+			<th>Available In Stock</th>
 			<th>To buy</th>
 		<tr ng-class="{'warning': entry.toBuy > 0}" ng-repeat="entry in data">
     	<td>{{entry.productName}}</td>
     	<td>{{entry.demand}}</td>
 			<td>{{entry.packagedStockUnits}}</td>
-			<td>{{entry.availiableStockUnits}}</td>
+			<td>{{entry.availableStockUnits}}</td>
 			<td>{{entry.toBuy}}</td>
   	</tr>
 	</table>

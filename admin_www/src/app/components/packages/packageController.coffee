@@ -37,7 +37,7 @@ packages.controller('packageController', ($scope, $stateParams, packageService,
   $scope.getStockUnitByProductId = (productId) ->
     params = {
       'product-id': productId
-      'availiable': true
+      'available': true
     }
     getStockUnits = stockUnitService.getList(params)
     getStockUnits.then((response) ->
