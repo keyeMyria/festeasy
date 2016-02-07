@@ -35,8 +35,8 @@
 				<th>Demand</th>
 				<th>Packaged</th>
 				<th>To pack</th>
-				<tr style="cursor: pointer;" ng-repeat="entry in data" ui-sref="base.products.product({productId: entry.id})">
-					<td>{{entry.productName}}</td>
+				<tr ng-repeat="entry in data">
+					<td><a ui-sref="base.products.product({productId: entry.productId})">{{entry.productName}}</a></td>
 					<td>{{entry.demand}}</td>
 					<td>{{entry.packaged}}</td>
 					<td>{{entry.toPack}}</td>
@@ -50,10 +50,10 @@
 				<th>ID</th>
 				<th>Date added</th>
 				<th>Delete</th>
-				<tr style="cursor: pointer;" ng-repeat="package in packages" ui-sref="base.packages.package({packageId: package.id})">
-					<td>{{package.id}}</td>
+				<tr ng-repeat="package in packages">
+					<td><a ui-sref="base.packages.package({packageId: package.id})">{{package.id}}</a></td>
 					<td>{{package.created_on}}</td>
-					<td><button class="btn btn-warning">Delete</button>
+					<td><button class="btn btn-warning" ng-click="deletePackage(package)">Delete</button>
 				</tr>
 			</table>
 			<button class="btn btn-success" ng-click="createPackage()">Create Package</button>

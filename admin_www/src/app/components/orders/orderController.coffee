@@ -7,10 +7,12 @@ orders.controller('orderController', ($scope, $stateParams, orderService, $q,
   getOrder.then((response) ->
     $scope.order = response
   )
-  getPackages = packageService.getList({'order-id': orderId})
-  getPackages.then((response) ->
-    $scope.packages = response
-  )
+  fetchPackages = () ->
+    getPackages = packageService.getList({'order-id': orderId})
+    getPackages.then((response) ->
+      $scope.packages = response
+    )
+  fetchPackages()
 
   meh = (psus) ->
     result = {}
@@ -52,6 +54,17 @@ orders.controller('orderController', ($scope, $stateParams, orderService, $q,
         })
     $scope.data = data
   )
+
+  $scope.deletePackage = (p) ->
+    deletePackage = packageService.one(p.id).remove()
+    deletePackage.then((response) ->
+      ngNotify.set('Successfully deleted package.')
+      fetchPackages()
+    )
+    deletePackage.catch((response) ->
+      ngNotify.set('Failed to delete package.', 'error')
+      fetchPackages()
+    )
 
   $scope.createPackage = () ->
     params = {
