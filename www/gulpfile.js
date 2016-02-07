@@ -101,7 +101,7 @@ gulp.task('index', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('watch', ['default'], function () {
+gulp.task('watch', ['build'], function () {
     livereload.listen();
     watch('./bower_components/**', batch(function (events, done) {
         gulp.start('bower', done);
@@ -121,9 +121,13 @@ gulp.task('watch', ['default'], function () {
     watch('./src/index.html', batch(function (events, done) {
         gulp.start('index', done);
     }));
-    gulp.watch('./dist/**').on('change', livereload.changed);
+    gulp.watch('./dist/*').on('change', livereload.changed);
 })
 
+gulp.task('build', function() {
+  gulp.start('partials', 'scripts', 'assets', 'bower', 'index', 'styles');
+});
+
 gulp.task('default', ['clean'], function () {
-    gulp.start('partials', 'scripts', 'assets', 'bower', 'index', 'styles');
+  gulp.start('build');
 });
