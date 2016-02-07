@@ -62,11 +62,13 @@
 				<th>Date added</th>
 				<th>Product</th>
 				<th>StockUnit</th>
+				<th>Remove</th>
 				<tr ng-repeat="psu in psus | orderBy: id : true">
 					<td>{{psu.id}}</td>
 					<td>{{psu.created_on}}</td>
 					<td>{{psu.stock_unit.product.name}}</td>
 					<td>{{psu.stock_unit.id}}</td>
+					<td><button class="btn btn-warning" ng-click="removePSU(psu)">Remove</button>
 				</tr>
 			</table>
 		</div>

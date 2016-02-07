@@ -25,6 +25,7 @@ packages.controller('packageController', ($scope, $stateParams, packageService,
     }
     createPSU = psuService.post(params)
     createPSU.then((response) ->
+      $scope.selectedStockUnit = null
       fetchPSUs()
       $scope.getStockUnitByProductId($scope.selectedProduct.id)
       ngNotify.set('Successfully added product to package.')
@@ -42,6 +43,19 @@ packages.controller('packageController', ($scope, $stateParams, packageService,
     getStockUnits.then((response) ->
       $scope.stockUnits = response
     )
+
+  $scope.removePSU = (psu) ->
+    deletePSU = psuService.one(psu.id).remove()
+    deletePSU.then((response) ->
+      fetchPSUs()
+      if $scope.selectedProduct
+        $scope.getStockUnitByProductId($scope.selectedProduct.id)
+      ngNotify.set('Successfully removed product.')
+    )
+    deletePSU.catch((response) ->
+      ngNotify.set('Failed to remove product.', 'error')
+    )
+
 
   $scope.updateSelectedProduct = (product, something) ->
     $scope.selectedProduct = product
