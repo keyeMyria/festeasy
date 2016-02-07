@@ -14,3 +14,8 @@ class PackageSingleton(Resource):
     def get(self, package_id):
         package = get_or_404(Package, Package.id == package_id)
         return package_schema.dump(package).data
+
+    def delete(self, package_id):
+        package = get_or_404(Package, Package.id == package_id)
+        db.session.delete(package)
+        db.session.commit()
