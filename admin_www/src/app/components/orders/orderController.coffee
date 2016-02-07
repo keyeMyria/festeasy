@@ -46,8 +46,8 @@ orders.controller('orderController', ($scope, $stateParams, orderService, $q,
         data.push({
           'productId': p.id
           'productName': p.name
-          'demand': orderProductsByProductId[p.id]
-          'packaged': packagedStockUnitsByProductId[p.id]
+          'demand': orderProductsByProductId[p.id] || 0
+          'packaged': packagedStockUnitsByProductId[p.id] || 0
           'toPack': (orderProductsByProductId[p.id] || 0) - (packagedStockUnitsByProductId[p.id] || 0)
         })
     $scope.data = data
