@@ -1,12 +1,12 @@
-whatToBuy.controller('whatToBuyOverviewController', (
-		$scope, $state, orderProductService, festivalService, $stateParams, stockUnitService) ->
-	params = {}
-	$scope.error = false
-	if $stateParams['festival-id']
-		params['festival-id'] = $stateParams['festival-id']
+whatToBuy.controller('whatToBuyOverviewController', ($scope, $state,
+	orderProductService, festivalService, $stateParams, stockUnitService) ->
 
-	fetchStockUnits = () ->
-		getStockUnits = stockUnitService.getList()
+	$scope.error = false
+
+	fetchAvailiableStockUnits = () ->
+		getStockUnits = stockUnitService.getList({
+			'availiable': true
+		})
 		getStockUnits.then((response) ->
 			$scope.stockUnits = response
 		)
@@ -14,8 +14,10 @@ whatToBuy.controller('whatToBuyOverviewController', (
 			$scope.error = true
 		)
 
-	fetchOrderProducts = (params) ->
-		getOrderProducts = orderProductService.getList(params)
+	fetchOrderProducts = (festivalId) ->
+		getOrderProducts = orderProductService.getList({
+			'festival-id': festivalId
+		})
 		getOrderProducts.then((response) ->
 			$scope.orderProducts = response
 		)
@@ -23,25 +25,24 @@ whatToBuy.controller('whatToBuyOverviewController', (
 			$scope.error = true
 		)
 
-	setSelectedFestival = (params) ->
-		if params['festival-id']
+	setSelectedFestival = () ->
+		if $stateParams['festival-id']
 			for festival in $scope.festivals
-				if parseInt(festival.id) == parseInt(params['festival-id'])
+				if parseInt(festival.id) == parseInt($stateParams['festival-id'])
 					$scope.selectedFestival = festival
 
 	fetchFestivals = () ->
 		getFestivals = festivalService.getList()
 		getFestivals.then((response) ->
 			$scope.festivals = response
-			setSelectedFestival(params)
+			setSelectedFestival()
 		)
 		getFestivals.catch((response) ->
 			$scope.error = true
 		)
 
 	$scope.updateSelectedFestival = (festival, something) ->
-		params['festival-id'] = festival.id
-		$state.go('base.whatToBuy.overview', params, {reload: true})
+		$state.go('base.whatToBuy.overview', {'festival-id': festival.id}, {reload: true})
 
 	# TODO: Implement proper solution for this.
 	# This is being called for each row in a table in the view, help!
@@ -60,8 +61,7 @@ whatToBuy.controller('whatToBuyOverviewController', (
 			if product.id == stockUnit.product.id
 				count += 1
 		return count
-
-	fetchOrderProducts(params)
-	fetchStockUnits()
+	fetchOrderProducts($stateParams['festival-id'])
+	fetchAvailiableStockUnits()
 	fetchFestivals()
 )
