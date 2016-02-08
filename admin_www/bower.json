@@ -26,6 +26,7 @@
     "ui-select": "angular-ui-select#~0.13.2",
     "font-awesome": "fontawesome#~4.5.0",
     "moment": "~2.10.6",
-    "angular-filter": "~0.5.8"
+    "angular-filter": "~0.5.8",
+    "ng-table": "^1.0.0"
   }
 }
