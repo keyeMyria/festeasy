@@ -48,20 +48,25 @@
 	</div>
 	<div class="row">
 		<p class="lead">Stock:</p>
-		<div ng-show="stockUnits" class="col-md-6">
-			<table class="table table-hover table-bordered">
-				<th>ID</th>
-				<th>Date added</th>
-				<th>Product</th>
-				<th>Supplier</th>
-				<th>Cost</th>
-				<tr ng-repeat="stockUnit in stockUnits | orderBy: id : true">
-					<td>{{stockUnit.id}}</td>
-					<td>{{stockUnit.created_on}}</td>
-					<td>{{stockUnit.product.name}}</td>
-					<td>{{stockUnit.supplier.name}}</td>
-					<td><rands amount-rands="stockUnit.cost_rands"></rands></td>
-				</tr>
+		<div ng-show="stockUnits">
+			<table ng-table="tableParams" class="table" show-filter="true">
+		    <tr ng-repeat="entry in $data">
+	        <td title="'ID'" filter="{id: 'number'}" sortable="'id'">
+	          {{entry.id}}
+					</td>
+	        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
+	          {{entry.created_on}}
+					</td>
+					<td title="'Product'" filter="{'product.name': 'text'}" sortable="'product.name'">
+						{{entry.product.name}}
+					</td>
+					<td title="'Supplier'" filter="{'supplier.name': 'text'}" sortable="'supplier.name'">
+						{{entry.supplier.name}}
+					</td>
+					<td title="'Cost'" filter="{cost_rands: 'number'}" sortable="'cost_rands'">
+						<rands amount-rands="entry.cost_rands"></rands>
+					</td>
+		    </tr>
 			</table>
 		</div>
 	</div>
