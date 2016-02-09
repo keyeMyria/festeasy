@@ -2,17 +2,21 @@
 	<loading-indicator data="orders" error="false"></loading-indicator>
 	<div class="row">
 		<h1>Orders</h1>
-		<table class="table table-hover table-bordered">
-			<th>ID</th>
-			<th>Date added</th>
-			<th>Festival</th>
-			<th>Total Rands</th>
-			<tr ng-repeat="order in orders">
-				<td><a ui-sref="base.orders.order({orderId: order.id})">{{order.id}}</a></td>
-				<td>{{order.created_on}}</td>
-				<td><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></td>
-				<td><rands amount-rands="order.total_rands"></rands></td>
-			</tr>
+		<table style="cursor:pointer;" ng-table="tableParams" class="table table-hover" show-filter="true">
+	    <tr ng-repeat="entry in $data" ui-sref="base.orders.order({orderId: entry.id})">
+	        <td title="'ID'" filter="{id: 'number'}" sortable="'id'">
+	          {{entry.id}}
+					</td>
+	        <td title="'Created on'" filter="{created_on: 'text'}" sortable="'created_on'">
+	          {{entry.created_on}}
+					</td>
+					<td title="'Festival'" filter="{'festival.name': 'text'}" sortable="'festival.name'">
+						{{entry.festival.name}}
+					</td>
+					<td title="'Total (Rands)'" filter="{total_rands: 'number'}" sortable="'total_rands'">
+						<rands amount-rands="entry.total_rands"></rands>
+					</td>
+	    </tr>
 		</table>
 	</div>
 </div>
