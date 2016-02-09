@@ -61,20 +61,25 @@
 		</div>
 		<div class="row">
 			<h3>Products:</h3>
-			<div class="col-md-6">
-				<table class="table table-hover table-bordered">
-					<th>ID</th>
-					<th>Date added</th>
-					<th>Product</th>
-					<th>StockUnit</th>
-					<th>Remove</th>
-					<tr ng-repeat="psu in psus | orderBy: id : true">
-						<td>{{psu.id}}</td>
-						<td>{{psu.created_on}}</td>
-						<td>{{psu.stock_unit.product.name}}</td>
-						<td>{{psu.stock_unit.id}}</td>
-						<td><button class="btn btn-warning" ng-click="removePSU(psu)">Remove</button>
-					</tr>
+			<div>
+				<table ng-show="psus.length > 0" ng-table="tableParams" class="table" show-filter="true">
+			    <tr ng-repeat="entry in $data">
+		        <td title="'PSU ID'" filter="{id: 'number'}" sortable="'id'">
+							{{entry.id}}
+						</td>
+		        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
+		          {{entry.created_on}}
+						</td>
+						<td title="'Product'" filter="{'stock_unit.product.id': 'number'}" sortable="'stock_unit.product.id'">
+							{{entry.stock_unit.product.name}}
+						</td>
+						<td title="'Stock Unit ID'" filter="{'stock_unit.id': 'number'}" sortable="'stock_unit.id'">
+							{{entry.stock_unit.id}}
+						</td>
+						<td title="'Remove'">
+							<button class="btn btn-warning" ng-click="removePSU(entry)">Remove</button>
+						</td>
+			    </tr>
 				</table>
 			</div>
 		</div>

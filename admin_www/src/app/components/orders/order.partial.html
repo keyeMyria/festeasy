@@ -55,7 +55,7 @@
 			<p ng-show="packages.length == 0" class="lead">This order has no packages yet.</p>
 			<table ng-show="packages.length > 0" ng-table="packagesTableParams" class="table" show-filter="true">
 		    <tr ng-repeat="entry in $data">
-	        <td title="'ID'" filter="{id: 'number'}" sortable="'id'">
+	        <td title="'Package ID'" filter="{id: 'number'}" sortable="'id'">
 	          <a ui-sref="base.packages.package({packageId: entry.id})">{{entry.id}}</a>
 					</td>
 	        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">

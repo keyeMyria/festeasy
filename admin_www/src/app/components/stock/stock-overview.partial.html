@@ -51,7 +51,7 @@
 		<div ng-show="stockUnits">
 			<table ng-table="tableParams" class="table" show-filter="true">
 		    <tr ng-repeat="entry in $data">
-	        <td title="'ID'" filter="{id: 'number'}" sortable="'id'">
+	        <td title="'Stock Unit ID'" filter="{id: 'number'}" sortable="'id'">
 	          {{entry.id}}
 					</td>
 	        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
