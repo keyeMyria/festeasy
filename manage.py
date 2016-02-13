@@ -50,11 +50,11 @@ manager.add_command('drop-all', DropAll())
 
 class InitDB(Command):
     def run(self):
+        db.reflect()
         db.drop_all()
         db.create_all()
         dummy_data = get_dummy_data()
-        for item in dummy_data:
-            db.session.add(item)
+        db.session.add_all(dummy_data)
         db.session.commit()
 manager.add_command('init-db', InitDB())
 
