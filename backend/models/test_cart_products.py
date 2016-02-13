@@ -7,11 +7,7 @@ class TestCartProduct(ModelTestCase):
     def test_cart_product_sub_total_rands(self):
         price = 10
         user = factories.UserFactory()
-        product = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
+        product = factories.ProductFactory(price_rands=price)
         cart_product = factories.CartProductFactory(
             product=product,
             quantity=2,

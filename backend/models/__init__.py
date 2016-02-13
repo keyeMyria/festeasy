@@ -1,6 +1,8 @@
+from backend import db
+
+
 from .sessions import Session
 from .users import User
-from .product_prices import ProductPrice
 from .products import Product
 from .festivals import Festival
 from .order_products import OrderProduct
@@ -20,3 +22,5 @@ from .stock_units import StockUnit
 from .forgot_password_tokens import ForgotPasswordToken
 from .packages import Package
 from .packaged_stock_unit import PackagedStockUnit
+
+db.configure_mappers()

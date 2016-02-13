@@ -1,4 +1,4 @@
-from factory import Factory, post_generation
+from factory import Factory
 
 from backend.models import Product
 
@@ -11,11 +11,4 @@ class ProductFactory(Factory):
     description = 'This is some chicken.'
     is_enabled = True
     cost_rands = 9.99
-
-    @post_generation
-    def product_prices(self, create, extracted, **kwargs):
-        if not create:
-            return
-        if extracted:
-            for product_price in extracted:
-                self.product_prices.append(product_price)
+    price_rands = 12.99

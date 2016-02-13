@@ -25,6 +25,7 @@ class TestProductCollection(APITestCase):
         data = dict(
             name=product_name,
             description='This awesome new product is awesome',
+            price_rands=2,
         )
         repsonse = self.api_request(
             'post',

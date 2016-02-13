@@ -4,38 +4,24 @@ from sqlalchemy.orm import relationship
 
 from backend import db
 
-from . import ProductPrice
 from .utils import Entity
 
 
 class Product(db.Model, Entity):
+    __versioned__ = {}
     __tablename__ = 'product'
 
     def __repr__(self):
         return '<Product {id}>'.format(id=self.id)
 
     name = Column(String(150), nullable=False)
+    price_rands = Column(Numeric, nullable=False)
     # The cost of a Product in Rands.
     cost_rands = Column(Numeric)
     # Should a Product show up on the products list.
     is_enabled = Column(Boolean, default=False, nullable=False)
 
     description = Column(String)
-
-    @property
-    def price_rands(self):
-        product_price = (
-            ProductPrice.query
-            .filter(ProductPrice.product_id == self.id)
-            .order_by(ProductPrice.created_on.desc())
-            .first()
-        )
-        return product_price.amount_rands
-
-    product_prices = relationship(
-        'ProductPrice',
-        back_populates='product',
-    )
 
     carts = relationship(
         'Cart',
