@@ -16,6 +16,8 @@ var minifyCss = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
 var watch = require('gulp-watch');
 var batch = require('gulp-batch');
+var watchUi = require('./semantic/tasks/watch');
+var buildUi = require('./semantic/tasks/build');
 
 
 gulp.task('clean', function (cb) {
@@ -122,10 +124,14 @@ gulp.task('watch', ['build'], function () {
         gulp.start('index', done);
     }));
     gulp.watch('./dist/*').on('change', livereload.changed);
+    gulp.start('watchUi');
 })
 
+gulp.task('watchUi', watchUi);
+gulp.task('buildUi', buildUi);
+
 gulp.task('build', function() {
-  gulp.start('partials', 'scripts', 'assets', 'bower', 'index', 'styles');
+  gulp.start('partials', 'scripts', 'assets', 'bower', 'buildUi', 'index', 'styles');
 });
 
 gulp.task('default', ['clean'], function () {
