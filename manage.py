@@ -2,10 +2,6 @@ from flask import current_app
 from flask.ext.script import Manager, Command
 from flask.ext.script import Shell, Server
 
-from sqlalchemy_continuum import make_versioned
-
-make_versioned()
-
 from backend import create_app, db, models
 from backend.utils import get_dummy_data
 
