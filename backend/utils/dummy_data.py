@@ -1,7 +1,7 @@
 import datetime
 
 from backend.models import User, Product, Festival, Cart
-from backend.models import Category, BaseFestival, ProductPrice
+from backend.models import Category, BaseFestival
 from backend.models import Supplier
 
 
@@ -30,9 +30,7 @@ def get_dummy_data():
             name='Castle Lite Beer',
             cost_rands=10,
             is_enabled=True,
-            product_prices=[
-                ProductPrice(amount_rands=10),
-            ],
+            price_rands=10,
             description='A description.',
             categories=[beer, drinks],
             suppliers=[woolies, pp],
@@ -41,9 +39,7 @@ def get_dummy_data():
             name='Lays Small Pack',
             cost_rands=10,
             is_enabled=True,
-            product_prices=[
-                ProductPrice(amount_rands=10),
-            ],
+            price_rands=10,
             description='A description.',
             categories=[food],
             suppliers=[woolies],
@@ -52,9 +48,7 @@ def get_dummy_data():
             name='Coke Can',
             cost_rands=10,
             is_enabled=True,
-            product_prices=[
-                ProductPrice(amount_rands=10),
-            ],
+            price_rands=10,
             description='A description.',
             categories=[drinks],
             suppliers=[pp],
@@ -63,9 +57,7 @@ def get_dummy_data():
             name='Windhoek Beer',
             cost_rands=10,
             is_enabled=True,
-            product_prices=[
-                ProductPrice(amount_rands=10),
-            ],
+            price_rands=10,
             description='A description',
             categories=[drinks, beer],
             suppliers=[woolies, pp],
@@ -74,9 +66,7 @@ def get_dummy_data():
             name='Text Chocolate',
             cost_rands=10,
             is_enabled=True,
-            product_prices=[
-                ProductPrice(amount_rands=10),
-            ],
+            price_rands=10,
             description='A description',
             categories=[food],
             suppliers=[woolies, pp],
@@ -85,9 +75,7 @@ def get_dummy_data():
             name='KitKat Chocolate',
             cost_rands=10,
             is_enabled=True,
-            product_prices=[
-                ProductPrice(amount_rands=10),
-            ],
+            price_rands=10,
             description='a description.',
             categories=[food],
             suppliers=[woolies],
@@ -96,9 +84,7 @@ def get_dummy_data():
             name='Jelly Beans',
             cost_rands=10,
             is_enabled=True,
-            product_prices=[
-                ProductPrice(amount_rands=10),
-            ],
+            price_rands=10,
             description='A description.',
             categories=[food],
             suppliers=[woolies],

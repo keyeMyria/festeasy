@@ -41,6 +41,7 @@ def create_app(config):
     app.register_blueprint(v1_bp, url_prefix='/api/v1')
 
     db.init_app(app)
+    db.configure_mappers()
     emailer.init_app(app)
 
     return app

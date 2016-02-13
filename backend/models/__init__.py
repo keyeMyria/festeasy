@@ -1,6 +1,5 @@
 from .sessions import Session
 from .users import User
-from .product_prices import ProductPrice
 from .products import Product
 from .festivals import Festival
 from .order_products import OrderProduct

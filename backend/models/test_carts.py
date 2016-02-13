@@ -13,16 +13,8 @@ class TestCart(ModelTestCase):
         """
         price = 10
         user = factories.UserFactory()
-        product_1 = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
-        product_2 = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price * 2),
-            ],
-        )
+        product_1 = factories.ProductFactory(price_rands=price)
+        product_2 = factories.ProductFactory(price_rands=price * 2)
         cart_product_1 = factories.CartProductFactory(
             cart=user.cart,
             product=product_1,
