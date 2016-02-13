@@ -1,36 +1,19 @@
+<loading-indicator data="order && packages && data" error="error"></loading-indicator>
 <div class="container-fluid">
-	<loading-indicator data="order && packages && data" error="error"></loading-indicator>
 	<div ng-show="order && packages && data">
-		<div class="row">
-			<h1>Order {{order.id}}</h1>
-      <div class="row">
-    	  <label for="inputName" class="col-sm-3 control-label">ID</label>
-      	<div class="col-sm-9">
-          <span>{{order.id}}</span>
-      	</div>
-      </div>
-      <div class="row">
-    	  <label for="inputName" class="col-sm-3 control-label">Created On</label>
-      	<div class="col-sm-9">
-          <span>{{order.created_on  | date:'medium'}}</span>
-      	</div>
-      </div>
-      <div class="row">
-    	  <label for="inputName" class="col-sm-3 control-label">Festival</label>
-      	<div class="col-sm-9">
-          <span><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
-      	</div>
-      </div>
-			<div class="row">
-    	  <label for="inputName" class="col-sm-3 control-label">User</label>
-      	<div class="col-sm-9">
-          <span><a ui-sref="base.users">{{order.user_id}}</a></span>
-      	</div>
-      </div>
+		<div class="ui segment">
+			<h2 class="ui header">Order {{order.id}}</h2>
+      <span>Order ID: {{order.id}}</span>
+			<br/>
+      <span>Created On: {{order.created_on  | date:'medium'}}</span>
+			<br/>
+      <span>Festival: <a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
+			<br/>
+      <span>User: <a ui-sref="base.users">{{order.user_id}}</a></span>
 		</div>
-		<div class="row">
-			<h2>Products</h2>
-			<table ng-table="tableParams" class="table" show-filter="true">
+		<div class="ui segment">
+			<h2 class="ui header">Products</h2>
+			<table ng-table="tableParams" class="ui selectable celled table" show-filter="true">
 		    <tr ng-repeat="entry in $data">
 		        <td title="'Product'" filter="{productName: 'text'}" sortable="'productName'">
 		          {{entry.productName}}
@@ -50,10 +33,10 @@
 		    </tr>
 			</table>
 		</div>
-		<div class="row">
-			<h2>Packages</h2>
+		<div class="ui segment">
+			<h2 class="ui header">Packages</h2>
 			<p ng-show="packages.length == 0" class="lead">This order has no packages yet.</p>
-			<table ng-show="packages.length > 0" ng-table="packagesTableParams" class="table" show-filter="true">
+			<table ng-show="packages.length > 0" ng-table="packagesTableParams" class="ui selectable celled table" show-filter="true">
 		    <tr ng-repeat="entry in $data">
 	        <td title="'Package ID'" filter="{id: 'number'}" sortable="'id'">
 	          <a ui-sref="base.packages.package({packageId: entry.id})">{{entry.id}}</a>
@@ -62,11 +45,11 @@
 	          {{entry.created_on | date:'medium'}}
 					</td>
 					<td title="'Delete'">
-						<button class="btn btn-warning" ng-click="deletePackage(entry)">Delete</button>
+						<button class="ui button" ng-click="deletePackage(entry)">Delete</button>
 					</td>
 		    </tr>
 			</table>
-			<button class="btn btn-success" ng-click="createPackage()">Create Package</button>
+			<button class="ui button" ng-click="createPackage()">Create Package</button>
 		</div>
 	</div>
 </div>
