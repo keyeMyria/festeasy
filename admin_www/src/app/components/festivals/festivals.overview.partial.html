@@ -10,8 +10,8 @@
 			<td>{{festival.id}}</td>
 			<td>{{festival.name}}</td>
 			<td>{{festival.description}}</td>
-			<td>{{festival.starts_on}}</td>
-			<td>{{festival.ends_on}}</td>
+			<td>{{festival.starts_on | date:'medium'}}</td>
+			<td>{{festival.ends_on | date:'medium'}}</td>
 		</tr>
 	</table>
 </div>

@@ -55,7 +55,7 @@
 	          Stock Unit {{entry.id}}
 					</td>
 	        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
-	          {{entry.created_on}}
+	          {{entry.created_on | date:'medium'}}
 					</td>
 					<td title="'Product'" filter="{'product.name': 'text'}" sortable="'product.name'">
 						{{entry.product.name}}

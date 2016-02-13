@@ -8,7 +8,7 @@
 	          Order {{entry.id}}
 					</td>
 	        <td title="'Created on'" filter="{created_on: 'text'}" sortable="'created_on'">
-	          {{entry.created_on}}
+	          {{entry.created_on  | date:'medium'}}
 					</td>
 					<td title="'Festival'" filter="{'festival.name': 'text'}" sortable="'festival.name'">
 						{{entry.festival.name}}

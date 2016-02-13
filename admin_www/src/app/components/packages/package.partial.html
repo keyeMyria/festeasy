@@ -12,7 +12,7 @@
 	    <div class="row">
 	  	  <label for="inputName" class="col-sm-3 control-label">Created On</label>
 	    	<div class="col-sm-9">
-	      	<span>{{package.created_on}}</span>
+	      	<span>{{package.created_on | date:'medium'}}</span>
 	    	</div>
 	    </div>
 			<div class="row">
@@ -68,7 +68,7 @@
 							Packaged Stock Unit {{entry.id}}
 						</td>
 		        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
-		          {{entry.created_on}}
+		          {{entry.created_on | date:'medium'}}
 						</td>
 						<td title="'Product'" filter="{'stock_unit.product.id': 'number'}" sortable="'stock_unit.product.id'">
 							{{entry.stock_unit.product.name}}

@@ -8,7 +8,7 @@
           <a ui-sref="base.packages.package({packageId: entry.id})">Package {{entry.id}}</a>
 				</td>
         <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
-          {{entry.created_on}}
+          {{entry.created_on | date:'medium'}}
 				</td>
 				<td title="'Order ID'" filter="{order_id: 'number'}" sortable="'order_id'">
           <a ui-sref="base.orders.order({orderId: entry.order_id})">Order {{entry.order_id}}</a>
