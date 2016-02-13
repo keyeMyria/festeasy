@@ -65,7 +65,7 @@
 				<table ng-show="psus.length > 0" ng-table="tableParams" class="table" show-filter="true">
 			    <tr ng-repeat="entry in $data">
 		        <td title="'PSU ID'" filter="{id: 'number'}" sortable="'id'">
-							{{entry.id}}
+							Packaged Stock Unit {{entry.id}}
 						</td>
 		        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
 		          {{entry.created_on}}
@@ -74,7 +74,7 @@
 							{{entry.stock_unit.product.name}}
 						</td>
 						<td title="'Stock Unit ID'" filter="{'stock_unit.id': 'number'}" sortable="'stock_unit.id'">
-							{{entry.stock_unit.id}}
+							Stock Unit {{entry.stock_unit.id}}
 						</td>
 						<td title="'Remove'">
 							<button class="btn btn-warning" ng-click="removePSU(entry)">Remove</button>

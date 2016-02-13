@@ -5,13 +5,13 @@
     <table ng-show="packages.length > 0" ng-table="packagesTableParams" class="table" show-filter="true">
 	    <tr ng-repeat="entry in $data">
         <td title="'Package ID'" filter="{id: 'number'}" sortable="'id'">
-          <a ui-sref="base.packages.package({packageId: entry.id})">{{entry.id}}</a>
+          <a ui-sref="base.packages.package({packageId: entry.id})">Package {{entry.id}}</a>
 				</td>
         <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
           {{entry.created_on}}
 				</td>
 				<td title="'Order ID'" filter="{order_id: 'number'}" sortable="'order_id'">
-          <a ui-sref="base.orders.order({orderId: entry.order_id})">{{entry.order_id}}</a>
+          <a ui-sref="base.orders.order({orderId: entry.order_id})">Order {{entry.order_id}}</a>
 				</td>
 	    </tr>
 		</table>

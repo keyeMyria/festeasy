@@ -5,7 +5,7 @@
 		<table style="cursor:pointer;" ng-table="tableParams" class="table table-hover" show-filter="true">
 	    <tr ng-repeat="entry in $data" ui-sref="base.orders.order({orderId: entry.id})">
 	        <td title="'Order ID'" filter="{id: 'number'}" sortable="'id'">
-	          {{entry.id}}
+	          Order {{entry.id}}
 					</td>
 	        <td title="'Created on'" filter="{created_on: 'text'}" sortable="'created_on'">
 	          {{entry.created_on}}

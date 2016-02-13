@@ -52,7 +52,7 @@
 			<table ng-table="tableParams" class="table" show-filter="true">
 		    <tr ng-repeat="entry in $data">
 	        <td title="'Stock Unit ID'" filter="{id: 'number'}" sortable="'id'">
-	          {{entry.id}}
+	          Stock Unit {{entry.id}}
 					</td>
 	        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
 	          {{entry.created_on}}
