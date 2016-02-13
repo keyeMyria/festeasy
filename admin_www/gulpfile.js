@@ -124,7 +124,6 @@ gulp.task('watch', ['build'], function () {
         gulp.start('index', done);
     }));
     gulp.watch('./dist/*').on('change', livereload.changed);
-    gulp.start('watchUi');
 })
 
 gulp.task('watchUi', watchUi);
