@@ -8,7 +8,6 @@ from .utils import Entity
 
 
 class Product(db.Model, Entity):
-    __versioned__ = {}
     __tablename__ = 'product'
 
     def __repr__(self):
