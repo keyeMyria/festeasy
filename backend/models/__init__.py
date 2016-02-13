@@ -1,9 +1,4 @@
-from sqlalchemy_continuum import make_versioned
-
 from backend import db
-
-
-make_versioned()
 
 
 from .sessions import Session
