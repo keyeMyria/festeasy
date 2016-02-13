@@ -1,6 +1,6 @@
 <loading-indicator data="tableData" error="error"></loading-indicator>
-<div ng-show="tableData">
-	For Festival:
+<div ng-show="tableData" class="ui segment">
+	<h2 class="ui header">What To Buy</h2>
 	<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
 	    <ui-select-match placeholder="Select a festival">
 	        <span ng-bind="$select.selected.name + ' ' + ($select.selected.starts_on | date: 'yyyy')"></span>
@@ -9,24 +9,23 @@
 	        <span ng-bind="festival.name + ' ' + (festival.starts_on | date: 'yyyy')"></span>
 	    </ui-select-choices>
 	</ui-select>
-	<br/>
-	<table ng-table="tableParams" class="table" show-filter="true">
+	<table ng-table="tableParams" class="ui selectable celled table" show-filter="true">
     <tr ng-repeat="entry in $data">
-        <td title="'Product'" filter="{productName: 'text'}" sortable="'productName'">
-          {{entry.productName}}
-				</td>
-        <td title="'Demand'" filter="{demand: 'number'}" sortable="'demand'">
-          {{entry.demand}}
-				</td>
-				<td title="'Packaged'" filter="{packagedStockUnits: 'number'}" sortable="'packagedStockUnits'">
-					{{entry.packagedStockUnits}}
-				</td>
-				<td title="'Available in stock'" filter="{availableStockUnits: 'number'}" sortable="'availableStockUnits'">
-					{{entry.availableStockUnits}}
-				</td>
-				<td title="'To buy'" filter="{toBuy: 'number'}" sortable="'toBuy'">
-					{{entry.toBuy}}
-				</td>
+      <td title="'Product'" filter="{productName: 'text'}" sortable="'productName'">
+        {{entry.productName}}
+			</td>
+      <td title="'Demand'" filter="{demand: 'number'}" sortable="'demand'">
+        {{entry.demand}}
+			</td>
+			<td title="'Packaged'" filter="{packagedStockUnits: 'number'}" sortable="'packagedStockUnits'">
+				{{entry.packagedStockUnits}}
+			</td>
+			<td title="'Available in stock'" filter="{availableStockUnits: 'number'}" sortable="'availableStockUnits'">
+				{{entry.availableStockUnits}}
+			</td>
+			<td title="'To buy'" filter="{toBuy: 'number'}" sortable="'toBuy'">
+				{{entry.toBuy}}
+			</td>
     </tr>
 	</table>
 </div>

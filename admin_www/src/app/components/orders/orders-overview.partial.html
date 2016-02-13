@@ -1,22 +1,20 @@
-<div class="container-fluid" ng-show="orders">
-	<loading-indicator data="orders" error="false"></loading-indicator>
-	<div class="row">
-		<h1>Orders</h1>
-		<table style="cursor:pointer;" ng-table="tableParams" class="table table-hover" show-filter="true">
-	    <tr ng-repeat="entry in $data" ui-sref="base.orders.order({orderId: entry.id})">
-	        <td title="'Order ID'" filter="{id: 'number'}" sortable="'id'">
-	          Order {{entry.id}}
-					</td>
-	        <td title="'Created on'" filter="{created_on: 'text'}" sortable="'created_on'">
-	          {{entry.created_on  | date:'medium'}}
-					</td>
-					<td title="'Festival'" filter="{'festival.name': 'text'}" sortable="'festival.name'">
-						{{entry.festival.name}}
-					</td>
-					<td title="'Total (Rands)'" filter="{total_rands: 'number'}" sortable="'total_rands'">
-						<rands amount-rands="entry.total_rands"></rands>
-					</td>
-	    </tr>
-		</table>
-	</div>
+<loading-indicator data="orders" error="false"></loading-indicator>
+<div ng-show="orders" class="ui segment">
+	<h2 class="ui header">Orders</h2>
+	<table style="cursor:pointer;" ng-table="tableParams" class="ui selectable celled table" show-filter="true">
+    <tr ng-repeat="entry in $data" ui-sref="base.orders.order({orderId: entry.id})">
+        <td title="'Order ID'" filter="{id: 'number'}" sortable="'id'">
+          Order {{entry.id}}
+				</td>
+        <td title="'Created on'" filter="{created_on: 'text'}" sortable="'created_on'">
+          {{entry.created_on  | date:'medium'}}
+				</td>
+				<td title="'Festival'" filter="{'festival.name': 'text'}" sortable="'festival.name'">
+					{{entry.festival.name}}
+				</td>
+				<td title="'Total (Rands)'" filter="{total_rands: 'number'}" sortable="'total_rands'">
+					<rands amount-rands="entry.total_rands"></rands>
+				</td>
+    </tr>
+	</table>
 </div>

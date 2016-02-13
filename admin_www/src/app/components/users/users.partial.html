@@ -1,15 +1,18 @@
-<div class="container">
-	<loading-indicator data="users" error="error"></loading-indicator>
-	<div ng-show="users">
-		<table class="table">
+<loading-indicator data="users" error="error"></loading-indicator>
+<div class="ui segment" ng-show="users">
+	<h2 class="ui header">Users</h2>
+	<table class="ui selectable celled table">
+		<thead>
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Email Address</th>
+		</thead>
+		<tbody>
 			<tr ng-repeat="user in users">
 				<td>{{user.first_name}}</td>
 				<td>{{user.last_name}}</td>
 				<td>{{user.email_address}}</td>
 			</tr>
-		</table>
-	</div>
+		</tbody>
+	</table>
 </div>
