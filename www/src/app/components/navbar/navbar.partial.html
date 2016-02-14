@@ -1,70 +1,57 @@
-<nav class="navbar navbar-default">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" ui-sref="base.landing">FestEasy</a>
+<div class="ui fixed menu">
+  <div class="ui container">
+    <div class="header item">
+      <a ui-sref="base.landing">FestEasy</a>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li ng-class="{'active': state.includes('base.festivals')}">
-          <a ui-sref="base.festivals" ui-sref-opts="{reload:true}">
-            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-            Festivals
-          </a>
-        </li>
-        <li ng-class="{'active': state.includes('base.store')}">
-          <a ui-sref="base.store.products" ui-sref-opts="{reload:true}">
-            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-            Store
-          </a>
-        </li>
-        <li ui-sref-active="active">
-          <a ui-sref="base.how-it-works" ui-sref-opts="{reload:true}">
-            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-            How It Works
-          </a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.account" ui-sref-opts="{reload:true}">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            Account
-          </a>
-        </li>
-        <li ng-show="isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.cart" ui-sref-opts="{reload:true}">
-            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-            Cart
-          </a>
-        </li>
-        <li style="cursor: pointer;" ng-show="isAuthenticated()" ui-sref-active="active">
-          <a ng-controller="signoutController" ng-click="signout()">
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            Sign out
-          </a>
-        </li>
-        <li ng-hide="isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.signin" ui-sref-opts="{reload:true}">
-            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-            Sign in
-          </a>
-        </li>
-        <li ng-hide="isAuthenticated()" ui-sref-active="active">
-          <a ui-sref="base.signup" ui-sref-opts="{reload:true}">
-            <span class="glyphicon glyphicon-collapse-up" aria-hidden="true"></span>
-            Sign up
-          </a>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+    <a class="item"
+      ng-class="{'active': state.includes('base.festivals')}"
+      ui-sref="base.festivals"
+      ui-sref-opts="{reload:true}">
+      Festivals
+    </a>
+    <a class="item"
+      ui-sref="base.store.products"
+      ui-sref-opts="{reload:true}"
+      ng-class="{'active': state.includes('base.store')}" >
+      Store
+    </a>
+    <a class="item"
+      ui-sref="base.how-it-works"
+      ui-sref-opts="{reload:true}"
+      ng-class="{'active': state.includes('base.how-it-works')}" >
+      How It Works
+    </a>
+    <a class="item"
+      ui-sref="base.account"
+      ng-show="isAuthenticated()"
+      ui-sref-opts="{reload:true}"
+      ng-class="{'active': state.includes('base.account')}">
+      Account
+    </a>
+    <a class="item"
+      ui-sref="base.cart"
+      ui-sref-opts="{reload:true}"
+      ng-class="{'active': state.includes('base.cart')}">
+      Cart
+    </a>
+    <a class="item"
+      style="cursor: pointer;"
+      ng-show="isAuthenticated()"
+      ng-controller="signoutController"
+      ng-click="signout()">
+      Sign out
+    </a>
+    <a class="item"
+      ng-hide="isAuthenticated()"
+      ui-sref="base.signin"
+      ui-sref-opts="{reload:true}">
+      Sign in
+    </a>
+    <a class="item"
+      ng-hide="isAuthenticated()"
+      ui-sref="base.signup"
+      ui-sref-opts="{reload:true}">
+      Sign up
+    </a>
+  </div>
+</div>
