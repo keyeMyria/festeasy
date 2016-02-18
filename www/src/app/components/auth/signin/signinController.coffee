@@ -1,4 +1,4 @@
-auth.controller('signinController', ($scope, authService, $state, $stateParams) ->
+auth.controller('signinController', ($auth, $scope, authService, $state, $stateParams) ->
 	$scope.redirectReason = $stateParams.redirectReason
 	$scope.redirectMessage = $stateParams.message
 	returnStateName = $stateParams.returnStateName
@@ -6,6 +6,12 @@ auth.controller('signinController', ($scope, authService, $state, $stateParams) 
 		email_address: null
 		password: null
 	}
+
+	$scope.authenticate = (provider) ->
+		$auth.authenticate(provider).then((response) ->
+			$state.go('base.store.products')
+		)
+
 	$scope.signin = () ->
 		$scope.errors = {
 			connection_error: null

@@ -20,6 +20,9 @@ auth.config(($authProvider, API_END_POINT) ->
 	$authProvider.authToken = 'Bearer'
 	$authProvider.storageType = 'localStorage'
 	$authProvider.facebook({
+    clientId: '1599848743604605'
+  })
+	$authProvider.facebook({
 	  name: 'facebook',
 	  url: '/auth/facebook',
 	  authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',

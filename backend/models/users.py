@@ -16,7 +16,7 @@ class User(db.Model, Entity):
 
     def __init__(self, email_address=None, password=None, first_name=None,
                 last_name=None, cart=None, is_admin=None, guest_token=None,
-                sessions=[], orders=[]):
+                facebook=None, sessions=[], orders=[]):
         self.is_admin = is_admin
         self.email_address = email_address
         if password:
@@ -27,6 +27,7 @@ class User(db.Model, Entity):
         self.guest_token = guest_token
         self.sessions = sessions
         self.orders = orders
+        self.facebook = facebook
 
     def __repr__(self):
         return '<User {id}>'.format(id=self.id)
@@ -49,12 +50,13 @@ class User(db.Model, Entity):
             db.session.add(active_session)
         db.session.commit()
 
-    email_address = Column(String(200), unique=True, nullable=True)
-    password_hash = Column(String(200), nullable=True)
-    guest_token = Column(String(200), unique=True, nullable=True)
+    email_address = Column(String(200), unique=True)
+    password_hash = Column(String(200))
+    guest_token = Column(String(200), unique=True)
     first_name = Column(String(100), nullable=True)
     last_name = Column(String(100))
     is_admin = Column(Boolean, default=False, nullable=False)
+    facebook = Column(String)
 
     sessions = relationship(
         'Session',
@@ -88,6 +90,7 @@ class User(db.Model, Entity):
     __table_args__ = (
         CheckConstraint(
             or_(
+                facebook != None,
                 guest_token != None,
                 and_(
                     password_hash != None, email_address != None,
