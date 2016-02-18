@@ -24,6 +24,7 @@
     "ng-notify": "~0.7.1",
     "ui-select": "angular-ui-select#~0.13.2",
     "moment": "~2.10.6",
-    "jquery": "^2.2.0"
+    "jquery": "^2.2.0",
+    "bootstrap": "^3.3.6"
   }
 }
