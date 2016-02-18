@@ -6,10 +6,16 @@ auth.controller('signinController', ($auth, $scope, authService, $state, $stateP
 		email_address: null
 		password: null
 	}
+	$scope.isLoading = false
 
 	$scope.authenticate = (provider) ->
-		$auth.authenticate(provider).then((response) ->
+		$scope.isLoading = true
+		p = $auth.authenticate(provider)
+		p.then((response) ->
 			$state.go('base.store.products')
+		)
+		p.finally((response) ->
+			$scope.isLoading = false
 		)
 
 	$scope.signin = () ->
@@ -18,17 +24,15 @@ auth.controller('signinController', ($auth, $scope, authService, $state, $stateP
 			auth_error: null
 			unknown_error: null
 		}
-		$scope.is_loading = true
+		$scope.isLoading = true
 		$scope.redirectReason = null
 		promise = authService.signin($scope.user)
 		promise.then((response) ->
-			console.log 'success'
 			if returnStateName
 				window.history.back()
 			else
 				$state.go('base.store.products')
 		, (response) ->
-			console.log 'fail'
 			status_code = response.status
 			if status_code == 0
 				$scope.errors.connection_error = true
@@ -38,6 +42,6 @@ auth.controller('signinController', ($auth, $scope, authService, $state, $stateP
 				$scope.errors.unknown_error = true
 		)
 		promise.finally((response) ->
-			$scope.is_loading = false
+			$scope.isLoading = false
 		)
 )
