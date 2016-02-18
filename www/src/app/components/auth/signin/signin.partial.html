@@ -1,5 +1,5 @@
-<div class="row">
-	<div class="col-md-4 col-md-offset-4">
+<div class="ui centered grid">
+	<div>
 		<div ng-show="errors.connection_error" class="alert alert-warning" role="alert">
 			<b>Oh snap!</b> There was a connection error.
 			Please try again.
@@ -18,23 +18,26 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-4 col-md-offset-4 well">
-		<form ng-submit="signin()">
-		  	<div class="form-group">
+<div class="ui two column centered grid">
+	<div class="ui segment column">
+		<form ng-submit="signin()" class="ui form">
+	  	<div class="field">
 				<label for="exampleInputEmail1">Email address</label>
-				<input type="email" class="form-control" ng-model="user.email_address" id="exampleInputEmail1" placeholder="Email" ng-required="true">
-		  	</div>
-		  	<div class="form-group">
+				<input type="email" ng-model="user.email_address" id="exampleInputEmail1" placeholder="Email" ng-required="true">
+	  	</div>
+	  	<div class="field">
 				<label for="exampleInputPassword1">Password</label>
-				<input type="password" class="form-control" ng-model="user.password" id="exampleInputPassword1" placeholder="Password" ng-required="true">
-		  	</div>
-		  	<button type="submit" class="btn btn-default btn-block">
-			  	<span ng-show="is_loading">Loading...</span>
-			  	<span ng-show="!is_loading">Sign in</span>
-		  	</button>
-				<button class="ui facebook button" ng-click="authenticate('facebook')">Sign in with Facebook</button>
+				<input type="password" ng-model="user.password" id="exampleInputPassword1" placeholder="Password" ng-required="true">
+	  	</div>
+	  	<button type="submit" class="ui button">
+		  	<span ng-show="is_loading">Loading...</span>
+		  	<span ng-show="!is_loading">Sign in</span>
+	  	</button>
 		</form>
+		<button class="ui facebook button">
+		  <i class="facebook icon"></i>
+		  Facebook
+		</button>
 		<a ui-sref="base.forgot-password">Forgot password</a>
 		<p>
 			<a ui-sref="base.signup">Dont have an account? Sign up.</a>

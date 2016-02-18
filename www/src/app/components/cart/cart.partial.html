@@ -1,67 +1,61 @@
-<div class="container">
-	<div class="col-md-8 col-md-offset-2">
-		<loading-indicator data="cart && cartProducts" error="error"></loading-indicator>
-		<div ng-show="cart && cartProducts && !cartProducts.length">
-			<div class="text-center">
-				<p class="lead">
-					Your cart is empty
-				</p>
-				<button class="btn btn-primary" ui-sref="base.store.products">
-					Continue shopping
-				</button> 
-			</div>
+<loading-indicator data="cart && cartProducts" error="error"></loading-indicator>
+<div class="ui centered grid" ng-show="cart && cartProducts && !cartProducts.length">
+	<div class="ui column center aligned">
+		<p>Your cart is empty</p>
+		<button class="ui button" ui-sref="base.store.products">
+			Continue shopping
+		</button>
+	</div>
+</div>
+<div ng-show="cart && cartProducts.length" class="ui grid">
+	<div class="row">
+		<div class="three wide column">
+			<p class="lead">Select festival:</p>
 		</div>
-		<div ng-show="cart && cartProducts.length">
-			<div class="row">
-				<div class="col-md-3">
-					<p class="lead">Select festival:</p>
-				</div>
-				<div class="col-md-9">
-					<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
-					    <ui-select-match placeholder="Select a festival">
-					        <span ng-bind="$select.selected.name + ' ' + ($select.selected.starts_on | date: 'yyyy')"></span>
-					    </ui-select-match>
-					    <ui-select-choices repeat="festival in (festivals | filter: $select.search) track by festival.id">
-					        <span ng-bind="festival.name + ' ' + (festival.starts_on | date: 'yyyy')"></span>
-					    </ui-select-choices>
-					</ui-select>
-					<br/>
-					<p>Starts: {{selectedFestival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
-					<p>Ends: {{selectedFestival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
-				</div>
-			</div>
+		<div class="eleven wide column">
+			<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
+			    <ui-select-match placeholder="Select a festival">
+			        <span ng-bind="$select.selected.name + ' ' + ($select.selected.starts_on | date: 'yyyy')"></span>
+			    </ui-select-match>
+			    <ui-select-choices repeat="festival in (festivals | filter: $select.search) track by festival.id">
+			        <span ng-bind="festival.name + ' ' + (festival.starts_on | date: 'yyyy')"></span>
+			    </ui-select-choices>
+			</ui-select>
 			<br/>
-			<table class="table">
-				<th>Item Description</th>
-				<th class="col-sm-1">Quantity</th>
-				<th>Unit Price</th>
-				<th>Sub Total</th>
-				<th>Remove</th>
-				<tr ng-repeat="cartProduct in cartProducts">
-					<td>
-						<a 
-							ui-sref="base.store.product({productId: cartProduct.product.id})" 
-							ui-sref-opts="{inherit: false}">
-							{{cartProduct.product.name}}
-						</a>
-					</td>
-					<td>	
-						<div class="input-group">
-						  	<input max="20" min="1" type="number" ng-model="cartProduct.quantity">
-						</div>
-					</td>
-					<td><rands amount-rands="cartProduct.product.price_rands"></rands></td>
-					<td><rands amount-rands="cartProduct.sub_total_rands"></rands></td>
-					<td><button class="btn btn-warning" ng-click="removeCartProduct(cartProduct)">Remove</button></td>
-				</tr>
-			</table>
-			<div class="pull-right">
-				<p class="lead">
-					Total: <rands amount-rands="cart.total_rands"></rands>
-				</p>
-				<button ng-click="updateCartProducts(cartProducts)" class="btn btn-info btn-lg">Update</button>
-				<button ng-click="checkout()" class="btn btn-success btn-lg">Secure Checkout</button>
-			</div>
+			<p>Starts: {{selectedFestival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
+			<p>Ends: {{selectedFestival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
 		</div>
 	</div>
+	<br/>
+	<table class="ui selectable celled table">
+		<thead>
+			<th>Item Description</th>
+			<th>Quantity</th>
+			<th>Unit Price</th>
+			<th>Sub Total</th>
+			<th>Remove</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="cartProduct in cartProducts">
+				<td>
+					<a
+						ui-sref="base.store.product({productId: cartProduct.product.id})"
+						ui-sref-opts="{inherit: false}">
+						{{cartProduct.product.name}}
+					</a>
+				</td>
+				<td>
+					<input max="20" min="1" type="number" ng-model="cartProduct.quantity">
+				</td>
+				<td><rands amount-rands="cartProduct.product.price_rands"></rands></td>
+				<td><rands amount-rands="cartProduct.sub_total_rands"></rands></td>
+				<td><button class="ui button" ng-click="removeCartProduct(cartProduct)">Remove</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		Total: <rands amount-rands="cart.total_rands"></rands>
+	</p>
+	<button ng-click="updateCartProducts(cartProducts)" class="ui button">Update</button>
+	<button ng-click="checkout()" class="ui button">Secure Checkout</button>
 </div>
