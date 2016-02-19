@@ -18,29 +18,32 @@
 	</div>
 </div>
 
-<div class="ui two column centered grid">
-	<div class="ui segment column">
-		<form ng-submit="signin()" ng-class="{'loading': isLoading}" class="ui form">
-	  	<div class="field">
-				<label for="exampleInputEmail1">Email address</label>
-				<input type="email" ng-model="user.email_address" id="exampleInputEmail1" placeholder="Email" ng-required="true">
-	  	</div>
-	  	<div class="field">
-				<label for="exampleInputPassword1">Password</label>
-				<input type="password" ng-model="user.password" id="exampleInputPassword1" placeholder="Password" ng-required="true">
-	  	</div>
-	  	<button type="submit" class="ui button">
-		  	<span>Sign in</span>
-	  	</button>
+<div class="ui center aligned basic segment" ng-class="{'loading': isLoading}">
+		<div class="">
+			<form ng-submit="signin()" class="ui form">
+		  	<div class="field">
+					<label for="exampleInputEmail1">Email address</label>
+					<input type="email" ng-model="user.email_address" id="exampleInputEmail1" placeholder="Email" ng-required="true">
+		  	</div>
+		  	<div class="field">
+					<label for="exampleInputPassword1">Password</label>
+					<input type="password" ng-model="user.password" id="exampleInputPassword1" placeholder="Password" ng-required="true">
+		  	</div>
+		  	<button type="submit" class="ui button">
+			  	<span>Sign in</span>
+		  	</button>
+			</form>
+			<a ui-sref="base.forgot-password">Forgot password</a>
 			<br/>
+			<a ui-sref="base.signup">Dont have an account? Sign up.</a>
+		<div class="ui horizontal divider">
+			Or
+		</div>
+		<div class="">
 			<button ng-click="authenticate('facebook')" class="ui facebook button">
-			  <i class="facebook icon"></i>
-			  Sign in with Facebook
+				<i class="facebook icon"></i>
+				Sign in with Facebook
 			</button>
-		</form>
-
-		<a ui-sref="base.forgot-password">Forgot password</a>
-		<br/>
-		<a ui-sref="base.signup">Dont have an account? Sign up.</a>
+		</div>
 	</div>
 </div>
