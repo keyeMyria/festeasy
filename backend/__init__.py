@@ -31,6 +31,7 @@ def create_app(config):
         app.config['EMAILER_BACKEND'] = os.environ["EMAILER_BACKEND"]
         app.config['MAILGUN_DOMAIN'] = os.environ["MAILGUN_DOMAIN"]
         app.config['MAILGUN_API_KEY'] = os.environ["MAILGUN_API_KEY"]
+        app.config['FACEBOOK_SECRET'] = os.environ['FACEBOOK_SECRET']
     else:
         raise Exception('Unrecognized config paramter.')
 
