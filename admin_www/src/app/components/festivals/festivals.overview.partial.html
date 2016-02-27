@@ -10,7 +10,7 @@
 			<th>Ends</th>
 		</thead>
 		<tbody>
-			<tr ui-sref="base.products.product({productId:product.id})" ng-repeat="festival in festivals">
+			<tr style="cursor:pointer;" ui-sref="base.festivals.festival({festivalId:festival.id})" ng-repeat="festival in festivals">
 				<td>{{festival.id}}</td>
 				<td>{{festival.name}}</td>
 				<td>{{festival.description}}</td>
