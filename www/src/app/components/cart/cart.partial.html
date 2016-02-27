@@ -7,25 +7,19 @@
 		</button>
 	</div>
 </div>
-<div ng-show="cart && cartProducts.length" class="ui grid">
-	<div class="row">
-		<div class="three wide column">
-			<p class="lead">Select festival:</p>
-		</div>
-		<div class="eleven wide column">
-			<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
-			    <ui-select-match placeholder="Select a festival">
-			        <span ng-bind="$select.selected.name + ' ' + ($select.selected.starts_on | date: 'yyyy')"></span>
-			    </ui-select-match>
-			    <ui-select-choices repeat="festival in (festivals | filter: $select.search) track by festival.id">
-			        <span ng-bind="festival.name + ' ' + (festival.starts_on | date: 'yyyy')"></span>
-			    </ui-select-choices>
-			</ui-select>
-			<br/>
-			<p>Starts: {{selectedFestival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
-			<p>Ends: {{selectedFestival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
-		</div>
-	</div>
+<div ng-show="cart && cartProducts.length">
+	<p class="lead">Select festival:</p>
+	<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
+	    <ui-select-match placeholder="Select a festival">
+	        <span ng-bind="$select.selected.name + ' ' + ($select.selected.starts_on | date: 'yyyy')"></span>
+	    </ui-select-match>
+	    <ui-select-choices repeat="festival in (festivals | filter: $select.search) track by festival.id">
+	        <span ng-bind="festival.name + ' ' + (festival.starts_on | date: 'yyyy')"></span>
+	    </ui-select-choices>
+	</ui-select>
+	<br/>
+	<p>Starts: {{selectedFestival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
+	<p>Ends: {{selectedFestival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
 	<br/>
 	<table class="ui selectable celled table">
 		<thead>

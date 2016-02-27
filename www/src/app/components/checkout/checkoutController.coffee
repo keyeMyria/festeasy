@@ -1,5 +1,6 @@
 checkout.controller('checkoutController', (
 	$state, $scope, authService, cartService, userService, festivalService) ->
+	$scope.state = $state
 	authenticatedUser = authService.getAuthenticatedUser()
 
 	cart = userService.one(authenticatedUser.id).one('cart')
@@ -28,7 +29,7 @@ checkout.controller('checkoutController', (
 		getCart.then((response) ->
 			checkout = cartService.one(response.id).one('checkout').post()
 			checkout.then((response) ->
-				$state.go('base.orders')
+				$state.go('base.checkout.confirm-order')
 			)
 		)
 )

@@ -1,0 +1,3 @@
+checkout.controller('checkoutDetailsController', ($scope) ->
+
+)
