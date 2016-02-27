@@ -1,9 +1,11 @@
 from flask import current_app
 from flask.ext.script import Manager, Command
 from flask.ext.script import Shell, Server
+from sqlalchemy_continuum import make_versioned
 
-from backend import create_app, db
-from backend import models
+make_versioned()
+
+from backend import create_app, db, models
 from backend.utils import get_dummy_data
 
 
@@ -47,11 +49,11 @@ manager.add_command('drop-all', DropAll())
 
 class InitDB(Command):
     def run(self):
+        db.reflect()
         db.drop_all()
         db.create_all()
         dummy_data = get_dummy_data()
-        for item in dummy_data:
-            db.session.add(item)
+        db.session.add_all(dummy_data)
         db.session.commit()
 manager.add_command('init-db', InitDB())
 

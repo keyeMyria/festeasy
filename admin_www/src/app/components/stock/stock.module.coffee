@@ -2,6 +2,7 @@ stock = angular.module('stock', [
 	'ui.router'
 	'shared'
 	'services'
+	'ngTable'
 ])
 
 stock.config(($stateProvider) ->

@@ -1,6 +1,6 @@
 orders.controller('orderController', ($scope, $stateParams, orderService, $q,
     $state, ngNotify, packageService, orderProductService, psuService,
-    productService) ->
+    productService, NgTableParams) ->
 
   orderId = $stateParams.orderId
   getOrder = orderService.one(orderId).get()
@@ -11,6 +11,7 @@ orders.controller('orderController', ($scope, $stateParams, orderService, $q,
     getPackages = packageService.getList({'order-id': orderId})
     getPackages.then((response) ->
       $scope.packages = response
+      $scope.packagesTableParams = new NgTableParams({}, { dataset: $scope.packages})
     )
   fetchPackages()
 
@@ -53,6 +54,7 @@ orders.controller('orderController', ($scope, $stateParams, orderService, $q,
             'toPack': (orderProductsByProductId[p.id] || 0) - (packagedStockUnitsByProductId[p.id] || 0)
           })
       $scope.data = data
+      $scope.tableParams = new NgTableParams({}, { dataset: $scope.data})
     )
   fetchData()
 

@@ -1,62 +1,55 @@
+<loading-indicator data="order && packages && data" error="error"></loading-indicator>
 <div class="container-fluid">
-	<loading-indicator data="order && packages && data" error="error"></loading-indicator>
 	<div ng-show="order && packages && data">
-		<div class="row">
-			<h1>Order {{order.id}}</h1>
-      <div class="row">
-    	  <label for="inputName" class="col-sm-3 control-label">ID</label>
-      	<div class="col-sm-9">
-          <span>{{order.id}}</span>
-      	</div>
-      </div>
-      <div class="row">
-    	  <label for="inputName" class="col-sm-3 control-label">Created On</label>
-      	<div class="col-sm-9">
-          <span>{{order.created_on}}</span>
-      	</div>
-      </div>
-      <div class="row">
-    	  <label for="inputName" class="col-sm-3 control-label">Festival</label>
-      	<div class="col-sm-9">
-          <span><a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
-      	</div>
-      </div>
-			<div class="row">
-    	  <label for="inputName" class="col-sm-3 control-label">User</label>
-      	<div class="col-sm-9">
-          <span><a ui-sref="base.users">{{order.user_id}}</a></span>
-      	</div>
-      </div>
+		<div class="ui segment">
+			<h2 class="ui header">Order {{order.id}}</h2>
+      <span>Order ID: {{order.id}}</span>
+			<br/>
+      <span>Created On: {{order.created_on  | date:'medium'}}</span>
+			<br/>
+      <span>Festival: <a ui-sref="base.festivals.overview">{{order.festival.name}}</a></span>
+			<br/>
+      <span>User: <a ui-sref="base.users">{{order.user_id}}</a></span>
 		</div>
-		<div class="row">
-			<h2>Products</h2>
-			<table class="table table-hover table-bordered">
-				<th>Product</th>
-				<th>Demand</th>
-				<th>Packaged</th>
-				<th>To pack</th>
-				<tr ng-repeat="entry in data">
-					<td><a ui-sref="base.products.product({productId: entry.productId})">{{entry.productName}}</a></td>
-					<td>{{entry.demand}}</td>
-					<td>{{entry.packaged}}</td>
-					<td>{{entry.toPack}}</td>
-				</tr>
+		<div class="ui segment">
+			<h2 class="ui header">Products</h2>
+			<table ng-table="tableParams" class="ui selectable celled table" show-filter="true">
+		    <tr ng-repeat="entry in $data">
+		        <td title="'Product'" filter="{productName: 'text'}" sortable="'productName'">
+		          {{entry.productName}}
+						</td>
+		        <td title="'Demand'" filter="{demand: 'number'}" sortable="'demand'">
+		          {{entry.demand}}
+						</td>
+						<td title="'Packaged'" filter="{packaged: 'number'}" sortable="'packaged'">
+							{{entry.packaged}}
+						</td>
+						<td title="'Available in stock'" filter="{availableStockUnits: 'number'}" sortable="'availableStockUnits'">
+							{{entry.availableStockUnits}}
+						</td>
+						<td title="'To pack'" filter="{toPack: 'number'}" sortable="'toPack'">
+							{{entry.toPack}}
+						</td>
+		    </tr>
 			</table>
 		</div>
-		<div class="row">
-			<h2>Packages</h2>
+		<div class="ui segment">
+			<h2 class="ui header">Packages</h2>
 			<p ng-show="packages.length == 0" class="lead">This order has no packages yet.</p>
-			<table class="table table-hover table-bordered" ng-show="packages.length">
-				<th>ID</th>
-				<th>Date added</th>
-				<th>Delete</th>
-				<tr ng-repeat="package in packages">
-					<td><a ui-sref="base.packages.package({packageId: package.id})">{{package.id}}</a></td>
-					<td>{{package.created_on}}</td>
-					<td><button class="btn btn-warning" ng-click="deletePackage(package)">Delete</button>
-				</tr>
+			<table ng-show="packages.length > 0" ng-table="packagesTableParams" class="ui selectable celled table" show-filter="true">
+		    <tr ng-repeat="entry in $data">
+	        <td title="'Package ID'" filter="{id: 'number'}" sortable="'id'">
+	          <a ui-sref="base.packages.package({packageId: entry.id})">{{entry.id}}</a>
+					</td>
+	        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
+	          {{entry.created_on | date:'medium'}}
+					</td>
+					<td title="'Delete'">
+						<button class="ui button" ng-click="deletePackage(entry)">Delete</button>
+					</td>
+		    </tr>
 			</table>
-			<button class="btn btn-success" ng-click="createPackage()">Create Package</button>
+			<button class="ui button" ng-click="createPackage()">Create Package</button>
 		</div>
 	</div>
 </div>

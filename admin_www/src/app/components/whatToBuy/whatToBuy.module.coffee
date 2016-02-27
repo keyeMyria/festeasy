@@ -3,6 +3,7 @@ whatToBuy = angular.module('whatToBuy', [
 	'services'
 	'ui.select'
 	'angular.filter'
+	'ngTable'
 ])
 
 whatToBuy.config(($stateProvider) ->

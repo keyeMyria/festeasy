@@ -1,42 +1,32 @@
-<div class="container">
-	<div class="col-md-8 col-md-offset-2">
-		<loading-indicator data="cart && festival && cartProducts" error="error"></loading-indicator>
-		<div ng-show="cart && festival && cartProducts">
-			<p class="lead">
-				Order for: 
-				<a style="cursor:pointer;" ui-sref="base.festivals.festival({festivalId:festival.id})">
-					{{festival.name + ' ' + (festival.starts_on | date: 'yyyy')}}
-				</a>
-			</p>
-			<div>
-				<p>Starts: {{festival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
-				<p>Ends: {{festival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
+<div class="ui center aligned grid">
+	<div class="row">
+		<div class="ui small ordered steps">
+			<a class="step" ui-sref="base.cart">
+				<div class="content">
+					<div class="title">Cart</div>
+					<div class="description">Choose products and festival</div>
+				</div>
+			</a>
+			<a class="step" ng-class="{'active': state.is('base.checkout.details')}" ui-sref="base.checkout.details">
+				<div class="content">
+					<div class="title">Checkout Details</div>
+					<div class="description">View checkout details</div>
+				</div>
+			</a>
+			<div class="step" ng-class="{'active': state.is('base.checkout.payment')}">
+				<div class="content">
+					<div class="title">Payment</div>
+					<div class="description">Enter payment information</div>
+				</div>
 			</div>
-			<br/>
-			<table class="table">
-				<th>Item Description</th>
-				<th>Quantity</th>
-				<th>Unit Price</th>
-				<th>Sub Total</th>
-				<tr ng-repeat="cartProduct in cartProducts">
-					<td>
-						<a 
-							ui-sref="base.store.product({productId: cartProduct.product.id})" 
-							ui-sref-opts="{inherit: false}">
-							{{cartProduct.product.name}}
-						</a>
-					</td>
-					<td>{{cartProduct.quantity}}</td>
-					<td><rands amount-rands="cartProduct.product.price_rands"></rands></td>
-					<td><rands amount-rands="cartProduct.sub_total_rands"></rands></td>
-				</tr>
-			</table>
-			<div class="pull-right">
-				<p class="lead">
-					Total: <rands amount-rands="cart.total_rands"></rands>
-				</p>
-				<button ng-click="checkout()" class="btn btn-success btn-lg">Place order</button>
+			<div class="step" ng-class="{'active': state.is('base.checkout.confirm-order')}">
+				<div class="content">
+					<div class="title">Confirmation</div>
+					<div class="description">Verify order</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<ui-view></ui-view>

@@ -19,6 +19,21 @@ auth.config(($authProvider, API_END_POINT) ->
 	$authProvider.authHeader = 'Authorization'
 	$authProvider.authToken = 'Bearer'
 	$authProvider.storageType = 'localStorage'
+	$authProvider.facebook({
+    clientId: '1599848743604605'
+  })
+	$authProvider.facebook({
+	  name: 'facebook',
+	  url: '/auth/facebook',
+	  authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
+	  redirectUri: window.location.origin + '/',
+	  requiredUrlParams: ['display', 'scope'],
+	  scope: ['email'],
+	  scopeDelimiter: ',',
+	  display: 'popup',
+	  type: '2.0',
+	  popupOptions: { width: 580, height: 400 }
+	});
 )
 
 auth.config(($stateProvider) ->

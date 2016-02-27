@@ -16,11 +16,7 @@ class TestCartSingletonCheckout(APITestCase):
         festival = factories.FestivalFactory(
             starts_on=the_future,
         )
-        product = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=10),
-            ],
-        )
+        product = factories.ProductFactory(price_rands=10)
         user.cart.products.append(product)
         user.cart.festival = festival
         db.session.add(user)

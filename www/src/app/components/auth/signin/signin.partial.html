@@ -1,5 +1,5 @@
-<div class="row">
-	<div class="col-md-4 col-md-offset-4">
+<div class="ui centered grid">
+	<div>
 		<div ng-show="errors.connection_error" class="alert alert-warning" role="alert">
 			<b>Oh snap!</b> There was a connection error.
 			Please try again.
@@ -18,25 +18,42 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-4 col-md-offset-4 well">
-		<form ng-submit="signin()">
-		  	<div class="form-group">
-				<label for="exampleInputEmail1">Email address</label>
-				<input type="email" class="form-control" ng-model="user.email_address" id="exampleInputEmail1" placeholder="Email" ng-required="true">
-		  	</div>
-		  	<div class="form-group">
-				<label for="exampleInputPassword1">Password</label>
-				<input type="password" class="form-control" ng-model="user.password" id="exampleInputPassword1" placeholder="Password" ng-required="true">
-		  	</div>
-		  	<button type="submit" class="btn btn-default btn-block">
-			  	<span ng-show="is_loading">Loading...</span>
-			  	<span ng-show="!is_loading">Sign in</span>
-		  	</button>
-		</form>
-		<a ui-sref="base.forgot-password">Forgot password</a>
-		<p>
-			<a ui-sref="base.signup">Dont have an account? Sign up.</a>
-		</p>
+<div class="ui two column centered grid">
+	<div class="ui column">
+		<div class="ui two column middle aligned very relaxed stackable grid segment" ng-class="{'loading': isLoading}">
+		  <div class="column">
+		    <form class="ui form" ng-submit="signin()">
+		      <div class="field">
+		        <label>Email</label>
+		        <div class="ui left icon input">
+							<input type="email" ng-model="user.email_address" id="exampleInputEmail1" placeholder="Email" ng-required="true">
+		          <i class="user icon"></i>
+		        </div>
+		      </div>
+		      <div class="field">
+		        <label>Password</label>
+		        <div class="ui left icon input">
+							<input type="password" ng-model="user.password" id="exampleInputPassword1" placeholder="Password" ng-required="true">
+		          <i class="lock icon"></i>
+		        </div>
+		      </div>
+					<button type="submit" class="ui button">
+						<span>Sign in</span>
+					</button>
+		    </form>
+				<a ui-sref="base.forgot-password">Forgot password</a>
+				<br/>
+				<a ui-sref="base.signup">Dont have an account? Sign up.</a>
+		  </div>
+		  <div class="ui vertical divider">
+		    Or
+		  </div>
+		  <div class="center aligned column">
+				<button ng-click="authenticate('facebook')" class="ui facebook button">
+					<i class="facebook icon"></i>
+					Sign in with Facebook
+				</button>
+		  </div>
+		</div>
 	</div>
 </div>

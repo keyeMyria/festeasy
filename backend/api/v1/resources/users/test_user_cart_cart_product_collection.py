@@ -16,22 +16,14 @@ class TestUserCartCartProductCollection(APITestCase):
         """
         user = factories.UserFactory()
         cart_product = factories.CartProductFactory(
-            product=factories.ProductFactory(
-                product_prices=[
-                    factories.ProductPriceFactory(),
-                ],
-            ),
+            product=factories.ProductFactory(),
             cart=user.cart,
         )
         other_user = factories.UserFactory(
             email_address='NotTheSame@different',
         )
         other_cart_product = factories.CartProductFactory(
-            product=factories.ProductFactory(
-                product_prices=[
-                    factories.ProductPriceFactory(),
-                ],
-            ),
+            product=factories.ProductFactory(),
             cart=other_user.cart,
         )
         db.session.add(user)

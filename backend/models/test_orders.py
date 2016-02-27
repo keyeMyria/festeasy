@@ -14,16 +14,8 @@ class TestOrder(ModelTestCase):
         """
         festival = factories.FestivalFactory()
         price = 10
-        product_1 = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
-        product_2 = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
+        product_1 = factories.ProductFactory(price_rands=price)
+        product_2 = factories.ProductFactory(price_rands=price)
         db.session.add(product_1)
         db.session.add(product_2)
         db.session.commit()
@@ -54,16 +46,8 @@ class TestOrder(ModelTestCase):
         from a Cart.
         """
         user = factories.UserFactory()
-        product_1 = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=1),
-            ],
-        )
-        product_2 = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=2),
-            ],
-        )
+        product_1 = factories.ProductFactory(price_rands=1)
+        product_2 = factories.ProductFactory(price_rands=2)
         festival = factories.FestivalFactory()
         quantity_1 = 7
         quantity_2 = 4

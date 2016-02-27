@@ -1,4 +1,4 @@
-auth.controller('signinController', ($scope, authService, $state, $stateParams) ->
+auth.controller('signinController', ($auth, $scope, authService, $state, $stateParams) ->
 	$scope.redirectReason = $stateParams.redirectReason
 	$scope.redirectMessage = $stateParams.message
 	returnStateName = $stateParams.returnStateName
@@ -6,23 +6,33 @@ auth.controller('signinController', ($scope, authService, $state, $stateParams) 
 		email_address: null
 		password: null
 	}
+	$scope.isLoading = false
+
+	$scope.authenticate = (provider) ->
+		$scope.isLoading = true
+		p = $auth.authenticate(provider)
+		p.then((response) ->
+			$state.go('base.store.products')
+		)
+		p.finally((response) ->
+			$scope.isLoading = false
+		)
+
 	$scope.signin = () ->
 		$scope.errors = {
 			connection_error: null
 			auth_error: null
 			unknown_error: null
 		}
-		$scope.is_loading = true
+		$scope.isLoading = true
 		$scope.redirectReason = null
 		promise = authService.signin($scope.user)
 		promise.then((response) ->
-			console.log 'success'
 			if returnStateName
 				window.history.back()
 			else
 				$state.go('base.store.products')
 		, (response) ->
-			console.log 'fail'
 			status_code = response.status
 			if status_code == 0
 				$scope.errors.connection_error = true
@@ -32,6 +42,6 @@ auth.controller('signinController', ($scope, authService, $state, $stateParams) 
 				$scope.errors.unknown_error = true
 		)
 		promise.finally((response) ->
-			$scope.is_loading = false
+			$scope.isLoading = false
 		)
 )

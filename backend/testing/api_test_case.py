@@ -2,12 +2,9 @@ import json
 from base64 import b64encode
 
 from backend.testing import BackendTestCase
-from .layers import APILayer
 
 
 class APITestCase(BackendTestCase):
-    layer = APILayer
-
     def api_request(self, method,
                     url, data=None, as_user=None, with_session=None):
         kwargs = dict()

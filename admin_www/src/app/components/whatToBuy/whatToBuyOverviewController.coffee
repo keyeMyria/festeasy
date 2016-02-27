@@ -1,6 +1,7 @@
 whatToBuy.controller('whatToBuyOverviewController', ($scope, $state, $q,
 	orderProductService, festivalService, $stateParams, stockUnitService
-	psuService, productService) ->
+	psuService, productService, NgTableParams) ->
+
 
 	$scope.error = false
 	festivalId = $stateParams['festival-id']
@@ -59,7 +60,8 @@ whatToBuy.controller('whatToBuyOverviewController', ($scope, $state, $q,
 					'packagedStockUnits': packagedStockUnitsByProductId[p.id] || 0
 					'toBuy': (demandByProductId[p.id] || 0) - (packagedStockUnitsByProductId[p.id] || 0) - (availableStockUnitsByProductId[p.id] || 0)
 				})
-		$scope.data = data
+		$scope.tableData = data
+		$scope.tableParams = new NgTableParams({}, { dataset: $scope.tableData})
 	)
 
 	f = festivalService.getList()

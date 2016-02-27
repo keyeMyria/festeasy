@@ -13,16 +13,8 @@ class TestInvoice(ModelTestCase):
         """
         price = 10
         user = factories.UserFactory()
-        product_1 = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
-        product_2 = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
+        product_1 = factories.ProductFactory(price_rands=price)
+        product_2 = factories.ProductFactory(price_rands=price)
         festival = factories.FestivalFactory()
         user.cart.festival = festival
         cart_product_1 = factories.CartProductFactory(
@@ -67,11 +59,7 @@ class TestInvoice(ModelTestCase):
         """
         price = 99
         user = factories.UserFactory()
-        product = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
+        product = factories.ProductFactory(price_rands=price)
         festival = factories.FestivalFactory()
         user.cart.festival = festival
         user.cart.products.append(product)
@@ -91,11 +79,7 @@ class TestInvoice(ModelTestCase):
         """
         price = 99
         user = factories.UserFactory()
-        product = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
+        product = factories.ProductFactory(price_rands=price)
         festival = factories.FestivalFactory()
         user.cart.festival = festival
         user.cart.products.append(product)
@@ -121,11 +105,7 @@ class TestInvoice(ModelTestCase):
         """
         price = 99
         user = factories.UserFactory()
-        product = factories.ProductFactory(
-            product_prices=[
-                factories.ProductPriceFactory(amount_rands=price),
-            ],
-        )
+        product = factories.ProductFactory(price_rands=price)
         festival = factories.FestivalFactory()
         user.cart.festival = festival
         user.cart.products.append(product)

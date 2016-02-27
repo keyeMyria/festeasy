@@ -10,7 +10,7 @@ cart.controller('cartController', (
 		cartService
 		$q
 		) ->
-	
+
 	authenticatedUser = authService.getAuthenticatedUser()
 
 	cart = userService.one(authenticatedUser.id).one('cart')
@@ -79,7 +79,7 @@ cart.controller('cartController', (
 		if not $scope.cart.festival_id
 			ngNotify.set('Please select a festival.', 'error')
 			return
-		$state.go('base.checkout')
+		$state.go('base.checkout.details')
 
 	updateCart()
 )

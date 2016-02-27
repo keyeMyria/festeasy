@@ -1,22 +1,18 @@
-<div class="container">
-	<loading-indicator data="data.user" error="error"></loading-indicator>
-	<div ng-show="data.user">
-		Hi {{data.user.first_name}}!
-		<br/>
-		Your email address is {{data.user.email_address}}
-		<br/>
-		<br/>
-		<a ui-sref="base.orders">Orders</a>
-		<br/>
-		<div class="row">
-			<div class="col-md-4 well">
-				<h2>Change Preferences</h2>
-				<change-user-preferences ng-if="data.user"></change-user-preferences>
-			</div>
-			<div class="col-md-4 col-md-offset-1 well">
-				<h2>Change Password</h2>
-				<change-password></change-password>
-			</div>
-		</div>
+<loading-indicator data="data.user" error="error"></loading-indicator>
+<div ng-show="data.user">
+	Hi {{data.user.first_name}}!
+	<br/>
+	Your email address is {{data.user.email_address}}
+	<br/>
+	<br/>
+	<a ui-sref="base.orders">Orders</a>
+	<br/>
+	<div class="ui segment">
+		<h2 class="ui header">Change Preferences</h2>
+		<change-user-preferences ng-if="data.user"></change-user-preferences>
+	</div>
+	<div class="ui segment">
+		<h2 class="ui header">Change Password</h2>
+		<change-password></change-password>
 	</div>
 </div>

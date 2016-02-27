@@ -1,5 +1,5 @@
-stock.controller('stockOverviewController', (
-		$scope, supplierService, productService, stockUnitService, ngNotify, $q) ->
+stock.controller('stockOverviewController', ($scope, supplierService,
+		productService, stockUnitService, ngNotify, $q, NgTableParams) ->
 	$scope.error = false
 	$scope.selectedSupplier = null
 	$scope.selectedProduct = null
@@ -10,6 +10,8 @@ stock.controller('stockOverviewController', (
 		getStockUnits = stockUnitService.getList()
 		getStockUnits.then((response) ->
 			$scope.stockUnits = response
+
+			$scope.tableParams = new NgTableParams({}, {dataset: response})
 		)
 		getStockUnits.catch((response) ->
 			$scope.error = true

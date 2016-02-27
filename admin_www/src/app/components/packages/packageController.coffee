@@ -1,5 +1,5 @@
 packages.controller('packageController', ($scope, $stateParams, packageService,
-  psuService, productService, stockUnitService, ngNotify) ->
+  psuService, productService, stockUnitService, ngNotify, NgTableParams) ->
 
   packageId = $stateParams.packageId
   getPackage = packageService.one(packageId).get()
@@ -15,6 +15,7 @@ packages.controller('packageController', ($scope, $stateParams, packageService,
     getPSUs = psuService.getList({'package-id': packageId})
     getPSUs.then((response) ->
       $scope.psus = response
+      $scope.tableParams = new NgTableParams({}, { dataset: $scope.psus})
     )
   fetchPSUs()
 

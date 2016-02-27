@@ -1,68 +1,59 @@
 <loading-indicator data="stockUnits && suppliers && products" error="error"></loading-indicator>
 <div ng-show="stockUnits && suppliers && products">
-	<div class="row">
-		<div class="col-md-6">
-			<form class="form-horizontal" ng-submit="createStockUnit()">
-			    <fieldset>
-			      	<legend>Add Stock:</legend>
-			      	<div class="form-group">
-			        	<label class="col-sm-3 control-label">Supplier</label>
-			        	<div class="col-sm-6">
-			          		<ui-select ng-model="selectedSupplier" on-select="updateSelectedSupplier($item, $model)" theme="bootstrap">
-			            		<ui-select-match placeholder="Select or search a supplier in the list...">{{$select.selected.name}}</ui-select-match>
-			            		<ui-select-choices repeat="supplier in suppliers | filter: $select.search">
-			              			<div ng-bind="supplier.name"></div>
-			            		</ui-select-choices>
-			          		</ui-select>
-			        	</div>
-			      	</div>
-			      	<div class="form-group">
-			        	<label class="col-sm-3 control-label">Product</label>
-			        	<div class="col-sm-6">
-			          		<ui-select ng-model="selectedProduct" on-select="updateSelectedProduct($item, $model)" theme="bootstrap">
-			            		<ui-select-match placeholder="Select or search a product in the list...">{{$select.selected.name}}</ui-select-match>
-			            		<ui-select-choices repeat="product in products | filter: $select.search">
-			              			<span ng-bind="product.name"></span>
-			            		</ui-select-choices>
-			          		</ui-select>
-			        	</div>
-			      	</div>
-			      	<div class="form-group">
-			        	<label class="col-sm-3 control-label">Cost (Rands)</label>
-			        	<div class="col-sm-6">
-			          		<input type="number" class="form-control" ng-model="costRands" required>
-			       	 	</div>
-			      	</div>
-			      	<div class="form-group">
-			        	<label class="col-sm-3 control-label">Quantity</label>
-			        	<div class="col-sm-6">
-			          		<input type="number" class="form-control" ng-model="quantity" required>
-			       	 	</div>
-			      	</div>
-			      	<div class="form-group">
-			        	<button class="btn btn-primary pull-right" type="submit">Create</button>
-			      	</div>
-			    </fieldset>
-			</form>
-		</div>
+	<div class="ui segment">
+		<h2 class="ui header">Create Stock Unit</h2>
+		<form class="ui form" ng-submit="createStockUnit()">
+    	<div class="field">
+      	<label>Supplier</label>
+    		<ui-select ng-model="selectedSupplier" on-select="updateSelectedSupplier($item, $model)" theme="bootstrap">
+      		<ui-select-match placeholder="Select or search a supplier in the list...">{{$select.selected.name}}</ui-select-match>
+      		<ui-select-choices repeat="supplier in suppliers | filter: $select.search">
+        			<div ng-bind="supplier.name"></div>
+      		</ui-select-choices>
+    		</ui-select>
+    	</div>
+    	<div class="field">
+      	<label>Product</label>
+    		<ui-select ng-model="selectedProduct" on-select="updateSelectedProduct($item, $model)" theme="bootstrap">
+      		<ui-select-match placeholder="Select or search a product in the list...">{{$select.selected.name}}</ui-select-match>
+      		<ui-select-choices repeat="product in products | filter: $select.search">
+        			<span ng-bind="product.name"></span>
+      		</ui-select-choices>
+    		</ui-select>
+    	</div>
+    	<div class="field">
+      	<label>Cost (Rands)</label>
+    		<input type="number" class="form-control" ng-model="costRands" required>
+    	</div>
+    	<div class="field">
+      	<label>Quantity</label>
+    		<input type="number" class="form-control" ng-model="quantity" required>
+    	</div>
+    	<div class="field">
+      	<button class="ui button" type="submit">Create</button>
+    	</div>
+		</form>
 	</div>
-	<div class="row">
-		<p class="lead">Stock:</p>
-		<div ng-show="stockUnits" class="col-md-6">
-			<table class="table table-hover table-bordered">
-				<th>ID</th>
-				<th>Date added</th>
-				<th>Product</th>
-				<th>Supplier</th>
-				<th>Cost</th>
-				<tr ng-repeat="stockUnit in stockUnits | orderBy: id : true">
-					<td>{{stockUnit.id}}</td>
-					<td>{{stockUnit.created_on}}</td>
-					<td>{{stockUnit.product.name}}</td>
-					<td>{{stockUnit.supplier.name}}</td>
-					<td><rands amount-rands="stockUnit.cost_rands"></rands></td>
-				</tr>
-			</table>
-		</div>
+	<div class="ui segment">
+		<h2 class="ui header">Stock Units</h2>
+		<table ng-table="tableParams" class="ui selectable celled table" show-filter="true">
+	    <tr ng-repeat="entry in $data">
+        <td title="'Stock Unit ID'" filter="{id: 'number'}" sortable="'id'">
+          Stock Unit {{entry.id}}
+				</td>
+        <td title="'Date Added'" filter="{created_on: 'text'}" sortable="'created_on'">
+          {{entry.created_on | date:'medium'}}
+				</td>
+				<td title="'Product'" filter="{'product.name': 'text'}" sortable="'product.name'">
+					{{entry.product.name}}
+				</td>
+				<td title="'Supplier'" filter="{'supplier.name': 'text'}" sortable="'supplier.name'">
+					{{entry.supplier.name}}
+				</td>
+				<td title="'Cost'" filter="{cost_rands: 'number'}" sortable="'cost_rands'">
+					<rands amount-rands="entry.cost_rands"></rands>
+				</td>
+	    </tr>
+		</table>
 	</div>
 </div>
