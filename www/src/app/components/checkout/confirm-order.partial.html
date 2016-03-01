@@ -1,46 +1,44 @@
 <loading-indicator data="cart && festival && cartProducts" error="error"></loading-indicator>
-<h1 class="ui center aligned header">Oder Confirmation</h1>
-<div class="ui segment">
+<div class="ui segment" ng-show="cart && festival && cartProducts">
+	<h1 class="ui center aligned header">Order Confirmation</h1>
 	<h2 class="ui header">Order Summary</h2>
-	<div ng-show="cart && festival && cartProducts">
-		<h3 class="ui header">Festival</h3>
+	<h3 class="ui header">Festival</h3>
+	<p>
+		<a style="cursor:pointer;" ui-sref="base.festivals.festival({festivalId:festival.id})">
+			{{festival.name + ' ' + (festival.starts_on | date: 'yyyy')}}
+		</a>
+	</p>
+	<div>
+		<p>Starts: {{festival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
+		<p>Ends: {{festival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
+	</div>
+	<br/>
+	<h3 class="ui header">Products</h3>
+	<table class="ui selectable celled table">
+		<thead>
+			<th>Item Description</th>
+			<th>Quantity</th>
+			<th>Unit Price</th>
+			<th>Sub Total</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="cartProduct in cartProducts">
+				<td>
+					<a
+						ui-sref="base.store.product({productId: cartProduct.product.id})"
+						ui-sref-opts="{inherit: false}">
+						{{cartProduct.product.name}}
+					</a>
+				</td>
+				<td>{{cartProduct.quantity}}</td>
+				<td><rands amount-rands="cartProduct.product.price_rands"></rands></td>
+				<td><rands amount-rands="cartProduct.sub_total_rands"></rands></td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
 		<p>
-			<a style="cursor:pointer;" ui-sref="base.festivals.festival({festivalId:festival.id})">
-				{{festival.name + ' ' + (festival.starts_on | date: 'yyyy')}}
-			</a>
+			Total: <rands amount-rands="cart.total_rands"></rands>
 		</p>
-		<div>
-			<p>Starts: {{festival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
-			<p>Ends: {{festival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
-		</div>
-		<br/>
-		<h3 class="ui header">Products</h3>
-		<table class="ui selectable celled table">
-			<thead>
-				<th>Item Description</th>
-				<th>Quantity</th>
-				<th>Unit Price</th>
-				<th>Sub Total</th>
-			</thead>
-			<tbody>
-				<tr ng-repeat="cartProduct in cartProducts">
-					<td>
-						<a
-							ui-sref="base.store.product({productId: cartProduct.product.id})"
-							ui-sref-opts="{inherit: false}">
-							{{cartProduct.product.name}}
-						</a>
-					</td>
-					<td>{{cartProduct.quantity}}</td>
-					<td><rands amount-rands="cartProduct.product.price_rands"></rands></td>
-					<td><rands amount-rands="cartProduct.sub_total_rands"></rands></td>
-				</tr>
-			</tbody>
-		</table>
-		<div>
-			<p>
-				Total: <rands amount-rands="cart.total_rands"></rands>
-			</p>
-		</div>
 	</div>
 </div>
