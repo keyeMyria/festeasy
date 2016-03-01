@@ -1,16 +1,25 @@
-auth.controller('signupController', ($scope, authService, $state) ->
+auth.controller('signupController', ($scope, authService, $state, $auth) ->
 	$scope.user = {
 		email_address: null
 		password: null
 		first_name: null
 	}
+	$scope.authenticate = (provider) ->
+		$scope.isLoading = true
+		p = $auth.authenticate(provider)
+		p.then((response) ->
+			$state.go('base.store.products')
+		)
+		p.finally((response) ->
+			$scope.isLoading = false
+		)
 	$scope.signup = () ->
 		$scope.errors = {
 			connection_error: null
 			duplicate_error: null
 			unknown_error: null
 		}
-		$scope.is_loading = true
+		$scope.isLoading = true
 		promise = authService.signup($scope.user)
 		promise.then((response) ->
 			console.log 'success'
@@ -26,6 +35,6 @@ auth.controller('signupController', ($scope, authService, $state) ->
 				$scope.errors.unknown_error = true
 		)
 		promise.finally((response) ->
-			$scope.is_loading = false
+			$scope.isLoading = false
 		)
 )
