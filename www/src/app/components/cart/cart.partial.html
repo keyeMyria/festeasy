@@ -7,7 +7,7 @@
 		</button>
 	</div>
 </div>
-<div ng-show="cart && cartProducts.length">
+<div ng-show="cart && cartProducts.length" class="ui segment">
 	<p class="lead">Select festival:</p>
 	<ui-select ng-model="selectedFestival" on-select="updateSelectedFestival($item, $model)">
 	    <ui-select-match placeholder="Select a festival">
@@ -18,9 +18,11 @@
 	    </ui-select-choices>
 	</ui-select>
 	<br/>
-	<p>Starts: {{selectedFestival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
-	<p>Ends: {{selectedFestival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
-	<br/>
+	<div ng-show="selectedFestival">
+		<p>Starts: {{selectedFestival.starts_on | date: "EEEE, d MMMM yyyy"}}</p>
+		<p>Ends: {{selectedFestival.ends_on | date: "EEEE, d MMMM yyyy"}}</p>
+		<br/>
+	</div>
 	<table class="ui selectable celled table">
 		<thead>
 			<th>Item Description</th>
