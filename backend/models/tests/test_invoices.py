@@ -1,8 +1,7 @@
 from backend import db
 from backend.testing import ModelTestCase
 from backend.testing import factories
-
-from . import Invoice, Order, InvoiceProduct
+from backend.models import Invoice, Order, InvoiceProduct
 
 
 class TestInvoice(ModelTestCase):

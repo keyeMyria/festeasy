@@ -25,7 +25,7 @@ dependencies:
 
 test:
   override:
-    - py.test --junitxml=pytest-junit.xml
+    - PYTHONPATH=. py.test --junitxml=pytest-junit.xml
   post:
     - cp ./pytest-junit.xml $CIRCLE_TEST_REPORTS
 

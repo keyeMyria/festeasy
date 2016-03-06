@@ -1,6 +1,9 @@
 import datetime
 from flask import url_for
 
+import sys
+print(sys.path)
+
 from backend import db
 from backend.testing import APITestCase, factories
 from backend.models import ForgotPasswordToken, User
