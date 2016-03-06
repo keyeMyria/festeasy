@@ -4,6 +4,7 @@ from flask_restful import Resource
 from backend import db
 from backend.models import Cart, Order, Invoice
 from backend.api.utils import get_or_404
+from backend.api.v1.schemas import OrderSchema
 from backend.exceptions import APIException
 
 
@@ -36,3 +37,4 @@ class CartSingletonCheckout(Resource):
         invoice = Invoice.from_order(order)
         db.session.add(invoice)
         db.session.commit()
+        return OrderSchema().dump(order).data

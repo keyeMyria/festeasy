@@ -30,3 +30,4 @@ class TestCartSingletonCheckout(APITestCase):
         self.assertEqual(len(user.orders), 1, response.data)
         fetched_order = Order.query.first()
         self.assertEqual(len(fetched_order.invoices), 1, response.data)
+        self.assertEqual(response.json['id'], fetched_order.id)
