@@ -1,4 +1,10 @@
+from sqlalchemy_continuum import make_versioned
 from backend import db
+
+
+# TODO: Need to break up many-to-many relationships into
+#       one-to-many many-to-one for continuum.
+make_versioned()
 
 
 from .sessions import Session

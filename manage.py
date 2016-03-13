@@ -1,9 +1,13 @@
-from flask import current_app
-from flask.ext.script import Manager, Command
-from flask.ext.script import Shell, Server
-from sqlalchemy_continuum import make_versioned
+import logging
+import logging.config
+logging.config.fileConfig('logging.ini')
 
-make_versioned()
+import sys
+import pytest
+
+from flask import current_app
+from flask.ext.script import Manager, Command, Option
+from flask.ext.script import Shell, Server
 
 from backend import create_app, db, models
 from backend.utils import get_dummy_data
@@ -56,6 +60,20 @@ class InitDB(Command):
         db.session.add_all(dummy_data)
         db.session.commit()
 manager.add_command('init-db', InitDB())
+
+
+class Test(Command):
+    option_list = (
+        Option('--junitxml', '-j', dest='junitxml', default=None),
+    )
+
+    def run(self, junitxml):
+        args = []
+        if junitxml:
+            args.append('--junitxml')
+            args.append(junitxml)
+        sys.exit(pytest.main(args))
+manager.add_command('run-tests', Test())
 
 
 def _make_context():
