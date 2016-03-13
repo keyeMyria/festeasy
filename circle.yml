@@ -14,20 +14,20 @@ dependencies:
   override:
     - if [ ! -e ~/nvm/v0.10.33/bin/firebase ]; then npm install -g firebase-tools; else echo "Not installing firebase-tools because it seems to be cached."; fi;
     - if [ ! -e ~/nvm/v0.10.33/bin/gulp ]; then npm install -g gulp; else echo "Not installing gulp because it seems to be cached."; fi;
-    - pip install -r requirements.txt
-    - cd www && npm install
-    - cd www && bower install
-    - cd admin_www && npm install
-    - cd admin_www && bower install
+    - cd backend; pip install -r requirements.txt
+    - cd www; npm install
+    - cd www; bower install
+    - cd admin_www; npm install
+    - cd admin_www; bower install
     - python ./configure_api_endpoints.py -e $CIRCLE_BRANCH
-    - cd www && gulp
-    - cd admin_www && gulp
+    - cd www; gulp
+    - cd admin_www; gulp
 
 test:
   override:
-    - python manage.py -c testing run-tests -j tests.xml
+    - cd backend; python manage.py -c testing run-tests -j tests.xml
   post:
-    - cp ./tests.xml $CIRCLE_TEST_REPORTS
+    - cd backend; cp ./tests.xml $CIRCLE_TEST_REPORTS
 
 deployment:
   staging:
@@ -36,13 +36,13 @@ deployment:
       - curl http://festeasy-staging.herokuapp.com:
           background: true
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
-      - cd www && firebase deploy -f festeasy-staging --token=$FIREBASE_TOKEN --non-interactive
-      - cd admin_www && firebase deploy -f fe-admin-staging --token=$FIREBASE_TOKEN --non-interactive
+      - cd www; firebase deploy -f festeasy-staging --token=$FIREBASE_TOKEN --non-interactive
+      - cd admin_www; firebase deploy -f fe-admin-staging --token=$FIREBASE_TOKEN --non-interactive
   production:
     branch: production
     commands:
       - curl http://festeasy-production.herokuapp.com:
           background: true
       - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
-      - cd www && firebase deploy -f festeasy-production --token=$FIREBASE_TOKEN --non-interactive
-      - cd admin_www && firebase deploy -f fe-admin-production --token=$FIREBASE_TOKEN --non-interactive
+      - cd www; firebase deploy -f festeasy-production --token=$FIREBASE_TOKEN --non-interactive
+      - cd admin_www; firebase deploy -f fe-admin-production --token=$FIREBASE_TOKEN --non-interactive
