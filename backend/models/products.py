@@ -11,17 +11,12 @@ class Product(db.Model, Entity):
     __tablename__ = 'product'
 
     def __init__(self, cost_rands=None, description=None, is_enabled=False,
-                 name=None, price_rands=None, product_categories=None,
-                 suppliers=None):
+                 name=None, price_rands=None):
         self.cost_rands = cost_rands
         self.description = description
         self.is_enabled = is_enabled
         self.name = name
         self.price_rands = price_rands
-        if product_categories:
-            self.product_categories = product_categories
-        if suppliers:
-            self.suppliers = suppliers
 
     def __repr__(self):
         return '<Product {id}>'.format(id=self.id)
@@ -56,13 +51,12 @@ class Product(db.Model, Entity):
         back_populates='product',
     )
 
-    stock_units = relationship(
-        'StockUnit',
+    product_suppliers = relationship(
+        'ProductSupplier',
         back_populates='product',
     )
 
-    suppliers = relationship(
-        'Supplier',
-        secondary='product_supplier',
-        back_populates='products',
+    stock_units = relationship(
+        'StockUnit',
+        back_populates='product',
     )

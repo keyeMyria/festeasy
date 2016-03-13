@@ -2,7 +2,7 @@ import datetime
 
 from backend.models import User, Product, Festival, Cart
 from backend.models import Category, BaseFestival
-from backend.models import Supplier, ProductCategory
+from backend.models import Supplier, ProductCategory, ProductSupplier
 
 
 def get_dummy_data():
@@ -28,8 +28,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description.',
-        suppliers=[woolies, pp],
     )
+    castle.product_suppliers.extend([
+        ProductSupplier(product=castle, supplier=woolies),
+    ])
     castle.product_categories.extend([
         ProductCategory(product=castle, category=beer),
         ProductCategory(product=castle, category=drinks),
@@ -41,8 +43,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description.',
-        suppliers=[woolies],
     )
+    lays.product_suppliers.extend([
+        ProductSupplier(product=lays, supplier=woolies),
+    ])
     lays.product_categories.extend([
         ProductCategory(product=lays, category=food)
     ])
@@ -53,8 +57,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description.',
-        suppliers=[pp],
     )
+    coke.product_suppliers.extend([
+        ProductSupplier(product=coke, supplier=pp),
+    ])
     coke.product_categories.extend([
         ProductCategory(product=coke, category=drinks)
     ])
@@ -64,7 +70,6 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description',
-        suppliers=[woolies, pp],
     )
     windhoek.product_categories.extend([
         ProductCategory(product=windhoek, category=drinks),
@@ -77,7 +82,6 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description',
-        suppliers=[woolies, pp],
     )
     text.product_categories.extend([
         ProductCategory(product=text, category=food),
@@ -89,7 +93,6 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='a description.',
-        suppliers=[woolies],
     )
     kitkat.product_categories.extend([
         ProductCategory(product=kitkat, category=food),
@@ -101,7 +104,6 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description.',
-        suppliers=[woolies],
     )
     jelly_beans.product_categories.extend([
         ProductCategory(product=jelly_beans, category=food),
