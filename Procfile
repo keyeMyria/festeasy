@@ -1,1 +1,1 @@
-web: newrelic-admin run-program gunicorn -c backend/gunicorn_config.py backend.backend.wsgi:app --log-file=-
+web: PYTHONPATH=./backend newrelic-admin run-program gunicorn -c backend/gunicorn_config.py backend.backend.wsgi:app --log-file=-
