@@ -1,8 +1,6 @@
 import logging
 import logging.config
-# TODO: Make relative so that manage.py can be called from repo root or
-#       backend dir.
-# logging.config.fileConfig('backend/logging.ini')
+ logging.config.fileConfig('logging.ini')
 
 import sys
 import pytest
