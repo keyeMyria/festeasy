@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer
-from sqlalchemy import ForeignKey, func, select
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 from backend import db
 
@@ -54,13 +54,6 @@ class Order(db.Model, Entity):
     invoices = relationship(
         'Invoice',
         back_populates='order',
-    )
-
-    products = relationship(
-        'Product',
-        secondary='order_product',
-        back_populates='orders',
-        cascade='save-update, merge'
     )
 
     order_products = relationship(

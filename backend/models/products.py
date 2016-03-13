@@ -45,12 +45,6 @@ class Product(db.Model, Entity):
         back_populates='product',
     )
 
-    orders = relationship(
-        'Order',
-        secondary='order_product',
-        back_populates='products',
-        cascade='save-update, merge'
-    )
     order_products = relationship(
         'OrderProduct',
         back_populates='product',
