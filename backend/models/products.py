@@ -22,12 +22,6 @@ class Product(db.Model, Entity):
 
     description = Column(String)
 
-    carts = relationship(
-        'Cart',
-        secondary='cart_product',
-        back_populates='products',
-        cascade='save-update, merge'
-    )
     cart_products = relationship(
         'CartProduct',
         back_populates='product',

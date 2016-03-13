@@ -61,7 +61,9 @@ class TestInvoice(ModelTestCase):
         product = factories.ProductFactory(price_rands=price)
         festival = factories.FestivalFactory()
         user.cart.festival = festival
-        user.cart.products.append(product)
+        user.cart.cart_products.append(
+            factories.CartProductFactory(product=product)
+        )
         db.session.add(user)
         db.session.commit()
         order = Order.from_cart(user.cart)
@@ -81,7 +83,9 @@ class TestInvoice(ModelTestCase):
         product = factories.ProductFactory(price_rands=price)
         festival = factories.FestivalFactory()
         user.cart.festival = festival
-        user.cart.products.append(product)
+        user.cart.cart_products.append(
+            factories.CartProductFactory(product=product)
+        )
         db.session.add(user)
         db.session.commit()
         order = Order.from_cart(user.cart)
@@ -107,7 +111,9 @@ class TestInvoice(ModelTestCase):
         product = factories.ProductFactory(price_rands=price)
         festival = factories.FestivalFactory()
         user.cart.festival = festival
-        user.cart.products.append(product)
+        user.cart.cart_products.append(
+            factories.CartProductFactory(product=product)
+        )
         db.session.add(user)
         db.session.commit()
         order = Order.from_cart(user.cart)

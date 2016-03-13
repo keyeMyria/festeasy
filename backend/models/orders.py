@@ -15,9 +15,9 @@ class Order(db.Model, Entity):
     @staticmethod
     def from_cart(cart):
         if not cart.festival:
-            raise Exception('Cart does not have a festival.')
-        if cart.products == []:
-            raise Exception('Cart does not have any products.')
+            raise Exception('Cart does not have a Festival.')
+        if cart.cart_products == []:
+            raise Exception('Cart does not have any CartProducts.')
         order = Order()
         order.user = cart.user
         order.festival = cart.festival
