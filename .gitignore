@@ -74,10 +74,10 @@ www/dist/
 admin_www/dist/
 
 # Live config file
-backend/config/live.py
+backend/backend/config/live.py
 
 # Email test file
-backend/email.txt
+backend/backend/email.txt
 
 # pyenv version file
-.python-version
+backend/.python-version
