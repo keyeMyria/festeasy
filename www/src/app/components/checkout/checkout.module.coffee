@@ -25,7 +25,7 @@ checkout.config(($stateProvider) ->
 			auth: true
 		})
 		.state('base.checkout.confirm-order', {
-			url: '/confirm-order'
+			url: '/confirm-order?order-id'
 			controller: 'confirmOrderController'
 			templateUrl: 'confirm-order.partial.html'
 			auth: true

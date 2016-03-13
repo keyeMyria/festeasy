@@ -1,4 +1,6 @@
 checkout.controller('paymentController', ($scope, $state, $stateParams) ->
   orderId = $stateParams['order-id']
-  console.log orderId
+  $scope.makeFakePayment = () ->
+    console.log 'making fake payment.'
+    $state.go('base.checkout.confirm-order', {'order-id': orderId})
 )
