@@ -1,9 +1,10 @@
 <loading-indicator data="orders" error="error"></loading-indicator>
-<div ng-show="orders">
+<div class="ui segment" ng-show="orders">
+	<h2 class="ui header">Orders</h2>
 	<div ng-show="!orders.length">
 		No orders
 	</div>
-	<div ng-show="orders.length" class="ui segment">
+	<div ng-show="orders.length">
 		<table class="ui table">
 			<thead>
 				<th>ID</th>
