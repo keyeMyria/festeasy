@@ -27,7 +27,7 @@ test:
   override:
     - cd backend; python manage.py -c testing run-tests -j tests.xml
   post:
-    - dc backend; cp ./tests.xml $CIRCLE_TEST_REPORTS
+    - cd backend; cp ./tests.xml $CIRCLE_TEST_REPORTS
 
 deployment:
   staging:
