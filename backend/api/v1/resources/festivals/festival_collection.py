@@ -25,5 +25,4 @@ class FestivalCollection(Resource):
     def get(self):
         q = Festival.query
         q = filter_starts_on(q)
-        festivals = q.all()
-        return festival_schema.dump(festivals, many=True).data
+        return festival_schema.dump(q.all(), many=True).data

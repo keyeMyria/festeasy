@@ -18,16 +18,16 @@ checkout.config(($stateProvider) ->
 			templateUrl: 'checkout-details.partial.html'
 			auth: true
 		})
-		.state('base.checkout.confirm-order', {
-			url: '/confirm-order'
-			controller: 'confirmOrderController'
-			templateUrl: 'confirm-order.partial.html'
-			auth: true
-		})
 		.state('base.checkout.payment', {
-			url: '/payment'
+			url: '/payment?order-id'
 			controller: 'paymentController'
 			templateUrl: 'payment.partial.html'
+			auth: true
+		})
+		.state('base.checkout.confirm-order', {
+			url: '/confirm-order?order-id'
+			controller: 'confirmOrderController'
+			templateUrl: 'confirm-order.partial.html'
 			auth: true
 		})
 )

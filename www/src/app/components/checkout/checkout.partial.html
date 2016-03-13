@@ -1,18 +1,18 @@
 <div class="ui center aligned grid">
 	<div class="row">
 		<div class="ui small ordered steps">
-			<a class="step" ui-sref="base.cart">
+			<div class="step">
 				<div class="content">
 					<div class="title">Cart</div>
 					<div class="description">Choose products and festival</div>
 				</div>
-			</a>
-			<a class="step" ng-class="{'active': state.is('base.checkout.details')}" ui-sref="base.checkout.details">
+			</div>
+			<div class="step" ng-class="{'active': state.is('base.checkout.details')}">
 				<div class="content">
 					<div class="title">Checkout Details</div>
 					<div class="description">View checkout details</div>
 				</div>
-			</a>
+			</div>
 			<div class="step" ng-class="{'active': state.is('base.checkout.payment')}">
 				<div class="content">
 					<div class="title">Payment</div>

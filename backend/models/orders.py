@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer
-from sqlalchemy import ForeignKey, func, select
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 from backend import db
 
@@ -15,9 +15,9 @@ class Order(db.Model, Entity):
     @staticmethod
     def from_cart(cart):
         if not cart.festival:
-            raise Exception('Cart does not have a festival.')
-        if cart.products == []:
-            raise Exception('Cart does not have any products.')
+            raise Exception('Cart does not have a Festival.')
+        if cart.cart_products == []:
+            raise Exception('Cart does not have any CartProducts.')
         order = Order()
         order.user = cart.user
         order.festival = cart.festival
@@ -54,13 +54,6 @@ class Order(db.Model, Entity):
     invoices = relationship(
         'Invoice',
         back_populates='order',
-    )
-
-    products = relationship(
-        'Product',
-        secondary='order_product',
-        back_populates='orders',
-        cascade='save-update, merge'
     )
 
     order_products = relationship(

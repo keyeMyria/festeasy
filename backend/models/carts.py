@@ -30,12 +30,6 @@ class Cart(db.Model, Entity):
         uselist=False,
         cascade='save-update, merge'
     )
-    products = relationship(
-        'Product',
-        secondary='cart_product',
-        back_populates='carts',
-        cascade='save-update, merge'
-    )
     cart_products = relationship(
         'CartProduct',
         back_populates='cart',

@@ -1,8 +1,8 @@
 <loading-indicator data="cart && festival && cartProducts" error="error"></loading-indicator>
-<h1 class="ui center aligned header">Checkout Details</h1>
-<div class="ui segment">
-	<h2 class="ui header">Order Summary</h2>
-	<div ng-show="cart && festival && cartProducts">
+<div class="ui segment" ng-show="cart && festival && cartProducts">
+	<h1 class="ui center aligned header">Checkout Details</h1>
+	<div class="ui segment">
+		<h2 class="ui header">Order Summary</h2>
 		<h3 class="ui header">Festival</h3>
 		<p>
 			<a style="cursor:pointer;" ui-sref="base.festivals.festival({festivalId:festival.id})">
@@ -43,5 +43,12 @@
 			</p>
 		</div>
 	</div>
+	<div class="ui segment">
+		<h2 class="ui header">Some details and instructions here</h2>
+		<h3 class="ui header">Collections details</h3>
+		<h3 class="ui header">Payment details</h3>
+		<h3 class="ui header">Alchohol and Plastics details</h3>
+		<h3 class="ui header">FAQs</h3>
+	</div>
+	<button class="ui button" ng-click="checkout()">Proceed</button>
 </div>
-<a class="ui button" ui-sref="base.checkout.payment">Proceed</a>

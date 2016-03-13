@@ -4,6 +4,7 @@ from flask_restful import Resource
 from backend import db
 from backend.models import Cart, Order, Invoice
 from backend.api.utils import get_or_404
+from backend.api.v1.schemas import OrderSchema
 from backend.exceptions import APIException
 
 
@@ -21,13 +22,13 @@ class CartSingletonCheckout(Resource):
                 status_code=400,
                 message="Festival starts too soon."
             )
-        if not cart.products:
+        if not cart.cart_products:
             raise APIException(
                 status_code=400,
-                message="Cart needs some Products."
+                message="Cart needs some CartProducts."
             )
         order = Order.from_cart(cart)
-        cart.products = []
+        cart.cart_products = []
         cart.festival = None
         db.session.add(cart)
         db.session.add(order)
@@ -36,3 +37,4 @@ class CartSingletonCheckout(Resource):
         invoice = Invoice.from_order(order)
         db.session.add(invoice)
         db.session.commit()
+        return OrderSchema().dump(order).data

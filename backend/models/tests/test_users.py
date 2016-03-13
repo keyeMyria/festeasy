@@ -1,8 +1,7 @@
 from backend import db
 from backend.testing import ModelTestCase
 from backend.testing import factories
-
-from . import User
+from backend.models import User
 
 
 class TestUser(ModelTestCase):

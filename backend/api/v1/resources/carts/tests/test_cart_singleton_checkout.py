@@ -17,7 +17,9 @@ class TestCartSingletonCheckout(APITestCase):
             starts_on=the_future,
         )
         product = factories.ProductFactory(price_rands=10)
-        user.cart.products.append(product)
+        user.cart.cart_products.append(
+            factories.CartProductFactory(product=product)
+        )
         user.cart.festival = festival
         db.session.add(user)
         db.session.commit()
@@ -26,7 +28,8 @@ class TestCartSingletonCheckout(APITestCase):
             url_for(endpoint, cart_id=user.cart.id)
         )
         self.assertEqual(response.status_code, 200, response.data)
-        self.assertEqual(user.cart.products, [], response.data)
+        self.assertEqual(user.cart.cart_products, [], response.data)
         self.assertEqual(len(user.orders), 1, response.data)
         fetched_order = Order.query.first()
         self.assertEqual(len(fetched_order.invoices), 1, response.data)
+        self.assertEqual(response.json['id'], fetched_order.id)

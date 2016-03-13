@@ -54,11 +54,6 @@ class Invoice(db.Model, Entity):
         back_populates='invoices'
     )
 
-    products = relationship(
-        'Product',
-        secondary='invoice_product',
-        back_populates='invoices'
-    )
     invoice_products = relationship(
         'InvoiceProduct',
         back_populates='invoice'
