@@ -2,94 +2,112 @@ import datetime
 
 from backend.models import User, Product, Festival, Cart
 from backend.models import Category, BaseFestival
-from backend.models import Supplier
+from backend.models import Supplier, ProductCategory, ProductSupplier
 
 
 def get_dummy_data():
+    """Returns a list of dummy data.
     """
-    Returns a list of dummy data.
-    """
-    test_user = User(
+    items = []
+    users = [User(
         email_address='test@festeasy.co.za',
         password='123',
         is_admin=True,
         first_name='TestName',
         cart=Cart()
-        )
+    )]
     now = datetime.datetime.now()
-    users = [
-        test_user,
-    ]
     drinks = Category(name='Drinks')
     beer = Category(name='Beer')
     food = Category(name='Food')
     woolies = Supplier(name='Woolies')
     pp = Supplier(name='Pick n Pay')
-    products = [
-        Product(
-            name='Castle Lite Beer',
-            cost_rands=10,
-            is_enabled=True,
-            price_rands=10,
-            description='A description.',
-            categories=[beer, drinks],
-            suppliers=[woolies, pp],
-            ),
-        Product(
-            name='Lays Small Pack',
-            cost_rands=10,
-            is_enabled=True,
-            price_rands=10,
-            description='A description.',
-            categories=[food],
-            suppliers=[woolies],
-            ),
-        Product(
-            name='Coke Can',
-            cost_rands=10,
-            is_enabled=True,
-            price_rands=10,
-            description='A description.',
-            categories=[drinks],
-            suppliers=[pp],
-            ),
-        Product(
-            name='Windhoek Beer',
-            cost_rands=10,
-            is_enabled=True,
-            price_rands=10,
-            description='A description',
-            categories=[drinks, beer],
-            suppliers=[woolies, pp],
-            ),
-        Product(
-            name='Text Chocolate',
-            cost_rands=10,
-            is_enabled=True,
-            price_rands=10,
-            description='A description',
-            categories=[food],
-            suppliers=[woolies, pp],
-            ),
-        Product(
-            name='KitKat Chocolate',
-            cost_rands=10,
-            is_enabled=True,
-            price_rands=10,
-            description='a description.',
-            categories=[food],
-            suppliers=[woolies],
-            ),
-        Product(
-            name='Jelly Beans',
-            cost_rands=10,
-            is_enabled=True,
-            price_rands=10,
-            description='A description.',
-            categories=[food],
-            suppliers=[woolies],
-            ),
-    ]
+    castle = Product(
+        name='Castle Lite Beer',
+        cost_rands=10,
+        is_enabled=True,
+        price_rands=10,
+        description='A description.',
+    )
+    castle.product_suppliers.extend([
+        ProductSupplier(product=castle, supplier=woolies),
+    ])
+    castle.product_categories.extend([
+        ProductCategory(product=castle, category=beer),
+        ProductCategory(product=castle, category=drinks),
+    ])
+    items.append(castle)
+    lays = Product(
+        name='Lays Small Pack',
+        cost_rands=10,
+        is_enabled=True,
+        price_rands=10,
+        description='A description.',
+    )
+    lays.product_suppliers.extend([
+        ProductSupplier(product=lays, supplier=woolies),
+    ])
+    lays.product_categories.extend([
+        ProductCategory(product=lays, category=food)
+    ])
+    items.append(lays)
+    coke = Product(
+        name='Coke Can',
+        cost_rands=10,
+        is_enabled=True,
+        price_rands=10,
+        description='A description.',
+    )
+    coke.product_suppliers.extend([
+        ProductSupplier(product=coke, supplier=pp),
+    ])
+    coke.product_categories.extend([
+        ProductCategory(product=coke, category=drinks)
+    ])
+    windhoek = Product(
+        name='Windhoek Beer',
+        cost_rands=10,
+        is_enabled=True,
+        price_rands=10,
+        description='A description',
+    )
+    windhoek.product_categories.extend([
+        ProductCategory(product=windhoek, category=drinks),
+        ProductCategory(product=windhoek, category=beer),
+    ])
+    items.append(windhoek)
+    text = Product(
+        name='Text Chocolate',
+        cost_rands=10,
+        is_enabled=True,
+        price_rands=10,
+        description='A description',
+    )
+    text.product_categories.extend([
+        ProductCategory(product=text, category=food),
+    ])
+    items.append(text)
+    kitkat = Product(
+        name='KitKat Chocolate',
+        cost_rands=10,
+        is_enabled=True,
+        price_rands=10,
+        description='a description.',
+    )
+    kitkat.product_categories.extend([
+        ProductCategory(product=kitkat, category=food),
+    ])
+    items.append(kitkat)
+    jelly_beans = Product(
+        name='Jelly Beans',
+        cost_rands=10,
+        is_enabled=True,
+        price_rands=10,
+        description='A description.',
+    )
+    jelly_beans.product_categories.extend([
+        ProductCategory(product=jelly_beans, category=food),
+    ])
     rtd = BaseFestival(name='Rocking The Diasies')
     sun = BaseFestival(name='Sunflower Fest')
     oppi = BaseFestival(name='Oppie Koppie')
@@ -125,5 +143,6 @@ def get_dummy_data():
             facebook_link='https://www.facebook.com/oppikoppifestival/',
             ),
     ]
-    things = users + products + festivals
-    return things
+    items.extend(users)
+    items.extend(festivals)
+    return items

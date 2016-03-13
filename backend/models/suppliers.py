@@ -25,16 +25,15 @@ class Supplier(db.Model, Entity):
     base_supplier_id = Column(
         Integer,
         ForeignKey('base_supplier.id'),
-        )
+    )
     base_supplier = relationship(
         'BaseSupplier',
         back_populates="suppliers",
     )
 
-    products = relationship(
-        'Product',
-        secondary='product_supplier',
-        back_populates='suppliers',
+    product_suppliers = relationship(
+        'ProductSupplier',
+        back_populates='supplier',
     )
 
     stock_units = relationship(
