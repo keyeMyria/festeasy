@@ -40,11 +40,6 @@ class Product(db.Model, Entity):
         cascade='save-update, merge, delete'
     )
 
-    invoices = relationship(
-        'Invoice',
-        secondary='invoice_product',
-        back_populates='products',
-    )
     invoice_products = relationship(
         'InvoiceProduct',
         back_populates='product',
