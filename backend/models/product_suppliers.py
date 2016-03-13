@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, Numeric
 from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 from backend import db
 
@@ -19,9 +20,17 @@ class ProductSupplier(db.Model, Entity):
         ForeignKey('product.id'),
         nullable=False,
     )
+    product = relationship(
+        'Product',
+        back_populates='product_suppliers',
+    )
 
     supplier_id = Column(
         Integer,
         ForeignKey('supplier.id'),
         nullable=False,
+    )
+    supplier = relationship(
+        'Supplier',
+        back_populates='product_suppliers',
     )

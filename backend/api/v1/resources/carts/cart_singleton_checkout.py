@@ -22,13 +22,13 @@ class CartSingletonCheckout(Resource):
                 status_code=400,
                 message="Festival starts too soon."
             )
-        if not cart.products:
+        if not cart.cart_products:
             raise APIException(
                 status_code=400,
-                message="Cart needs some Products."
+                message="Cart needs some CartProducts."
             )
         order = Order.from_cart(cart)
-        cart.products = []
+        cart.cart_products = []
         cart.festival = None
         db.session.add(cart)
         db.session.add(order)

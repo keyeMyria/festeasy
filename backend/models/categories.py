@@ -15,8 +15,7 @@ class Category(db.Model, Entity):
     def __repr__(self):
         return '<Category {id}>'.format(id=self.id)
 
-    products = relationship(
-        'Product',
-        secondary='product_category',
-        back_populates='categories',
+    product_categories = relationship(
+        'ProductCategory',
+        back_populates='category'
     )
