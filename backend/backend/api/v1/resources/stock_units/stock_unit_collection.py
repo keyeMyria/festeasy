@@ -40,9 +40,7 @@ class StockUnitCollection(Resource):
 
     def post(self):
         load_data = stock_unit_schema.load(request.get_json()).data
-        product_stock = StockUnit()
-        for key, val in load_data.items():
-            setattr(product_stock, key, val)
-        db.session.add(product_stock)
+        stock_unit = StockUnit(**load_data)
+        db.session.add(stock_unit)
         db.session.commit()
-        return stock_unit_schema.dump(product_stock).data
+        return stock_unit_schema.dump(stock_unit).data

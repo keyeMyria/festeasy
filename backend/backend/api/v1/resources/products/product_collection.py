@@ -41,9 +41,7 @@ class ProductCollection(Resource):
 
     def post(self):
         load_data = product_schema.load(request.get_json()).data
-        product = Product()
-        for key, val in load_data.items():
-            setattr(product, key, val)
+        product = Product(**load_data)
         db.session.add(product)
         db.session.commit()
         return product_schema.dump(product).data
