@@ -45,11 +45,7 @@ class PackagedStockUnitCollection(Resource):
 
     def post(self):
         load_data = psu_schema.load(request.get_json()).data
-        psu = None
-        if load_data:
-            psu = PackagedStockUnit(**load_data)
-        else:
-            psu = PackagedStockUnit()
+        psu = PackagedStockUnit(**load_data)
         db.session.add(psu)
         db.session.commit()
         return psu_schema.dump(psu).data
