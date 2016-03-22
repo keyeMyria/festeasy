@@ -67,6 +67,12 @@ class Order(db.Model, Entity):
         back_populates='order',
     )
 
+    collection = relationship(
+        'Collection',
+        back_populates='order',
+        uselist=False,
+    )
+
     @property
     def total_rands(self):
         total = 0

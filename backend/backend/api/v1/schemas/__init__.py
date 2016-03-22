@@ -21,3 +21,4 @@ from .forgot_password_token_schema import ForgotPasswordTokenSchema
 from .reset_password_schema import ResetPasswordSchema
 from .package_schema import PackageSchema
 from .packaged_stock_unit_schema import PackagedStockUnitSchema
+from .collection_schema import CollectionSchema

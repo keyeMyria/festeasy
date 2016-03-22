@@ -25,11 +25,7 @@ class PackageCollection(Resource):
 
     def post(self):
         load_data = package_schema.load(request.get_json()).data
-        package = None
-        if load_data:
-            package = Package(**load_data)
-        else:
-            package = Package()
+        package = Package(**load_data)
         db.session.add(package)
         db.session.commit()
         return package_schema.dump(package).data

@@ -16,3 +16,4 @@ from .stock_unit_factories import StockUnitFactory
 from .forgot_password_token_factories import ForgotPasswordTokenFactory
 from .package_factories import PackageFactory
 from .packaged_stock_unit_factories import PackagedStockUnitFactory
+from .collection_factories import CollectionFactory

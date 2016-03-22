@@ -9,6 +9,7 @@ v1_api = Api(v1_bp)
 from .resources import auth
 from .resources import cart_products
 from .resources import carts
+from .resources import collections
 from .resources import festivals
 from .resources import invoice_products
 from .resources import invoices
