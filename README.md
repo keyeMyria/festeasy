@@ -47,7 +47,7 @@ Start hacking!
 
 #### Install some apt dependencies
 
-`sudo apt get install nodejs nodejs-legacy npm`
+`sudo apt-get install nodejs nodejs-legacy npm`
 
 #### Install npm modules
 
