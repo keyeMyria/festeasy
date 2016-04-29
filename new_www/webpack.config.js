@@ -2,7 +2,9 @@ var webpack = require('webpack');
 
 
 module.exports = {
-    entry:  './src/index.jsx',
+    entry:  [
+      './src/index.jsx'
+    ],
     output: {
         path:       'build',
         filename:   'bundle.js',
@@ -19,10 +21,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx$/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015', 'react'],
-                },
+                loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=react'],
             },
             {
                 test: /\.css$/,
