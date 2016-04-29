@@ -17,6 +17,9 @@ module.exports = {
             "window.jQuery": "jquery"
         })
     ],
+    devServer: {
+      historyApiFallback: true,
+    },
     module: {
         loaders: [
             {
