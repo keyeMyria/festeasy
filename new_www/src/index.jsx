@@ -4,6 +4,7 @@ import '../semantic/dist/semantic.js'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
+import { createStore } from 'redux'
 
 import SignInContainer from './common/signIn.jsx'
 
@@ -16,6 +17,17 @@ import FestivalContainer from './main/festival.jsx'
 
 import Admin from './admin/admin.jsx'
 
+import appReducer from './utils/reducers.jsx'
+import { signIn } from './utils/actionCreators.jsx'
+
+
+let store = createStore(appReducer)
+
+console.log(store.getState())
+
+store.dispatch(signIn('j@r.c', '123'))
+
+console.log(store.getState())
 
 const App = React.createClass({
   render: function () {
