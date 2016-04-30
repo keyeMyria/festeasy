@@ -2,22 +2,30 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
 
-const FestivalListItem = ({ festivalData }) => (
+const festivalShape = PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    starts_on: PropTypes.string.isRequired,
+    ends_on: PropTypes.string.isRequired,
+})
+
+
+const FestivalListItem = ({ festival }) => (
   <div>
     <h2>
-      <Link to={`/festivals/${festivalData.id}`}>
-        {festivalData.name}
+      <Link to={`/festivals/${festival.id}`}>
+        {festival.name}
       </Link>
     </h2>
-    <p>{festivalData.description}</p>
-    <p>Starts: {festivalData.starts_on}</p>
-    <p>Ends: {festivalData.ends_on}</p>
+    <p>{festival.description}</p>
+    <p>Starts: {festival.starts_on}</p>
+    <p>Ends: {festival.ends_on}</p>
   </div>
 )
 
 
 FestivalListItem.propTypes = {
-  festivalData : PropTypes.object.isRequired
+  festival : festivalShape
 }
 
 
@@ -26,7 +34,7 @@ const FestivalList = ({ festivals }) => (
     <h1>Festivals</h1>
     {festivals.map(festival =>
       <div key={festival.id}>
-        <FestivalListItem festivalData={festival}/>
+        <FestivalListItem festival={festival}/>
       </div>
     )}
   </div>
@@ -34,7 +42,9 @@ const FestivalList = ({ festivals }) => (
 
 
 FestivalList.propTypes = {
-  festivals: PropTypes.array.isRequired
+  festivals : PropTypes.arrayOf(
+    festivalShape
+  )
 }
 
 

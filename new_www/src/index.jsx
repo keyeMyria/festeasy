@@ -12,8 +12,8 @@ import Main from './main/main.jsx'
 import StoreContainer from './main/store.jsx'
 import Landing from './main/landing.jsx'
 import About from './main/about.jsx'
-import FestivalsContainer from './main/festivals.jsx'
-import FestivalContainer from './main/festival.jsx'
+import FestivalsContainer from './main/festivals/festivals.jsx'
+import FestivalContainer from './main/festivals/festival.jsx'
 
 import Admin from './admin/admin.jsx'
 
