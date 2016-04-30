@@ -9,6 +9,7 @@ import Store from './store/store.jsx'
 import Landing from './store/landing.jsx'
 import About from './store/about.jsx'
 import FestivalsContainer from './store/festivals.jsx'
+import FestivalContainer from './store/festival.jsx'
 
 import Admin from './admin/admin.jsx'
 
@@ -31,6 +32,7 @@ const routes =
         <IndexRoute component={Landing}/>
         <Route path="about" component={About}/>
         <Route path="festivals" component={FestivalsContainer}/>
+        <Route path="festivals/:festivalId" component={FestivalContainer}/>
       </Route>
       <Route path="admin" component={Admin}/>
     </Route>

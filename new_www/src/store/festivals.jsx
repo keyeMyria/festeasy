@@ -1,11 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 
 const Festival = React.createClass({
   render: function() {
     return (
       <div>
-        <h2>{this.props.festival.name}</h2>
+        <h2>
+          <Link to={`/festivals/${this.props.festival.id}`}>
+            {this.props.festival.name}
+          </Link>
+        </h2>
         <p>{this.props.festival.description}</p>
         <p>Starts: {this.props.festival.starts_on}</p>
         <p>Ends: {this.props.festival.ends_on}</p>
@@ -62,7 +67,6 @@ const FestivalsContainer = React.createClass({
     )
   }
 })
-
 
 
 module.exports = FestivalsContainer
