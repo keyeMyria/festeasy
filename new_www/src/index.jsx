@@ -5,11 +5,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 
-import Store from './store/store.jsx'
-import Landing from './store/landing.jsx'
-import About from './store/about.jsx'
-import FestivalsContainer from './store/festivals.jsx'
-import FestivalContainer from './store/festival.jsx'
+import Main from './main/main.jsx'
+import StoreContainer from './main/store.jsx'
+import Landing from './main/landing.jsx'
+import About from './main/about.jsx'
+import FestivalsContainer from './main/festivals.jsx'
+import FestivalContainer from './main/festival.jsx'
 
 import Admin from './admin/admin.jsx'
 
@@ -28,8 +29,9 @@ const App = React.createClass({
 const routes =
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <Route path="" component={Store}>
+      <Route path="" component={Main}>
         <IndexRoute component={Landing}/>
+        <Route path="store" component={StoreContainer}/>
         <Route path="about" component={About}/>
         <Route path="festivals" component={FestivalsContainer}/>
         <Route path="festivals/:festivalId" component={FestivalContainer}/>
