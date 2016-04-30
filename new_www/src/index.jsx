@@ -7,25 +7,17 @@ import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 import { createStore } from 'redux'
 
 import SignInContainer from './common/signIn.jsx'
-
 import Main from './main/main.jsx'
 import StoreContainer from './main/store.jsx'
 import Landing from './main/landing.jsx'
 import About from './main/about.jsx'
 import FestivalsContainer from './main/festivals/festivals.jsx'
 import FestivalContainer from './main/festivals/festival.jsx'
-
 import Admin from './admin/admin.jsx'
-
-import appReducer from './utils/reducers.jsx'
-import { signIn } from './utils/actionCreators.jsx'
-
-
-let store = createStore(appReducer)
 
 
 const App = React.createClass({
-  render: function () {
+  render: function() {
     return (
       <div>
         {this.props.children}
