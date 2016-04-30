@@ -42,29 +42,43 @@ const MyInput = React.createClass({
 
 
 const SignInContainer = React.createClass({
-  getInitialState() {
+  contextTypes: {
+    router: React.PropTypes.object
+  },
+
+
+  getInitialState: function() {
     return { canSubmit: false };
   },
-  submit(data) {
+
+
+  submit: function(data) {
+    var it = this
     $.ajax({
       type: 'POST',
       url: 'http://localhost:5000/api/v1/signin',
       data: JSON.stringify(data),
       contentType : 'application/json',
       dataType: 'json',
-      successs: function() {
-        console.log('worked')
+      success: function(response) {
+        localStorage.setItem('authToken', response.token)
+        it.context.router.push("/")
       }
     })
-    console.log(data)
   },
-  enableButton() {
+
+
+  enableButton: function() {
     this.setState({ canSubmit: true });
   },
-  disableButton() {
+
+
+  disableButton: function() {
     this.setState({ canSubmit: false });
   },
-  render() {
+
+
+  render: function() {
     return (
       <div>
         <h2>Sign In</h2>
