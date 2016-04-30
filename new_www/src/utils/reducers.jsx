@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { SIGN_IN } from './actions.jsx'
+import { SIGN_IN, FETCH_FESTIVALS } from './actions.jsx'
 
 
 function auth(state = {}, action) {
@@ -14,8 +14,20 @@ function auth(state = {}, action) {
 }
 
 
+function festivals(state = [], action) {
+  switch (action.type) {
+    case FETCH_FESTIVALS:
+      return action.festivals
+    default:
+      return state
+  }
+}
+
+
 const appReducer = combineReducers({
-  auth
+  auth,
+  festivals
 })
+
 
 module.exports = appReducer

@@ -23,11 +23,6 @@ import { signIn } from './utils/actionCreators.jsx'
 
 let store = createStore(appReducer)
 
-console.log(store.getState())
-
-store.dispatch(signIn('j@r.c', '123'))
-
-console.log(store.getState())
 
 const App = React.createClass({
   render: function () {

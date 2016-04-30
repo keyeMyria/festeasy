@@ -1,42 +1,41 @@
-import React from 'react';
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 
 
-const Festival = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <h2>
-          <Link to={`/festivals/${this.props.festival.id}`}>
-            {this.props.festival.name}
-          </Link>
-        </h2>
-        <p>{this.props.festival.description}</p>
-        <p>Starts: {this.props.festival.starts_on}</p>
-        <p>Ends: {this.props.festival.ends_on}</p>
-      </div>
-    )
-  }
-})
+const FestivalListItem = ({ festivalData }) => (
+  <div>
+    <h2>
+      <Link to={`/festivals/${festivalData.id}`}>
+        {festivalData.name}
+      </Link>
+    </h2>
+    <p>{festivalData.description}</p>
+    <p>Starts: {festivalData.starts_on}</p>
+    <p>Ends: {festivalData.ends_on}</p>
+  </div>
+)
 
 
-const Festivals = React.createClass({
-  render: function() {
-    const festivalNodes = this.props.festivals.map(function(festival) {
-      return (
-        <div key={festival.id}>
-          <Festival festival={festival}/>
-        </div>
-      )
-    })
-    return (
-      <div>
-        <h1>Festivals</h1>
-        {festivalNodes}
+FestivalListItem.propTypes = {
+  festivalData : PropTypes.object.isRequired
+}
+
+
+const FestivalList = ({ festivals }) => (
+  <div>
+    <h1>Festivals</h1>
+    {festivals.map(festival =>
+      <div key={festival.id}>
+        <FestivalListItem festivalData={festival}/>
       </div>
-    )
-  }
-})
+    )}
+  </div>
+)
+
+
+FestivalList.propTypes = {
+  festivals: PropTypes.array.isRequired
+}
 
 
 const FestivalsContainer = React.createClass({
@@ -63,7 +62,7 @@ const FestivalsContainer = React.createClass({
 
   render: function() {
     return (
-      <Festivals festivals={this.state.festivals} />
+      <FestivalList festivals={this.state.festivals} />
     )
   }
 })

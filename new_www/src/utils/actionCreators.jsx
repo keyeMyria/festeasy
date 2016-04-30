@@ -10,6 +10,12 @@ const signIn = function signIn(emailAddress, password) {
 }
 
 
+const fetchFestivals =  (festivals) => ({
+  type: FETCH_FESTIVALS,
+  festivals: festivals,
+})
+
+
 module.exports = {
   signIn,
 }
