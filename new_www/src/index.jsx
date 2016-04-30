@@ -8,7 +8,7 @@ import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 import Store from './store/store.jsx'
 import Landing from './store/landing.jsx'
 import About from './store/about.jsx'
-import Festivals from './store/festivals.jsx'
+import FestivalsContainer from './store/festivals.jsx'
 
 import Admin from './admin/admin.jsx'
 
@@ -30,7 +30,7 @@ const routes =
       <Route path="" component={Store}>
         <IndexRoute component={Landing}/>
         <Route path="about" component={About}/>
-        <Route path="festivals" component={Festivals}/>
+        <Route path="festivals" component={FestivalsContainer}/>
       </Route>
       <Route path="admin" component={Admin}/>
     </Route>
