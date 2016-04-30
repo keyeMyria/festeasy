@@ -5,6 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 
+import SignInContainer from './common/signIn.jsx'
+
 import Main from './main/main.jsx'
 import StoreContainer from './main/store.jsx'
 import Landing from './main/landing.jsx'
@@ -31,6 +33,7 @@ const routes =
     <Route path="/" component={App}>
       <Route path="" component={Main}>
         <IndexRoute component={Landing}/>
+        <Route path="sign-in" component={SignInContainer}/>
         <Route path="store" component={StoreContainer}/>
         <Route path="about" component={About}/>
         <Route path="festivals" component={FestivalsContainer}/>

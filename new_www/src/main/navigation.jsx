@@ -22,6 +22,7 @@ const Navigation = React.createClass({
           <NavLink to="/about">About</NavLink>
           <NavLink to="/festivals">Festivals</NavLink>
           <NavLink to="/store">Store</NavLink>
+          <NavLink to="/sign-in">Sign In</NavLink>
         </div>
       </div>
     )
