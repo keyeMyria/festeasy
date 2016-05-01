@@ -15,7 +15,7 @@ const requestFestivals = function() {
 const receiveFestivalsSuccess = function(json) {
   return {
     type: RECEIVE_FESTVALS_SUCCESS,
-    items: json,
+    festivals: json,
     recievedOn: Date.now()
   }
 }

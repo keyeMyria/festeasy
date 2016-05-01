@@ -9,7 +9,7 @@ import createLogger from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
 
 
-import appReducer from './utils/reducers.jsx'
+import rootReducer from './utils/reducers.jsx'
 import SignInContainer from './common/signIn.jsx'
 import Main from './main/main.jsx'
 import StoreContainer from './main/store.jsx'
@@ -25,7 +25,7 @@ import { fetchFestivals } from './utils/actions.jsx'
 const loggerMiddleware = createLogger()
 
 let store = createStore(
-  appReducer,
+  rootReducer,
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware

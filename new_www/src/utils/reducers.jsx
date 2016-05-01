@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { REQUEST_FETIVALS, RECEIVE_FESTVALS, requestFestivals, receiveFestivals } from './actions.jsx'
+import { REQUEST_FETIVALS, RECEIVE_FESTVALS_SUCCESS, } from './actions.jsx'
 
 
 function festivals(state = {}, action) {
@@ -9,7 +9,7 @@ function festivals(state = {}, action) {
         isFetching: true,
         didInvalidate: false
       })
-    case RECEIVE_FESTVALS:
+    case RECEIVE_FESTVALS_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
@@ -22,9 +22,9 @@ function festivals(state = {}, action) {
 }
 
 
-const appReducer = combineReducers({
+const rootReducer = combineReducers({
   festivals,
 })
 
 
-module.exports = appReducer
+module.exports = rootReducer
