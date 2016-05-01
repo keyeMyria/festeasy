@@ -1,4 +1,5 @@
 import React from 'react';
+import { jsonApiRequest } from '../utils/request.jsx'
 
 
 const Product = React.createClass({
@@ -42,16 +43,15 @@ const StoreContainer = React.createClass({
 
 
   componentDidMount: function() {
-    this.serverRequest = $.get('http://localhost:5000/api/v1/products', function(result) {
-      this.setState({
-        products: result
+    const it = this
+    const request = jsonApiRequest('GET', '/products')
+    request.then(function(response) {
+      return response.json()
+    }).then(function(json) {
+      it.setState({
+        products: json
       })
-    }.bind(this))
-  },
-
-
-  componentWillUnmount: function() {
-    this.serverRequest.abort();
+    })
   },
 
 
