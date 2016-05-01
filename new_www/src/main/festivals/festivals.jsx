@@ -30,30 +30,34 @@ FestivalListItem.propTypes = {
 }
 
 
-const FestivalList = ({ festivals }) => (
-  <div>
-    <h1>Festivals</h1>
-    {festivals.map(festival =>
-      <div key={festival.id}>
-        <FestivalListItem festival={festival}/>
+const FestivalList = React.createClass({
+  propTypes: {
+    festivals : PropTypes.arrayOf(
+      festivalShape
+    ),
+    isFetching: PropTypes.bool
+  },
+
+
+  render: function() {
+    return (
+      <div>
+        <h1>Festivals</h1>
+        {this.props.festivals.map(festival =>
+          <div key={festival.id}>
+            <FestivalListItem festival={festival}/>
+          </div>
+        )}
       </div>
-    )}
-  </div>
-)
-
-
-FestivalList.propTypes = {
-  festivals : PropTypes.arrayOf(
-    festivalShape
-  )
-}
-
-
-const mapStateToProps = (state) => {
-  return {
-    festivals: state.festivals.items || [],
+    )
   }
-}
+})
+
+
+const mapStateToProps = state => ({
+  festivals: state.festivals.items || [],
+  isFetching: state.festivals.isFetching
+})
 
 
 const FestivalsContainer = connect(mapStateToProps)(FestivalList)
