@@ -32,7 +32,9 @@ let store = createStore(
   )
 )
 
-store.dispatch(fetchFestivals())
+store.dispatch(fetchFestivals()).then(function() {
+  console.log(store.getState())
+})
 
 
 const App = React.createClass({

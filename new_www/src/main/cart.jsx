@@ -44,11 +44,6 @@ const CartContainer = React.createClass({
   },
 
 
-  componentWillUnmount: function() {
-    this.serverRequest.abort();
-  },
-
-
   render: function() {
     return (
       <Cart cart={this.state.cart} />
