@@ -7,7 +7,7 @@ import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { createStore, applyMiddleware, compose } from 'redux'
-
+import { Provider } from 'react-redux'
 
 import rootReducer from './utils/reducers.jsx'
 import SignInContainer from './common/signIn.jsx'
@@ -39,17 +39,17 @@ function configureStore(initialState) {
 let store = configureStore({})
 
 
-store.dispatch(fetchFestivals()).then(function() {
-  console.log(store.getState())
-})
+const test = function() {
+  return store.dispatch(fetchFestivals())
+}
 
 
 const App = React.createClass({
   render: function() {
     return (
-      <div>
+      <Provider store={store}>
         {this.props.children}
-      </div>
+      </Provider>
     )
   }
 })
@@ -64,7 +64,7 @@ const routes =
         <Route path="store" component={StoreContainer}/>
         <Route path="about" component={About}/>
         <Route path="cart" component={CartContainer}/>
-        <Route path="festivals" component={FestivalsContainer}/>
+        <Route path="festivals" component={FestivalsContainer} onEnter={test}/>
         <Route path="festivals/:festivalId" component={FestivalContainer}/>
       </Route>
       <Route path="admin" component={Admin}/>

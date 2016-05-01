@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
+import { connect } from 'react-redux'
 
 
 const festivalShape = PropTypes.shape({
@@ -48,34 +49,14 @@ FestivalList.propTypes = {
 }
 
 
-const FestivalsContainer = React.createClass({
-  getInitialState: function() {
-    return {
-      festivals: []
-    };
-  },
-
-
-  componentDidMount: function() {
-    this.serverRequest = $.get('http://localhost:5000/api/v1/festivals', function(result) {
-      this.setState({
-        festivals: result
-      })
-    }.bind(this))
-  },
-
-
-  componentWillUnmount: function() {
-    this.serverRequest.abort();
-  },
-
-
-  render: function() {
-    return (
-      <FestivalList festivals={this.state.festivals} />
-    )
+const mapStateToProps = (state) => {
+  return {
+    festivals: state.festivals.items || [],
   }
-})
+}
+
+
+const FestivalsContainer = connect(mapStateToProps)(FestivalList)
 
 
 module.exports = FestivalsContainer
