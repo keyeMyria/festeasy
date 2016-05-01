@@ -2,9 +2,8 @@ var webpack = require('webpack');
 
 
 module.exports = {
-    entry:  [
-      './src/index.jsx'
-    ],
+    devtool: 'cheap-module-eval-source-map',
+    entry:  './src/index.jsx',
     output: {
         path:       'build',
         filename:   'bundle.js',
