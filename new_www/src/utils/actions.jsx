@@ -21,7 +21,7 @@ const receiveFestivalsSuccess = function(json) {
 }
 
 
-const fetchFestivals = function() {
+const fetchFestivals = function(params) {
   return function(dispatch){
     dispatch(requestFestivals())
     return jsonApiRequest('get', '/festivals')

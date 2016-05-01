@@ -4,30 +4,35 @@ import { connect } from 'react-redux'
 
 
 const festivalShape = PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    starts_on: PropTypes.string.isRequired,
-    ends_on: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  starts_on: PropTypes.string.isRequired,
+  ends_on: PropTypes.string.isRequired,
 })
 
 
-const FestivalListItem = ({ festival }) => (
-  <div>
-    <h2>
-      <Link to={`/festivals/${festival.id}`}>
-        {festival.name}
-      </Link>
-    </h2>
-    <p>{festival.description}</p>
-    <p>Starts: {festival.starts_on}</p>
-    <p>Ends: {festival.ends_on}</p>
-  </div>
-)
+const FestivalListItem = React.createClass({
+  propTypes: {
+    festival : festivalShape
+  },
 
 
-FestivalListItem.propTypes = {
-  festival : festivalShape
-}
+  render: function() {
+    const festival = this.props.festival
+    return(
+      <div>
+        <h2>
+          <Link to={`/festivals/${festival.id}`}>
+            {festival.name}
+          </Link>
+        </h2>
+        <p>{festival.description}</p>
+        <p>Starts: {festival.starts_on}</p>
+        <p>Ends: {festival.ends_on}</p>
+      </div>
+    )
+  }
+})
 
 
 const FestivalList = React.createClass({
@@ -54,13 +59,13 @@ const FestivalList = React.createClass({
 })
 
 
-const mapStateToProps = state => ({
+const festivalListMapStateToProps = state => ({
   festivals: state.festivals.items || [],
   isFetching: state.festivals.isFetching
 })
 
 
-const FestivalsContainer = connect(mapStateToProps)(FestivalList)
+const FestivalsContainer = connect(festivalListMapStateToProps)(FestivalList)
 
 
 module.exports = FestivalsContainer

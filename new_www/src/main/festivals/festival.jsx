@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux'
 
 
 const Festival = React.createClass({
+  propTypes: {
+    festival: PropTypes.shape({
+      id: PropTypes.number.isRequired
+    })
+  },
+
+
   render: function() {
     return (
       <div>
@@ -12,34 +20,13 @@ const Festival = React.createClass({
 })
 
 
-const FestivalContainer = React.createClass({
-  getInitialState: function() {
-    return {
-      festival: {}
-    };
-  },
-
-
-  componentDidMount: function() {
-    this.serverRequest = $.get(`http://localhost:5000/api/v1/festivals/${this.props.params.festivalId}`, function(result) {
-      this.setState({
-        festival: result
-      })
-    }.bind(this))
-  },
-
-
-  componentWillUnmount: function() {
-    this.serverRequest.abort();
-  },
-
-
-  render: function() {
-    return (
-      <Festival festival={this.state.festival}/>
-    )
-  }
+const mapStateToProps = state => ({
+  festival: state.festivals.items || {},
+  isFetching: state.festivals.isFetching
 })
+
+
+const FestivalContainer = connect(mapStateToProps)(Festival)
 
 
 module.exports = FestivalContainer
