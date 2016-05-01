@@ -13,6 +13,7 @@ import Landing from './main/landing.jsx'
 import About from './main/about.jsx'
 import FestivalsContainer from './main/festivals/festivals.jsx'
 import FestivalContainer from './main/festivals/festival.jsx'
+import CartContainer from './main/cart.jsx'
 import Admin from './admin/admin.jsx'
 
 
@@ -35,6 +36,7 @@ const routes =
         <Route path="sign-in" component={SignInContainer}/>
         <Route path="store" component={StoreContainer}/>
         <Route path="about" component={About}/>
+        <Route path="cart" component={CartContainer}/>
         <Route path="festivals" component={FestivalsContainer}/>
         <Route path="festivals/:festivalId" component={FestivalContainer}/>
       </Route>

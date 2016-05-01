@@ -1,15 +1,5 @@
 import 'whatwg-fetch';
-
-
-const getAuthDetails = function() {
-  const authToken = localStorage.getItem("authToken")
-  if (authToken) {
-    return {
-      token: authToken
-    }
-  }
-  return null
-}
+import getAuthDetails from './auth.jsx'
 
 
 const fetchRequest = function(method, url, params, data, headers) {

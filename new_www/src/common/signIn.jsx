@@ -61,6 +61,7 @@ const SignInContainer = React.createClass({
       contentType : 'application/json',
       dataType: 'json',
       success: function(response) {
+        localStorage.setItem('authUserId', response.user_id)
         localStorage.setItem('authToken', response.token)
         it.context.router.push("/")
       }
