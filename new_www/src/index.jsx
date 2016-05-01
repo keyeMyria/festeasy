@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 
 
 import rootReducer from './utils/reducers.jsx'
@@ -24,13 +24,20 @@ import { fetchFestivals } from './utils/actions.jsx'
 
 const loggerMiddleware = createLogger()
 
-let store = createStore(
-  rootReducer,
-  applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware
-  )
-)
+function configureStore(initialState) {
+  const store = createStore(rootReducer, initialState, compose(
+    applyMiddleware(
+      thunkMiddleware,
+      loggerMiddleware
+    ),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  ));
+  return store;
+}
+
+
+let store = configureStore({})
+
 
 store.dispatch(fetchFestivals()).then(function() {
   console.log(store.getState())
