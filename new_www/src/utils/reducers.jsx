@@ -1,23 +1,21 @@
 import { combineReducers } from 'redux'
-import { SIGN_IN, FETCH_FESTIVALS } from './actions.jsx'
+import { REQUEST_FETIVALS, RECEIVE_FESTVALS, requestFestivals, receiveFestivals } from './actions.jsx'
 
 
-function auth(state = {}, action) {
+function festivals(state = {}, action) {
   switch (action.type) {
-    case SIGN_IN:
-      return {
-          token: 'hah'
-      }
-    default:
-      return state
-  }
-}
-
-
-function festivals(state = [], action) {
-  switch (action.type) {
-    case FETCH_FESTIVALS:
-      return action.festivals
+    case REQUEST_FETIVALS:
+      return Object.assign({}, state, {
+        isFetching: true,
+        didInvalidate: false
+      })
+    case RECEIVE_FESTVALS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        didInvalidate: false,
+        items: action.festivals,
+        recievedOn: action.recievedOn
+      })
     default:
       return state
   }
@@ -25,8 +23,7 @@ function festivals(state = [], action) {
 
 
 const appReducer = combineReducers({
-  auth,
-  festivals
+  festivals,
 })
 
 
