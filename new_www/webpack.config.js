@@ -2,12 +2,12 @@ var webpack = require('webpack');
 
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
     entry:  './src/index.jsx',
     output: {
         path:       'build',
         filename:   'bundle.js',
-        publicPath: 'build/',
+        publicPath: 'build/'
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -17,7 +17,7 @@ module.exports = {
         })
     ],
     devServer: {
-      historyApiFallback: true,
+      historyApiFallback: true
     },
     module: {
        preLoaders: [
@@ -26,7 +26,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx$/,
-                loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=react'],
+                loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=react']
             },
             {
                 test: /\.css$/,
@@ -36,6 +36,6 @@ module.exports = {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
                 loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
             }
-        ],
-    },
+        ]
+    }
 };
