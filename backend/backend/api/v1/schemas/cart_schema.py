@@ -9,4 +9,4 @@ class CartSchema(EntitySchema):
     festival_id = fields.Integer()
     festival = fields.Nested(FestivalSchema())
     total_rands = fields.Float()
-    cart_products = fields.Nested(CartProductSchema())
+    cart_products = fields.Nested(CartProductSchema(), many=True)
