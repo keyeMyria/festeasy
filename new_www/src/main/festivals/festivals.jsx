@@ -39,32 +39,38 @@ const FestivalList = React.createClass({
   propTypes: {
     festivals : PropTypes.arrayOf(
       festivalShape
-    ),
-    isFetching: PropTypes.bool
+    ).isRequired,
   },
 
 
   render: function() {
-    const { festivalsFetch } = this.props
-    var festivalNodes;
-    if (festivalsFetch.value) {
-      festivalNodes = festivalsFetch.value.map(function(festival) {
-        return <FestivalListItem key={festival.id} festival={festival} />
-      })
-    }
+    const { festivals } = this.props
     return (
       <div>
         <h1>Festivals</h1>
-        {festivalNodes}
+          {festivals.map(festival => (
+            <FestivalListItem key={festival.id} festival={festival} />
+          ))}
       </div>
     )
   }
 })
 
 
-const FestivalsContainer = connect(props => ({
+const FestivalListContainer = React.createClass({
+  render: function() {
+    const { festivalsFetch } = this.props
+    if (festivalsFetch.pending) {
+      return <div>Loading...</div>
+    } else if (festivalsFetch.rejected) {
+      return <div>Error</div>
+    } else {
+      return <FestivalList festivals={festivalsFetch.value}/>
+    }
+  }
+})
+
+
+export default connect(props => ({
   festivalsFetch: 'http://localhost:5000/api/v1/festivals'
-}))(FestivalList)
-
-
-module.exports = FestivalsContainer
+}))(FestivalListContainer)

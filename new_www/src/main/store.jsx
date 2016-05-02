@@ -2,11 +2,16 @@ import React, { PropTypes } from 'react';
 import { connect, PromiseState } from 'react-refetch'
 
 
+const productShape = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  price_rands: PropTypes.number.isRequired
+})
+
+
 const ProductListItem = React.createClass({
   propTypes: {
-    product: PropTypes.shape({
-      id: PropTypes.number.isRequired
-      })
+    product: productShape.isRequired
   },
 
 
@@ -23,27 +28,41 @@ const ProductListItem = React.createClass({
 
 
 const ProductList = React.createClass({
+  propTypes: {
+    products: PropTypes.arrayOf(
+      productShape
+    ).isRequired
+  },
+
+
   render: function() {
-    const { productsFetch } = this.props
-    var productNodes;
-    if (productsFetch.value) {
-      productNodes = productsFetch.value.map(function(product) {
-        return <ProductListItem key={product.id} product={product} />
-      })
-    }
+    const { products } = this.props
     return (
       <div>
         <h1>Store</h1>
-        {productNodes}
+        {products.map(product => (
+          <ProductListItem key={product.id} product={product}/>
+        ))}
       </div>
     )
   }
 })
 
 
-const StoreContainer = connect(props => ({
+const ProductListContainer = React.createClass({
+  render: function() {
+    const { productsFetch } = this.props
+    if (productsFetch.pending) {
+      return <div>Loading...</div>
+    } else if (productsFetch.rejected) {
+      return <div>Error</div>
+    } else {
+      return <ProductList products={productsFetch.value}/>
+    }
+  }
+})
+
+
+export default connect(props => ({
   productsFetch: 'http://localhost:5000/api/v1/products'
-}))(ProductList)
-
-
-module.exports = StoreContainer
+}))(ProductListContainer)

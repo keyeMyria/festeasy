@@ -26,13 +26,18 @@ const Festival = React.createClass({
 
 
 const FestivalContainer = React.createClass({
+  propTypes: {
+    festivalFetch: PropTypes.object.isRequired
+  },
+
+
   render: function() {
     const { festivalFetch } = this.props
     if (festivalFetch.pending) {
       return <div>Loading...</div>
     } else if (festivalFetch.rejected) {
       return <div>Error</div>
-    } else if (festivalFetch.fulfilled) {
+    } else {
       return <Festival festival={festivalFetch.value}/>
     }
   }
