@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { connect, PromiseState } from 'react-refetch'
 
 
@@ -16,11 +17,14 @@ const ProductListItem = React.createClass({
 
 
   render: function() {
+    const { product } = this.props
     return (
       <div>
-        <h3>{this.props.product.name}</h3>
-        <p>{this.props.product.description}</p>
-        <p>Price: {this.props.product.price_rands}</p>
+        <Link to={`/products/${product.id}`}>
+          <h3>{product.name}</h3>
+        </Link>
+        <p>{product.description}</p>
+        <p>Price: {product.price_rands}</p>
       </div>
     )
   }
