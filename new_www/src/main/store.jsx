@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { connect, PromiseState } from 'react-refetch'
+import { connect } from 'react-refetch'
 import 'whatwg-fetch';
 import AddToCartButton from './addToCartButton.jsx'
 
@@ -57,6 +57,11 @@ const ProductList = React.createClass({
 
 
 const ProductListContainer = React.createClass({
+  propTypes: {
+    productsFetch: PropTypes.object.isRequired
+  },
+
+
   render: function() {
     const { productsFetch } = this.props
     if (productsFetch.pending) {
@@ -70,6 +75,6 @@ const ProductListContainer = React.createClass({
 })
 
 
-export default connect(props => ({
+export default connect(() => ({
   productsFetch: 'http://localhost:5000/api/v1/products'
 }))(ProductListContainer)

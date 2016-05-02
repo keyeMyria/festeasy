@@ -1,9 +1,9 @@
 import '../semantic/dist/semantic.css'
 import '../semantic/dist/semantic.js'
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import SignInContainer from './common/signIn.jsx'
 import Main from './main/main.jsx'
@@ -18,6 +18,11 @@ import Admin from './admin/admin.jsx'
 
 
 const App = React.createClass({
+  propTypes: {
+    children: PropTypes.object.isRequired
+  },
+
+
   render: function() {
     return (
       <div>

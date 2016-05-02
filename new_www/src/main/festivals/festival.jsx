@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { connect, PromiseState } from 'react-refetch'
+import { connect } from 'react-refetch'
 
 
 const Festival = React.createClass({

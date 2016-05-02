@@ -20,6 +20,9 @@ module.exports = {
       historyApiFallback: true,
     },
     module: {
+       preLoaders: [
+            {test: /\.js$/, loader: "eslint-loader"}
+        ],
         loaders: [
             {
                 test: /\.jsx$/,

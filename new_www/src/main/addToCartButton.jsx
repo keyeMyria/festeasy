@@ -17,7 +17,7 @@ const AddToCartButton = React.createClass({
       },
       body: JSON.stringify({
         'product_id': this.props.productId,
-        'cart_id': 1,
+        'cart_id': 1
       })
     })
   },

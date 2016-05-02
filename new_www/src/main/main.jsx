@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Navigation from './navigation.jsx'
 
 
 const Main = React.createClass({
+  propTypes: {
+    children: PropTypes.object.isRequired
+  },
+
+
   render: function() {
     return (
       <div style={{paddingTop: 55}}>

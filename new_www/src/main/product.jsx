@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { connect, PromiseState } from 'react-refetch'
+import { connect } from 'react-refetch'
 import AddToCartButton from './addToCartButton.jsx'
 
 
@@ -28,6 +28,11 @@ const Product = React.createClass({
 
 
 const ProductContainer = React.createClass({
+  propTypes: {
+    productFetch: PropTypes.object.isRequired
+  },
+
+
   render: function() {
     const { productFetch } = this.props
     if (productFetch.pending) {

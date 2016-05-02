@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
-import { connect, PromiseState } from 'react-refetch'
+import { connect } from 'react-refetch'
 
 
 const festivalShape = PropTypes.shape({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   starts_on: PropTypes.string.isRequired,
-  ends_on: PropTypes.string.isRequired,
+  ends_on: PropTypes.string.isRequired
 })
 
 
@@ -39,7 +39,7 @@ const FestivalList = React.createClass({
   propTypes: {
     festivals : PropTypes.arrayOf(
       festivalShape
-    ).isRequired,
+    ).isRequired
   },
 
 
@@ -58,6 +58,11 @@ const FestivalList = React.createClass({
 
 
 const FestivalListContainer = React.createClass({
+  propTypes: {
+    festivalsFetch: PropTypes.object.isRequired
+  },
+
+
   render: function() {
     const { festivalsFetch } = this.props
     if (festivalsFetch.pending) {
@@ -71,6 +76,6 @@ const FestivalListContainer = React.createClass({
 })
 
 
-export default connect(props => ({
+export default connect(() => ({
   festivalsFetch: 'http://localhost:5000/api/v1/festivals'
 }))(FestivalListContainer)

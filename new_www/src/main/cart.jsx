@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
-import getAuthDetails from '../utils/auth.jsx'
-import { connect, PromiseState } from 'react-refetch'
+import { connect } from 'react-refetch'
 
 
 const cartProductType = PropTypes.shape({
@@ -82,6 +81,11 @@ const Cart = React.createClass({
 
 
 const CartContainer = React.createClass({
+  propTypes: {
+    cartFetch: PropTypes.object.isRequired
+  },
+
+
   render: function() {
     const { cartFetch } = this.props
     if (cartFetch.pending) {
@@ -96,6 +100,6 @@ const CartContainer = React.createClass({
 
 
 // TODO: Use authenticated user id.
-export default connect(props => ({
+export default connect(() => ({
   cartFetch: 'http://localhost:5000/api/v1/users/1/cart'
 }))(CartContainer)
