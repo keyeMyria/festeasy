@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect, PromiseState } from 'react-refetch'
+import 'whatwg-fetch';
+import AddToCartButton from './addToCartButton.jsx'
 
 
 const productShape = PropTypes.shape({
@@ -25,6 +27,7 @@ const ProductListItem = React.createClass({
         </Link>
         <p>{product.description}</p>
         <p>Price: {product.price_rands}</p>
+        <AddToCartButton productId={product.id} />
       </div>
     )
   }

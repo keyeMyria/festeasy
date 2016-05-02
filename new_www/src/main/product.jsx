@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect, PromiseState } from 'react-refetch'
+import AddToCartButton from './addToCartButton.jsx'
 
 
 const Product = React.createClass({
@@ -19,6 +20,7 @@ const Product = React.createClass({
         <h2>{product.name}</h2>
         <p>{product.description}</p>
         <p>Price: {product.price_rands}</p>
+        <AddToCartButton productId={product.id} />
       </div>
     )
   }
