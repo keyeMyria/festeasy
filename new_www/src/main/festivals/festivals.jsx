@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
-import { connect } from 'react-redux'
+import { connect, PromiseState } from 'react-refetch'
 
 
 const festivalShape = PropTypes.shape({
@@ -45,27 +45,26 @@ const FestivalList = React.createClass({
 
 
   render: function() {
+    const { festivalsFetch } = this.props
+    var festivalNodes;
+    if (festivalsFetch.value) {
+      festivalNodes = festivalsFetch.value.map(function(festival) {
+        return <FestivalListItem key={festival.id} festival={festival} />
+      })
+    }
     return (
       <div>
         <h1>Festivals</h1>
-        {this.props.festivals.map(festival =>
-          <div key={festival.id}>
-            <FestivalListItem festival={festival}/>
-          </div>
-        )}
+        {festivalNodes}
       </div>
     )
   }
 })
 
 
-const festivalListMapStateToProps = state => ({
-  festivals: state.festivals.items || [],
-  isFetching: state.festivals.isFetching
-})
-
-
-const FestivalsContainer = connect(festivalListMapStateToProps)(FestivalList)
+const FestivalsContainer = connect(props => ({
+  festivalsFetch: 'http://localhost:5000/api/v1/festivals'
+}))(FestivalList)
 
 
 module.exports = FestivalsContainer

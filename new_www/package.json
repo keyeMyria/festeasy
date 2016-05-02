@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "react-redux": "^4.4.5",
+    "react-refetch": "^1.0.0-beta.4",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1",

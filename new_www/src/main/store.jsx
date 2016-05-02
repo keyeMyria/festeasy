@@ -1,8 +1,15 @@
-import React from 'react';
-import { jsonApiRequest } from '../utils/request.jsx'
+import React, { PropTypes } from 'react';
+import { connect, PromiseState } from 'react-refetch'
 
 
-const Product = React.createClass({
+const ProductListItem = React.createClass({
+  propTypes: {
+    product: PropTypes.shape({
+      id: PropTypes.number.isRequired
+      })
+  },
+
+
   render: function() {
     return (
       <div>
@@ -15,15 +22,15 @@ const Product = React.createClass({
 })
 
 
-const Store = React.createClass({
+const ProductList = React.createClass({
   render: function() {
-    const productNodes = this.props.products.map(function(product) {
-      return (
-        <div key={product.id}>
-          <Product product={product} />
-        </div>
-      )
-    })
+    const { productsFetch } = this.props
+    var productNodes;
+    if (productsFetch.value) {
+      productNodes = productsFetch.value.map(function(product) {
+        return <ProductListItem key={product.id} product={product} />
+      })
+    }
     return (
       <div>
         <h1>Store</h1>
@@ -34,35 +41,9 @@ const Store = React.createClass({
 })
 
 
-const StoreContainer = React.createClass({
-  getInitialState: function() {
-    return {
-      products: []
-    };
-  },
-
-
-  componentDidMount: function() {
-    const it = this
-    const request = jsonApiRequest('GET', '/products')
-    request.then(function(response) {
-      return response.json()
-    }).then(function(json) {
-      it.setState({
-        products: json
-      })
-    })
-  },
-
-
-  render: function() {
-    return (
-      <div>
-        <Store products={this.state.products}/>
-      </div>
-    )
-  }
-})
+const StoreContainer = connect(props => ({
+  productsFetch: 'http://localhost:5000/api/v1/products'
+}))(ProductList)
 
 
 module.exports = StoreContainer
