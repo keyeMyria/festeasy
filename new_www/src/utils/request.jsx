@@ -27,5 +27,5 @@ const jsonApiRequest = function(method, url, params, data) {
 
 
 module.exports = {
-  jsonApiRequest,
+  jsonApiRequest
 }
