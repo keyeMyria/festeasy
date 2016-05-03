@@ -25,6 +25,13 @@ const Navigation = React.createClass({
 
 
   render: function() {
+    var signInLink
+    var signOutLink
+    if (!this.context.isSignedIn) {
+      signInLink = <NavLink to="/sign-in">Sign In</NavLink>
+    } else {
+      signOutLink = <button onClick={this._handleClick} className="ui botton">Sign Out</button>
+    }
     return (
       <div className="ui fixed menu">
         <div className="ui container">
@@ -35,8 +42,8 @@ const Navigation = React.createClass({
           <NavLink to="/festivals">Festivals</NavLink>
           <NavLink to="/store">Store</NavLink>
           <NavLink to="/cart">Cart</NavLink>
-          <NavLink to="/sign-in">Sign In</NavLink>
-          <button onClick={this._handleClick} className="ui botton">Sign Out</button>
+          {signInLink}
+          {signOutLink}
         </div>
       </div>
     )
