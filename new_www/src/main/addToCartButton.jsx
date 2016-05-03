@@ -8,8 +8,15 @@ const AddToCartButton = React.createClass({
   },
 
 
+  contextTypes: {
+    apiPrefix: PropTypes.string.isRequired,
+    authUserId: PropTypes.number.isRequired
+  },
+
+
   _handleClick: function() {
-    fetch('http://localhost:5000/api/v1/users/1/cart/cart-products', {
+    const { apiPrefix, authUserId } = this.context
+    fetch(`${apiPrefix}/v1/users/${authUserId}/cart/cart-products`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
