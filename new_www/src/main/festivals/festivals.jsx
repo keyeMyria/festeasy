@@ -1,19 +1,12 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 import { connect } from 'react-refetch'
-
-
-const festivalShape = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  starts_on: PropTypes.string.isRequired,
-  ends_on: PropTypes.string.isRequired
-})
+import { festivalShape } from '../../utils/shapes.jsx'
 
 
 const FestivalListItem = React.createClass({
   propTypes: {
-    festival : festivalShape
+    festival : festivalShape.isRequired
   },
 
 

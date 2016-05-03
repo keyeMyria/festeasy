@@ -1,15 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-refetch'
 import AddToCartButton from './addToCartButton.jsx'
+import { productShape } from '../utils/shapes.jsx'
 
 
 const Product = React.createClass({
   propTypes: {
-    product: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price_rands: PropTypes.number.isRequired
-    })
+    product: productShape.isRequired
   },
 
 

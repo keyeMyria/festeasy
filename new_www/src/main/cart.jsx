@@ -1,28 +1,12 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-refetch'
+import { cartProductShape, cartShape } from '../utils/shapes.jsx'
 
-
-const cartProductType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  'product_id': PropTypes.number.isRequired,
-  product: PropTypes.object.isRequired
-})
-
-
-const cartType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  total_rands: PropTypes.number.isRequired,
-  festival: PropTypes.object,
-  cart_products: PropTypes.oneOfType([
-    PropTypes.array,
-    cartProductType
-  ]).isRequired
-})
 
 
 const CartProductListItem = React.createClass({
   propTypes: {
-    cartProduct: cartProductType.isRequired
+    cartProduct: cartProductShape.isRequired
   },
 
 
@@ -43,7 +27,7 @@ const CartProductListItem = React.createClass({
 const CartProductList = React.createClass({
   propTypes: {
     cartProducts: PropTypes.arrayOf(
-      cartProductType
+      cartProductShape
     ).isRequired
   },
 
@@ -63,7 +47,7 @@ const CartProductList = React.createClass({
 
 const Cart = React.createClass({
   propTypes: {
-    cart: cartType.isRequired
+    cart: cartShape.isRequired
   },
 
 

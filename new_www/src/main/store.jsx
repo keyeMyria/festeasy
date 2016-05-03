@@ -3,13 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-refetch'
 import 'whatwg-fetch';
 import AddToCartButton from './addToCartButton.jsx'
-
-
-const productShape = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  price_rands: PropTypes.number.isRequired
-})
+import { productShape } from '../utils/shapes.jsx'
 
 
 const ProductListItem = React.createClass({
