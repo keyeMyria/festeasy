@@ -15,6 +15,7 @@ import Festival from './main/festivals/festival.jsx'
 import Cart from './main/cart.jsx'
 import Product from './main/product.jsx'
 import Admin from './admin/admin.jsx'
+import auth from './utils/auth.jsx'
 
 
 const App = React.createClass({
@@ -22,6 +23,35 @@ const App = React.createClass({
     children: PropTypes.object.isRequired
   },
 
+
+  childContextTypes: {
+      isSignedIn: PropTypes.bool.isRequired
+  },
+
+
+  getChildContext: function() {
+    return {isSignedIn: this.state.signedIn};
+  },
+
+
+  getInitialState() {
+    return {
+      signedIn: auth.signedIn()
+    }
+  },
+
+
+  updateAuth(signedIn) {
+    this.setState({
+      signedIn: !!signedIn
+    })
+  },
+
+
+  componentWillMount() {
+    auth.onChange = this.updateAuth
+    auth.signIn()
+  },
 
   render: function() {
     return (

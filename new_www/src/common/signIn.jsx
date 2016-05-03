@@ -1,5 +1,6 @@
 import React from 'react';
 import Formsy from 'formsy-react';
+import auth from '../utils/auth.jsx'
 
 
 const MyInput = React.createClass({
@@ -52,19 +53,9 @@ const SignInContainer = React.createClass({
   },
 
 
-  submit: function(data) {
-    var it = this
-    $.ajax({
-      type: 'POST',
-      url: 'http://localhost:5000/api/v1/signin',
-      data: JSON.stringify(data),
-      contentType : 'application/json',
-      dataType: 'json',
-      success: function(response) {
-        localStorage.setItem('authUserId', response.user_id)
-        localStorage.setItem('authToken', response.token)
-        it.context.router.push("/")
-      }
+  submit: function(formData) {
+    auth.signIn(formData.email_address, formData.password, (isSignedIn) => {
+      console.log(isSignedIn)
     })
   },
 

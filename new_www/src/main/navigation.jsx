@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router'
+import auth from '../utils/auth.jsx'
 
 
 const NavLink = React.createClass({
@@ -12,6 +13,16 @@ const NavLink = React.createClass({
 
 
 const Navigation = React.createClass({
+  contextTypes: {
+    isSignedIn: PropTypes.bool.isRequired
+  },
+
+
+  _handleClick: function() {
+    auth.signOut()
+  },
+
+
   render: function() {
     return (
       <div className="ui fixed menu">
@@ -24,6 +35,7 @@ const Navigation = React.createClass({
           <NavLink to="/store">Store</NavLink>
           <NavLink to="/cart">Cart</NavLink>
           <NavLink to="/sign-in">Sign In</NavLink>
+          <button onClick={this._handleClick} className="ui botton">Sign Out</button>
         </div>
       </div>
     )
