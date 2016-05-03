@@ -70,6 +70,12 @@ const CartContainer = React.createClass({
   },
 
 
+  contextTypes: {
+    authUserId: PropTypes.number.isRequired,
+    apiPrefix: PropTypes.string.isRequired
+  },
+
+
   render: function() {
     const { cartFetch } = this.props
     if (cartFetch.pending) {
@@ -84,6 +90,6 @@ const CartContainer = React.createClass({
 
 
 // TODO: Use authenticated user id.
-export default connect(() => ({
-  cartFetch: 'http://localhost:5000/api/v1/users/1/cart'
+export default connect((props, context) => ({
+  cartFetch: `${context.apiPrefix}/v1/users/${context.authUserId}/cart`
 }))(CartContainer)

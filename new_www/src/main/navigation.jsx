@@ -14,7 +14,8 @@ const NavLink = React.createClass({
 
 const Navigation = React.createClass({
   contextTypes: {
-    isSignedIn: PropTypes.bool.isRequired
+    isSignedIn: PropTypes.bool.isRequired,
+    authUserId: PropTypes.number
   },
 
 

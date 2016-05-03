@@ -50,6 +50,10 @@ module.exports = {
     return localStorage.authToken
   },
 
+  getAuthUserId: function() {
+    return parseInt(localStorage.authUserId)
+  },
+
   signOut: function(cb) {
     delete localStorage.authToken
     delete localStorage.authUserId

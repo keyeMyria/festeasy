@@ -25,12 +25,18 @@ const App = React.createClass({
 
 
   childContextTypes: {
-      isSignedIn: PropTypes.bool.isRequired
+    isSignedIn: PropTypes.bool.isRequired,
+    apiPrefix: PropTypes.string.isRequired,
+    authUserId: PropTypes.number
   },
 
 
   getChildContext: function() {
-    return {isSignedIn: this.state.signedIn};
+    return {
+      isSignedIn: this.state.signedIn,
+      apiPrefix: 'http://localhost:5000/api',
+      authUserId: auth.getAuthUserId()
+    }
   },
 
 
