@@ -50,7 +50,6 @@ const App = React.createClass({
 
   componentWillMount() {
     auth.onChange = this.updateAuth
-    auth.signIn()
   },
 
   render: function() {

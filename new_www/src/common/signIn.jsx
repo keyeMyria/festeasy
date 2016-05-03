@@ -55,7 +55,7 @@ const SignInContainer = React.createClass({
 
   submit: function(formData) {
     auth.signIn(formData.email_address, formData.password, (isSignedIn) => {
-      console.log(isSignedIn)
+      console.log('hi')
     })
   },
 

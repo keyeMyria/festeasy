@@ -11,14 +11,10 @@ const parseJSON = function(response) {
 
 
 module.exports = {
-  signIn(email, password, cb) {
+  // TODO: Make less shit.
+  signIn: function(email, password, cb) {
     const it = this
     cb = arguments[arguments.length -1]
-    if (localStorage.authToken && localStorage.authUserId) {
-      if (cb) cb(true)
-      this.onChange(true)
-      return
-    }
     fetch('http://localhost:5000/api/v1/signin', {
       method: 'POST',
       headers: {
@@ -34,6 +30,7 @@ module.exports = {
       if (response.status == 200) {
         return response
       } else {
+        if (cb) cb(true)
         it.onChange(true)
         var error = new Error(response.statusText)
         error.response = response
@@ -42,6 +39,7 @@ module.exports = {
     })
     .then(parseJSON)
     .then(function(json){
+      if (cb) cb(true)
       localStorage.setItem('authToken', json.token)
       localStorage.setItem('authUserId', json.user_id)
       it.onChange(true)
