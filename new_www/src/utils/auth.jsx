@@ -31,8 +31,8 @@ module.exports = {
       if (response.status === 200) {
         return response
       } else {
-        if (cb) cb(true)
-        it.onChange(true)
+        if (cb) cb(false)
+        it.onChange(false)
         error.response = response
         throw error
       }
