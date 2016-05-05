@@ -3,23 +3,19 @@ import { connect } from 'react-refetch'
 import { cartProductShape, cartShape } from '../utils/shapes.jsx'
 
 
-
 const CartProductListItem = React.createClass({
   propTypes: {
     cartProduct: cartProductShape.isRequired,
     updateQuantity: PropTypes.func.isRequired
   },
 
-
   getInitialState: function() {
     return {quantity: this.props.cartProduct.quantity};
   },
 
-
   handleChange: function(event) {
     this.setState({quantity: event.target.value});
   },
-
 
   updateQuantity: function(){
     this.props.updateQuantity({
@@ -27,7 +23,6 @@ const CartProductListItem = React.createClass({
       quantity: this.state.quantity
     })
   },
-
 
   render: function() {
     const { cartProduct } = this.props
@@ -54,7 +49,6 @@ const CartProductList = React.createClass({
     ).isRequired
   },
 
-
   render: function() {
     const { cartProducts, updateQuantity } = this.props
     return (
@@ -77,7 +71,6 @@ const Cart = React.createClass({
     cart: cartShape.isRequired
   },
 
-
   render: function() {
     const { cart, updateQuantity } = this.props
     return (
@@ -97,12 +90,10 @@ const CartContainer = React.createClass({
     updateQuantity: PropTypes.func.isRequired
   },
 
-
   contextTypes: {
     authUserId: PropTypes.number.isRequired,
     apiPrefix: PropTypes.string.isRequired
   },
-
 
   render: function() {
     const { cartFetch, updateQuantity } = this.props
