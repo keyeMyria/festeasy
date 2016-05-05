@@ -49,28 +49,31 @@ const SignInContainer = React.createClass({
     router: React.PropTypes.object
   },
 
-
-  getInitialState: function() {
-    return { canSubmit: false };
+  contextTypes: {
+    router: React.PropTypes.object,
   },
 
+  getInitialState: function() {
+    return { canSubmit: false }
+  },
 
   submit: function(formData) {
     auth.signIn(formData.email_address, formData.password, (isSignedIn) => {
-      console.log('hi')
+      if (isSignedIn) {
+        this.context.router.push("/")
+      } else {
+        console.log('Error signing in.')
+      }
     })
   },
 
-
   enableButton: function() {
-    this.setState({ canSubmit: true });
+    this.setState({ canSubmit: true })
   },
-
 
   disableButton: function() {
-    this.setState({ canSubmit: false });
+    this.setState({ canSubmit: false })
   },
-
 
   render: function() {
     return (
