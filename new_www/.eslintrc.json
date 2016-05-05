@@ -4,7 +4,11 @@
         "commonjs": true,
         "browser": true
     },
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "plugins": [
+        "standard",
+        "react"
+    ],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
     "installedESLint": true,
     "parserOptions": {
         "ecmaVersion": 6,
@@ -13,8 +17,10 @@
             "jsx": true
         }
     },
-    "plugins": [
-        "standard",
-        "react"
-    ]
+    "rules": {
+        "semi": "off",
+        "comma-dangle": "error",
+        "react/prefer-stateless-function": "off",
+        "react/prefer-es6-class": "off"
+    }
 }
