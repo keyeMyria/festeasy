@@ -20,7 +20,13 @@
     "rules": {
         "semi": "off",
         "comma-dangle": "error",
+        "object-shorthand": "off",
+        "no-else-return": "off",
+        "space-before-function-paren": "off",
+        "quote-props": "off",
+        "func-names": "off",
         "react/prefer-stateless-function": "off",
-        "react/prefer-es6-class": "off"
+        "react/prefer-es6-class": "off",
+        "react/no-multi-comp": "off"
     }
 }

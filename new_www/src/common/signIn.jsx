@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import Formsy from 'formsy-react';
 import auth from '../utils/auth.jsx'

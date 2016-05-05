@@ -8,7 +8,7 @@ const Admin = React.createClass({
         <h1>Admin</h1>
       </div>
     )
-  }
+  },
 })
 
 

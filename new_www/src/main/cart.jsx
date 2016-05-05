@@ -6,21 +6,21 @@ import { cartProductShape, cartShape } from '../utils/shapes.jsx'
 const CartProductListItem = React.createClass({
   propTypes: {
     cartProduct: cartProductShape.isRequired,
-    updateQuantity: PropTypes.func.isRequired
+    updateQuantity: PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
-    return {quantity: this.props.cartProduct.quantity};
+    return { quantity: this.props.cartProduct.quantity }
   },
 
   handleChange: function(event) {
-    this.setState({quantity: event.target.value});
+    this.setState({ quantity: event.target.value });
   },
 
-  updateQuantity: function(){
+  updateQuantity: function() {
     this.props.updateQuantity({
       id: this.props.cartProduct.id,
-      quantity: this.state.quantity
+      quantity: this.state.quantity,
     })
   },
 
@@ -31,13 +31,13 @@ const CartProductListItem = React.createClass({
         <p>{cartProduct.product.name}</p>
         <p>Price: {cartProduct.product.price_rands}</p>
         <p>
-          <input type="number" value={this.state.quantity} onChange={this.handleChange}/>
+          <input type="number" value={this.state.quantity} onChange={this.handleChange} />
         </p>
         <button onClick={this.updateQuantity}>Update</button>
         <hr />
       </div>
     )
-  }
+  },
 })
 
 
@@ -46,7 +46,7 @@ const CartProductList = React.createClass({
     updateQuantity: PropTypes.func.isRequired,
     cartProducts: PropTypes.arrayOf(
       cartProductShape
-    ).isRequired
+    ).isRequired,
   },
 
   render: function() {
@@ -57,18 +57,19 @@ const CartProductList = React.createClass({
           <CartProductListItem
             key={cartProduct.id}
             updateQuantity={updateQuantity}
-            cartProduct={cartProduct}/>
+            cartProduct={cartProduct}
+          />
         ))}
       </div>
     )
-  }
+  },
 })
 
 
 const Cart = React.createClass({
   propTypes: {
     updateQuantity: PropTypes.func.isRequired,
-    cart: cartShape.isRequired
+    cart: cartShape.isRequired,
   },
 
   render: function() {
@@ -76,23 +77,26 @@ const Cart = React.createClass({
     return (
       <div>
         <h1>Cart</h1>
-        <CartProductList updateQuantity={updateQuantity} cartProducts={cart.cart_products}/>
+        <CartProductList
+          updateQuantity={updateQuantity}
+          cartProducts={cart.cart_products}
+        />
         <p>Total: {cart.total_rands}</p>
       </div>
     )
-  }
+  },
 })
 
 
 const CartContainer = React.createClass({
   propTypes: {
     cartFetch: PropTypes.object.isRequired,
-    updateQuantity: PropTypes.func.isRequired
+    updateQuantity: PropTypes.func.isRequired,
   },
 
   contextTypes: {
     authUserId: PropTypes.number.isRequired,
-    apiPrefix: PropTypes.string.isRequired
+    apiPrefix: PropTypes.string.isRequired,
   },
 
   render: function() {
@@ -102,13 +106,12 @@ const CartContainer = React.createClass({
     } else if (cartFetch.rejected) {
       return <div>Error</div>
     } else {
-      return <Cart updateQuantity={updateQuantity} cart={cartFetch.value}/>
+      return <Cart updateQuantity={updateQuantity} cart={cartFetch.value} />
     }
-  }
+  },
 })
 
 
-// TODO: Use authenticated user id.
 export default connect((props, context) => {
   const cartUrl = `${context.apiPrefix}/v1/users/${context.authUserId}/cart`
   return {
@@ -118,15 +121,15 @@ export default connect((props, context) => {
         url: `${context.apiPrefix}/v1/cart-products/${id}`,
         method: 'PATCH',
         body: JSON.stringify({
-          quantity: quantity
+          quantity: quantity,
         }),
         andThen: () => ({
           cartFetch: {
             url: cartUrl,
-            force: true
-          }
-        })
-      }
-    })
+            force: true,
+          },
+        }),
+      },
+    }),
   }
 })(CartContainer)

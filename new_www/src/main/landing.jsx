@@ -8,7 +8,7 @@ const Landing = React.createClass({
         <h1 className="ui header">Landing here</h1>
       </div>
     )
-  }
+  },
 })
 
 

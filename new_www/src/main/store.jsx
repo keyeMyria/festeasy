@@ -8,9 +8,8 @@ import { productShape } from '../utils/shapes.jsx'
 
 const ProductListItem = React.createClass({
   propTypes: {
-    product: productShape.isRequired
+    product: productShape.isRequired,
   },
-
 
   render: function() {
     const { product } = this.props
@@ -24,7 +23,7 @@ const ProductListItem = React.createClass({
         <AddToCartButton productId={product.id} />
       </div>
     )
-  }
+  },
 })
 
 
@@ -32,9 +31,8 @@ const ProductList = React.createClass({
   propTypes: {
     products: PropTypes.arrayOf(
       productShape
-    ).isRequired
+    ).isRequired,
   },
-
 
   render: function() {
     const { products } = this.props
@@ -42,19 +40,18 @@ const ProductList = React.createClass({
       <div>
         <h1>Store</h1>
         {products.map(product => (
-          <ProductListItem key={product.id} product={product}/>
+          <ProductListItem key={product.id} product={product} />
         ))}
       </div>
     )
-  }
+  },
 })
 
 
 const ProductListContainer = React.createClass({
   propTypes: {
-    productsFetch: PropTypes.object.isRequired
+    productsFetch: PropTypes.object.isRequired,
   },
-
 
   render: function() {
     const { productsFetch } = this.props
@@ -63,12 +60,12 @@ const ProductListContainer = React.createClass({
     } else if (productsFetch.rejected) {
       return <div>Error</div>
     } else {
-      return <ProductList products={productsFetch.value}/>
+      return <ProductList products={productsFetch.value} />
     }
-  }
+  },
 })
 
 
 export default connect(() => ({
-  productsFetch: 'http://localhost:5000/api/v1/products'
+  productsFetch: 'http://localhost:5000/api/v1/products',
 }))(ProductListContainer)
