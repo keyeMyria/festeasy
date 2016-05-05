@@ -5,23 +5,14 @@ import { cartProductShape, cartShape } from '../utils/shapes.jsx'
 
 const CartProductListItem = React.createClass({
   propTypes: {
+    cartProductUpdate: PropTypes.func.isRequired,
     cartProduct: cartProductShape.isRequired,
-    updateQuantity: PropTypes.func.isRequired,
-  },
-
-  getInitialState: function() {
-    return { quantity: this.props.cartProduct.quantity }
   },
 
   handleChange: function(event) {
-    this.setState({ quantity: event.target.value });
-  },
-
-  updateQuantity: function() {
-    this.props.updateQuantity({
-      id: this.props.cartProduct.id,
-      quantity: this.state.quantity,
-    })
+    const cartProduct = this.props.cartProduct
+    cartProduct.quantity = event.target.value
+    this.props.cartProductUpdate(cartProduct)
   },
 
   render: function() {
@@ -31,9 +22,8 @@ const CartProductListItem = React.createClass({
         <p>{cartProduct.product.name}</p>
         <p>Price: {cartProduct.product.price_rands}</p>
         <p>
-          <input type="number" value={this.state.quantity} onChange={this.handleChange} />
+          <input type="number" value={cartProduct.quantity} onChange={this.handleChange} />
         </p>
-        <button onClick={this.updateQuantity}>Update</button>
         <hr />
       </div>
     )
@@ -43,20 +33,20 @@ const CartProductListItem = React.createClass({
 
 const CartProductList = React.createClass({
   propTypes: {
-    updateQuantity: PropTypes.func.isRequired,
+    cartProductUpdate: PropTypes.func.isRequired,
     cartProducts: PropTypes.arrayOf(
       cartProductShape
     ).isRequired,
   },
 
   render: function() {
-    const { cartProducts, updateQuantity } = this.props
+    const { cartProducts, cartProductUpdate } = this.props
     return (
       <div>
         {cartProducts.map(cartProduct => (
           <CartProductListItem
             key={cartProduct.id}
-            updateQuantity={updateQuantity}
+            cartProductUpdate={cartProductUpdate}
             cartProduct={cartProduct}
           />
         ))}
@@ -68,17 +58,34 @@ const CartProductList = React.createClass({
 
 const Cart = React.createClass({
   propTypes: {
-    updateQuantity: PropTypes.func.isRequired,
     cart: cartShape.isRequired,
   },
 
+  getInitialState() {
+    return {
+      cart: this.props.cart,
+    }
+  },
+
+  cartProductUpdate: function(cartProduct) {
+    const cart = this.state.cart
+    cart.cart_products.forEach((cp) => {
+      if (cp.id === cartProduct.id) {
+        cp.quantity = cartProduct.quantity
+      }
+      this.setState({
+        cart: cart,
+      })
+    })
+  },
+
   render: function() {
-    const { cart, updateQuantity } = this.props
+    const { cart } = this.state
     return (
       <div>
         <h1>Cart</h1>
         <CartProductList
-          updateQuantity={updateQuantity}
+          cartProductUpdate={this.cartProductUpdate}
           cartProducts={cart.cart_products}
         />
         <p>Total: {cart.total_rands}</p>
@@ -91,7 +98,6 @@ const Cart = React.createClass({
 const CartContainer = React.createClass({
   propTypes: {
     cartFetch: PropTypes.object.isRequired,
-    updateQuantity: PropTypes.func.isRequired,
   },
 
   contextTypes: {
@@ -100,13 +106,13 @@ const CartContainer = React.createClass({
   },
 
   render: function() {
-    const { cartFetch, updateQuantity } = this.props
+    const { cartFetch } = this.props
     if (cartFetch.pending) {
       return <div>Loading...</div>
     } else if (cartFetch.rejected) {
       return <div>Error</div>
     } else {
-      return <Cart updateQuantity={updateQuantity} cart={cartFetch.value} />
+      return <Cart cart={cartFetch.value} />
     }
   },
 })
@@ -116,20 +122,5 @@ export default connect((props, context) => {
   const cartUrl = `${context.apiPrefix}/v1/users/${context.authUserId}/cart`
   return {
     cartFetch: cartUrl,
-    updateQuantity: ({ id, quantity }) => ({
-      meh: {
-        url: `${context.apiPrefix}/v1/cart-products/${id}`,
-        method: 'PATCH',
-        body: JSON.stringify({
-          quantity: quantity,
-        }),
-        andThen: () => ({
-          cartFetch: {
-            url: cartUrl,
-            force: true,
-          },
-        }),
-      },
-    }),
   }
 })(CartContainer)
