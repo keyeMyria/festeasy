@@ -22,7 +22,7 @@ module.exports = {
     },
     module: {
        preLoaders: [
-            {test: /\.js$/, loader: "eslint-loader"}
+            {test: /\.jsx$/, loader: "eslint-loader"}
         ],
         loaders: [
             {
