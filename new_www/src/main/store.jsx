@@ -10,7 +10,6 @@ const ProductListItem = React.createClass({
   propTypes: {
     product: productShape.isRequired,
   },
-
   render: function() {
     const { product } = this.props
     return (
