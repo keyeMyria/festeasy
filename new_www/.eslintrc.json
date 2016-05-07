@@ -22,6 +22,7 @@
         "comma-dangle": "error",
         "object-shorthand": "off",
         "no-else-return": "off",
+        "no-console": "off",
         "space-before-function-paren": "off",
         "quote-props": "off",
         "func-names": "off",

@@ -52,6 +52,7 @@
     "eslint-plugin-promise": "^1.1.0",
     "eslint-plugin-react": "^5.0.1",
     "lodash": "^4.11.2",
+    "react-addons-update": "^15.0.2",
     "react-redux": "^4.4.5",
     "react-refetch": "^1.0.0-beta.4",
     "redux": "^3.5.2",

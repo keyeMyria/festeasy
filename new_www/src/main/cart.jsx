@@ -1,51 +1,7 @@
 import React, { PropTypes } from 'react'
+import update from 'react-addons-update'
 import { connect } from 'react-refetch'
-import { cartProductShape, cartShape } from '../utils/shapes.jsx'
-
-
-const CartProductListItem = React.createClass({
-  propTypes: {
-    cartProduct: cartProductShape.isRequired,
-  },
-
-  render: function() {
-    const { cartProduct } = this.props
-    return (
-      <div>
-        <p>{cartProduct.product.name}</p>
-        <p>Price: {cartProduct.product.price_rands}</p>
-        <p>
-          <input type="number" value={cartProduct.quantity} />
-        </p>
-        <hr />
-      </div>
-    )
-  },
-})
-
-
-const CartProductList = React.createClass({
-  propTypes: {
-    cartProducts: PropTypes.arrayOf(
-      cartProductShape
-    ).isRequired,
-  },
-
-  render: function() {
-    const { cartProducts } = this.props
-    return (
-      <div>
-        {cartProducts.map(cartProduct => (
-          <CartProductListItem
-            key={cartProduct.id}
-            cartProduct={cartProduct}
-          />
-        ))}
-      </div>
-    )
-  },
-})
-
+import { cartShape } from '../utils/shapes.jsx'
 
 const Cart = React.createClass({
   propTypes: {
@@ -58,16 +14,58 @@ const Cart = React.createClass({
     }
   },
 
+  updateCart: function() {
+    console.log('hi')
+  },
+
+  handleQuantityChange: function(id, event) {
+    const newCartProducts = []
+    this.state.cart.cart_products.forEach((cp) => {
+      if (cp.id === id) {
+        newCartProducts.push(
+          update(cp, { $merge: { 'quantity': parseInt(event.target.value, 10) } })
+        )
+      } else {
+        newCartProducts.push(cp)
+      }
+    })
+    this.setState({
+      cart: update(this.state.cart, { $merge: { 'cart_products': newCartProducts } })
+    })
+  },
+
   render: function() {
     const { cart } = this.state
     return (
       <div>
         <h1>Cart</h1>
-        <CartProductList
-          cartProducts={cart.cart_products}
-        />
+        <table className="ui celled table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Sub Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.cart.cart_products.map(cartProduct => (
+              <tr key={cartProduct.id}>
+                <td>{cartProduct.product.name}</td>
+                <td>{cartProduct.product.price_rands}</td>
+                <td>
+                  <input
+                    onChange={this.handleQuantityChange.bind(this, cartProduct.id)}
+                    value={cartProduct.quantity}
+                  />
+                </td>
+                <td>{cartProduct.sub_total_rands}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <p>Total: {cart.total_rands}</p>
-        <button className="ui button" onClick={this.patchCartProducts}>Update</button>
+        <button className="ui button" onClick={this.updateCart}>Update</button>
       </div>
     )
   },
