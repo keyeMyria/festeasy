@@ -5,14 +5,7 @@ import { cartProductShape, cartShape } from '../utils/shapes.jsx'
 
 const CartProductListItem = React.createClass({
   propTypes: {
-    cartProductUpdate: PropTypes.func.isRequired,
     cartProduct: cartProductShape.isRequired,
-  },
-
-  handleChange: function(event) {
-    const cartProduct = this.props.cartProduct
-    cartProduct.quantity = event.target.value
-    this.props.cartProductUpdate(cartProduct)
   },
 
   render: function() {
@@ -22,7 +15,7 @@ const CartProductListItem = React.createClass({
         <p>{cartProduct.product.name}</p>
         <p>Price: {cartProduct.product.price_rands}</p>
         <p>
-          <input type="number" value={cartProduct.quantity} onChange={this.handleChange} />
+          <input type="number" value={cartProduct.quantity} />
         </p>
         <hr />
       </div>
@@ -33,20 +26,18 @@ const CartProductListItem = React.createClass({
 
 const CartProductList = React.createClass({
   propTypes: {
-    cartProductUpdate: PropTypes.func.isRequired,
     cartProducts: PropTypes.arrayOf(
       cartProductShape
     ).isRequired,
   },
 
   render: function() {
-    const { cartProducts, cartProductUpdate } = this.props
+    const { cartProducts } = this.props
     return (
       <div>
         {cartProducts.map(cartProduct => (
           <CartProductListItem
             key={cartProduct.id}
-            cartProductUpdate={cartProductUpdate}
             cartProduct={cartProduct}
           />
         ))}
@@ -67,28 +58,16 @@ const Cart = React.createClass({
     }
   },
 
-  cartProductUpdate: function(cartProduct) {
-    const cart = this.state.cart
-    cart.cart_products.forEach((cp) => {
-      if (cp.id === cartProduct.id) {
-        cp.quantity = cartProduct.quantity
-      }
-      this.setState({
-        cart: cart,
-      })
-    })
-  },
-
   render: function() {
     const { cart } = this.state
     return (
       <div>
         <h1>Cart</h1>
         <CartProductList
-          cartProductUpdate={this.cartProductUpdate}
           cartProducts={cart.cart_products}
         />
         <p>Total: {cart.total_rands}</p>
+        <button className="ui button" onClick={this.patchCartProducts}>Update</button>
       </div>
     )
   },
