@@ -14,12 +14,38 @@ const ProductListItem = React.createClass({
     const { product } = this.props
     return (
       <div>
-        <Link to={`/products/${product.id}`}>
-          <h3>{product.name}</h3>
-        </Link>
-        <p>{product.description}</p>
-        <p>Price: {product.price_rands}</p>
-        <AddToCartButton productId={product.id} />
+        <div className="ui items">
+          <div className="item">
+            <div className="ui small image">
+              <img
+                className="ui small image"
+                src={"/src/images/"+ product.name +".jpg"}/>
+            </div>
+            <div className="content">
+              <a className="header">
+                <Link to={`/products/${product.id}`}>
+                  <h3>
+                    {product.name}
+                  </h3>
+                </Link>
+              </a>
+              <div className="meta">
+                <span>
+                  Price: {product.price_rands}
+                </span>
+              </div>
+              <div className="description">
+                <p>
+                    {product.description}
+                </p>
+              </div>
+              <div className="extra">
+                <AddToCartButton productId={product.id} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="ui divider"></div>
       </div>
     )
   },
