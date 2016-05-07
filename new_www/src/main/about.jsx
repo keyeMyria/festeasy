@@ -8,7 +8,7 @@ const About = React.createClass({
         <h1>About</h1>
       </div>
     )
-  }
+  },
 })
 
 

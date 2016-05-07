@@ -5,11 +5,10 @@ import { festivalShape } from '../../utils/shapes.jsx'
 
 const Festival = React.createClass({
   propTypes: {
-    festival: festivalShape
-   },
+    festival: festivalShape,
+  },
 
-
-  render: function() {
+  render: function () {
     const { festival } = this.props
     return (
       <div>
@@ -19,31 +18,28 @@ const Festival = React.createClass({
         <p>Ends On: {festival.ends_on}</p>
       </div>
     )
-  }
+  },
 })
 
 
 const FestivalContainer = React.createClass({
   propTypes: {
-    festivalFetch: PropTypes.object.isRequired
+    festivalFetch: PropTypes.object.isRequired,
   },
 
-
-  render: function() {
+  render: function () {
     const { festivalFetch } = this.props
     if (festivalFetch.pending) {
       return <div>Loading...</div>
     } else if (festivalFetch.rejected) {
       return <div>Error</div>
     } else {
-      return <Festival festival={festivalFetch.value}/>
+      return <Festival festival={festivalFetch.value} />
     }
-  }
+  },
 })
 
 
-export default connect(function(props) {
-  return {
-    festivalFetch: `http://localhost:5000/api/v1/festivals/${props.params.festivalId}`
-  }
-})(FestivalContainer)
+export default connect((props) => ({
+  festivalFetch: `http://localhost:5000/api/v1/festivals/${props.params.festivalId}`,
+}))(FestivalContainer)

@@ -1,141 +1,103 @@
 import React, { PropTypes } from 'react'
+import update from 'react-addons-update'
 import { connect } from 'react-refetch'
-import { cartProductShape, cartShape } from '../utils/shapes.jsx'
-
-
-
-const CartProductListItem = React.createClass({
-  propTypes: {
-    cartProduct: cartProductShape.isRequired,
-    updateQuantity: PropTypes.func.isRequired
-  },
-
-
-  getInitialState: function() {
-    return {quantity: this.props.cartProduct.quantity};
-  },
-
-
-  handleChange: function(event) {
-    this.setState({quantity: event.target.value});
-  },
-
-
-  updateQuantity: function(){
-    this.props.updateQuantity({
-      id: this.props.cartProduct.id,
-      quantity: this.state.quantity
-    })
-  },
-
-
-  render: function() {
-    const { cartProduct } = this.props
-    return (
-      <div>
-        <p>{cartProduct.product.name}</p>
-        <p>Price: {cartProduct.product.price_rands}</p>
-        <p>
-          <input type="number" value={this.state.quantity} onChange={this.handleChange}/>
-        </p>
-        <button onClick={this.updateQuantity}>Update</button>
-        <hr />
-      </div>
-    )
-  }
-})
-
-
-const CartProductList = React.createClass({
-  propTypes: {
-    updateQuantity: PropTypes.func.isRequired,
-    cartProducts: PropTypes.arrayOf(
-      cartProductShape
-    ).isRequired
-  },
-
-
-  render: function() {
-    const { cartProducts, updateQuantity } = this.props
-    return (
-      <div>
-        {cartProducts.map(cartProduct => (
-          <CartProductListItem
-            key={cartProduct.id}
-            updateQuantity={updateQuantity}
-            cartProduct={cartProduct}/>
-        ))}
-      </div>
-    )
-  }
-})
-
+import { cartShape } from '../utils/shapes.jsx'
 
 const Cart = React.createClass({
   propTypes: {
-    updateQuantity: PropTypes.func.isRequired,
-    cart: cartShape.isRequired
+    cart: cartShape.isRequired,
   },
 
+  getInitialState() {
+    return {
+      cart: this.props.cart,
+    }
+  },
+
+  updateCart: function() {
+    console.log('hi')
+  },
+
+  handleQuantityChange: function(id, event) {
+    const newCartProducts = []
+    this.state.cart.cart_products.forEach((cp) => {
+      if (cp.id === id) {
+        newCartProducts.push(
+          update(cp, { $merge: { 'quantity': parseInt(event.target.value, 10) } })
+        )
+      } else {
+        newCartProducts.push(cp)
+      }
+    })
+    this.setState({
+      cart: update(this.state.cart, { $merge: { 'cart_products': newCartProducts } })
+    })
+  },
 
   render: function() {
-    const { cart, updateQuantity } = this.props
+    const { cart } = this.state
     return (
       <div>
         <h1>Cart</h1>
-        <CartProductList updateQuantity={updateQuantity} cartProducts={cart.cart_products}/>
+        <table className="ui celled table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Sub Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.cart.cart_products.map(cartProduct => (
+              <tr key={cartProduct.id}>
+                <td>{cartProduct.product.name}</td>
+                <td>{cartProduct.product.price_rands}</td>
+                <td>
+                  <input
+                    onChange={this.handleQuantityChange.bind(this, cartProduct.id)}
+                    value={cartProduct.quantity}
+                  />
+                </td>
+                <td>{cartProduct.sub_total_rands}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <p>Total: {cart.total_rands}</p>
+        <button className="ui button" onClick={this.updateCart}>Update</button>
       </div>
     )
-  }
+  },
 })
 
 
 const CartContainer = React.createClass({
   propTypes: {
     cartFetch: PropTypes.object.isRequired,
-    updateQuantity: PropTypes.func.isRequired
   },
-
 
   contextTypes: {
     authUserId: PropTypes.number.isRequired,
-    apiPrefix: PropTypes.string.isRequired
+    apiPrefix: PropTypes.string.isRequired,
   },
 
-
   render: function() {
-    const { cartFetch, updateQuantity } = this.props
+    const { cartFetch } = this.props
     if (cartFetch.pending) {
       return <div>Loading...</div>
     } else if (cartFetch.rejected) {
       return <div>Error</div>
     } else {
-      return <Cart updateQuantity={updateQuantity} cart={cartFetch.value}/>
+      return <Cart cart={cartFetch.value} />
     }
-  }
+  },
 })
 
 
-// TODO: Use authenticated user id.
 export default connect((props, context) => {
   const cartUrl = `${context.apiPrefix}/v1/users/${context.authUserId}/cart`
   return {
     cartFetch: cartUrl,
-    updateQuantity: ({ id, quantity }) => ({
-      meh: {
-        url: `${context.apiPrefix}/v1/cart-products/${id}`,
-        method: 'PATCH',
-        body: JSON.stringify({
-          quantity: quantity
-        }),
-        andThen: () => ({
-          cartFetch: {
-            url: cartUrl,
-            force: true
-          }
-        })
-      }
-    })
   }
 })(CartContainer)

@@ -6,31 +6,33 @@ import auth from '../utils/auth.jsx'
 const NavLink = React.createClass({
   render: function() {
     return (
-        <Link {...this.props} className="item" activeClassName="active"/>
+      <Link
+        {...this.props}
+        className="item"
+        activeClassName="active"
+      />
     )
-  }
+  },
 })
 
 
 const Navigation = React.createClass({
   contextTypes: {
     isSignedIn: PropTypes.bool.isRequired,
-    authUserId: PropTypes.number
+    authUserId: PropTypes.number,
   },
 
-
-  _handleClick: function() {
+  handleClick: function() {
     auth.signOut()
   },
 
-
   render: function() {
-    var signInLink
-    var signOutLink
+    let signInLink
+    let signOutLink
     if (!this.context.isSignedIn) {
       signInLink = <NavLink to="/sign-in">Sign In</NavLink>
     } else {
-      signOutLink = <button onClick={this._handleClick} className="ui botton">Sign Out</button>
+      signOutLink = <button onClick={this.handleClick} className="ui botton">Sign Out</button>
     }
     return (
       <div className="ui fixed menu">
@@ -47,7 +49,7 @@ const Navigation = React.createClass({
         </div>
       </div>
     )
-  }
+  },
 })
 
 

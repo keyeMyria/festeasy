@@ -6,9 +6,8 @@ import { productShape } from '../utils/shapes.jsx'
 
 const Product = React.createClass({
   propTypes: {
-    product: productShape.isRequired
+    product: productShape.isRequired,
   },
-
 
   render: function() {
     const { product } = this.props
@@ -20,15 +19,14 @@ const Product = React.createClass({
         <AddToCartButton productId={product.id} />
       </div>
     )
-  }
+  },
 })
 
 
 const ProductContainer = React.createClass({
   propTypes: {
-    productFetch: PropTypes.object.isRequired
+    productFetch: PropTypes.object.isRequired,
   },
-
 
   render: function() {
     const { productFetch } = this.props
@@ -37,14 +35,12 @@ const ProductContainer = React.createClass({
     } else if (productFetch.rejected) {
       return <div>Error</div>
     } else {
-      return <Product product={productFetch.value}/>
+      return <Product product={productFetch.value} />
     }
-  }
+  },
 })
 
 
-export default connect(function(props) {
-  return {
-    productFetch: `http://localhost:5000/api/v1/products/${props.params.productId}`
-  }
-})(ProductContainer)
+export default connect((props) => ({
+  productFetch: `http://localhost:5000/api/v1/products/${props.params.productId}`,
+}))(ProductContainer)
