@@ -73,10 +73,15 @@ const Cart = React.createClass({
                 <td>{cartProduct.sub_total_rands}</td>
               </tr>
             ))}
+            <tr>
+              <td></td>
+              <td></td>
+              <td>Preview Total: </td>
+              <td>{cart.total_rands}</td>
+            </tr>
           </tbody>
         </table>
-        <p>Total: {cart.total_rands}</p>
-        <button className="ui button" onClick={this.updateCart}>Update</button>
+        <button className="ui button" onClick={this.updateCart}>Accept Changes</button>
       </div>
     )
   },
