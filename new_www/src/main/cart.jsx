@@ -61,7 +61,9 @@ const Cart = React.createClass({
           <tbody>
             {cart.cart_products.map(cartProduct => (
               <tr key={cartProduct.id}>
-                <td>{cartProduct.product.name}</td>
+                <td><img
+                className="ui avatar image"
+                src={"/src/images/"+ cartProduct.product.name +".jpg"}/>{cartProduct.product.name}</td>
                 <td>{cartProduct.product.price_rands}</td>
                 <td>
                   <input
