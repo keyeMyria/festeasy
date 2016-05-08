@@ -59,12 +59,13 @@ const Cart = React.createClass({
             </tr>
           </thead>
           <tbody>
-            {this.state.cart.cart_products.map(cartProduct => (
+            {cart.cart_products.map(cartProduct => (
               <tr key={cartProduct.id}>
                 <td>{cartProduct.product.name}</td>
                 <td>{cartProduct.product.price_rands}</td>
                 <td>
                   <input
+                    type="text"
                     onChange={this.handleQuantityChange.bind(this, cartProduct.id)}
                     value={cartProduct.quantity}
                   />
