@@ -18,6 +18,7 @@ const ProductListItem = React.createClass({
           <div className="item">
             <div className="ui small image">
               <img
+                role="presentation"
                 className="ui small image"
                 src={"/src/images/"+ product.name +".jpg"}/>
             </div>
