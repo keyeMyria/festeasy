@@ -18,6 +18,14 @@ const Cart = React.createClass({
     console.log('hi')
   },
 
+  updateCartSubTotal: function() {
+    let temp = 0
+    this.state.cart.cart_products.forEach((cp) => {
+      temp = temp + cp.sub_total_rands
+    })
+    this.state.cart.total_rands = temp
+  },
+
   handleQuantityChange: function(id, event) {
     const newCartProducts = []
     this.state.cart.cart_products.forEach((cp) => {
