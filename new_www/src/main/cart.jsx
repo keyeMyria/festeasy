@@ -30,6 +30,8 @@ const Cart = React.createClass({
     const newCartProducts = []
     this.state.cart.cart_products.forEach((cp) => {
       if (cp.id === id) {
+        cp.sub_total_rands = parseInt(event.target.value, 10) * cp.product.price_rands
+        this.updateCartSubTotal()
         newCartProducts.push(
           update(cp, { $merge: { 'quantity': parseInt(event.target.value, 10) } })
         )
