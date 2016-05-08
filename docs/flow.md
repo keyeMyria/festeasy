@@ -47,11 +47,11 @@ The intention of this page is to indicate which products need to be bought for a
 The stock page on the admin website allows for the inventorization of products into stock as well as the display of current stock
 
 ### Fulfilling Orders
-## Packages
+#### Packages
 Stock is fulfilled by means of packaging stock items into packages, for a particular order.
 From the orders page, an admin can track packaging various products into a package, for an order.
 An order can be fulfilled by many packages.
 
-## Collections
+#### Collections
 A collection takes place when a customer is handed the products which they ordered in their order.
 
