@@ -49,7 +49,7 @@ const Cart = React.createClass({
     return (
       <div>
         <h1>Cart</h1>
-        <table className="ui celled table">
+        <table className="ui sortable celled table">
           <thead>
             <tr>
               <th>Product</th>
