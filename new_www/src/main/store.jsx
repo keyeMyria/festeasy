@@ -16,10 +16,9 @@ const ProductListItem = React.createClass({
       <div>
         <div className="ui items">
           <div className="item">
-            <div className="ui small image">
+            <div className="ui tiny image">
               <img
                 role="presentation"
-                className="ui small image"
                 src={"/src/images/"+ product.name +".jpg"}/>
             </div>
             <div className="content">
