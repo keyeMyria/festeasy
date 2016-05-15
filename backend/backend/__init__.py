@@ -41,6 +41,9 @@ def create_app(config):
     from backend.api.v1 import v1_bp
     app.register_blueprint(v1_bp, url_prefix='/api/v1')
 
+    from backend.webhooks import webhooks
+    app.register_blueprint(webhooks, url_prefix='/webhooks')
+
     db.init_app(app)
     emailer.init_app(app)
 
