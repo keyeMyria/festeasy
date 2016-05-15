@@ -1,5 +1,6 @@
-<loading-indicator data="true" error="false"></loading-indicator>
-<div class="ui segment">
+<loading-indicator data="invoice" error="false"></loading-indicator>
+<div class="ui segment" ng-show="invoice">
   <h1 class="ui center aligned header">Payment</h1>
+  <p>Amount due: R{{invoice.amount_due_rands}}</p>
   <a class="ui button" ng-click="makePayment()">Make Payment</a>
 </div>
