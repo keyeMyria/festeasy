@@ -1,6 +1,15 @@
-checkout.controller('paymentController', ($scope, $state, $stateParams) ->
+checkout.controller('paymentController', ($scope, $state, $stateParams, orderService, payUSetTransaction) ->
   orderId = $stateParams['order-id']
-  $scope.makeFakePayment = () ->
-    console.log 'making fake payment.'
-    $state.go('base.checkout.confirm-order', {'order-id': orderId})
+  getOrder = orderService.one(orderId).get()
+  getOrder.then((response) ->
+    $scope.order = response
+    # Hack to get latest invoice.
+    $scope.invoice = response.invoices.slice(-1).pop()
+  )
+  $scope.makePayment = () ->
+    setTransaction = payUSetTransaction.one().get({'invoice-id': $scope.invoice.id})
+    setTransaction.then((response) ->
+      console.log(response)
+      window.location.href = 'https://staging.payu.co.za/rpp.do?PayUReference=' + response.payu_reference
+    )
 )
