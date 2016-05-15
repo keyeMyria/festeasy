@@ -32,7 +32,7 @@ class CartSingletonCheckout(Resource):
         cart.festival = None
         db.session.add(cart)
         db.session.add(order)
-        db.session.commit()
+        db.session.flush()
         # TODO: Sort out issue with flushing (Or something)
         invoice = Invoice.from_order(order)
         db.session.add(invoice)

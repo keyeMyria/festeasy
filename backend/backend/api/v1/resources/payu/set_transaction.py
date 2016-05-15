@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from flask import current_app
+from flask import current_app, request
 from suds.client import Client
 from suds.sax.element import Element
 from suds.sax.attribute import Attribute
@@ -55,7 +55,8 @@ def payuMeaSetTransactionApiCall(args):
 
 
 class SetTrasnaction(Resource):
-    def get(self, invoice_id):
+    def get(self):
+        invoice_id = request.args.get('invoice-id')
         invoice = get_or_404(Invoice, Invoice.id == invoice_id)
         user = invoice.order.user
         store = {
@@ -69,7 +70,7 @@ class SetTrasnaction(Resource):
             'currencyCode': 'ZAR',
         }
         additional_info = {
-            'merchantReference': 123,
+            'merchantReference': invoice.id,
             'returnUrl': 'http://eg.com/return',
             'cancelUrl': 'http://eg.com/cancel',
             'supportedPaymentMethods': 'CREDITCARD',
@@ -78,7 +79,6 @@ class SetTrasnaction(Resource):
             'merchantUserId': user.id,
             'email': user.email_address,
             'firstName': user.first_name,
-            'mobile': '123455666',
         }
 
         result = payuMeaSetTransactionApiCall({
