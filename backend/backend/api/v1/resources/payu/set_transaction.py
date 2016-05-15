@@ -71,8 +71,8 @@ class SetTrasnaction(Resource):
         }
         additional_info = {
             'merchantReference': invoice.id,
-            'returnUrl': 'http://localhost:8000/',
-            'cancelUrl': 'http://localhost:8000/',
+            'returnUrl': 'http://localhost:8000',
+            'cancelUrl': 'http://localhost:8000',
             'supportedPaymentMethods': 'CREDITCARD',
             'notificationUrl': 'http://localhost:5000/webhooks/payu-ipn'
         }
