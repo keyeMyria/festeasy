@@ -6,6 +6,7 @@ from backend import db
 
 from . import OrderProduct
 from .utils import Entity
+from .invoices import Invoice
 
 
 class Order(db.Model, Entity):
@@ -55,6 +56,14 @@ class Order(db.Model, Entity):
         'Invoice',
         back_populates='order',
     )
+
+    # TODO: Test.
+    @property
+    def current_invoice(self):
+        return (Invoice.query
+                .filter(Invoice.order_id == self.id)
+                .order_by(Invoice.created_on.desc())
+                .first())
 
     order_products = relationship(
         'OrderProduct',

@@ -1,10 +1,11 @@
 from sqlalchemy import Column, Integer
-from sqlalchemy import ForeignKey, func, select
-from sqlalchemy.orm import relationship, column_property
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 from backend import db
 
-from . import Payment, OrderProduct, InvoiceProduct
+from .order_products import OrderProduct
+from .invoice_products import InvoiceProduct
 from .utils import Entity
 
 
