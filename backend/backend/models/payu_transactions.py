@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, ForeignKey, Boolean, Integer
+from sqlalchemy import Column, String, ForeignKey, Boolean, BigInteger, Integer
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -7,7 +7,7 @@ from .utils import Entity
 
 
 class PayUTransaction(db.Model, Entity):
-    payu_reference = Column(Integer, unique=True, nullable=False)
+    payu_reference = Column(BigInteger, unique=True, nullable=False)
     merchant_reference = Column(Integer)
     successful = Column(Boolean)
     result_message = Column(String)
