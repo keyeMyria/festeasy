@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import AddToCartButton from './addToCartButton.jsx'
 
 
 class Product extends React.Component {
@@ -9,6 +10,7 @@ class Product extends React.Component {
         <h2>{product.name}</h2>
         <p>{product.description}</p>
         <p>Price: {product.price_rands}</p>
+        <AddToCartButton product={product} />
       </div>
     )
   }

@@ -8,10 +8,12 @@ export default class AuthWrapper extends React.Component {
     this.state = {
       isSigningIn: false,
       authSession: null,
+      authUser: null,
       signInError: null,
     }
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
+    this.getAuthUser = this.getAuthUser.bind(this)
     this.onAuthSuccess = this.onAuthSuccess.bind(this)
     this.onAuthFailure = this.onAuthFailure.bind(this)
 
@@ -37,17 +39,20 @@ export default class AuthWrapper extends React.Component {
   getChildContext() {
     const {
       authSession,
+      authUser,
       isSigningIn,
       signInError,
     } = this.state
     return {
       authSession,
+      authUser,
       isSigningIn,
       signInError,
       signIn: this.signIn,
       signOut: this.signOut,
     }
   }
+
 
   onAuthSuccess(session) {
     localStorage.setItem('authSessionId', session.id)
@@ -57,6 +62,7 @@ export default class AuthWrapper extends React.Component {
       signInError: null,
       authSession: session,
     })
+    this.getAuthUser(session)
   }
 
   onAuthFailure(response) {
@@ -64,11 +70,28 @@ export default class AuthWrapper extends React.Component {
     localStorage.removeItem('authSessionToken')
     this.setState({
       isSigningIn: false,
+      authSession: null,
+      authUser: null,
       signInError: {
         status: response.stats,
         statusText: response.statusText,
         data: response.data,
       },
+    })
+  }
+
+  getAuthUser(session) {
+    axios({
+      method: 'get',
+      url: `http://localhost:5000/api/v1/users/${session.user_id}`,
+      headers: {
+        Authorization: session.token,
+      },
+    })
+    .then((response) => {
+      this.setState({
+        authUser: response.data,
+      })
     })
   }
 
@@ -96,6 +119,7 @@ export default class AuthWrapper extends React.Component {
     this.setState({
       isSigningIn: false,
       authSession: null,
+      authUser: null,
       signInError: null,
     })
   }
@@ -119,6 +143,7 @@ AuthWrapper.contextTypes = {
 
 AuthWrapper.childContextTypes = {
   authSession: PropTypes.object,
+  authUser: PropTypes.object,
   isSigningIn: PropTypes.bool,
   signIn: PropTypes.func,
   signOut: PropTypes.func,
