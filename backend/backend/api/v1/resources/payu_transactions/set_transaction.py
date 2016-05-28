@@ -76,7 +76,7 @@ class SetTrasnaction(Resource):
             'returnUrl': 'http://localhost:8000',
             'cancelUrl': 'http://localhost:8000',
             'supportedPaymentMethods': 'CREDITCARD',
-            'notificationUrl': 'http://localhost:5000/webhooks/payu-ipn'
+            'notificationUrl': current_app.config['PAYU_NOTIFICATION_URL']
         }
         customer = {
             'merchantUserId': user.id,

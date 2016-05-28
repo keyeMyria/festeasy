@@ -33,6 +33,7 @@ def create_app(config):
         app.config['MAILGUN_API_KEY'] = os.environ["MAILGUN_API_KEY"]
         app.config['FACEBOOK_SECRET'] = os.environ['FACEBOOK_SECRET']
         app.config['PAYU_SET_TRANSACTION_URL'] = os.environ['PAYU_SET_TRANSACTION_URL']
+        app.config['PAYU_NOTIFICATION_URL'] = os.environ['PAYU_NOTIFICATION_URL']
     else:
         raise Exception('Unrecognized config paramter.')
 
