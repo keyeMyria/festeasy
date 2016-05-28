@@ -14,7 +14,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.ejs',
       inject: 'body',
-      title: 'iFix REPS',
+      title: 'FestEasy',
     }),
     new webpack.ProvidePlugin({
       _: 'lodash',
