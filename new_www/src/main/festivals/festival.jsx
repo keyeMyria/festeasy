@@ -21,18 +21,14 @@ Festival.propTypes = {
 
 
 export default class FestivalContainer extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props)
     this.state = {
+      loading: true,
       festival: null,
-      loading: false,
       error: null,
     }
-  }
-
-  componentWillMount() {
-    this.setState({ loading: true })
-    this.context.store.find('festival', this.props.params.festivalId)
+    context.store.find('festival', this.props.params.festivalId)
     .then((festival) => {
       this.setState({
         loading: false,

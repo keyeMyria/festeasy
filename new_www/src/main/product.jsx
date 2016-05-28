@@ -20,17 +20,14 @@ Product.propTypes = {
 
 
 export default class ProductContainer extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props)
     this.state = {
-      loading: false,
+      loading: true,
       error: null,
       product: null,
     }
-  }
-
-  componentWillMount() {
-    this.context.store.find('product', this.props.params.productId)
+    context.store.find('product', this.props.params.productId)
     .then((product) => {
       this.setState({
         loading: false,

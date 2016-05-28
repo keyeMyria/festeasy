@@ -48,18 +48,14 @@ FestivalList.propTypes = {
 
 
 export default class FestivalListContainer extends React.Component {
-  constructor() {
-    super()
+  constructor(props, context) {
+    super(props)
     this.state = {
+      loading: true,
       festivals: [],
       error: null,
-      loading: null,
     }
-  }
-
-  componentWillMount() {
-    this.setState({ loading: true })
-    this.context.store.findAll('festival')
+    context.store.findAll('festival')
     .then((festivals) => {
       this.setState({
         loading: false,
