@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-refetch'
-import { festivalShape } from '../../utils/shapes.jsx'
 
 
 class Festival extends React.Component {
@@ -18,27 +16,54 @@ class Festival extends React.Component {
 }
 
 Festival.propTypes = {
-  festival: festivalShape,
+  festival: PropTypes.object.isRequired,
 }
 
 
-class FestivalContainer extends React.Component {
+export default class FestivalContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      festival: null,
+      loading: false,
+      error: null,
+    }
+  }
+
+  componentWillMount() {
+    this.setState({ loading: true })
+    this.context.store.find('festival', this.props.params.festivalId)
+    .then((festival) => {
+      this.setState({
+        loading: false,
+        error: null,
+        festival,
+      })
+    })
+    .catch((error) => {
+      this.setState({
+        loading: false,
+        error,
+      })
+    })
+  }
+
   render() {
-    const { festivalFetch } = this.props
-    if (festivalFetch.pending) {
-      return <div>Loading...</div>
-    } else if (festivalFetch.rejected) {
-      return <div>Error</div>
+    const { festival, error } = this.state
+    if (festival) {
+      return <Festival festival={festival} />
+    } else if (error) {
+      return <div>Error.</div>
     } else {
-      return <Festival festival={festivalFetch.value} />
+      return <div>Loading...</div>
     }
   }
 }
 
 FestivalContainer.propTypes = {
-  festivalFetch: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
 }
 
-export default connect((props) => ({
-  festivalFetch: `http://localhost:5000/api/v1/festivals/${props.params.festivalId}`,
-}))(FestivalContainer)
+FestivalContainer.contextTypes = {
+  store: PropTypes.object.isRequired,
+}

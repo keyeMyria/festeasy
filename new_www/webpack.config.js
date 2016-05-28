@@ -8,6 +8,7 @@ module.exports = {
   output: {
     path: 'build',
     filename: 'bundle.js',
+    publicPath: '/',
   },
   plugins: [
     new HtmlWebpackPlugin({

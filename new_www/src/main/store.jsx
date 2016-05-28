@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { connect } from 'react-refetch'
 
 
 class ProductListItem extends React.Component {
@@ -44,24 +43,40 @@ ProductList.propTypes = {
 }
 
 
-class ProductListContainer extends React.Component {
-  render() {
-    const { productsFetch } = this.props
-    if (productsFetch.pending) {
-      return <div>Loading...</div>
-    } else if (productsFetch.rejected) {
-      return <div>Error</div>
-    } else {
-      return <ProductList products={productsFetch.value} />
+export default class ProductListContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: false,
+      error: null,
+      products: [],
     }
+  }
+
+  componentWillMount() {
+    this.setState({ loading: true })
+    this.context.store.findAll('product')
+    .then((products) => {
+      this.setState({
+        loading: false,
+        error: null,
+        products,
+      })
+    })
+    .catch((error) => {
+      this.setState({
+        loading: false,
+        error,
+      })
+    })
+  }
+
+  render() {
+    const { products } = this.state
+    return <ProductList products={products} />
   }
 }
 
-ProductListContainer.propTypes = {
-  productsFetch: PropTypes.object.isRequired,
+ProductListContainer.contextTypes = {
+  store: PropTypes.object.isRequired,
 }
-
-
-export default connect(() => ({
-  productsFetch: 'http://localhost:5000/api/v1/products',
-}))(ProductListContainer)

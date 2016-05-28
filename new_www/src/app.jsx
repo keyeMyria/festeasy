@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react';
 import AuthWrapper from './authWrapper.jsx'
+import StoreWrapper from './storeWrapper.jsx'
 
 
 export default class App extends React.Component {
   render() {
     return (
       <AuthWrapper>
-        {this.props.children}
+        <StoreWrapper>
+          {this.props.children}
+        </StoreWrapper>
       </AuthWrapper>
     )
   }

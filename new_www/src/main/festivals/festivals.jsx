@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
-import { connect } from 'react-refetch'
 import { festivalShape } from '../../utils/shapes.jsx'
 
 
@@ -48,24 +47,41 @@ FestivalList.propTypes = {
 }
 
 
-class FestivalListContainer extends React.Component {
-  render() {
-    const { festivalsFetch } = this.props
-    if (festivalsFetch.pending) {
-      return <div>Loading...</div>
-    } else if (festivalsFetch.rejected) {
-      return <div>Error</div>
-    } else {
-      return <FestivalList festivals={festivalsFetch.value} />
+export default class FestivalListContainer extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      festivals: [],
+      error: null,
+      loading: null,
     }
+  }
+
+  componentWillMount() {
+    this.setState({ loading: true })
+    this.context.store.findAll('festival')
+    .then((festivals) => {
+      this.setState({
+        loading: false,
+        error: null,
+        festivals,
+      })
+    })
+    .catch(() => {
+      this.setState({
+        loading: false,
+        error: 'something went wrong',
+      })
+    })
+  }
+
+  render() {
+    return (
+      <FestivalList festivals={this.state.festivals} />
+    )
   }
 }
 
-FestivalListContainer.propTypes = {
-  festivalsFetch: PropTypes.object.isRequired,
+FestivalListContainer.contextTypes = {
+  store: PropTypes.object.isRequired,
 }
-
-
-export default connect(() => ({
-  festivalsFetch: 'http://localhost:5000/api/v1/festivals',
-}))(FestivalListContainer)

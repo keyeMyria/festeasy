@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-refetch'
 
 
 class Product extends React.Component {
@@ -20,24 +19,49 @@ Product.propTypes = {
 }
 
 
-class ProductContainer extends React.Component {
+export default class ProductContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: false,
+      error: null,
+      product: null,
+    }
+  }
+
+  componentWillMount() {
+    this.context.store.find('product', this.props.params.productId)
+    .then((product) => {
+      this.setState({
+        loading: false,
+        error: null,
+        product,
+      })
+    })
+    .catch((error) => {
+      this.setState({
+        loading: false,
+        error,
+      })
+    })
+  }
+
   render() {
-    const { productFetch } = this.props
-    if (productFetch.pending) {
-      return <div>Loading...</div>
-    } else if (productFetch.rejected) {
-      return <div>Error</div>
+    const { product, error } = this.state
+    if (product) {
+      return <Product product={product} />
+    } else if (error) {
+      return <div>Error.</div>
     } else {
-      return <Product product={productFetch.value} />
+      return <div>Loading...</div>
     }
   }
 }
 
-ProductContainer.propTypes = {
-  productFetch: PropTypes.object.isRequired,
+ProductContainer.contextTypes = {
+  store: PropTypes.object.isRequired,
 }
 
-
-export default connect((props) => ({
-  productFetch: `http://localhost:5000/api/v1/products/${props.params.productId}`,
-}))(ProductContainer)
+ProductContainer.propTypes = {
+  params: PropTypes.object.isRequired,
+}
