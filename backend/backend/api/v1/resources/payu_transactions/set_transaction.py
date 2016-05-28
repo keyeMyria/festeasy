@@ -73,8 +73,8 @@ class SetTrasnaction(Resource):
         }
         additional_info = {
             'merchantReference': invoice.id,
-            'returnUrl': 'http://localhost:8000',
-            'cancelUrl': 'http://localhost:8000',
+            'returnUrl': 'https://festeasy-staging.firebaseapp.com/checkout/confirm-order?order-id={0}'.format(invoice.order_id),
+            'cancelUrl': 'https://festeasy-staging.firebaseapp.com/checkout/payment?order-id={0}'.format(invoice.order_id),
             'supportedPaymentMethods': 'CREDITCARD',
             'notificationUrl': current_app.config['PAYU_NOTIFICATION_URL']
         }
