@@ -14,6 +14,24 @@ export default class AuthWrapper extends React.Component {
     this.signOut = this.signOut.bind(this)
     this.onAuthSuccess = this.onAuthSuccess.bind(this)
     this.onAuthFailure = this.onAuthFailure.bind(this)
+
+    const sessionId = localStorage.getItem('authSessionId')
+    const sessionToken = localStorage.getItem('authSessionToken')
+    if (sessionId && sessionToken) {
+      axios({
+        method: 'get',
+        url: `http://localhost:5000/api/v1/sessions/${sessionId}`,
+        headers: {
+          Authorization: sessionToken,
+        },
+      })
+      .then((response) => {
+        this.onAuthSuccess(response.data)
+      })
+    } else {
+      localStorage.removeItem('authSessionId')
+      localStorage.removeItem('authSessionToken')
+    }
   }
 
   getChildContext() {
@@ -32,6 +50,8 @@ export default class AuthWrapper extends React.Component {
   }
 
   onAuthSuccess(session) {
+    localStorage.setItem('authSessionId', session.id)
+    localStorage.setItem('authSessionToken', session.token)
     this.setState({
       isSigningIn: false,
       signInError: null,
@@ -40,7 +60,8 @@ export default class AuthWrapper extends React.Component {
   }
 
   onAuthFailure(response) {
-    localStorage.removeItem('authToken')
+    localStorage.removeItem('authSessionId')
+    localStorage.removeItem('authSessionToken')
     this.setState({
       isSigningIn: false,
       signInError: {
@@ -70,6 +91,8 @@ export default class AuthWrapper extends React.Component {
   }
 
   signOut() {
+    localStorage.removeItem('authSessionId')
+    localStorage.removeItem('authSessionToken')
     this.setState({
       isSigningIn: false,
       authSession: null,
