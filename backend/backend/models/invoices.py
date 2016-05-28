@@ -65,6 +65,11 @@ class Invoice(db.Model, Entity):
         back_populates='invoice'
     )
 
+    payu_transactions = relationship(
+        'PayUTransaction',
+        back_populates='invoice',
+    )
+
     @property
     def payments_total_rands(self):
         total = 0

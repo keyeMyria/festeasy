@@ -5,6 +5,7 @@ checkout.controller('paymentController', ($scope, $state, $stateParams, orderSer
     $scope.order = response
   )
   $scope.makePayment = () ->
+    # TODO: Use post.
     setTransaction = payUSetTransaction.one().get({'invoice-id': $scope.order.current_invoice.id})
     setTransaction.then((response) ->
       window.location.href = 'https://staging.payu.co.za/rpp.do?PayUReference=' + response.payu_reference

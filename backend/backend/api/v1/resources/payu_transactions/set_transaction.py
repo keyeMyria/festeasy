@@ -4,9 +4,11 @@ from suds.client import Client
 from suds.sax.element import Element
 from suds.sax.attribute import Attribute
 
-from backend.models import Invoice
+from backend import db
+from backend.models import Invoice, PayUTransaction
 from backend.api.utils import get_or_404
 from backend.api.v1.schemas import PayUSetTransactionSchema
+from backend.api.v1.schemas import PayUTransactionSchema
 
 
 wsse = ('wsse', 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd')
@@ -89,4 +91,9 @@ class SetTrasnaction(Resource):
             'customer': customer,
         })
 
-        return PayUSetTransactionSchema().dump(result[1]).data
+        data = PayUSetTransactionSchema().dump(result[1]).data
+        payu_transaction = PayUTransaction(**data)
+        payu_transaction.invoice_id = invoice.id
+        db.session.add(payu_transaction)
+        db.session.commit()
+        return PayUTransactionSchema().dump(payu_transaction).data

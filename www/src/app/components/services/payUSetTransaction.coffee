@@ -1,3 +1,3 @@
 services.factory('payUSetTransaction', (Restangular) ->
-	return Restangular.service('payu/set-transaction')
+	return Restangular.service('payu-transactions')
 )

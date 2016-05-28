@@ -29,5 +29,6 @@ from .forgot_password_tokens import ForgotPasswordToken
 from .packages import Package
 from .packaged_stock_unit import PackagedStockUnit
 from .collections import Collection
+from .payu_transactions import PayUTransaction
 
 db.configure_mappers()

@@ -25,7 +25,7 @@ from .resources import categories
 from .resources import suppliers
 from .resources import stock_units
 from .resources import forgot_password_tokens
-from .resources import payu
+from .resources import payu_transactions
 
 
 @v1_bp.errorhandler(APIException)
