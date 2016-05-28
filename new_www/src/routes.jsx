@@ -10,6 +10,7 @@ import Festival from './main/festivals/festival.jsx'
 import Product from './main/product.jsx'
 import Admin from './admin/admin.jsx'
 import App from './app.jsx'
+import SignIn from './common/signIn.jsx'
 
 
 export default (
@@ -19,6 +20,7 @@ export default (
         <IndexRoute component={Landing} />
         <Route path="store" component={StoreContainer} />
         <Route path="products/:productId" component={Product} />
+        <Route path="sign-in" component={SignIn} />
         <Route path="about" component={About} />
         <Route path="festivals" component={Festivals} />
         <Route path="festivals/:festivalId" component={Festival} />
