@@ -4,12 +4,8 @@ import { connect } from 'react-refetch'
 import { festivalShape } from '../../utils/shapes.jsx'
 
 
-const FestivalListItem = React.createClass({
-  propTypes: {
-    festival: festivalShape.isRequired,
-  },
-
-  render: function() {
+class FestivalListItem extends React.Component {
+  render() {
     const festival = this.props.festival
     return (
       <div>
@@ -23,18 +19,16 @@ const FestivalListItem = React.createClass({
         <p>Ends: {festival.ends_on}</p>
       </div>
     )
-  },
-})
+  }
+}
+
+FestivalListItem.propTypes = {
+  festival: festivalShape.isRequired,
+}
 
 
-const FestivalList = React.createClass({
-  propTypes: {
-    festivals: PropTypes.arrayOf(
-      festivalShape
-    ).isRequired,
-  },
-
-  render: function() {
+class FestivalList extends React.Component {
+  render() {
     const { festivals } = this.props
     return (
       <div>
@@ -44,16 +38,18 @@ const FestivalList = React.createClass({
           ))}
       </div>
     )
-  },
-})
+  }
+}
+
+FestivalList.propTypes = {
+  festivals: PropTypes.arrayOf(
+    festivalShape
+  ).isRequired,
+}
 
 
-const FestivalListContainer = React.createClass({
-  propTypes: {
-    festivalsFetch: PropTypes.object.isRequired,
-  },
-
-  render: function() {
+class FestivalListContainer extends React.Component {
+  render() {
     const { festivalsFetch } = this.props
     if (festivalsFetch.pending) {
       return <div>Loading...</div>
@@ -62,8 +58,12 @@ const FestivalListContainer = React.createClass({
     } else {
       return <FestivalList festivals={festivalsFetch.value} />
     }
-  },
-})
+  }
+}
+
+FestivalListContainer.propTypes = {
+  festivalsFetch: PropTypes.object.isRequired,
+}
 
 
 export default connect(() => ({

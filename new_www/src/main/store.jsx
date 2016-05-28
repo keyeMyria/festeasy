@@ -1,17 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-refetch'
-import 'whatwg-fetch';
-import AddToCartButton from './addToCartButton.jsx'
-import { productShape } from '../utils/shapes.jsx'
 
 
-const ProductListItem = React.createClass({
-  propTypes: {
-    product: productShape.isRequired,
-  },
-
-  render: function() {
+class ProductListItem extends React.Component {
+  render() {
     const { product } = this.props
     return (
       <div>
@@ -20,21 +13,18 @@ const ProductListItem = React.createClass({
         </Link>
         <p>{product.description}</p>
         <p>Price: {product.price_rands}</p>
-        <AddToCartButton productId={product.id} />
       </div>
     )
-  },
-})
+  }
+}
+
+ProductListItem.propTypes = {
+  product: PropTypes.object.isRequired,
+}
 
 
-const ProductList = React.createClass({
-  propTypes: {
-    products: PropTypes.arrayOf(
-      productShape
-    ).isRequired,
-  },
-
-  render: function() {
+class ProductList extends React.Component {
+  render() {
     const { products } = this.props
     return (
       <div>
@@ -44,16 +34,18 @@ const ProductList = React.createClass({
         ))}
       </div>
     )
-  },
-})
+  }
+}
+
+ProductList.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.object
+  ).isRequired,
+}
 
 
-const ProductListContainer = React.createClass({
-  propTypes: {
-    productsFetch: PropTypes.object.isRequired,
-  },
-
-  render: function() {
+class ProductListContainer extends React.Component {
+  render() {
     const { productsFetch } = this.props
     if (productsFetch.pending) {
       return <div>Loading...</div>
@@ -62,8 +54,12 @@ const ProductListContainer = React.createClass({
     } else {
       return <ProductList products={productsFetch.value} />
     }
-  },
-})
+  }
+}
+
+ProductListContainer.propTypes = {
+  productsFetch: PropTypes.object.isRequired,
+}
 
 
 export default connect(() => ({

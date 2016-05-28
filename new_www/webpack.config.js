@@ -1,20 +1,23 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = {
   devtool: 'source-map',
-  entry: './src/index.jsx',
+  entry: './src/entry.jsx',
   output: {
     path: 'build',
     filename: 'bundle.js',
-    publicPath: 'build/',
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.ejs',
+      inject: 'body',
+      title: 'iFix REPS',
+    }),
     new webpack.ProvidePlugin({
       _: 'lodash',
-      $: 'jquery',
       jQuery: 'jquery',
-      'window.jQuery': 'jquery',
     }),
   ],
   devServer: {

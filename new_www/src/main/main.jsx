@@ -1,24 +1,20 @@
 import React, { PropTypes } from 'react';
-import Navigation from './navigation.jsx'
+import Navbar from './navbar.jsx'
 
 
-const Main = React.createClass({
-  propTypes: {
-    children: PropTypes.object.isRequired,
-  },
-
-
-  render: function() {
+export default class Main extends React.Component {
+  render() {
     return (
       <div style={{ paddingTop: 55 }}>
-        <Navigation />
+        <Navbar />
         <div className="ui container">
           {this.props.children}
         </div>
       </div>
     )
-  },
-})
+  }
+}
 
-
-module.exports = Main
+Main.propTypes = {
+  children: PropTypes.object.isRequired,
+}

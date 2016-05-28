@@ -6,9 +6,19 @@
     },
     "plugins": [
         "standard",
+        "import",
         "react"
     ],
-    "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
+    "settings": {
+      "react": {
+        "version": "15.0"
+      }
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "airbnb"
+    ],
     "installedESLint": true,
     "parserOptions": {
         "ecmaVersion": 6,
@@ -24,10 +34,11 @@
         "no-else-return": "off",
         "no-console": "off",
         "space-before-function-paren": "off",
+        "import/order": 2,
+        "import/newline-after-import": 2,
         "quote-props": "off",
         "func-names": "off",
         "react/prefer-stateless-function": "off",
-        "react/prefer-es6-class": "off",
         "react/no-multi-comp": "off"
     }
 }

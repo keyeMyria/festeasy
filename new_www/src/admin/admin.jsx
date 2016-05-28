@@ -1,15 +1,12 @@
 import React from 'react';
 
 
-const Admin = React.createClass({
-  render: function() {
+export default class Admin extends React.Component {
+  render() {
     return (
       <div>
-        <h1>Admin</h1>
+        <h1>Admin page here</h1>
       </div>
     )
-  },
-})
-
-
-module.exports = Admin
+  }
+}

@@ -3,12 +3,8 @@ import { connect } from 'react-refetch'
 import { festivalShape } from '../../utils/shapes.jsx'
 
 
-const Festival = React.createClass({
-  propTypes: {
-    festival: festivalShape,
-  },
-
-  render: function () {
+class Festival extends React.Component {
+  render() {
     const { festival } = this.props
     return (
       <div>
@@ -18,16 +14,16 @@ const Festival = React.createClass({
         <p>Ends On: {festival.ends_on}</p>
       </div>
     )
-  },
-})
+  }
+}
+
+Festival.propTypes = {
+  festival: festivalShape,
+}
 
 
-const FestivalContainer = React.createClass({
-  propTypes: {
-    festivalFetch: PropTypes.object.isRequired,
-  },
-
-  render: function () {
+class FestivalContainer extends React.Component {
+  render() {
     const { festivalFetch } = this.props
     if (festivalFetch.pending) {
       return <div>Loading...</div>
@@ -36,9 +32,12 @@ const FestivalContainer = React.createClass({
     } else {
       return <Festival festival={festivalFetch.value} />
     }
-  },
-})
+  }
+}
 
+FestivalContainer.propTypes = {
+  festivalFetch: PropTypes.object.isRequired,
+}
 
 export default connect((props) => ({
   festivalFetch: `http://localhost:5000/api/v1/festivals/${props.params.festivalId}`,
