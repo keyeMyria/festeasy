@@ -11,6 +11,7 @@ import Product from './main/product.jsx'
 import Admin from './admin/admin.jsx'
 import App from './app.jsx'
 import SignIn from './common/signIn.jsx'
+import NotFound from './common/notFound.jsx'
 
 
 export default (
@@ -26,6 +27,7 @@ export default (
         <Route path="festivals/:festivalId" component={Festival} />
       </Route>
       <Route path="admin" component={Admin} />
+      <Route path="*" component={NotFound} />
     </Route>
   </Router>
 )
