@@ -38,7 +38,9 @@ class Cart extends React.Component {
 
 Cart.propTypes = {
   cart: PropTypes.object.isRequired,
+  festivals: PropTypes.array.isRequired,
   removeCartProduct: PropTypes.func.isRequired,
+  selectFestival: PropTypes.func.isRequired,
 }
 
 
@@ -48,11 +50,12 @@ export default class CartContainer extends React.Component {
     this.state = {
       loading: true,
       cart: null,
-      festivals: [],
+      festivals: null,
       error: null,
     }
     this.getCart = this.getCart.bind(this)
     this.removeCartProduct = this.removeCartProduct.bind(this)
+    this.selectFestival = this.selectFestival.bind(this)
   }
 
   componentDidMount() {
@@ -61,17 +64,20 @@ export default class CartContainer extends React.Component {
 
   getCart() {
     this.setState({ loading: true })
-    this.context.store.find(
+    const cart = this.context.store.find(
       'cart',
       this.context.authUser.cart_id,
       {
         bypassCache: true,
       }
     )
-    .then((cart) => {
+    const festivals = this.context.store.findAll('festival')
+    Promise.all([cart, festivals])
+    .then((values) => {
       this.setState({
         loading: false,
-        cart: cart,
+        cart: values[0],
+        festivals: values[1],
       })
     })
     .catch(() => {
@@ -89,14 +95,19 @@ export default class CartContainer extends React.Component {
     })
   }
 
+  selectFestival(f) {
+    console.log(f)
+  }
+
   render() {
     const { cart, error, festivals } = this.state
-    if (cart) {
+    if (cart && festivals) {
       return (
         <Cart
           cart={cart}
           festivals={festivals}
           removeCartProduct={this.removeCartProduct}
+          selectFestival={this.selectFestival}
         />
       )
     } else if (error) {
