@@ -5,6 +5,9 @@ machine:
     version: 4.2.2
 
 dependencies:
+  cache_directories:
+    - /home/ubuntu/nvm/versions/node/4.2.2/bin
+    - /home/ubuntu/nvm/versions/node/4.2.2/lib/node_modules
   pre:
     - sudo apt-get update; sudo apt-get -y install python3-dev gcc
   override:
