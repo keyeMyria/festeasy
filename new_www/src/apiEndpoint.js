@@ -1,1 +1,1 @@
-module.exports = 'https://festeasy-staging.herokuapp.com/api/'
+module.exports = 'http://localhost:5000/api/'
