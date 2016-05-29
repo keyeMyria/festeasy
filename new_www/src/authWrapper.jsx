@@ -125,11 +125,28 @@ export default class AuthWrapper extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    )
+    const sessionId = localStorage.getItem('authSessionId')
+    const sessionToken = localStorage.getItem('authSessionToken')
+    const { authUser, authSession } = this.state
+    if (sessionId && sessionToken) {
+      if (authUser && authSession) {
+        return (
+          <div>
+            {this.props.children}
+          </div>
+        )
+      } else {
+        return (
+          <div>Loading</div>
+        )
+      }
+    } else {
+      return (
+        <div>
+          {this.props.children}
+        </div>
+      )
+    }
   }
 }
 

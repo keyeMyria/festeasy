@@ -12,6 +12,7 @@ import Admin from './admin/admin.jsx'
 import App from './app.jsx'
 import SignIn from './common/signIn.jsx'
 import NotFound from './common/notFound.jsx'
+import Cart from './main/cart.jsx'
 
 
 export default (
@@ -22,6 +23,7 @@ export default (
         <Route path="store" component={StoreContainer} />
         <Route path="products/:productId" component={Product} />
         <Route path="sign-in" component={SignIn} />
+        <Route path="cart" component={Cart} />
         <Route path="about" component={About} />
         <Route path="festivals" component={Festivals} />
         <Route path="festivals/:festivalId" component={Festival} />
