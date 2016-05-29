@@ -11,7 +11,7 @@ dependencies:
   pre:
     - sudo apt-get update; sudo apt-get -y install python3-dev gcc
   override:
-    - npm install -g firebase-tools@2.2.0 gulp webpack eslint
+    - npm install -g firebase-tools@2.2.0 netlify-cli gulp webpack eslint
     - pip install -r requirements.txt
     - python ./configure_api_endpoints.py -e $CIRCLE_BRANCH
     - cd www; npm install
@@ -38,7 +38,7 @@ deployment:
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
       - cd www; firebase deploy -f festeasy-staging --token=$FIREBASE_TOKEN --non-interactive
       - cd admin_www; firebase deploy -f fe-admin-staging --token=$FIREBASE_TOKEN --non-interactive
-      - cd new_www; firebase deploy -f fe-new-staging --token=$FIREBASE_TOKEN --non-interactive
+      - cd new_www; netlify -t $NETLIFY_TOKEN deploy -s 9d6ca6ab-a290-43db-b337-42ec0f27b00a -p build
   production:
     branch: production
     commands:
