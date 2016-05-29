@@ -12,6 +12,7 @@ class Cart extends React.Component {
               <th>Product</th>
               <th>Quantity</th>
               <th>Sub Total</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -20,6 +21,11 @@ class Cart extends React.Component {
                 <td>{cartProduct.product.name}</td>
                 <td>{cartProduct.quantity}</td>
                 <td>{cartProduct.sub_total_rands}</td>
+                <td>
+                  <button onClick={() => { this.props.removeCartProduct(cartProduct) }}>
+                    Remove
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -32,38 +38,67 @@ class Cart extends React.Component {
 
 Cart.propTypes = {
   cart: PropTypes.object.isRequired,
+  removeCartProduct: PropTypes.func.isRequired,
 }
 
 
 export default class CartContainer extends React.Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props)
     this.state = {
       loading: true,
       cart: null,
+      festivals: [],
       error: null,
     }
-    if (context.authUser) {
-      context.store.find('cart', context.authUser.cart_id)
-      .then((cart) => {
-        this.setState({
-          loading: false,
-          cart: cart,
-        })
+    this.getCart = this.getCart.bind(this)
+    this.removeCartProduct = this.removeCartProduct.bind(this)
+  }
+
+  componentDidMount() {
+    this.getCart()
+  }
+
+  getCart() {
+    this.setState({ loading: true })
+    this.context.store.find(
+      'cart',
+      this.context.authUser.cart_id,
+      {
+        bypassCache: true,
+      }
+    )
+    .then((cart) => {
+      this.setState({
+        loading: false,
+        cart: cart,
       })
-      .catch(() => {
-        this.setState({
-          loading: false,
-          error: 'Something went wrong.',
-        })
+    })
+    .catch(() => {
+      this.setState({
+        loading: false,
+        error: 'Something went wrong.',
       })
-    }
+    })
+  }
+
+  removeCartProduct(cp) {
+    this.context.store.destroy('cartProduct', cp.id)
+    .then(() => {
+      this.getCart()
+    })
   }
 
   render() {
-    const { cart, error } = this.state
+    const { cart, error, festivals } = this.state
     if (cart) {
-      return <Cart cart={cart} />
+      return (
+        <Cart
+          cart={cart}
+          festivals={festivals}
+          removeCartProduct={this.removeCartProduct}
+        />
+      )
     } else if (error) {
       return <div>Error.</div>
     } else {
