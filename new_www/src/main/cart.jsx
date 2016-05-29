@@ -88,7 +88,7 @@ export default class CartContainer extends React.Component {
   }
 
   onCheckout() {
-    this.context.router.push('checkout/review')
+    this.context.router.push('/checkout/review')
   }
 
   getCart() {

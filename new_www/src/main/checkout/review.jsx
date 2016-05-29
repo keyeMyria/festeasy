@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react'
+import { Button } from 'semantic-react'
 
 
 class Review extends React.Component {
   render() {
-    const { cart } = this.props
+    const { cart, onProceed } = this.props
     const festival = cart.festival
     return (
       <div>
-        <h1 className="ui header">Review Cart</h1>
+        <h2 className="ui header">Review Cart</h2>
         <div>
           <p>Festival: {festival.name}</p>
         </div>
@@ -29,6 +30,7 @@ class Review extends React.Component {
             ))}
           </tbody>
         </table>
+        <Button onClick={onProceed}>Proceed</Button>
       </div>
     )
   }
@@ -36,60 +38,34 @@ class Review extends React.Component {
 
 Review.propTypes = {
   cart: PropTypes.object.isRequired,
+  onProceed: PropTypes.func.isRequired,
 }
 
 
 export default class ReviewContainer extends React.Component {
   constructor() {
     super()
-    this.state = {
-      loading: true,
-      cart: null,
-      error: null,
-    }
-    this.getCart = this.getCart.bind(this)
+    this.onProceed = this.onProceed.bind(this)
   }
 
-  componentDidMount() {
-    this.getCart()
-  }
-
-  getCart() {
-    this.setState({ loading: true })
-    this.context.store.find(
-      'cart',
-      this.context.authUser.cart_id,
-      {
-        bypassCache: true,
-      }
-    )
-    .then((cart) => {
-      this.setState({
-        loading: false,
-        cart: cart,
-      })
-    })
+  onProceed() {
+    this.context.router.push('/checkout/payment')
   }
 
   render() {
-    const { cart, error } = this.state
-    if (cart) {
-      return (
-        <div>
-          <Review
-            cart={cart}
-          />
-        </div>
-      )
-    } else if (error) {
-      return <div>Error.</div>
-    } else {
-      return <div>Loading.</div>
-    }
+    const { cart } = this.context
+    return (
+      <div>
+        <Review
+          cart={cart}
+          onProceed={this.onProceed}
+        />
+      </div>
+    )
   }
 }
 
 ReviewContainer.contextTypes = {
-  store: PropTypes.object.isRequired,
-  authUser: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
 }

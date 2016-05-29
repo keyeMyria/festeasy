@@ -15,6 +15,7 @@ import NotFound from './common/notFound.jsx'
 import Cart from './main/cart.jsx'
 import Checkout from './main/checkout/checkout.jsx'
 import Review from './main/checkout/review.jsx'
+import Payment from './main/checkout/payment.jsx'
 
 
 export default (
@@ -28,6 +29,7 @@ export default (
         <Route path="cart" component={Cart} />
         <Route path="checkout" component={Checkout}>
           <Route path="review" component={Review} />
+          <Route path="payment" component={Payment} />
         </Route>
         <Route path="about" component={About} />
         <Route path="festivals" component={Festivals} />
