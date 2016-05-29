@@ -34,7 +34,7 @@ kombu==3.0.35
 lazy-object-proxy==1.2.1
 logutils==0.3.3
 MarkupSafe==0.23
-marshmallow==2.7.2
+marshmallow==2.7.3
 mccabe==0.4.0
 newrelic==2.64.0.48
 nose2==0.6.4
@@ -64,5 +64,6 @@ SQLAlchemy-Continuum==1.2.4
 SQLAlchemy-Utils==0.32.5
 suds-jurko==0.6
 traitlets==4.2.1
+webargs==1.3.2
 Werkzeug==0.11.9
 wrapt==1.10.6
