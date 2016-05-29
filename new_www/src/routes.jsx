@@ -13,6 +13,8 @@ import App from './app.jsx'
 import SignIn from './common/signIn.jsx'
 import NotFound from './common/notFound.jsx'
 import Cart from './main/cart.jsx'
+import Checkout from './main/checkout/checkout.jsx'
+import Review from './main/checkout/review.jsx'
 
 
 export default (
@@ -24,6 +26,9 @@ export default (
         <Route path="products/:productId" component={Product} />
         <Route path="sign-in" component={SignIn} />
         <Route path="cart" component={Cart} />
+        <Route path="checkout" component={Checkout}>
+          <Route path="review" component={Review} />
+        </Route>
         <Route path="about" component={About} />
         <Route path="festivals" component={Festivals} />
         <Route path="festivals/:festivalId" component={Festival} />

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
-import { Input, Option } from 'semantic-react'
+import { Button, Input, Option } from 'semantic-react'
 import MySelect from '../mySelect.jsx'
 
 
 class Cart extends React.Component {
   render() {
-    const { cart, festivals, updateQuantity } = this.props
+    const { cart, festivals, updateQuantity, onCheckout } = this.props
     const options = festivals.map((festival) => (
       <Option key={festival.id} value={festival.id}>{festival.name}</Option>
     ))
@@ -51,6 +51,7 @@ class Cart extends React.Component {
           </tbody>
         </table>
         <div>Total: R{cart.total_rands}</div>
+        <Button onClick={onCheckout}>Secure Checkout</Button>
       </div>
     )
   }
@@ -62,6 +63,7 @@ Cart.propTypes = {
   removeCartProduct: PropTypes.func.isRequired,
   selectFestival: PropTypes.func.isRequired,
   updateQuantity: PropTypes.func.isRequired,
+  onCheckout: PropTypes.func.isRequired,
 }
 
 
@@ -74,6 +76,7 @@ export default class CartContainer extends React.Component {
       festivals: null,
       error: null,
     }
+    this.onCheckout = this.onCheckout.bind(this)
     this.getCart = this.getCart.bind(this)
     this.removeCartProduct = this.removeCartProduct.bind(this)
     this.selectFestival = this.selectFestival.bind(this)
@@ -82,6 +85,10 @@ export default class CartContainer extends React.Component {
 
   componentDidMount() {
     this.getCart()
+  }
+
+  onCheckout() {
+    this.context.router.push('checkout/review')
   }
 
   getCart() {
@@ -141,13 +148,16 @@ export default class CartContainer extends React.Component {
     const { cart, error, festivals } = this.state
     if (cart && festivals) {
       return (
-        <Cart
-          cart={cart}
-          festivals={festivals}
-          removeCartProduct={this.removeCartProduct}
-          selectFestival={this.selectFestival}
-          updateQuantity={this.updateQuantity}
-        />
+        <div>
+          <Cart
+            cart={cart}
+            festivals={festivals}
+            removeCartProduct={this.removeCartProduct}
+            selectFestival={this.selectFestival}
+            updateQuantity={this.updateQuantity}
+            onCheckout={this.onCheckout}
+          />
+        </div>
       )
     } else if (error) {
       return <div>Error.</div>
@@ -159,5 +169,6 @@ export default class CartContainer extends React.Component {
 
 CartContainer.contextTypes = {
   store: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
   authUser: PropTypes.object.isRequired,
 }
