@@ -93,6 +93,7 @@ export default class CartContainer extends React.Component {
 
   getCart() {
     this.setState({ loading: true })
+    this.context.store.ejectAll('cartProduct')
     const cart = this.context.store.find(
       'cart',
       this.context.authUser.cart_id,

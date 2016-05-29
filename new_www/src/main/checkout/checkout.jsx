@@ -3,54 +3,7 @@ import { Link } from 'react-router'
 
 
 export default class Checkout extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loading: true,
-      cart: null,
-      error: null,
-    }
-    this.getCart = this.getCart.bind(this)
-  }
-
-  getChildContext() {
-    const { cart } = this.state
-    return {
-      cart,
-    }
-  }
-
-  componentDidMount() {
-    this.getCart()
-  }
-
-  getCart() {
-    this.setState({ loading: true })
-    this.context.store.find(
-      'cart',
-      this.context.authUser.cart_id,
-      {
-        bypassCache: true,
-      }
-    )
-    .then((cart) => {
-      this.setState({
-        loading: false,
-        cart: cart,
-      })
-    })
-  }
-
   render() {
-    const { cart, error } = this.state
-    let content = null
-    if (cart) {
-      content = this.props.children
-    } else if (error) {
-      content = <div>Error.</div>
-    } else {
-      content = <div>Loading...</div>
-    }
     return (
       <div>
         <h1 className="ui header">Checkout</h1>
@@ -80,7 +33,7 @@ export default class Checkout extends React.Component {
             </div>
           </div>
         </div>
-        {content}
+        {this.props.children}
       </div>
     )
   }
@@ -88,13 +41,4 @@ export default class Checkout extends React.Component {
 
 Checkout.propTypes = {
   children: PropTypes.any.isRequired,
-}
-
-Checkout.contextTypes = {
-  store: PropTypes.object.isRequired,
-  authUser: PropTypes.object.isRequired,
-}
-
-Checkout.childContextTypes = {
-  cart: PropTypes.object,
 }

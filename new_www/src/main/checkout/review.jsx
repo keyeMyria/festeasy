@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import axios from 'axios'
 import { Button } from 'semantic-react'
 
 
@@ -45,27 +46,67 @@ Review.propTypes = {
 export default class ReviewContainer extends React.Component {
   constructor() {
     super()
+    this.state = {
+      loading: true,
+      cart: null,
+      error: null,
+    }
     this.onProceed = this.onProceed.bind(this)
+    this.getCart = this.getCart.bind(this)
+  }
+
+  componentDidMount() {
+    this.getCart()
   }
 
   onProceed() {
-    this.context.router.push('/checkout/payment')
+    const cartId = this.state.cart.id
+    axios({
+      method: 'post',
+      url: `http://localhost:5000/api/v1/carts/${cartId}/checkout`,
+    })
+    .then((response) => {
+      const invoiceId = response.data.current_invoice.id
+      this.context.router.push(`/checkout/payment?invoice-id=${invoiceId}`)
+    })
+  }
+
+  getCart() {
+    this.setState({ loading: true })
+    this.context.store.find(
+      'cart',
+      this.context.authUser.cart_id,
+      {
+        bypassCache: true,
+      }
+    )
+    .then((cart) => {
+      this.setState({
+        loading: false,
+        cart,
+      })
+    })
   }
 
   render() {
-    const { cart } = this.context
-    return (
-      <div>
+    const { cart, error } = this.state
+    if (cart) {
+      return (
         <Review
           cart={cart}
           onProceed={this.onProceed}
         />
-      </div>
-    )
+      )
+    } else if (error) {
+      return <div>Error.</div>
+    } else {
+      return <div>Loading</div>
+    }
   }
 }
 
 ReviewContainer.contextTypes = {
   router: PropTypes.object.isRequired,
-  cart: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
+  authUser: PropTypes.object.isRequired,
 }
