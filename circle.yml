@@ -6,10 +6,12 @@ machine:
 
 dependencies:
   cache_directories:
-    - ~/nvm/versions/node/v4.2.2/bin
-    - ~/nvm/versions/node/v4.2.2/lib/node_modules
+    - ~/nvm/versions/node/v4.2.2/bin/
+    - ~/nvm/versions/node/v4.2.2/lib/node_modules/
     - www/node_modules/
     - admin_www/node_modules/
+    - new_www/node_modules/
+    - new_www/semantic-react/node_modules/
   pre:
     - sudo apt-get update; sudo apt-get -y install python3-dev gcc
   override:
