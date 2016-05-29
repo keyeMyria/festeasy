@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -12,6 +12,11 @@ module.exports = {
     publicPath: '/',
   },
   plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: '_redirects',
+      },
+    ]),
     new HtmlWebpackPlugin({
       template: './src/index.ejs',
       inject: 'body',
