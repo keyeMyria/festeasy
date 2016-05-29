@@ -8,7 +8,7 @@ dependencies:
   pre:
     - sudo apt-get update; sudo apt-get -y install python3-dev gcc
   override:
-    - npm install -g firebase-tools gulp webpack eslint
+    - npm install -g firebase-tools@2.2.0 gulp webpack eslint
     - pip install -r requirements.txt
     - python ./configure_api_endpoints.py -e $CIRCLE_BRANCH
     - cd www; npm install
