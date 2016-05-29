@@ -28,6 +28,10 @@ module.exports = [
     endpoint: 'products',
   },
   {
+    name: 'payu-transaction',
+    endpoint: 'payu-transactions',
+  },
+  {
     name: 'festival',
     endpoint: 'festivals',
   },

@@ -56,9 +56,10 @@ def payuMeaSetTransactionApiCall(args):
     return client.service.setTransaction(**transaction)
 
 
-class SetTrasnaction(Resource):
-    def get(self):
-        invoice_id = request.args.get('invoice-id')
+class PayUTransactionCollection(Resource):
+    def post(self):
+        base_return_url = request.headers.get('Origin')
+        invoice_id = request.get_json()['invoice_id']
         invoice = get_or_404(Invoice, Invoice.id == invoice_id)
         user = invoice.order.user
         store = {
@@ -73,8 +74,8 @@ class SetTrasnaction(Resource):
         }
         additional_info = {
             'merchantReference': invoice.id,
-            'returnUrl': 'https://festeasy-staging.firebaseapp.com/checkout/confirm-order?order-id={0}'.format(invoice.order_id),
-            'cancelUrl': 'https://festeasy-staging.firebaseapp.com/checkout/payment?order-id={0}'.format(invoice.order_id),
+            'returnUrl': base_return_url + '/payment-confirmation',
+            'cancelUrl': base_return_url + '/payment-cancellation',
             'supportedPaymentMethods': 'CREDITCARD',
             'notificationUrl': current_app.config['PAYU_NOTIFICATION_URL']
         }

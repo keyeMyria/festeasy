@@ -16,6 +16,7 @@ import Cart from './main/cart.jsx'
 import Checkout from './main/checkout/checkout.jsx'
 import Review from './main/checkout/review.jsx'
 import Payment from './main/checkout/payment.jsx'
+import PaymentCancellation from './main/paymentCancellation.jsx'
 
 
 export default (
@@ -26,6 +27,7 @@ export default (
         <Route path="store" component={StoreContainer} />
         <Route path="products/:productId" component={Product} />
         <Route path="sign-in" component={SignIn} />
+        <Route path="payment-cancellation" component={PaymentCancellation} />
         <Route path="cart" component={Cart} />
         <Route path="checkout" component={Checkout}>
           <Route path="review" component={Review} />

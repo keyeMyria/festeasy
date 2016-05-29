@@ -26,7 +26,14 @@ export default class PaymentContainer extends React.Component {
   }
 
   makePayment() {
-    console.log('About to make payment.')
+    const queryParams = this.props.location.query
+    this.context.store.create('payu-transaction', {
+      invoice_id: queryParams['invoice-id'],
+    })
+    .then((response) => {
+      const payUReference = response.payu_reference
+      window.location.href = `https://staging.payu.co.za/rpp.do?PayUReference=${payUReference}`
+    })
   }
 
   render() {
@@ -38,6 +45,11 @@ export default class PaymentContainer extends React.Component {
   }
 }
 
+PaymentContainer.propTypes = {
+  location: PropTypes.object.isRequired,
+}
+
 PaymentContainer.contextTypes = {
-  cart: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
 }
