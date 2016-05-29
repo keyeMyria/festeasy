@@ -18,6 +18,7 @@ dependencies:
     - cd admin_www; bower install
     - cd admin_www; gulp
     - cd new_www; npm install
+    - cd new_www; webpack
 
 test:
   override:
@@ -34,6 +35,7 @@ deployment:
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
       - cd www; firebase deploy -f festeasy-staging --token=$FIREBASE_TOKEN --non-interactive
       - cd admin_www; firebase deploy -f fe-admin-staging --token=$FIREBASE_TOKEN --non-interactive
+      - cd new_www; firebase deploy -f fe-new-staging --token=$FIREBASE_TOKEN --non-interactive
   production:
     branch: production
     commands:
