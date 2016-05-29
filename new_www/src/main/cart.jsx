@@ -1,53 +1,11 @@
 import React, { PropTypes } from 'react'
-import { Select, Option } from 'semantic-react'
-
-
-class MySelect extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      active: false,
-      searchString: '',
-    }
-  }
-
-  render() {
-    const { fluid, options, placeholder, selected } = this.props
-    const { active, searchString } = this.state
-    return (
-      <Select
-        search
-        selection
-        fluid={fluid}
-        active={active}
-        selected={selected}
-        placeholder={placeholder}
-        onClick={() => this.setState({ active: true })}
-        onRequestClose={() => this.setState({ active: false })}
-        onSearchStringChange={string => this.setState({ searchString: string })}
-        searchString={searchString}
-        onSelectChange={val => this.props.updateSelected(val)}
-      >
-        {options.map((option) => (
-          option
-        ))}
-      </Select>
-    )
-  }
-}
-
-MySelect.propTypes = {
-  options: PropTypes.array.isRequired,
-  updateSelected: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  selected: PropTypes.array,
-  fluid: PropTypes.bool,
-}
+import { Input, Option } from 'semantic-react'
+import MySelect from '../mySelect.jsx'
 
 
 class Cart extends React.Component {
   render() {
-    const { cart, festivals } = this.props
+    const { cart, festivals, updateQuantity } = this.props
     const options = festivals.map((festival) => (
       <Option key={festival.id} value={festival.id}>{festival.name}</Option>
     ))
@@ -72,10 +30,19 @@ class Cart extends React.Component {
             {cart.cart_products.map((cartProduct) => (
               <tr key={cartProduct.id}>
                 <td>{cartProduct.product.name}</td>
-                <td>{cartProduct.quantity}</td>
+                <td>
+                  <Input
+                    type="number"
+                    onChange={(e) => updateQuantity(e, cartProduct)}
+                    value={cartProduct.quantity}
+                  />
+                </td>
                 <td>{cartProduct.sub_total_rands}</td>
                 <td>
-                  <button onClick={() => { this.props.removeCartProduct(cartProduct) }}>
+                  <button
+                    className="ui button"
+                    onClick={() => { this.props.removeCartProduct(cartProduct) }}
+                  >
                     Remove
                   </button>
                 </td>
@@ -94,6 +61,7 @@ Cart.propTypes = {
   festivals: PropTypes.array.isRequired,
   removeCartProduct: PropTypes.func.isRequired,
   selectFestival: PropTypes.func.isRequired,
+  updateQuantity: PropTypes.func.isRequired,
 }
 
 
@@ -109,6 +77,7 @@ export default class CartContainer extends React.Component {
     this.getCart = this.getCart.bind(this)
     this.removeCartProduct = this.removeCartProduct.bind(this)
     this.selectFestival = this.selectFestival.bind(this)
+    this.updateQuantity = this.updateQuantity.bind(this)
   }
 
   componentDidMount() {
@@ -148,6 +117,14 @@ export default class CartContainer extends React.Component {
     })
   }
 
+  updateQuantity(e, updatedCp) {
+    this.state.cart.cart_products.forEach((cp) => {
+      if (cp.id === updatedCp.id) {
+        console.log('Update the quantity.')
+      }
+    })
+  }
+
   selectFestival(festivalId) {
     this.context.store.update(
       'cart',
@@ -169,6 +146,7 @@ export default class CartContainer extends React.Component {
           festivals={festivals}
           removeCartProduct={this.removeCartProduct}
           selectFestival={this.selectFestival}
+          updateQuantity={this.updateQuantity}
         />
       )
     } else if (error) {
