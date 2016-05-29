@@ -7,6 +7,7 @@ export default class AuthWrapper extends React.Component {
     super()
     this.state = {
       isSigningIn: false,
+      isLoading: false,
       authSession: null,
       authUser: null,
       signInError: null,
@@ -16,28 +17,6 @@ export default class AuthWrapper extends React.Component {
     this.getAuthUser = this.getAuthUser.bind(this)
     this.onAuthSuccess = this.onAuthSuccess.bind(this)
     this.onAuthFailure = this.onAuthFailure.bind(this)
-
-    const sessionId = localStorage.getItem('authSessionId')
-    const sessionToken = localStorage.getItem('authSessionToken')
-    if (sessionId && sessionToken) {
-      axios({
-        method: 'get',
-        url: `v1/sessions/${sessionId}`,
-        headers: {
-          Authorization: sessionToken,
-        },
-      })
-      .then((response) => {
-        this.onAuthSuccess(response.data)
-      })
-      .catch((error) => {
-        localStorage.removeItem('authSessionId')
-        localStorage.removeItem('authSessionToken')
-      })
-    } else {
-      localStorage.removeItem('authSessionId')
-      localStorage.removeItem('authSessionToken')
-    }
   }
 
   getChildContext() {
@@ -57,6 +36,32 @@ export default class AuthWrapper extends React.Component {
     }
   }
 
+  componentWillMount() {
+    const sessionId = localStorage.getItem('authSessionId')
+    const sessionToken = localStorage.getItem('authSessionToken')
+    if (sessionId && sessionToken) {
+      this.setState({ isLoading: true })
+      axios({
+        method: 'get',
+        url: `v1/sessions/${sessionId}`,
+        headers: {
+          Authorization: sessionToken,
+        },
+      })
+      .then((response) => {
+        this.setState({ isLoading: false })
+        this.onAuthSuccess(response.data)
+      })
+      .catch(() => {
+        this.setState({ isLoading: false })
+        localStorage.removeItem('authSessionId')
+        localStorage.removeItem('authSessionToken')
+      })
+    } else {
+      localStorage.removeItem('authSessionId')
+      localStorage.removeItem('authSessionToken')
+    }
+  }
 
   onAuthSuccess(session) {
     localStorage.setItem('authSessionId', session.id)
@@ -102,7 +107,7 @@ export default class AuthWrapper extends React.Component {
   signIn(emailAddress, password) {
     axios({
       method: 'post',
-      url: 'http://localhost:5000/api/v1/signin',
+      url: 'v1/signin',
       data: {
         email_address: emailAddress,
         password,
@@ -129,21 +134,11 @@ export default class AuthWrapper extends React.Component {
   }
 
   render() {
-    const sessionId = localStorage.getItem('authSessionId')
-    const sessionToken = localStorage.getItem('authSessionToken')
-    const { authUser, authSession } = this.state
-    if (sessionId && sessionToken) {
-      if (authUser && authSession) {
-        return (
-          <div>
-            {this.props.children}
-          </div>
-        )
-      } else {
-        return (
-          <div>Loading</div>
-        )
-      }
+    const { isLoading } = this.state
+    if (isLoading) {
+      return (
+        <div className="ui active centered large inline loader"></div>
+      )
     } else {
       return (
         <div>
