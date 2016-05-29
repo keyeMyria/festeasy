@@ -6,8 +6,8 @@ machine:
 
 dependencies:
   cache_directories:
-    - ~/nvm/versions/node/4.2.2/bin
-    - ~/nvm/versions/node/4.2.2/lib/node_modules
+    - ~/nvm/versions/node/v4.2.2/bin
+    - ~/nvm/versions/node/v4.2.2/lib/node_modules
     - www/node_modules/
     - admin_www/node_modules/
   pre:
