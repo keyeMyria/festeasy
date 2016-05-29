@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import JSData from 'js-data'
 import DSHttpAdapter from 'js-data-http'
 import models from './models.js'
+import apiEndpoint from './apiEndpoint.js'
 
 
 export default class StoreWrapper extends React.Component {
@@ -10,7 +11,7 @@ export default class StoreWrapper extends React.Component {
     const store = new JSData.DS()
     store.registerAdapter(
       'http',
-      new DSHttpAdapter({ basePath: 'http://localhost:5000/api/v1' }),
+      new DSHttpAdapter({ basePath: `${apiEndpoint}/v1` }),
       { default: true }
     )
     models.forEach((model) => {

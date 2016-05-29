@@ -22,13 +22,17 @@ export default class AuthWrapper extends React.Component {
     if (sessionId && sessionToken) {
       axios({
         method: 'get',
-        url: `http://localhost:5000/api/v1/sessions/${sessionId}`,
+        url: `v1/sessions/${sessionId}`,
         headers: {
           Authorization: sessionToken,
         },
       })
       .then((response) => {
         this.onAuthSuccess(response.data)
+      })
+      .catch((error) => {
+        localStorage.removeItem('authSessionId')
+        localStorage.removeItem('authSessionToken')
       })
     } else {
       localStorage.removeItem('authSessionId')
@@ -83,7 +87,7 @@ export default class AuthWrapper extends React.Component {
   getAuthUser(session) {
     axios({
       method: 'get',
-      url: `http://localhost:5000/api/v1/users/${session.user_id}`,
+      url: `v1/users/${session.user_id}`,
       headers: {
         Authorization: session.token,
       },

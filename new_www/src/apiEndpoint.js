@@ -1,0 +1,1 @@
+module.exports = 'https://festeasy-staging.herokuapp.com/api/'

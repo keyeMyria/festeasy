@@ -35,9 +35,16 @@ tmp = {
     ),
 }
 
+new = {
+    'local': "module.exports = 'http://localhost:5000/api/'",
+    'staging': "module.exports = 'https://festeasy-staging.herokuapp.com/api/'",
+    'production': "module.exports = 'https://festeasy-production.herokuapp.com/api/'",
+}
+
 data = {
     'www/src/app/settings.coffee': tmp[args.environment],
     'admin_www/src/app/settings.coffee': tmp[args.environment],
+    'new_www/src/apiEndpoint.js': new[args.environment],
 }
 
 for path, line in data.items():
