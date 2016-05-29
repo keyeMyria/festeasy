@@ -1,0 +1,3 @@
+[submodule "semantic-react"]
+	path = semantic-react
+	url = https://github.com/hallister/semantic-react.git
