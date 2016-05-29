@@ -21,7 +21,7 @@ dependencies:
     - cd admin_www; bower install
     - cd admin_www; gulp
     - cd new_www; npm install
-    - cd new_www; webpack
+    - cd new_www; webpack --optimize-minimize --progress
 
 test:
   override:
