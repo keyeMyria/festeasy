@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -23,6 +24,11 @@ module.exports = {
   ],
   devServer: {
     historyApiFallback: true,
+  },
+  resolve: {
+    alias: {
+      'semantic-react': path.join(__dirname, '../semantic-react'),
+    },
   },
   module: {
     preLoaders: [
