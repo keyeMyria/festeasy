@@ -26,7 +26,7 @@ dependencies:
     - cd admin_www; gulp
     - cd new_www; git submodule init
     - cd new_www; git submodule update
-    - cd new_www/semantic-react; npm install
+    - cd semantic-react; npm install
     - cd new_www; npm install
     - cd new_www; webpack --optimize-minimize --progress
 
