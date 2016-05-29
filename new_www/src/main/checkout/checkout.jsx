@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import classNames from 'classnames'
 
 
 export default class Checkout extends React.Component {
