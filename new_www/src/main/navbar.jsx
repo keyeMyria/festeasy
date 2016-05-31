@@ -25,6 +25,7 @@ export default class Navbar extends React.Component {
     } else {
       links = [
         <NavLink key="c" to="/sign-in">Sign In</NavLink>,
+        <NavLink key="d" to="/sign-up">Sign Up</NavLink>,
       ]
     }
     return (

@@ -6,12 +6,15 @@ export default class AuthWrapper extends React.Component {
   constructor() {
     super()
     this.state = {
+      isSigningUp: false,
       isSigningIn: false,
       isLoading: false,
       authSession: null,
       authUser: null,
       signInError: null,
+      signUpError: null,
     }
+    this.signUp = this.signUp.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
     this.getAuthUser = this.getAuthUser.bind(this)
@@ -24,13 +27,18 @@ export default class AuthWrapper extends React.Component {
       authSession,
       authUser,
       isSigningIn,
+      isSigningUp,
       signInError,
+      signUpError,
     } = this.state
     return {
       authSession,
       authUser,
       isSigningIn,
+      isSigningUp,
       signInError,
+      signUpError,
+      signUp: this.signUp,
       signIn: this.signIn,
       signOut: this.signOut,
     }
@@ -104,7 +112,34 @@ export default class AuthWrapper extends React.Component {
     })
   }
 
+  signUp(firstName, emailAddress, password) {
+    this.setState({ isSigningUp: true })
+    axios({
+      method: 'post',
+      url: 'v1/signup',
+      data: {
+        first_name: firstName,
+        email_address: emailAddress,
+        password,
+      },
+    })
+    .then(() => {
+      this.signIn(emailAddress, password)
+      this.setState({
+        signUpError: null,
+        isSigningUp: false,
+      })
+    })
+    .catch(response => {
+      this.setState({
+        signUpError: response,
+        isSigningUp: false,
+      })
+    })
+  }
+
   signIn(emailAddress, password) {
+    this.setState({ isSigningIn: true })
     axios({
       method: 'post',
       url: 'v1/signin',
@@ -161,8 +196,14 @@ AuthWrapper.childContextTypes = {
   authSession: PropTypes.object,
   authUser: PropTypes.object,
   isSigningIn: PropTypes.bool,
+  isSigningUp: PropTypes.bool,
+  signUp: PropTypes.func,
   signIn: PropTypes.func,
   signOut: PropTypes.func,
+  signUpError: PropTypes.oneOfType([
+    PropTypes.oneOf([null]),
+    PropTypes.object,
+  ]),
   signInError: PropTypes.oneOfType([
     PropTypes.oneOf([null]),
     PropTypes.object,

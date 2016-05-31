@@ -11,6 +11,7 @@ import Product from './main/product.jsx'
 import Admin from './admin/admin.jsx'
 import App from './app.jsx'
 import SignIn from './common/signIn.jsx'
+import SignUp from './common/signUp.jsx'
 import NotFound from './common/notFound.jsx'
 import Cart from './main/cart.jsx'
 import Checkout from './main/checkout/checkout.jsx'
@@ -27,6 +28,7 @@ export default (
         <IndexRoute component={Landing} />
         <Route path="store" component={StoreContainer} />
         <Route path="products/:productId" component={Product} />
+        <Route path="sign-up" component={SignUp} />
         <Route path="sign-in" component={SignIn} />
         <Route path="payment-confirmation" component={PaymentConfirmation} />
         <Route path="payment-cancellation" component={PaymentCancellation} />

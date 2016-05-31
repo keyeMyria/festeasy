@@ -4,7 +4,7 @@ from flask import request
 
 from backend import db
 from backend.tasks import send_templated_email
-from backend.models import User, Session, Cart
+from backend.models import User, Cart
 from backend.api.v1.schemas import SignupSchema, UserSchema
 from backend.exceptions import APIException
 
