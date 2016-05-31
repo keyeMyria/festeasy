@@ -8,7 +8,7 @@ export default class AuthWrapper extends React.Component {
     this.state = {
       isSigningUp: false,
       isSigningIn: false,
-      isLoading: false,
+      isLoading: true,
       authSession: null,
       authUser: null,
       signInError: null,
@@ -48,7 +48,6 @@ export default class AuthWrapper extends React.Component {
     const sessionId = localStorage.getItem('authSessionId')
     const sessionToken = localStorage.getItem('authSessionToken')
     if (sessionId && sessionToken) {
-      this.setState({ isLoading: true })
       axios({
         method: 'get',
         url: `v1/sessions/${sessionId}`,
@@ -66,6 +65,7 @@ export default class AuthWrapper extends React.Component {
         localStorage.removeItem('authSessionToken')
       })
     } else {
+      this.setState({ isLoading: false })
       localStorage.removeItem('authSessionId')
       localStorage.removeItem('authSessionToken')
     }
