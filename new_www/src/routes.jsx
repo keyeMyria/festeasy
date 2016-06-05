@@ -20,6 +20,7 @@ import Payment from './main/pages/checkout/payment.jsx'
 import PaymentCancellation from './main/pages/paymentCancellation.jsx'
 import PaymentConfirmation from './main/pages/paymentConfirmation.jsx'
 import Account from './main/pages/account.jsx'
+import Order from './main/pages/order.jsx'
 import Orders from './main/pages/orders.jsx'
 import Settings from './main/pages/settings.jsx'
 
@@ -36,6 +37,7 @@ export default (
         <Route path="payment-confirmation" component={PaymentConfirmation} />
         <Route path="payment-cancellation" component={PaymentCancellation} />
         <Route path="account" component={Account}>
+          <Route path="orders/:orderId" component={Order} />
           <Route path="orders" component={Orders} />
           <Route path="settings" component={Settings} />
         </Route>
