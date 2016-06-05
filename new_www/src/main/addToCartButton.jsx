@@ -8,10 +8,16 @@ export default class AddToCartButton extends React.Component {
   }
 
   onClick() {
-    this.context.store.create('cartProduct', {
-      'cart_id': this.context.authUser.cart_id,
-      'product_id': this.props.product.id,
-    })
+    const { store, authSession } = this.context
+    if (authSession) {
+      store.find('user', authSession.user_id)
+      .then((user) => {
+        store.create('cartProduct', {
+          'cart_id': user.cart_id,
+          'product_id': this.props.product.id,
+        })
+      })
+    }
   }
 
   render() {
@@ -27,5 +33,5 @@ AddToCartButton.propTypes = {
 
 AddToCartButton.contextTypes = {
   store: PropTypes.object.isRequired,
-  authUser: PropTypes.object,
+  authSession: PropTypes.object,
 }

@@ -10,14 +10,12 @@ export default class AuthWrapper extends React.Component {
       isSigningIn: false,
       isLoading: true,
       authSession: null,
-      authUser: null,
       signInError: null,
       signUpError: null,
     }
     this.signUp = this.signUp.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
-    this.getAuthUser = this.getAuthUser.bind(this)
     this.onAuthSuccess = this.onAuthSuccess.bind(this)
     this.onAuthFailure = this.onAuthFailure.bind(this)
   }
@@ -25,7 +23,6 @@ export default class AuthWrapper extends React.Component {
   getChildContext() {
     const {
       authSession,
-      authUser,
       isSigningIn,
       isSigningUp,
       signInError,
@@ -33,7 +30,6 @@ export default class AuthWrapper extends React.Component {
     } = this.state
     return {
       authSession,
-      authUser,
       isSigningIn,
       isSigningUp,
       signInError,
@@ -56,18 +52,18 @@ export default class AuthWrapper extends React.Component {
         },
       })
       .then((response) => {
-        this.setState({ isLoading: false })
         this.onAuthSuccess(response.data)
+        this.setState({ isLoading: false })
       })
       .catch(() => {
-        this.setState({ isLoading: false })
         localStorage.removeItem('authSessionId')
         localStorage.removeItem('authSessionToken')
+        this.setState({ isLoading: false })
       })
     } else {
-      this.setState({ isLoading: false })
       localStorage.removeItem('authSessionId')
       localStorage.removeItem('authSessionToken')
+      this.setState({ isLoading: false })
     }
   }
 
@@ -79,7 +75,6 @@ export default class AuthWrapper extends React.Component {
       signInError: null,
       authSession: session,
     })
-    this.getAuthUser(session)
   }
 
   onAuthFailure(response) {
@@ -88,27 +83,11 @@ export default class AuthWrapper extends React.Component {
     this.setState({
       isSigningIn: false,
       authSession: null,
-      authUser: null,
       signInError: {
         status: response.stats,
         statusText: response.statusText,
         data: response.data,
       },
-    })
-  }
-
-  getAuthUser(session) {
-    axios({
-      method: 'get',
-      url: `v1/users/${session.user_id}`,
-      headers: {
-        Authorization: session.token,
-      },
-    })
-    .then((response) => {
-      this.setState({
-        authUser: response.data,
-      })
     })
   }
 
@@ -163,7 +142,6 @@ export default class AuthWrapper extends React.Component {
     this.setState({
       isSigningIn: false,
       authSession: null,
-      authUser: null,
       signInError: null,
     })
   }
@@ -194,7 +172,6 @@ AuthWrapper.contextTypes = {
 
 AuthWrapper.childContextTypes = {
   authSession: PropTypes.object,
-  authUser: PropTypes.object,
   isSigningIn: PropTypes.bool,
   isSigningUp: PropTypes.bool,
   signUp: PropTypes.func,
