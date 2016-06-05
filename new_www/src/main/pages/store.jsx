@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import AddToCartButton from './addToCartButton.jsx'
+import AddToCartButton from '../addToCartButton.jsx'
 
 
 class ProductListItem extends React.Component {

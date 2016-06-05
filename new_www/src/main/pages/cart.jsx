@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Button, Input, Option } from 'semantic-react'
-import MySelect from '../mySelect.jsx'
+import MySelect from '../../mySelect.jsx'
 
 
 class Cart extends React.Component {

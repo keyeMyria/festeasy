@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import AddToCartButton from './addToCartButton.jsx'
+import AddToCartButton from '../addToCartButton.jsx'
 
 
 class Product extends React.Component {

@@ -35,4 +35,8 @@ module.exports = [
     name: 'festival',
     endpoint: 'festivals',
   },
+  {
+    name: 'order',
+    endpoint: 'orders',
+  },
 ]
