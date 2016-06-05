@@ -22,7 +22,7 @@ class ChangePassword(Resource):
         if not user.has_password(current_password):
             logger.error('Incorrect current password.')
             raise APIException(
-                status_code=401,
+                status_code=400,
                 message='Incorrect password.',
             )
         user.set_password(new_password)
