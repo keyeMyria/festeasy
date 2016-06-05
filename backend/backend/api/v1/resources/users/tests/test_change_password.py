@@ -45,5 +45,5 @@ class TestChangePassword(APITestCase):
             url_for(endpoint, user_id=user.id),
             data=data,
         )
-        self.assertEqual(response.status_code, 401, response.json)
+        self.assertEqual(response.status_code, 400, response.json)
         self.assertTrue(user.has_password(current_password), response.json)
