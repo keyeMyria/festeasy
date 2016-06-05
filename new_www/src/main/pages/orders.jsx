@@ -24,7 +24,7 @@ class Orders extends React.Component {
                 <td>{o.festival.name}</td>
                 <td>R{o.total_rands}</td>
                 <td>R{o.current_invoice.amount_due_rands}</td>
-                <td><button className="ui button">Make Payment</button></td>
+                <td><Link to={`/account/orders/${o.id}/payment`}>Make payment</Link></td>
               </tr>
             ))}
           </tbody>

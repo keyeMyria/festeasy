@@ -23,6 +23,7 @@ import Account from './main/pages/account.jsx'
 import Order from './main/pages/order.jsx'
 import Orders from './main/pages/orders.jsx'
 import Settings from './main/pages/settings.jsx'
+import OrderPayment from './main/pages/orderPayment.jsx'
 
 
 export default (
@@ -38,6 +39,7 @@ export default (
         <Route path="payment-cancellation" component={PaymentCancellation} />
         <Route path="account" component={Account}>
           <Route path="orders/:orderId" component={Order} />
+          <Route path="orders/:orderId/payment" component={OrderPayment} />
           <Route path="orders" component={Orders} />
           <Route path="settings" component={Settings} />
         </Route>
