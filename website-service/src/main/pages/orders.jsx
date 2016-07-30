@@ -56,17 +56,17 @@ export default class OrdersContainer extends React.Component {
   fetchOrders() {
     const { store } = this.context
     store.findAll('order')
-    .then((orders) => {
-      this.setState({
-        orders,
-        error: null,
+      .then((orders) => {
+        this.setState({
+          orders,
+          error: null,
+        })
       })
-    })
-    .catch((error) => {
-      this.setState({
-        error,
+      .catch((error) => {
+        this.setState({
+          error,
+        })
       })
-    })
   }
 
   render() {

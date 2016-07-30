@@ -54,19 +54,19 @@ export default class ProductListContainer extends React.Component {
       products: [],
     }
     context.store.findAll('product')
-    .then((products) => {
-      this.setState({
-        loading: false,
-        error: null,
-        products,
+      .then((products) => {
+        this.setState({
+          loading: false,
+          error: null,
+          products,
+        })
       })
-    })
-    .catch((error) => {
-      this.setState({
-        loading: false,
-        error,
+      .catch((error) => {
+        this.setState({
+          loading: false,
+          error,
+        })
       })
-    })
   }
 
   render() {

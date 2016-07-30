@@ -15,17 +15,17 @@ export default class OrderPayment extends React.Component {
     const { store } = this.context
     const { orderId } = this.props.params
     store.find('order', orderId)
-    .then((order) => {
-      this.setState({
-        order,
-        error: null,
+      .then((order) => {
+        this.setState({
+          order,
+          error: null,
+        })
       })
-    })
-    .catch((error) => {
-      this.setState({
-        error,
+      .catch((error) => {
+        this.setState({
+          error,
+        })
       })
-    })
   }
 
   render() {

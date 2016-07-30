@@ -65,10 +65,10 @@ export default class ReviewContainer extends React.Component {
       method: 'post',
       url: `v1/carts/${cartId}/checkout`,
     })
-    .then((response) => {
-      const invoiceId = response.data.current_invoice.id
-      this.context.router.push(`/checkout/payment?invoice-id=${invoiceId}`)
-    })
+      .then((response) => {
+        const invoiceId = response.data.current_invoice.id
+        this.context.router.push(`/checkout/payment?invoice-id=${invoiceId}`)
+      })
   }
 
   getCart() {
@@ -80,12 +80,12 @@ export default class ReviewContainer extends React.Component {
         bypassCache: true,
       }
     )
-    .then((cart) => {
-      this.setState({
-        loading: false,
-        cart,
+      .then((cart) => {
+        this.setState({
+          loading: false,
+          cart,
+        })
       })
-    })
   }
 
   render() {

@@ -33,18 +33,18 @@ class ChangePassword extends React.Component {
         'new_password': newPassword,
       },
     })
-    .then(() => {
-      addNotification({
-        message: 'Successfully changed password.',
-        level: 'success',
+      .then(() => {
+        addNotification({
+          message: 'Successfully changed password.',
+          level: 'success',
+        })
       })
-    })
-    .catch(() => {
-      addNotification({
-        message: 'Failed to change password.',
-        level: 'error',
+      .catch(() => {
+        addNotification({
+          message: 'Failed to change password.',
+          level: 'error',
+        })
       })
-    })
   }
 
   render() {

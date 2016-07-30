@@ -30,19 +30,19 @@ export default class ProductContainer extends React.Component {
       product: null,
     }
     context.store.find('product', this.props.params.productId)
-    .then((product) => {
-      this.setState({
-        loading: false,
-        error: null,
-        product,
+      .then((product) => {
+        this.setState({
+          loading: false,
+          error: null,
+          product,
+        })
       })
-    })
-    .catch((error) => {
-      this.setState({
-        loading: false,
-        error,
+      .catch((error) => {
+        this.setState({
+          loading: false,
+          error,
+        })
       })
-    })
   }
 
   render() {

@@ -30,10 +30,10 @@ export default class PaymentContainer extends React.Component {
     this.context.store.create('payu-transaction', {
       invoice_id: invoiceId,
     })
-    .then((response) => {
-      const payUReference = response.payu_reference
-      window.location.href = `https://staging.payu.co.za/rpp.do?PayUReference=${payUReference}`
-    })
+      .then((response) => {
+        const payUReference = response.payu_reference
+        window.location.href = `https://staging.payu.co.za/rpp.do?PayUReference=${payUReference}`
+      })
   }
 
   render() {

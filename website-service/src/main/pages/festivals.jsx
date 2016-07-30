@@ -56,19 +56,19 @@ export default class FestivalListContainer extends React.Component {
       error: null,
     }
     context.store.findAll('festival')
-    .then((festivals) => {
-      this.setState({
-        loading: false,
-        error: null,
-        festivals,
+      .then((festivals) => {
+        this.setState({
+          loading: false,
+          error: null,
+          festivals,
+        })
       })
-    })
-    .catch(() => {
-      this.setState({
-        loading: false,
-        error: 'something went wrong',
+      .catch(() => {
+        this.setState({
+          loading: false,
+          error: 'something went wrong',
+        })
       })
-    })
   }
 
   render() {

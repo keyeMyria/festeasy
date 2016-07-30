@@ -1,6 +1,5 @@
 import React from 'react'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-
 import Main from './main/main.jsx'
 import Store from './main/pages/store.jsx'
 import Landing from './main/pages/landing.jsx'

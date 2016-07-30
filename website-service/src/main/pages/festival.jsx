@@ -29,19 +29,19 @@ export default class FestivalContainer extends React.Component {
       error: null,
     }
     context.store.find('festival', this.props.params.festivalId)
-    .then((festival) => {
-      this.setState({
-        loading: false,
-        error: null,
-        festival,
+      .then((festival) => {
+        this.setState({
+          loading: false,
+          error: null,
+          festival,
+        })
       })
-    })
-    .catch((error) => {
-      this.setState({
-        loading: false,
-        error,
+      .catch((error) => {
+        this.setState({
+          loading: false,
+          error,
+        })
       })
-    })
   }
 
   render() {

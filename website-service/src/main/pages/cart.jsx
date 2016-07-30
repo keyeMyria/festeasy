@@ -103,26 +103,26 @@ export default class CartContainer extends React.Component {
     )
     const festivals = this.context.store.findAll('festival')
     Promise.all([cart, festivals])
-    .then((values) => {
-      this.setState({
-        loading: false,
-        cart: values[0],
-        festivals: values[1],
+      .then((values) => {
+        this.setState({
+          loading: false,
+          cart: values[0],
+          festivals: values[1],
+        })
       })
-    })
-    .catch(() => {
-      this.setState({
-        loading: false,
-        error: 'Something went wrong.',
+      .catch(() => {
+        this.setState({
+          loading: false,
+          error: 'Something went wrong.',
+        })
       })
-    })
   }
 
   removeCartProduct(cp) {
     this.context.store.destroy('cartProduct', cp.id)
-    .then(() => {
-      this.getCart()
-    })
+      .then(() => {
+        this.getCart()
+      })
   }
 
   updateQuantity(e, updatedCp) {
@@ -140,9 +140,9 @@ export default class CartContainer extends React.Component {
       { festival_id: festivalId },
       { method: 'PATCH' }
     )
-    .then(() => {
-      this.getCart()
-    })
+      .then(() => {
+        this.getCart()
+      })
   }
 
   render() {
