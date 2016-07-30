@@ -20,9 +20,9 @@ dependencies:
 
 test:
   override:
-    - cd backend; python manage.py -c testing run-tests -j tests.xml
+    - cd backend-service; python manage.py -c testing run-tests -j tests.xml
   post:
-    - cd backend; cp ./tests.xml $CIRCLE_TEST_REPORTS
+    - cd backend-service; cp ./tests.xml $CIRCLE_TEST_REPORTS
 
 deployment:
   staging:
