@@ -1,188 +1,140 @@
 import React, { PropTypes } from 'react'
 import axios from 'axios'
+import apiEndpoint from 'apiEndpoint'
 
 
 export default class AuthWrapper extends React.Component {
+  static childContextTypes = {
+    authDetails: PropTypes.object,
+    signIn: PropTypes.func,
+    signOut: PropTypes.func,
+    axios: PropTypes.func.isRequired,
+  }
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
+  static propTypes = {
+    children: PropTypes.any,
+  }
+
   constructor() {
     super()
-    this.state = {
-      isSigningUp: false,
-      isSigningIn: false,
-      isLoading: true,
-      authSession: null,
-      signInError: null,
-      signUpError: null,
-    }
-    this.signUp = this.signUp.bind(this)
+    let authDetails = null
+    const sessionId = localStorage.getItem('sessionId')
+    const sessionToken = localStorage.getItem('sessionToken')
+    const userId = localStorage.getItem('userId')
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
-    this.onAuthSuccess = this.onAuthSuccess.bind(this)
-    this.onAuthFailure = this.onAuthFailure.bind(this)
+    this.persistAuthDetails = this.persistAuthDetails.bind(this)
+    this.clearAuthDetails = this.clearAuthDetails.bind(this)
+    this.requestInterceptor = this.requestInterceptor.bind(this)
+    this.responseErrorInterceptor = this.responseErrorInterceptor.bind(this)
+    axios.defaults.baseURL = apiEndpoint.concat('v1')
+    axios.interceptors.request.use(this.requestInterceptor)
+    axios.interceptors.response.use((r) => (r), this.responseErrorInterceptor)
+    if (sessionId && sessionToken && userId) {
+      authDetails = {
+        sessionId,
+        sessionToken,
+        userId,
+      }
+    } else {
+      this.clearAuthDetails()
+    }
+    this.state = {
+      authDetails,
+      axios,
+    }
   }
 
   getChildContext() {
     const {
-      authSession,
-      isSigningIn,
-      isSigningUp,
-      signInError,
-      signUpError,
+      authDetails,
     } = this.state
     return {
-      authSession,
-      isSigningIn,
-      isSigningUp,
-      signInError,
-      signUpError,
-      signUp: this.signUp,
+      authDetails,
+      axios,
       signIn: this.signIn,
       signOut: this.signOut,
     }
   }
 
-  componentWillMount() {
-    const sessionId = localStorage.getItem('authSessionId')
-    const sessionToken = localStorage.getItem('authSessionToken')
-    if (sessionId && sessionToken) {
-      axios({
-        method: 'get',
-        url: `v1/sessions/${sessionId}`,
-        headers: {
-          Authorization: sessionToken,
-        },
-      })
-      .then((response) => {
-        this.onAuthSuccess(response.data)
-        this.setState({ isLoading: false })
-      })
-      .catch(() => {
-        localStorage.removeItem('authSessionId')
-        localStorage.removeItem('authSessionToken')
-        this.setState({ isLoading: false })
-      })
-    } else {
-      localStorage.removeItem('authSessionId')
-      localStorage.removeItem('authSessionToken')
-      this.setState({ isLoading: false })
+  persistAuthDetails(sessionId, sessionToken, userId) {
+    localStorage.setItem('sessionId', sessionId)
+    localStorage.setItem('sessionToken', sessionToken)
+    localStorage.setItem('userId', userId)
+  }
+
+  requestInterceptor(config) {
+    const newConfig = Object.assign(config, {})
+    if ('authDetails' in this.state && this.state.authDetails) {
+      if ('sessionToken' in this.state.authDetails) {
+        newConfig.headers.Authorization = this.state.authDetails.sessionToken
+      }
     }
+    return newConfig
   }
 
-  onAuthSuccess(session) {
-    localStorage.setItem('authSessionId', session.id)
-    localStorage.setItem('authSessionToken', session.token)
+  responseErrorInterceptor(response) {
+    const { router } = this.context
+    if (response.status === 401) {
+      this.clearAuthDetails()
+      router.push('/sign-in')
+    }
+    return Promise.reject(response)
+  }
+
+  clearAuthDetails() {
+    localStorage.removeItem('sessionId')
+    localStorage.removeItem('sessionToken')
+    localStorage.removeItem('userId')
     this.setState({
-      isSigningIn: false,
-      signInError: null,
-      authSession: session,
-    })
-  }
-
-  onAuthFailure(response) {
-    localStorage.removeItem('authSessionId')
-    localStorage.removeItem('authSessionToken')
-    this.setState({
-      isSigningIn: false,
-      authSession: null,
-      signInError: {
-        status: response.stats,
-        statusText: response.statusText,
-        data: response.data,
-      },
-    })
-  }
-
-  signUp(firstName, emailAddress, password) {
-    this.setState({ isSigningUp: true })
-    axios({
-      method: 'post',
-      url: 'v1/signup',
-      data: {
-        first_name: firstName,
-        email_address: emailAddress,
-        password,
-      },
-    })
-    .then(() => {
-      this.signIn(emailAddress, password)
-      this.setState({
-        signUpError: null,
-        isSigningUp: false,
-      })
-    })
-    .catch(response => {
-      this.setState({
-        signUpError: response,
-        isSigningUp: false,
-      })
+      authDetails: null,
     })
   }
 
   signIn(emailAddress, password) {
-    this.setState({ isSigningIn: true })
-    axios({
-      method: 'post',
-      url: 'v1/signin',
-      data: {
-        email_address: emailAddress,
-        password,
-      },
-    })
-    .then(response => {
-      this.onAuthSuccess(response.data)
-      this.context.router.push('/')
-    })
-    .catch(response => {
-      this.onAuthFailure(response)
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: 'auth/signin',
+        data: {
+          email_address: emailAddress,
+          password,
+        },
+      })
+        .then(response => {
+          const session = response.data.session
+          this.persistAuthDetails(session.id, session.token, session.user_id)
+          this.setState({
+            authDetails: {
+              sessionId: session.id,
+              sessionToken: session.token,
+              userId: session.user_id,
+            },
+          }, resolve(response))
+        })
+        .catch(response => {
+          this.clearAuthDetails()
+          reject(response)
+        })
     })
   }
 
   signOut() {
-    localStorage.removeItem('authSessionId')
-    localStorage.removeItem('authSessionToken')
-    this.setState({
-      isSigningIn: false,
-      authSession: null,
-      signInError: null,
+    return new Promise((resolve) => {
+      this.clearAuthDetails()
+      resolve()
     })
   }
 
   render() {
-    const { isLoading } = this.state
-    if (isLoading) {
-      return (
-        <div className="ui active centered large inline loader"></div>
-      )
-    } else {
-      return (
-        <div>
-          {this.props.children}
-        </div>
-      )
-    }
+    return (
+      <div>
+        {this.props.children}
+      </div>
+    )
   }
-}
-
-AuthWrapper.propTypes = {
-  children: PropTypes.any,
-}
-
-AuthWrapper.contextTypes = {
-  router: PropTypes.object.isRequired,
-}
-
-AuthWrapper.childContextTypes = {
-  authSession: PropTypes.object,
-  isSigningIn: PropTypes.bool,
-  isSigningUp: PropTypes.bool,
-  signUp: PropTypes.func,
-  signIn: PropTypes.func,
-  signOut: PropTypes.func,
-  signUpError: PropTypes.oneOfType([
-    PropTypes.oneOf([null]),
-    PropTypes.object,
-  ]),
-  signInError: PropTypes.oneOfType([
-    PropTypes.oneOf([null]),
-    PropTypes.object,
-  ]),
 }
