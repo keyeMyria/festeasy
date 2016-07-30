@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import { Button, Input, Option } from 'semantic-react'
 import MySelect from 'utils/mySelect.jsx'
 import Page from 'common/page.jsx'
@@ -14,13 +15,14 @@ class Cart extends React.Component {
     onCheckout: PropTypes.func.isRequired,
   }
 
-  render() {
+  getMain() {
     const { cart, festivals, updateQuantity, onCheckout } = this.props
     const options = festivals.map((festival) => (
       <Option key={festival.id} value={festival.id}>{festival.name}</Option>
     ))
     return (
-      <div>
+      <div className="ui segment">
+        <label>Select festival:</label>
         <MySelect
           fluid
           selected={[cart.festival_id]}
@@ -64,6 +66,25 @@ class Cart extends React.Component {
         <Button onClick={onCheckout}>Secure Checkout</Button>
       </div>
     )
+  }
+
+  render() {
+    const { cart } = this.props
+    let result
+    console.log(cart)
+    if (cart.cart_products.length === 0) {
+      result = (
+        <h2 className="ui center aligned header">
+          Cart Empty
+          <div className="sub header">
+            <Link to="/store">Continue shopping</Link>
+          </div>
+        </h2>
+      )
+    } else {
+      result = this.getMain()
+    }
+    return result
   }
 }
 
