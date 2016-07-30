@@ -6,10 +6,10 @@ from .reset_password import ResetPassword
 
 
 v1_api.add_resource(Signup,
-                    '/signup')
+                    '/auth/signup')
 v1_api.add_resource(Signin,
-                    '/signin')
+                    '/auth/signin')
 v1_api.add_resource(ResetPassword,
-                    '/reset-password')
+                    '/auth/reset-password')
 v1_api.add_resource(Facebook,
                     '/auth/facebook')
