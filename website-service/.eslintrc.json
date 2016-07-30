@@ -1,6 +1,5 @@
 {
     "env": {
-        "es6": true,
         "commonjs": true,
         "browser": true
     },
@@ -10,10 +9,7 @@
         "react"
     ],
     "settings": {
-      "import/resolver": "webpack",
-      "react": {
-        "version": "15.0"
-      }
+      "import/resolver": "webpack"
     },
     "extends": [
       "eslint:recommended",
@@ -21,8 +17,9 @@
       "airbnb"
     ],
     "installedESLint": true,
+    "parser": "babel-eslint",
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 7,
         "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true

@@ -15,7 +15,7 @@ dependencies:
     - npm install -g firebase-tools@2.2.0 netlify-cli gulp webpack eslint
     - pip install -r requirements.txt
     - python ./configure_api_endpoints.py -e $CIRCLE_BRANCH
-    - cd website-service; npm install
+    - cd website-service; npm install --production
     - cd website-service; webpack --optimize-minimize --progress
 
 test:
