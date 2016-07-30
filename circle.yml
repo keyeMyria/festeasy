@@ -5,14 +5,10 @@ machine:
     version: 6.3.0
 
 dependencies:
-  cache_directories:
-    - ~/nvm/versions/node/v6.3.0/bin/
-    - ~/nvm/versions/node/v6.3.0/lib/node_modules/
-    - website-service/node_modules/
   pre:
     - sudo apt-get update; sudo apt-get -y install python3-dev gcc
-  override:
     - npm install -g netlify-cli webpack
+  override:
     - cd backend-service; pip install -r requirements.txt
     - python ./configure_api_endpoints.py -e $CIRCLE_BRANCH
     - cd website-service; npm install --production
