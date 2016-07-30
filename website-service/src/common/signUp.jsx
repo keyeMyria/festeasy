@@ -27,8 +27,19 @@ export default class SignUp extends React.Component {
 
   handleSignUp(e) {
     e.preventDefault()
+    const { router } = this.context
     const { firstName, emailAddress, password } = this.state
+    this.setState({ isSigningUp: true })
     this.context.signUp(firstName, emailAddress, password)
+      .then(() => {
+        router.push('/store')
+      })
+      .catch(() => {
+        this.setState({
+          isSigningUp: false,
+          signUpError: 'Something went wrong',
+        })
+      })
   }
 
   render() {
@@ -47,10 +58,10 @@ export default class SignUp extends React.Component {
     return (
       <div className="ui container centered grid">
         <div className="ui segment six wide column">
-          <h1 className="ui header">Sign In</h1>
+          <h1 className="ui header">Sign Up</h1>
           <form className={formClass} onSubmit={this.handleSignUp}>
             <div className="ui error message">
-              <div className="header">Failed to sign in</div>
+              <div className="header">Failed to sign up</div>
               <p>Something went wrong</p>
             </div>
             <div className="ui field">

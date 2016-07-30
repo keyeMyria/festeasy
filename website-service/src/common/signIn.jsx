@@ -28,12 +28,11 @@ export default class SignIn extends React.Component {
 
   handleSignIn(e) {
     e.preventDefault()
+    const { router } = this.context
     const { emailAddress, password } = this.state
     this.context.signIn(emailAddress, password)
       .then(() => {
-        this.setState({
-          isSigningIn: false,
-        })
+        router.push('/store')
       })
       .catch((error) => {
         this.setState({
