@@ -14,7 +14,6 @@ export default class Page extends React.Component {
     const {
       header,
       isLoading,
-      isRefreshing,
       content,
       contentError,
     } = this.props
@@ -28,11 +27,7 @@ export default class Page extends React.Component {
     } else if (contentError) {
       result = contentError
     } else if (content) {
-      result = (
-        <div className={'ui segment '.concat(isRefreshing ? 'loading' : '')}>
-          {content}
-        </div>
-      )
+      result = content
     } else {
       result = <div>No idea</div>
     }

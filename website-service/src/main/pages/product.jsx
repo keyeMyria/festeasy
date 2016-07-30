@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Page from 'common/page.jsx'
 import AddToCartButton from 'main/addToCartButton.jsx'
+import PriceFormatter from 'utils/priceFormatter.jsx'
 
 
 class Product extends React.Component {
@@ -8,9 +9,9 @@ class Product extends React.Component {
     const { product } = this.props
     return (
       <div>
-        <h2>{product.name}</h2>
+        <h2 className="ui center aligned header">{product.name}</h2>
         <p>{product.description}</p>
-        <p>Price: {product.price_rands}</p>
+        <p>Price: <PriceFormatter rands={product.price_rands} /></p>
         <AddToCartButton product={product} />
       </div>
     )
@@ -41,7 +42,7 @@ export default class ProductContainer extends React.Component {
 
   componentWillMount() {
     const { store } = this.context
-    store.find('product', this.props.params.productId)
+    store.find('product', this.props.params.productId, { bypassCache: true })
       .then((product) => {
         this.setState({
           product,

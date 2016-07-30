@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Page from 'common/page.jsx'
+import DateFormatter from 'utils/dateFormatter.jsx'
 
 
 class Festival extends React.Component {
@@ -11,10 +12,9 @@ class Festival extends React.Component {
     const { festival } = this.props
     return (
       <div>
-        <h1>{festival.name}</h1>
+        <h2 className="ui center aligned header">{festival.name}</h2>
         <p>{festival.description}</p>
-        <p>Starts On: {festival.starts_on}</p>
-        <p>Ends On: {festival.ends_on}</p>
+        <p>Starts On: <DateFormatter date={festival.starts_on} /></p>
       </div>
     )
   }
@@ -41,7 +41,7 @@ export default class FestivalContainer extends React.Component {
   componentWillMount() {
     const { store } = this.context
     const { festivalId } = this.props.params
-    store.find('festival', festivalId)
+    store.find('festival', festivalId, { bypassCache: true })
       .then((festival) => {
         this.setState({
           festival,

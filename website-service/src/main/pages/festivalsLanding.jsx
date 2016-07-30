@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 
-export default class Store extends React.Component {
+export default class FestivalsLanding extends React.Component {
   static propTypes = {
     children: PropTypes.any.isRequired,
   }
@@ -9,7 +9,7 @@ export default class Store extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui center aligned header">Store</h1>
+        <h1 className="ui center aligned header">Festivals</h1>
         {this.props.children}
       </div>
     )

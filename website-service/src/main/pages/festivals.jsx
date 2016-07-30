@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 import { festivalShape } from 'utils/shapes.jsx'
 import Page from 'common/page.jsx'
+import DateFormatter from 'utils/dateFormatter.jsx'
 
 
 class FestivalListItem extends React.Component {
@@ -19,8 +20,7 @@ class FestivalListItem extends React.Component {
           </Link>
         </h2>
         <p>{festival.description}</p>
-        <p>Starts: {festival.starts_on}</p>
-        <p>Ends: {festival.ends_on}</p>
+        <p>Starts: <DateFormatter date={festival.starts_on} /></p>
       </div>
     )
   }
@@ -39,7 +39,10 @@ class FestivalList extends React.Component {
     return (
       <div>
         {festivals.map(festival => (
-          <FestivalListItem key={festival.id} festival={festival} />
+          <div key={festival.id}>
+            <FestivalListItem festival={festival} />
+            <div className="ui divider" />
+          </div>
         ))}
       </div>
     )
@@ -62,7 +65,7 @@ export default class FestivalListContainer extends React.Component {
 
   componentWillMount() {
     const { store } = this.context
-    store.findAll('festival')
+    store.findAll('festival', {}, { bypassCache: true })
       .then((festivals) => {
         this.setState({
           festivals,
@@ -81,8 +84,8 @@ export default class FestivalListContainer extends React.Component {
     const { festivals, error } = this.state
     return (
       <Page
-        header={<h2 className="ui header">Festivals</h2>}
         isLoading={!festivals && !error}
+        contentError={error}
         content={
           festivals ? <FestivalList festivals={festivals} /> : ''
         }

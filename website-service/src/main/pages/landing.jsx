@@ -5,7 +5,7 @@ export default class Landing extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui header">Landing here</h1>
+        <h1 className="ui center aligned header">Landing page here</h1>
       </div>
     )
   }

@@ -35,7 +35,7 @@ export default class Navbar extends React.Component {
       ]
     }
     return (
-      <div className="ui fixed menu">
+      <div className="ui fixed secondary pointing menu">
         <div className="ui container">
           <div className="header item">
             <Link to="/">Home</Link>
@@ -43,7 +43,9 @@ export default class Navbar extends React.Component {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/festivals">Festivals</NavLink>
           <NavLink to="/store">Store</NavLink>
-          {links}
+          <div className="right menu">
+            {links}
+          </div>
         </div>
       </div>
     )
