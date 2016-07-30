@@ -1,11 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   entry: './src/entry.jsx',
   output: {
     path: 'build',
@@ -13,6 +14,11 @@ module.exports = {
     publicPath: '/',
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+      },
+    }),
     new ExtractTextPlugin('[name].css'),
     new CopyWebpackPlugin([{
       from: '_redirects',
@@ -41,7 +47,7 @@ module.exports = {
       {
         include: [path.join(__dirname, './src')],
         test: /\.jsx$/,
-        loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=stage-0&presets[]=react'],
+        loaders: ['babel-loader?presets[]=es2015&presets[]=stage-0&presets[]=react'],
       },
       {
         test: /\.css$/,

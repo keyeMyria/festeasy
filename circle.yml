@@ -16,7 +16,7 @@ dependencies:
     - cd backend-service; pip install -r requirements.txt
     - python ./configure_api_endpoints.py -e $CIRCLE_BRANCH
     - cd website-service; npm install --production
-    - cd website-service; webpack --optimize-minimize --progress
+    - cd website-service; webpack -p --config webpack.production.config.js
 
 test:
   override:
