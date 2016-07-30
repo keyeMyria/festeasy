@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
   devtool: 'source-map',
@@ -12,6 +14,7 @@ module.exports = {
     publicPath: '/',
   },
   plugins: [
+    new ExtractTextPlugin('[name].css'),
     new CopyWebpackPlugin([
       {
         from: '_redirects',
@@ -27,23 +30,23 @@ module.exports = {
       jQuery: 'jquery',
     }),
   ],
+  resolve: {
+    modulesDirectories: ['node_modules', './src'],
+  },
   devServer: {
     historyApiFallback: true,
-  },
-  resolve: {
-    alias: {
-      'semantic-react': path.join(__dirname, '../semantic-react'),
-    },
   },
   module: {
     preLoaders: [
       {
+        include: [path.join(__dirname, './src')],
         test: /\.jsx$/,
         loader: 'eslint-loader',
       },
     ],
     loaders: [
       {
+        include: [path.join(__dirname, './src')],
         test: /\.jsx$/,
         loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=react'],
       },
