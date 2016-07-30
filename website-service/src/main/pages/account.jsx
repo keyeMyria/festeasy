@@ -10,7 +10,8 @@ export default class Account extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui header">Account</h1>
+        <h1 className="ui center aligned header">Account</h1>
+        <div className="ui divider" />
         <div className="ui two column grid">
           <div className="four wide column">
             <div className="ui vertical pointing menu">

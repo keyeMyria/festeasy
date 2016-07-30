@@ -153,21 +153,25 @@ export default class CartContainer extends React.Component {
   render() {
     const { cart, error, festivals } = this.state
     return (
-      <Page
-        isLoading={!cart && !festivals && !error}
-        contentError={error}
-        content={
-          cart && festivals ?
-            <Cart
-              cart={cart}
-              festivals={festivals}
-              removeCartProduct={this.removeCartProduct}
-              selectFestival={this.selectFestival}
-              updateQuantity={this.updateQuantity}
-              onCheckout={this.onCheckout}
-            /> : ''
-        }
-      />
+      <div>
+        <h1 className="ui center aligned header">Cart</h1>
+        <div className="ui divider" />
+        <Page
+          isLoading={!cart && !festivals && !error}
+          contentError={error}
+          content={
+            cart && festivals ?
+              <Cart
+                cart={cart}
+                festivals={festivals}
+                removeCartProduct={this.removeCartProduct}
+                selectFestival={this.selectFestival}
+                updateQuantity={this.updateQuantity}
+                onCheckout={this.onCheckout}
+              /> : ''
+          }
+        />
+      </div>
     )
   }
 }

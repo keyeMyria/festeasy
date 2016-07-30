@@ -5,7 +5,7 @@ import Store from 'main/pages/store.jsx'
 import Products from 'main/pages/products.jsx'
 import Landing from 'main/pages/landing.jsx'
 import About from 'main/pages/about.jsx'
-import FestivalsLanding from 'main/pages/festivalsLanding.jsx'
+import FestivalList from 'main/pages/festivalList.jsx'
 import Festivals from 'main/pages/festivals.jsx'
 import Festival from 'main/pages/festival.jsx'
 import Product from 'main/pages/product.jsx'
@@ -51,8 +51,8 @@ export default (
           <Route path="payment" component={Payment} />
         </Route>
         <Route path="about" component={About} />
-        <Route path="festivals" component={FestivalsLanding}>
-          <IndexRoute component={Festivals} />
+        <Route path="festivals" component={Festivals}>
+          <IndexRoute component={FestivalList} />
           <Route path=":festivalId" component={Festival} />
         </Route>
       </Route>
