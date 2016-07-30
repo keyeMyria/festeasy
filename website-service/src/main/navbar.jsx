@@ -15,9 +15,14 @@ class NavLink extends React.Component {
 }
 
 export default class Navbar extends React.Component {
+  static contextTypes = {
+    authDetails: PropTypes.object,
+    signOut: PropTypes.func.isRequired,
+  }
+
   render() {
     let links = []
-    if (this.context.authSession) {
+    if (this.context.authDetails) {
       links = [
         <NavLink key="c" to="/account">Account</NavLink>,
         <NavLink key="a" to="/cart">Cart</NavLink>,
@@ -43,12 +48,4 @@ export default class Navbar extends React.Component {
       </div>
     )
   }
-}
-
-Navbar.contextTypes = {
-  authSession: PropTypes.oneOfType([
-    PropTypes.oneOf([null]),
-    PropTypes.object,
-  ]),
-  signOut: PropTypes.func.isRequired,
 }

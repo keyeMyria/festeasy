@@ -3,8 +3,16 @@ import { Select } from 'semantic-react'
 
 
 export default class MySelect extends React.Component {
-  constructor(props) {
-    super(props)
+  static propTypes = {
+    options: PropTypes.array.isRequired,
+    updateSelected: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    selected: PropTypes.array,
+    fluid: PropTypes.bool,
+  }
+
+  constructor() {
+    super()
     this.state = {
       active: false,
       searchString: '',
@@ -34,12 +42,4 @@ export default class MySelect extends React.Component {
       </Select>
     )
   }
-}
-
-MySelect.propTypes = {
-  options: PropTypes.array.isRequired,
-  updateSelected: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  selected: PropTypes.array,
-  fluid: PropTypes.bool,
 }

@@ -6,8 +6,9 @@ import apiEndpoint from 'apiEndpoint'
 export default class AuthWrapper extends React.Component {
   static childContextTypes = {
     authDetails: PropTypes.object,
-    signIn: PropTypes.func,
-    signOut: PropTypes.func,
+    signIn: PropTypes.func.isRequired,
+    signUp: PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired,
     axios: PropTypes.func.isRequired,
   }
 
@@ -26,6 +27,7 @@ export default class AuthWrapper extends React.Component {
     const sessionToken = localStorage.getItem('sessionToken')
     const userId = localStorage.getItem('userId')
     this.signIn = this.signIn.bind(this)
+    this.signUp = this.signUp.bind(this)
     this.signOut = this.signOut.bind(this)
     this.persistAuthDetails = this.persistAuthDetails.bind(this)
     this.clearAuthDetails = this.clearAuthDetails.bind(this)
@@ -35,28 +37,20 @@ export default class AuthWrapper extends React.Component {
     axios.interceptors.request.use(this.requestInterceptor)
     axios.interceptors.response.use((r) => (r), this.responseErrorInterceptor)
     if (sessionId && sessionToken && userId) {
-      authDetails = {
-        sessionId,
-        sessionToken,
-        userId,
-      }
+      authDetails = { sessionId, sessionToken, userId }
     } else {
       this.clearAuthDetails()
     }
-    this.state = {
-      authDetails,
-      axios,
-    }
+    this.state = { authDetails, axios }
   }
 
   getChildContext() {
-    const {
-      authDetails,
-    } = this.state
+    const { authDetails } = this.state
     return {
       authDetails,
       axios,
       signIn: this.signIn,
+      signUp: this.signUp,
       signOut: this.signOut,
     }
   }
@@ -90,8 +84,27 @@ export default class AuthWrapper extends React.Component {
     localStorage.removeItem('sessionId')
     localStorage.removeItem('sessionToken')
     localStorage.removeItem('userId')
-    this.setState({
-      authDetails: null,
+  }
+
+  signUp(firstName, emailAddress, password) {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'post',
+        url: 'auth/signup',
+        data: { email_address: emailAddress, password, first_name: firstName },
+      })
+        .then(() => {
+          this.signIn(emailAddress, password)
+            .then((response) => {
+              resolve(response)
+            })
+            .catch((error) => {
+              reject(error)
+            })
+        })
+        .catch((error) => {
+          reject(error)
+        })
     })
   }
 
@@ -100,10 +113,7 @@ export default class AuthWrapper extends React.Component {
       axios({
         method: 'post',
         url: 'auth/signin',
-        data: {
-          email_address: emailAddress,
-          password,
-        },
+        data: { email_address: emailAddress, password },
       })
         .then(response => {
           const session = response.data.session
@@ -125,6 +135,7 @@ export default class AuthWrapper extends React.Component {
 
   signOut() {
     return new Promise((resolve) => {
+      this.setState({ authDetails: null })
       this.clearAuthDetails()
       resolve()
     })

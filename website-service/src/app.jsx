@@ -10,6 +10,14 @@ axios.defaults.baseURL = apiEndpoint
 
 
 export default class App extends React.Component {
+  static propTypes = {
+    children: PropTypes.object.isRequired,
+  }
+
+  static childContextTypes = {
+    addNotification: PropTypes.func.isRequired,
+  }
+
   constructor() {
     super()
     this.addNotification = this.addNotification.bind(this)
@@ -35,12 +43,4 @@ export default class App extends React.Component {
       </AuthWrapper>
     )
   }
-}
-
-App.propTypes = {
-  children: PropTypes.object.isRequired,
-}
-
-App.childContextTypes = {
-  addNotification: PropTypes.func.isRequired,
 }

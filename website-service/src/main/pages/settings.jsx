@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react'
-import axios from 'axios'
 
 
 class ChangePassword extends React.Component {
+  static contextTypes = {
+    authDetails: PropTypes.object.isRequired,
+    addNotification: PropTypes.func.isRequired,
+    axios: PropTypes.any.isRequired,
+  }
+
   constructor() {
     super()
     this.state = {
@@ -22,12 +27,11 @@ class ChangePassword extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { addNotification } = this.context
+    const { addNotification, axios, authDetails } = this.context
     const { currentPassword, newPassword } = this.state
-    const userId = this.context.authSession.user_id
-    axios({
+    axios.request({
       method: 'post',
-      url: `v1/users/${userId}/change-password`,
+      url: `users/${authDetails.userId}/change-password`,
       data: {
         'current_password': currentPassword,
         'new_password': newPassword,
@@ -76,11 +80,6 @@ class ChangePassword extends React.Component {
       </div>
     )
   }
-}
-
-ChangePassword.contextTypes = {
-  authSession: PropTypes.object.isRequired,
-  addNotification: PropTypes.func.isRequired,
 }
 
 

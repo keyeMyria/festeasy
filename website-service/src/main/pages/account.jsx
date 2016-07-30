@@ -3,6 +3,10 @@ import { Link } from 'react-router'
 
 
 export default class Account extends React.Component {
+  static propTypes = {
+    children: PropTypes.any,
+  }
+
   render() {
     return (
       <div>
@@ -21,8 +25,4 @@ export default class Account extends React.Component {
       </div>
     )
   }
-}
-
-Account.propTypes = {
-  children: PropTypes.any,
 }

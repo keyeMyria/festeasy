@@ -1,7 +1,12 @@
 import React, { PropTypes } from 'react';
+import Page from 'common/page.jsx'
 
 
 class Festival extends React.Component {
+  static propTypes = {
+    festival: PropTypes.object.isRequired,
+  }
+
   render() {
     const { festival } = this.props
     return (
@@ -15,51 +20,52 @@ class Festival extends React.Component {
   }
 }
 
-Festival.propTypes = {
-  festival: PropTypes.object.isRequired,
-}
-
 
 export default class FestivalContainer extends React.Component {
-  constructor(props, context) {
-    super(props)
+  static propTypes = {
+    params: PropTypes.object.isRequired,
+  }
+
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+  }
+
+  constructor() {
+    super()
     this.state = {
-      loading: true,
       festival: null,
       error: null,
     }
-    context.store.find('festival', this.props.params.festivalId)
+  }
+
+  componentWillMount() {
+    const { store } = this.context
+    const { festivalId } = this.props.params
+    store.find('festival', festivalId)
       .then((festival) => {
         this.setState({
-          loading: false,
-          error: null,
           festival,
+          error: null,
         })
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({
           loading: false,
-          error,
+          error: 'Something went wrong',
         })
       })
   }
 
   render() {
     const { festival, error } = this.state
-    if (festival) {
-      return <Festival festival={festival} />
-    } else if (error) {
-      return <div>Error.</div>
-    } else {
-      return <div>Loading...</div>
-    }
+    return (
+      <Page
+        isLoading={!festival && !error}
+        contentError={error}
+        content={
+          festival ? <Festival festival={festival} /> : ''
+        }
+      />
+    )
   }
-}
-
-FestivalContainer.propTypes = {
-  params: PropTypes.object.isRequired,
-}
-
-FestivalContainer.contextTypes = {
-  store: PropTypes.object.isRequired,
 }

@@ -2,12 +2,19 @@ import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 
 
-class SignIn extends React.Component {
+export default class SignIn extends React.Component {
+  static contextTypes = {
+    signIn: PropTypes.func.isRequired,
+    router: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       emailAddress: '',
       password: '',
+      isSigningIn: false,
+      signInError: null,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -22,15 +29,31 @@ class SignIn extends React.Component {
   handleSignIn(e) {
     e.preventDefault()
     const { emailAddress, password } = this.state
-    this.props.handleSignIn(emailAddress, password)
+    this.context.signIn(emailAddress, password)
+      .then(() => {
+        this.setState({
+          isSigningIn: false,
+        })
+      })
+      .catch((error) => {
+        this.setState({
+          isSigningIn: false,
+          signInError: error.data ? error.data.message : 'Something went wrong',
+        })
+      })
   }
 
   render() {
-    const { emailAddress, password } = this.state
+    const {
+      emailAddress,
+      password,
+      isSigningIn,
+      signInError,
+    } = this.state
     const formClass = classNames({
       'ui form': true,
-      'loading': this.props.isSigningIn,
-      'error': this.props.signInError !== null,
+      'loading': isSigningIn,
+      'error': signInError !== null,
     })
     return (
       <div className="ui container centered grid">
@@ -65,37 +88,4 @@ class SignIn extends React.Component {
       </div>
     )
   }
-}
-
-SignIn.propTypes = {
-  handleSignIn: PropTypes.func.isRequired,
-  isSigningIn: PropTypes.bool.isRequired,
-  signInError: PropTypes.oneOfType([
-    PropTypes.oneOf([null]),
-    PropTypes.object,
-  ]),
-}
-
-
-export default class SignInContainer extends React.Component {
-  render() {
-    return (
-      <div>
-        <SignIn
-          isSigningIn={this.context.isSigningIn}
-          signInError={this.context.signInError}
-          handleSignIn={this.context.signIn}
-        />
-      </div>
-    )
-  }
-}
-
-SignInContainer.contextTypes = {
-  signIn: PropTypes.func.isRequired,
-  signInError: PropTypes.oneOfType([
-    PropTypes.oneOf([null]),
-    PropTypes.object,
-  ]),
-  isSigningIn: PropTypes.bool.isRequired,
 }

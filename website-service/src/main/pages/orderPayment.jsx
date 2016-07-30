@@ -1,8 +1,17 @@
 import React, { PropTypes } from 'react'
-import Payment from '../payment.jsx'
+import Payment from 'main/payment.jsx'
+import Page from 'common/page.jsx'
 
 
 export default class OrderPayment extends React.Component {
+  static propTypes = {
+    params: PropTypes.object.isRequired,
+  }
+
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+  }
+
   constructor() {
     super()
     this.state = {
@@ -30,23 +39,13 @@ export default class OrderPayment extends React.Component {
 
   render() {
     const { order, error } = this.state
-    let result
-    if (order) {
-      const invoiceId = order.current_invoice.id
-      result = <Payment invoiceId={invoiceId} />
-    } else if (error) {
-      result = <div>Something went wrong.</div>
-    } else {
-      result = <div>Loading... probably</div>
-    }
-    return result
+    return (
+      <Page
+        isLoading={!order && !error}
+        content={
+          order ? <Payment invoiceId={order.current_invoice.id} /> : ''
+        }
+      />
+    )
   }
-}
-
-OrderPayment.propTypes = {
-  params: PropTypes.object.isRequired,
-}
-
-OrderPayment.contextTypes = {
-  store: PropTypes.object.isRequired,
 }

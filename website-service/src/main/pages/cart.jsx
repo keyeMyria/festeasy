@@ -1,9 +1,19 @@
 import React, { PropTypes } from 'react'
 import { Button, Input, Option } from 'semantic-react'
-import MySelect from '../../mySelect.jsx'
+import MySelect from 'mySelect.jsx'
+import Page from 'common/page.jsx'
 
 
 class Cart extends React.Component {
+  static propTypes = {
+    cart: PropTypes.object.isRequired,
+    festivals: PropTypes.array.isRequired,
+    removeCartProduct: PropTypes.func.isRequired,
+    selectFestival: PropTypes.func.isRequired,
+    updateQuantity: PropTypes.func.isRequired,
+    onCheckout: PropTypes.func.isRequired,
+  }
+
   render() {
     const { cart, festivals, updateQuantity, onCheckout } = this.props
     const options = festivals.map((festival) => (
@@ -57,21 +67,17 @@ class Cart extends React.Component {
   }
 }
 
-Cart.propTypes = {
-  cart: PropTypes.object.isRequired,
-  festivals: PropTypes.array.isRequired,
-  removeCartProduct: PropTypes.func.isRequired,
-  selectFestival: PropTypes.func.isRequired,
-  updateQuantity: PropTypes.func.isRequired,
-  onCheckout: PropTypes.func.isRequired,
-}
-
 
 export default class CartContainer extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
+    authDetails: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
-      loading: true,
       cart: null,
       festivals: null,
       error: null,
@@ -92,30 +98,29 @@ export default class CartContainer extends React.Component {
   }
 
   getCart() {
-    this.setState({ loading: true })
-    this.context.store.ejectAll('cartProduct')
-    const cart = this.context.store.find(
-      'cart',
-      this.context.authUser.cart_id,
-      {
-        bypassCache: true,
-      }
-    )
-    const festivals = this.context.store.findAll('festival')
-    Promise.all([cart, festivals])
-      .then((values) => {
-        this.setState({
-          loading: false,
-          cart: values[0],
-          festivals: values[1],
+    const { store, authDetails } = this.context
+    store.ejectAll('cartProduct')
+    const userFetch = store.find('user', authDetails.userId)
+    const festivalsFetch = store.findAll('festival')
+    userFetch.then((user) => {
+      const cartFetch = store.find(
+        'cart',
+        user.id,
+        { bypassCache: true }
+      )
+      Promise.all([cartFetch, festivalsFetch])
+        .then((values) => {
+          this.setState({
+            cart: values[0],
+            festivals: values[1],
+          })
         })
-      })
-      .catch(() => {
-        this.setState({
-          loading: false,
-          error: 'Something went wrong.',
+        .catch(() => {
+          this.setState({
+            error: 'Something went wrong.',
+          })
         })
-      })
+    })
   }
 
   removeCartProduct(cp) {
@@ -147,29 +152,22 @@ export default class CartContainer extends React.Component {
 
   render() {
     const { cart, error, festivals } = this.state
-    if (cart && festivals) {
-      return (
-        <div>
-          <Cart
-            cart={cart}
-            festivals={festivals}
-            removeCartProduct={this.removeCartProduct}
-            selectFestival={this.selectFestival}
-            updateQuantity={this.updateQuantity}
-            onCheckout={this.onCheckout}
-          />
-        </div>
-      )
-    } else if (error) {
-      return <div>Error.</div>
-    } else {
-      return <div>Loading.</div>
-    }
+    return (
+      <Page
+        isLoading={!cart && !festivals && !error}
+        contentError={error}
+        content={
+          cart && festivals ?
+            <Cart
+              cart={cart}
+              festivals={festivals}
+              removeCartProduct={this.removeCartProduct}
+              selectFestival={this.selectFestival}
+              updateQuantity={this.updateQuantity}
+              onCheckout={this.onCheckout}
+            /> : ''
+        }
+      />
+    )
   }
-}
-
-CartContainer.contextTypes = {
-  store: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
-  authUser: PropTypes.object.isRequired,
 }

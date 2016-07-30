@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import AddToCartButton from '../addToCartButton.jsx'
+import Page from 'common/page.jsx'
+import AddToCartButton from 'main/addToCartButton.jsx'
 
 
 class Product extends React.Component {
@@ -22,45 +23,48 @@ Product.propTypes = {
 
 
 export default class ProductContainer extends React.Component {
-  constructor(props, context) {
-    super(props)
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+  }
+
+  static propTypes = {
+    params: PropTypes.object.isRequired,
+  }
+
+  constructor() {
+    super()
     this.state = {
-      loading: true,
       error: null,
       product: null,
     }
-    context.store.find('product', this.props.params.productId)
+  }
+
+  componentWillMount() {
+    const { store } = this.context
+    store.find('product', this.props.params.productId)
       .then((product) => {
         this.setState({
-          loading: false,
-          error: null,
           product,
+          error: null,
         })
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({
-          loading: false,
-          error,
+          error: 'Something went wrong',
         })
       })
   }
 
   render() {
     const { product, error } = this.state
-    if (product) {
-      return <Product product={product} />
-    } else if (error) {
-      return <div>Error.</div>
-    } else {
-      return <div>Loading...</div>
-    }
+    return (
+      <Page
+        isLoading={!product && !error}
+        contentError={error}
+        content={
+          product ? <Product product={product} /> : ''
+        }
+      />
+    )
   }
-}
-
-ProductContainer.contextTypes = {
-  store: PropTypes.object.isRequired,
-}
-
-ProductContainer.propTypes = {
-  params: PropTypes.object.isRequired,
 }

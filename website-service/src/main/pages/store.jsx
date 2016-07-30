@@ -1,9 +1,14 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import AddToCartButton from '../addToCartButton.jsx'
+import AddToCartButton from 'main/addToCartButton.jsx'
+import Page from 'common/page.jsx'
 
 
 class ProductListItem extends React.Component {
+  static propTypes = {
+    product: PropTypes.object.isRequired,
+  }
+
   render() {
     const { product } = this.props
     return (
@@ -19,12 +24,14 @@ class ProductListItem extends React.Component {
   }
 }
 
-ProductListItem.propTypes = {
-  product: PropTypes.object.isRequired,
-}
-
 
 class ProductList extends React.Component {
+  static propTypes = {
+    products: PropTypes.arrayOf(
+      PropTypes.object
+    ).isRequired,
+  }
+
   render() {
     const { products } = this.props
     return (
@@ -38,22 +45,23 @@ class ProductList extends React.Component {
   }
 }
 
-ProductList.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.object
-  ).isRequired,
-}
-
 
 export default class ProductListContainer extends React.Component {
-  constructor(props, context) {
-    super(props)
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+  }
+
+  constructor() {
+    super()
     this.state = {
-      loading: true,
       error: null,
-      products: [],
+      products: null,
     }
-    context.store.findAll('product')
+  }
+
+  componentWillMount() {
+    const { store } = this.context
+    store.findAll('product')
       .then((products) => {
         this.setState({
           loading: false,
@@ -61,20 +69,24 @@ export default class ProductListContainer extends React.Component {
           products,
         })
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({
           loading: false,
-          error,
+          error: 'Something went wrong',
         })
       })
   }
 
   render() {
-    const { products } = this.state
-    return <ProductList products={products} />
+    const { products, error } = this.state
+    return (
+      <Page
+        isLoading={!products && !error}
+        contentError={error}
+        content={
+          products ? <ProductList products={products} /> : ''
+        }
+      />
+    )
   }
-}
-
-ProductListContainer.contextTypes = {
-  store: PropTypes.object.isRequired,
 }

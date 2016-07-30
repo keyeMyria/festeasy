@@ -2,17 +2,31 @@ import React, { PropTypes } from 'react'
 import JSData from 'js-data'
 import DSHttpAdapter from 'js-data-http'
 import models from './models.js'
-import apiEndpoint from './apiEndpoint.js'
 
 
 export default class StoreWrapper extends React.Component {
-  constructor() {
-    super()
+  static childContextTypes = {
+    store: PropTypes.object.isRequired,
+  }
+
+  static contextTypes = {
+    authDetails: PropTypes.object,
+    axios: PropTypes.func.isRequired,
+  }
+
+  static propTypes = {
+    children: PropTypes.any.isRequired,
+  }
+
+  constructor(props, context) {
+    super(props)
     const store = new JSData.DS()
     store.registerAdapter(
-      'http',
-      new DSHttpAdapter({ basePath: `${apiEndpoint}/v1` }),
-      { default: true }
+        'http',
+        new DSHttpAdapter({
+          http: context.axios,
+        }),
+        { default: true }
     )
     models.forEach((model) => {
       store.defineResource(model)
@@ -35,12 +49,4 @@ export default class StoreWrapper extends React.Component {
       </div>
     )
   }
-}
-
-StoreWrapper.propTypes = {
-  children: PropTypes.any.isRequired,
-}
-
-StoreWrapper.childContextTypes = {
-  store: PropTypes.object.isRequired,
 }

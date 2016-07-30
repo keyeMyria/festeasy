@@ -20,6 +20,15 @@ Payment.propTypes = {
 
 
 export default class PaymentContainer extends React.Component {
+  static propTypes = {
+    invoiceId: PropTypes.number.isRequired,
+  }
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired,
+  }
+
   constructor() {
     super()
     this.makePayment = this.makePayment.bind(this)
@@ -27,7 +36,8 @@ export default class PaymentContainer extends React.Component {
 
   makePayment() {
     const { invoiceId } = this.props
-    this.context.store.create('payu-transaction', {
+    const { store } = this.context
+    store.create('payu-transaction', {
       invoice_id: invoiceId,
     })
       .then((response) => {
@@ -43,13 +53,4 @@ export default class PaymentContainer extends React.Component {
       />
     )
   }
-}
-
-PaymentContainer.propTypes = {
-  invoiceId: PropTypes.number.isRequired,
-}
-
-PaymentContainer.contextTypes = {
-  router: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
 }

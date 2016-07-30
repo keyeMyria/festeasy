@@ -2,15 +2,25 @@ import React, { PropTypes } from 'react'
 
 
 export default class AddToCartButton extends React.Component {
-  constructor(props) {
-    super(props)
+  static propTypes = {
+    product: PropTypes.object.isRequired,
+  }
+
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+    authDetails: PropTypes.object,
+    addNotification: PropTypes.func.isRequired,
+  }
+
+  constructor() {
+    super()
     this.onClick = this.onClick.bind(this)
   }
 
   onClick() {
-    const { store, authSession, addNotification } = this.context
-    if (authSession) {
-      store.find('user', authSession.user_id)
+    const { store, authDetails, addNotification } = this.context
+    if (authDetails) {
+      store.find('user', authDetails.userId)
         .then((user) => {
           store.create('cartProduct', {
             'cart_id': user.cart_id,
@@ -22,16 +32,15 @@ export default class AddToCartButton extends React.Component {
                 level: 'success',
               })
             })
-            .catch((error) => {
-              if (error.status === 409) {
-                addNotification({
-                  message: 'Product already in cart.',
-                  level: 'warning',
-                })
-              }
+            .catch(() => {
+              addNotification({
+                message: 'Something went wrong',
+                level: 'warning',
+              })
             })
         })
-    } else {
+    }
+    if (!authDetails) {
       addNotification({
         message: 'Please sign in to add products.',
         level: 'warning',
@@ -44,14 +53,4 @@ export default class AddToCartButton extends React.Component {
       <button className="ui button" onClick={this.onClick}>Add to cart</button>
     )
   }
-}
-
-AddToCartButton.propTypes = {
-  product: PropTypes.object.isRequired,
-}
-
-AddToCartButton.contextTypes = {
-  store: PropTypes.object.isRequired,
-  authSession: PropTypes.object,
-  addNotification: PropTypes.func.isRequired,
 }

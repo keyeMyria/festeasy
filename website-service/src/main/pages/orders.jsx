@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import Page from 'common/page.jsx'
 
 
 class Orders extends React.Component {
+  static propTypes = {
+    orders: PropTypes.array.isRequired,
+  }
+
   render() {
     const { orders } = this.props
     return (
@@ -34,12 +39,12 @@ class Orders extends React.Component {
   }
 }
 
-Orders.propTypes = {
-  orders: PropTypes.array.isRequired,
-}
-
 
 export default class OrdersContainer extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+  }
+
   constructor() {
     super()
     this.state = {
@@ -71,23 +76,15 @@ export default class OrdersContainer extends React.Component {
 
   render() {
     const { orders, error } = this.state
-    let result
-    if (orders) {
-      result = <Orders orders={orders} />
-    } else if (error) {
-      result = <div>Something went wrong.</div>
-    } else {
-      result = <div>Loading... probably</div>
-    }
     return (
-      <div>
-        <h1 className="ui header">Orders</h1>
-        {result}
-      </div>
+      <Page
+        header={<h2 className="ui header">Orders</h2>}
+        isLoading={!orders && !error}
+        contentError={error}
+        content={
+          orders ? <Orders orders={orders} /> : ''
+        }
+      />
     )
   }
-}
-
-OrdersContainer.contextTypes = {
-  store: PropTypes.object.isRequired,
 }

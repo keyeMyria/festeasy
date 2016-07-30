@@ -3,6 +3,10 @@ import { Link } from 'react-router'
 
 
 export default class Checkout extends React.Component {
+  static propTypes = {
+    children: PropTypes.any.isRequired,
+  }
+
   render() {
     return (
       <div>
@@ -37,8 +41,4 @@ export default class Checkout extends React.Component {
       </div>
     )
   }
-}
-
-Checkout.propTypes = {
-  children: PropTypes.any.isRequired,
 }

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
-import axios from 'axios'
 import { Button } from 'semantic-react'
+import Page from 'common/page.jsx'
 
 
 class Review extends React.Component {
@@ -44,10 +44,16 @@ Review.propTypes = {
 
 
 export default class ReviewContainer extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired,
+    authDetails: PropTypes.object.isRequired,
+    axios: PropTypes.func.isRequired,
+  }
+
   constructor() {
     super()
     this.state = {
-      loading: true,
       cart: null,
       error: null,
     }
@@ -60,10 +66,11 @@ export default class ReviewContainer extends React.Component {
   }
 
   onProceed() {
+    const { axios } = this.context
     const cartId = this.state.cart.id
-    axios({
+    axios.request({
       method: 'post',
-      url: `v1/carts/${cartId}/checkout`,
+      url: `carts/${cartId}/checkout`,
     })
       .then((response) => {
         const invoiceId = response.data.current_invoice.id
@@ -72,41 +79,31 @@ export default class ReviewContainer extends React.Component {
   }
 
   getCart() {
-    this.setState({ loading: true })
-    this.context.store.find(
-      'cart',
-      this.context.authUser.cart_id,
-      {
-        bypassCache: true,
-      }
-    )
-      .then((cart) => {
-        this.setState({
-          loading: false,
-          cart,
-        })
+    const { store, authDetails } = this.context
+    store.find('user', authDetails.userId)
+      .then((user) => {
+        store.find(
+          'cart',
+          user.id,
+          { bypassCache: true }
+        )
+          .then((cart) => {
+            this.setState({
+              cart,
+            })
+          })
       })
   }
 
   render() {
     const { cart, error } = this.state
-    if (cart) {
-      return (
-        <Review
-          cart={cart}
-          onProceed={this.onProceed}
-        />
-      )
-    } else if (error) {
-      return <div>Error.</div>
-    } else {
-      return <div>Loading</div>
-    }
+    return (
+      <Page
+        isLoading={!cart && !error}
+        content={
+          cart ? <Review cart={cart} onProceed={this.onProceed} /> : ''
+        }
+      />
+    )
   }
-}
-
-ReviewContainer.contextTypes = {
-  router: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
-  authUser: PropTypes.object.isRequired,
 }

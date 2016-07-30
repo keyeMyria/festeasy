@@ -1,12 +1,16 @@
 import React from 'react';
+import Page from 'common/page.jsx'
 
 
-export default class About extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>About</h1>
-      </div>
-    )
-  }
-}
+const About = () => (
+  <Page
+    header={
+      <h2 className="ui header">About</h2>
+    }
+    content={
+      'Some about content here'
+    }
+  />
+)
+
+module.exports = About

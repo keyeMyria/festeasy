@@ -2,12 +2,18 @@ import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 
 
-class SignUp extends React.Component {
+export default class SignUp extends React.Component {
+  static contextTypes = {
+    signUp: PropTypes.func.isRequired,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       emailAddress: '',
       password: '',
+      isSigningUp: false,
+      signUpError: null,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSignUp = this.handleSignUp.bind(this)
@@ -22,15 +28,21 @@ class SignUp extends React.Component {
   handleSignUp(e) {
     e.preventDefault()
     const { firstName, emailAddress, password } = this.state
-    this.props.handleSignUp(firstName, emailAddress, password)
+    this.context.signUp(firstName, emailAddress, password)
   }
 
   render() {
-    const { firstName, emailAddress, password } = this.state
+    const {
+      firstName,
+      emailAddress,
+      password,
+      isSigningUp,
+      signUpError,
+    } = this.state
     const formClass = classNames({
       'ui form': true,
-      'loading': this.props.isSigningUp,
-      'error': this.props.signUpError !== null,
+      'loading': isSigningUp,
+      'error': signUpError !== null,
     })
     return (
       <div className="ui container centered grid">
@@ -74,34 +86,4 @@ class SignUp extends React.Component {
       </div>
     )
   }
-}
-
-SignUp.propTypes = {
-  handleSignUp: PropTypes.func.isRequired,
-  isSigningUp: PropTypes.bool.isRequired,
-  signUpError: PropTypes.oneOfType([
-    PropTypes.oneOf([null]),
-    PropTypes.object,
-  ]),
-}
-
-
-export default class SignUpContainer extends React.Component {
-  render() {
-    return (
-      <div>
-        <SignUp
-          isSigningUp={this.context.isSigningUp}
-          signUpError={this.context.signUpError}
-          handleSignUp={this.context.signUp}
-        />
-      </div>
-    )
-  }
-}
-
-SignUpContainer.contextTypes = {
-  signUp: PropTypes.func.isRequired,
-  isSigningUp: PropTypes.bool.isRequired,
-  signUpError: PropTypes.any,
 }

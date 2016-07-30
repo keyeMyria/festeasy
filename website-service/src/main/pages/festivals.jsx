@@ -1,9 +1,14 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
-import { festivalShape } from '../../utils/shapes.jsx'
+import { festivalShape } from 'utils/shapes.jsx'
+import Page from 'common/page.jsx'
 
 
 class FestivalListItem extends React.Component {
+  static propTypes = {
+    festival: festivalShape.isRequired,
+  }
+
   render() {
     const festival = this.props.festival
     return (
@@ -21,46 +26,47 @@ class FestivalListItem extends React.Component {
   }
 }
 
-FestivalListItem.propTypes = {
-  festival: festivalShape.isRequired,
-}
-
 
 class FestivalList extends React.Component {
+  static propTypes = {
+    festivals: PropTypes.arrayOf(
+      festivalShape
+    ).isRequired,
+  }
+
   render() {
     const { festivals } = this.props
     return (
       <div>
-        <h1>Festivals</h1>
-          {festivals.map(festival => (
-            <FestivalListItem key={festival.id} festival={festival} />
-          ))}
+        {festivals.map(festival => (
+          <FestivalListItem key={festival.id} festival={festival} />
+        ))}
       </div>
     )
   }
 }
 
-FestivalList.propTypes = {
-  festivals: PropTypes.arrayOf(
-    festivalShape
-  ).isRequired,
-}
-
 
 export default class FestivalListContainer extends React.Component {
-  constructor(props, context) {
-    super(props)
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+  }
+
+  constructor() {
+    super()
     this.state = {
-      loading: true,
-      festivals: [],
+      festivals: null,
       error: null,
     }
-    context.store.findAll('festival')
+  }
+
+  componentWillMount() {
+    const { store } = this.context
+    store.findAll('festival')
       .then((festivals) => {
         this.setState({
-          loading: false,
-          error: null,
           festivals,
+          error: null,
         })
       })
       .catch(() => {
@@ -72,12 +78,15 @@ export default class FestivalListContainer extends React.Component {
   }
 
   render() {
+    const { festivals, error } = this.state
     return (
-      <FestivalList festivals={this.state.festivals} />
+      <Page
+        header={<h2 className="ui header">Festivals</h2>}
+        isLoading={!festivals && !error}
+        content={
+          festivals ? <FestivalList festivals={festivals} /> : ''
+        }
+      />
     )
   }
-}
-
-FestivalListContainer.contextTypes = {
-  store: PropTypes.object.isRequired,
 }
