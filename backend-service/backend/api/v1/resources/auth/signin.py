@@ -34,4 +34,4 @@ class Signin(Resource):
         session.generate_token()
         db.session.add(session)
         db.session.commit()
-        return session_schema.dump(session).data
+        return {'session': session_schema.dump(session).data}
