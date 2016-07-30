@@ -12,8 +12,8 @@ dependencies:
   pre:
     - sudo apt-get update; sudo apt-get -y install python3-dev gcc
   override:
-    - npm install -g firebase-tools@2.2.0 netlify-cli gulp webpack eslint
-    - pip install -r requirements.txt
+    - npm install -g netlify-cli webpack
+    - cd backend-service; pip install -r requirements.txt
     - python ./configure_api_endpoints.py -e $CIRCLE_BRANCH
     - cd website-service; npm install --production
     - cd website-service; webpack --optimize-minimize --progress
