@@ -50,7 +50,7 @@
     "react-dom": "^15.1.0",
     "react-notification-system": "^0.2.7",
     "react-router": "^2.6.1",
-    "semantic-react": "^0.7.2",
+    "semantic-react": "^0.8.0",
     "semantic-ui-css": "^2.1.8",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
