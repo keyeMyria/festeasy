@@ -260,7 +260,7 @@ export default class CartContainer extends React.Component {
         <h1 className="ui center aligned header">Cart</h1>
         <div className="ui divider" />
         <Page
-          isLoading={!cart && !festivals && !error}
+          isLoading={(!cart || !festivals) && !error}
           contentError={error}
           content={
             cart && festivals ?
