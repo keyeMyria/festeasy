@@ -46,7 +46,7 @@
     "moment": "^2.14.1",
     "react": "^15.3.0",
     "react-addons-shallow-compare": "^15.3.0",
-    "react-addons-update": "^15.1.0",
+    "react-addons-update": "^15.3.0",
     "react-dom": "^15.1.0",
     "react-notification-system": "^0.2.7",
     "react-router": "^2.6.1",
