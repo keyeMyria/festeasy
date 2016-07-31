@@ -241,26 +241,16 @@ export default class CartContainer extends React.Component {
   }
 
   selectFestival(festivalId) {
-    return new Promise((resolve, reject) => {
-      this.context.store.update(
-        'cart',
-        this.state.cart.id,
-        { festival_id: festivalId },
-        { method: 'PATCH' }
-      )
-        .then(() => {
-          this.fetchCart()
-            .then(() => {
-              resolve()
-            })
-            .catch(() => {
-              reject()
-            })
-        })
-        .catch(() => {
-          reject()
-        })
-    })
+    const { store } = this.context
+    return store.update(
+      'cart',
+      this.state.cart.id,
+      { festival_id: festivalId },
+      { method: 'PATCH' }
+    )
+      .then(() => (
+        this.fetchCart()
+      ))
   }
 
   render() {
