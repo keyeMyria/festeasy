@@ -50,6 +50,8 @@ class CartRow extends React.Component {
             onChange={(e) => this.updateQuantity(e)}
             onBlur={this.onBlur}
             value={cartProduct.quantity}
+            min={1}
+            max={10}
           />
         </td>
         <td><PriceFormatter rands={cartProduct.sub_total_rands} /></td>
