@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   entry: './src/entry.jsx',
   output: {
     path: 'build',
@@ -30,10 +30,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    modulesDirectories: ['node_modules', './src'],
-  },
-  devServer: {
-    historyApiFallback: true,
+    root: path.resolve('./src'),
   },
   module: {
     preLoaders: [
