@@ -30,6 +30,7 @@ export default class SignIn extends React.Component {
     e.preventDefault()
     const { router } = this.context
     const { emailAddress, password } = this.state
+    this.setState({ isSigningIn: true })
     this.context.signIn(emailAddress, password)
       .then(() => {
         router.push('/store')
