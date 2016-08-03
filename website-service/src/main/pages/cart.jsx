@@ -40,7 +40,7 @@ export default class CartContainer extends React.Component {
   fetchFestivals() {
     const { store } = this.context
     return new Promise((resolve, reject) => {
-      store.findAll('festival')
+      store.findAll('festival', { checkoutable: true })
         .then((festivals) => {
           this.setState({
             festivals,
