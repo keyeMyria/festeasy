@@ -11,8 +11,9 @@ cart_product_schema = CartProductSchema()
 
 class CartProductCollection(Resource):
     def get(self):
-        cart_products = CartProduct.query.all()
-        return cart_product_schema.dump(cart_products, many=True).data
+        q = CartProduct.query
+        q = q.order_by(CartProduct.created_on.desc())
+        return cart_product_schema.dump(q.all(), many=True).data
 
     def post(self):
         data = CartProductSchema().load(request.get_json()).data
