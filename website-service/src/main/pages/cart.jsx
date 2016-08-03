@@ -57,10 +57,10 @@ class CartRow extends React.Component {
         <td><PriceFormatter rands={cartProduct.sub_total_rands} /></td>
         <td>
           <button
-            className="ui button"
+            className="ui orange button"
             onClick={() => { this.props.removeCartProduct(cartProduct) }}
           >
-            Remove
+            Remove from cart
           </button>
         </td>
       </tr>
@@ -108,7 +108,7 @@ class Cart extends React.Component {
               <th>Product</th>
               <th>Quantity</th>
               <th>Sub Total</th>
-              <th>Remove</th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -161,19 +161,23 @@ export default class CartContainer extends React.Component {
     super(props)
     this.state = {
       cart: null,
+      cartProducts: null,
       festivals: null,
       error: null,
     }
-    this.onCheckout = this.onCheckout.bind(this)
     this.fetchCart = this.fetchCart.bind(this)
-    this.removeCartProduct = this.removeCartProduct.bind(this)
+    this.fetchFestivals = this.fetchFestivals.bind(this)
+    this.fetchCartProducts = this.fetchCartProducts.bind(this)
     this.selectFestival = this.selectFestival.bind(this)
     this.updateQuantity = this.updateQuantity.bind(this)
+    this.removeCartProduct = this.removeCartProduct.bind(this)
+    this.onCheckout = this.onCheckout.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetchCart()
     this.fetchFestivals()
+    this.fetchCartProducts()
   }
 
   onCheckout() {
@@ -191,10 +195,31 @@ export default class CartContainer extends React.Component {
         })
         .catch((error) => {
           this.setState({
-            error: 'Something went wront',
+            error: 'Something went wrong',
           }, reject(error))
         })
     })
+  }
+
+  fetchCartProducts() {
+    const { store, authDetails } = this.context
+    store.find('user', authDetails.userId)
+      .then((user) => {
+        store.findAll('cartProduct', { 'cart-id': user.cart_id }, { bypassCache: true })
+          .then((cartProducts) => {
+            this.setState({ cartProducts })
+          })
+          .catch(() => {
+            this.setState({
+              error: 'Something went wrong',
+            })
+          })
+      })
+      .catch(() => {
+        this.setState({
+          error: 'Something went wrong',
+        })
+      })
   }
 
   fetchCart() {
@@ -202,7 +227,7 @@ export default class CartContainer extends React.Component {
       const { store, authDetails } = this.context
       store.find('user', authDetails.userId)
         .then((user) => {
-          store.find('cart', user.id, { bypassCache: true })
+          store.find('cart', user.cart_id, { bypassCache: true })
             .then((cart) => {
               this.setState({
                 cart,
@@ -227,6 +252,11 @@ export default class CartContainer extends React.Component {
       .then(() => {
         this.fetchCart()
       })
+      .catch(() => {
+        this.setState({
+          error: 'Something went wrong',
+        })
+      })
   }
 
   updateQuantity(cp) {
@@ -239,6 +269,11 @@ export default class CartContainer extends React.Component {
     )
       .then(() => {
         this.fetchCart()
+      })
+      .catch(() => {
+        this.setState({
+          error: 'Something went wrong',
+        })
       })
   }
 
@@ -253,11 +288,16 @@ export default class CartContainer extends React.Component {
       .then(() => (
         this.fetchCart()
       ))
+      .catch(() => {
+        this.setState({
+          error: 'Something went wrong',
+        })
+      })
   }
 
   render() {
-    const { cart, error, festivals } = this.state
-    const isReady = cart && festivals
+    const { cart, cartProducts, festivals, error } = this.state
+    const isReady = cart && cartProducts && festivals
     return (
       <div>
         <h1 className="ui center aligned header">Cart</h1>
@@ -269,7 +309,7 @@ export default class CartContainer extends React.Component {
             isReady ?
               <Cart
                 cart={cart}
-                cartProducts={cart.cart_products}
+                cartProducts={cartProducts}
                 festivals={festivals}
                 removeCartProduct={this.removeCartProduct}
                 selectFestival={this.selectFestival}
