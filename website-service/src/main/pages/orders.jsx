@@ -19,7 +19,7 @@ class Orders extends React.Component {
               <th>Festival</th>
               <th>Total</th>
               <th>Amount Due</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>

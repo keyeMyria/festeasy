@@ -17,6 +17,7 @@ class CartSingletonCheckout(Resource):
                 message="Cart needs a Festival."
             )
         now = datetime.datetime.now()
+        # TODO: Abstract.
         if cart.festival.starts_on < now + datetime.timedelta(days=7):
             raise APIException(
                 status_code=400,

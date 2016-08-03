@@ -1,11 +1,18 @@
 import React, { PropTypes } from 'react'
 import { Button } from 'semantic-react'
 import Page from 'common/page.jsx'
+import PriceFormatter from 'utils/priceFormatter.jsx'
 
 
 class Review extends React.Component {
+  static propTypes = {
+    cart: PropTypes.object.isRequired,
+    cartProducts: PropTypes.array.isRequired,
+    onProceed: PropTypes.func.isRequired,
+  }
+
   render() {
-    const { cart, onProceed } = this.props
+    const { cart, cartProducts, onProceed } = this.props
     const festival = cart.festival
     return (
       <div>
@@ -22,7 +29,7 @@ class Review extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {cart.cart_products.map((cp) => (
+            {cartProducts.map((cp) => (
               <tr key={cp.id}>
                 <td>{cp.product.name}</td>
                 <td>{cp.quantity}</td>
@@ -31,15 +38,13 @@ class Review extends React.Component {
             ))}
           </tbody>
         </table>
+        <div>
+          Total: <PriceFormatter rands={cart.total_rands} />
+        </div>
         <Button onClick={onProceed}>Proceed</Button>
       </div>
     )
   }
-}
-
-Review.propTypes = {
-  cart: PropTypes.object.isRequired,
-  onProceed: PropTypes.func.isRequired,
 }
 
 
@@ -55,14 +60,17 @@ export default class ReviewContainer extends React.Component {
     super()
     this.state = {
       cart: null,
+      cartProducts: null,
       error: null,
     }
     this.onProceed = this.onProceed.bind(this)
-    this.getCart = this.getCart.bind(this)
+    this.fetchCart = this.fetchCart.bind(this)
+    this.fetchCartProducts = this.fetchCartProducts.bind(this)
   }
 
   componentDidMount() {
-    this.getCart()
+    this.fetchCart()
+    this.fetchCartProducts()
   }
 
   onProceed() {
@@ -78,13 +86,13 @@ export default class ReviewContainer extends React.Component {
       })
   }
 
-  getCart() {
+  fetchCart() {
     const { store, authDetails } = this.context
     store.find('user', authDetails.userId)
       .then((user) => {
         store.find(
           'cart',
-          user.id,
+          user.cart_id,
           { bypassCache: true }
         )
           .then((cart) => {
@@ -95,13 +103,37 @@ export default class ReviewContainer extends React.Component {
       })
   }
 
+  fetchCartProducts() {
+    const { store, authDetails } = this.context
+    store.find('user', authDetails.userId)
+      .then((user) => {
+        store.findAll(
+          'cartProduct',
+          { 'cart-id': user.cart_id },
+          { bypassCache: true }
+        )
+          .then((cartProducts) => {
+            this.setState({
+              cartProducts,
+            })
+          })
+      })
+  }
+
   render() {
-    const { cart, error } = this.state
+    const { cart, cartProducts, error } = this.state
+    const isReady = cart && cartProducts
     return (
       <Page
-        isLoading={!cart && !error}
+        isLoading={!isReady && !error}
         content={
-          cart ? <Review cart={cart} onProceed={this.onProceed} /> : ''
+          isReady ?
+            <Review
+              cart={cart}
+              cartProducts={cartProducts}
+              onProceed={this.onProceed}
+            />
+          : ''
         }
       />
     )

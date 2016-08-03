@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   entry: './src/entry.jsx',
   output: {
     path: 'build',
@@ -24,7 +24,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    modulesDirectories: ['node_modules', './src'],
+    root: path.resolve('./src'),
   },
   devServer: {
     historyApiFallback: true,

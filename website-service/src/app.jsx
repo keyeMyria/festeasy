@@ -1,3 +1,5 @@
+/* eslint react/no-string-refs: "off" */
+
 import React, { PropTypes } from 'react';
 import axios from 'axios'
 import NotificationSystem from 'react-notification-system'

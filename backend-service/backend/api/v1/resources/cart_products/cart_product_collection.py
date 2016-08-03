@@ -1,5 +1,7 @@
 from flask import request
 from flask_restful import Resource
+from webargs import fields
+from webargs.flaskparser import parser
 
 from backend import db
 from backend.models import CartProduct
@@ -7,12 +9,28 @@ from backend.api.v1.schemas import CartProductSchema
 
 
 cart_product_schema = CartProductSchema()
+query_args = {
+    'cart_id': fields.Integer(
+        load_from='cart-id',
+        missing=None,
+    )
+}
+
+
+# TODO: Test.
+def cart_id_filter(q, cart_id):
+    return q.filter(CartProduct.cart_id == cart_id)
 
 
 class CartProductCollection(Resource):
     def get(self):
-        cart_products = CartProduct.query.all()
-        return cart_product_schema.dump(cart_products, many=True).data
+        params = parser.parse(query_args, request)
+        cart_id = params['cart_id']
+        q = CartProduct.query
+        if cart_id:
+            q = cart_id_filter(q, cart_id)
+        q = q.order_by(CartProduct.created_on.desc())
+        return cart_product_schema.dump(q.all(), many=True).data
 
     def post(self):
         data = CartProductSchema().load(request.get_json()).data

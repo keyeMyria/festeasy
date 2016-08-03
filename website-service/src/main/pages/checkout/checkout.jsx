@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
 
 
 export default class Checkout extends React.Component {
@@ -10,26 +9,26 @@ export default class Checkout extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui header">Checkout</h1>
+        <h1 className="ui center aligned header">Checkout</h1>
         <div className="ui ordered steps">
-          <Link to="/cart" className="completed step">
+          <div className="completed step">
             <div className="content">
               <div className="title">Cart</div>
               <div className="description">Choose your products and festival</div>
             </div>
-          </Link>
-          <Link to="/checkout/review" className="step" activeClassName="active">
+          </div>
+          <div className="active step">
             <div className="content">
               <div className="title">Review</div>
               <div className="description">Review your cart</div>
             </div>
-          </Link>
-          <Link to="/checkout/payment" className="step" activeClassName="active">
+          </div>
+          <div className="step">
             <div className="content">
               <div className="title">Payment</div>
               <div className="description">Make payment</div>
             </div>
-          </Link>
+          </div>
           <div className="step">
             <div className="content">
               <div className="title">Confirmation</div>

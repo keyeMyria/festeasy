@@ -5,14 +5,19 @@ machine:
     version: 6.3.0
 
 dependencies:
+  cache_directories:
+    - /opt/circleci/nodejs/v6.3.0/bin/
+    - /opt/circleci/nodejs/v6.3.0/lib/node_modules
+    - website-service/node_modules/
   pre:
     - sudo apt-get update; sudo apt-get -y install python3-dev gcc
-    - npm install -g netlify-cli webpack
+    - if [ ! -e /opt/circleci/nodejs/v6.3.0/bin/webpack ]; then npm install -g webpack; else echo "Webpack seems to be cached"; fi;
+    - if [ ! -e /opt/circleci/nodejs/v6.3.0/bin/netlify ]; then npm install -g netlify-cli; else echo "Netlify seems to be cached"; fi;
   override:
     - cd backend-service; pip install -r requirements.txt
     - python ./configure_api_endpoints.py -e $CIRCLE_BRANCH
     - cd website-service; npm install --production
-    - cd website-service; webpack -p --config webpack.production.config.js
+    - cd website-service; npm run build
 
 test:
   override:
