@@ -65,7 +65,7 @@ export default class SignUp extends React.Component {
               <p>Something went wrong</p>
             </div>
             <div className="ui field">
-              <label>First Name</label>
+              <label htmlFor="firstName">First Name</label>
               <input
                 type="text"
                 name="firstName"
@@ -74,7 +74,7 @@ export default class SignUp extends React.Component {
               />
             </div>
             <div className="ui field">
-              <label>Email Address</label>
+              <label htmlFor="emailAddress">Email Address</label>
               <input
                 type="text"
                 name="emailAddress"
@@ -83,7 +83,7 @@ export default class SignUp extends React.Component {
               />
             </div>
             <div className="ui field">
-              <label>Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 name="password"

@@ -94,7 +94,7 @@ class Cart extends React.Component {
     ))
     return (
       <div className="ui segment">
-        <label>Select festival:</label>
+        <label htmlFor="MySelect">Select festival:</label>
         <MySelect
           fluid
           placeholder="Select festival"

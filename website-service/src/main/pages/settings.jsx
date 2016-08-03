@@ -58,7 +58,7 @@ class ChangePassword extends React.Component {
         <h3 className="ui header">Change Password</h3>
         <form className="ui form" onSubmit={this.handleSubmit}>
           <div className="field">
-            <label>Current password</label>
+            <label htmlFor="currentPassword">Current password</label>
             <input
               name="currentPassword"
               type="password"
@@ -67,7 +67,7 @@ class ChangePassword extends React.Component {
             />
           </div>
           <div className="field">
-            <label>New password</label>
+            <label htmlFor="newPassword">New password</label>
             <input
               name="newPassword"
               type="password"
