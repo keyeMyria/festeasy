@@ -27,4 +27,8 @@ module.exports = [
     name: 'user',
     endpoint: 'users',
   },
+  {
+    name: 'invoice',
+    endpoint: 'invoices',
+  },
 ]
