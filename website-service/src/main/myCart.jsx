@@ -39,6 +39,11 @@ export default class Cart extends React.Component {
           updateSelected={(selected) => this.props.selectFestival(selected[0])}
           options={options}
         />
+        {!cart.festival_id ?
+          <div className="ui compact blue message">
+            Please select a festival
+          </div>
+        : ''}
         <table className="ui table">
           <thead>
             <tr>
@@ -61,7 +66,13 @@ export default class Cart extends React.Component {
         </table>
         <div>
           <div>Total: <PriceFormatter rands={cart.total_rands} /></div>
-          <div className="ui positive button" onClick={onCheckout}>Secure Checkout</div>
+          <button
+            className="ui positive button"
+            onClick={onCheckout}
+            disabled={!(cart.festival_id && cartProducts.length > 0)}
+          >
+            Secure Checkout
+          </button>
         </div>
       </div>
     )
