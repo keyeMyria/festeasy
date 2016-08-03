@@ -35,8 +35,7 @@ export default class MySelect extends React.Component {
         onSearchStringChange={string => this.setState({ searchString: string })}
         searchString={searchString}
         onSelectChange={val => {
-          this.props.updateSelected(val)
-          .then(() => {
+          this.props.updateSelected(val).then(() => {
             this.setState({ active: false })
           })
         }}
