@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Option } from 'semantic-react'
+import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
 import CartRow from 'main/myCartRow.jsx'
@@ -27,7 +28,9 @@ export default class Cart extends React.Component {
       removeCartProduct,
     } = this.props
     const options = festivals.map((festival) => (
-      <Option key={festival.id} value={festival.id}>{festival.name}</Option>
+      <Option key={festival.id} value={festival.id}>
+        {festival.name} - {moment(festival.starts_on).format('YYYY')}
+      </Option>
     ))
     return (
       <div className="ui segment">
