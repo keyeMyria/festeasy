@@ -1,6 +1,5 @@
 import datetime
-from sqlalchemy import Column, Integer
-from sqlalchemy import DateTime
+from sqlalchemy import Column, Integer, DateTime
 
 from backend import db
 
