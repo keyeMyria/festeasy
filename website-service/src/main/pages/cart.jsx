@@ -72,6 +72,7 @@ class CartRow extends React.Component {
 class Cart extends React.Component {
   static propTypes = {
     cart: PropTypes.object.isRequired,
+    cartProducts: PropTypes.array.isRequired,
     festivals: PropTypes.array.isRequired,
     removeCartProduct: PropTypes.func.isRequired,
     selectFestival: PropTypes.func.isRequired,
@@ -82,6 +83,7 @@ class Cart extends React.Component {
   getMain() {
     const {
       cart,
+      cartProducts,
       festivals,
       updateQuantity,
       onCheckout,
@@ -110,7 +112,7 @@ class Cart extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {cart.cart_products.map((cartProduct) => (
+            {cartProducts.map((cartProduct) => (
               <CartRow
                 updateQuantity={updateQuantity}
                 removeCartProduct={removeCartProduct}
@@ -129,9 +131,9 @@ class Cart extends React.Component {
   }
 
   render() {
-    const { cart } = this.props
+    const { cartProducts } = this.props
     let result
-    if (cart.cart_products.length === 0) {
+    if (cartProducts.length === 0) {
       result = (
         <h2 className="ui center aligned header">
           Cart Empty
@@ -255,17 +257,19 @@ export default class CartContainer extends React.Component {
 
   render() {
     const { cart, error, festivals } = this.state
+    const isReady = cart && festivals
     return (
       <div>
         <h1 className="ui center aligned header">Cart</h1>
         <div className="ui divider" />
         <Page
-          isLoading={(!cart || !festivals) && !error}
+          isLoading={!isReady && !error}
           contentError={error}
           content={
-            cart && festivals ?
+            isReady ?
               <Cart
                 cart={cart}
+                cartProducts={cart.cart_products}
                 festivals={festivals}
                 removeCartProduct={this.removeCartProduct}
                 selectFestival={this.selectFestival}
