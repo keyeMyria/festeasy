@@ -25,6 +25,7 @@ export default class StoreWrapper extends React.Component {
         'http',
         new DSHttpAdapter({
           http: context.axios,
+          log: false,
         }),
         { default: true }
     )
