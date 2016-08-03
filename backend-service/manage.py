@@ -6,8 +6,7 @@ import sys
 import pytest
 
 from flask import current_app
-from flask.ext.script import Manager, Command, Option
-from flask.ext.script import Shell, Server
+from flask_script import Manager, Command, Option, Shell, Server
 
 from backend import create_app, db, models
 from backend.utils import get_dummy_data
