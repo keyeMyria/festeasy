@@ -93,7 +93,7 @@ export default class AuthWrapper extends React.Component {
         url: 'auth/signup',
         data: { email_address: emailAddress, password, first_name: firstName },
       })
-        .then(() => {
+        .then(() => (
           this.signIn(emailAddress, password)
             .then((response) => {
               resolve(response)
@@ -101,7 +101,7 @@ export default class AuthWrapper extends React.Component {
             .catch((error) => {
               reject(error)
             })
-        })
+        ))
         .catch((error) => {
           reject(error)
         })

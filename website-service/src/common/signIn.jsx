@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import classNames from 'classnames'
 
 
@@ -36,9 +37,10 @@ export default class SignIn extends React.Component {
         router.push('/store')
       })
       .catch((error) => {
+        console.log(error)
         this.setState({
           isSigningIn: false,
-          signInError: error.data ? error.data.message : 'Something went wrong',
+          signInError: error.data ? error.data.message : 'Something went wrong, please try again',
         })
       })
   }
@@ -62,7 +64,7 @@ export default class SignIn extends React.Component {
           <form className={formClass} onSubmit={this.handleSignIn}>
             <div className="ui error message">
               <div className="header">Failed to sign in</div>
-              <p>Something went wrong</p>
+              <p>{signInError}</p>
             </div>
             <div className="ui field">
               <label htmlFor="emailAddress">Email Address</label>
@@ -84,6 +86,7 @@ export default class SignIn extends React.Component {
             </div>
             <button className="ui button" type="submit">Sign In</button>
           </form>
+          Dont have an account yet? <Link to="/sign-up">Sign up</Link>
         </div>
       </div>
     )

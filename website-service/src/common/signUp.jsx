@@ -1,15 +1,18 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import classNames from 'classnames'
 
 
 export default class SignUp extends React.Component {
   static contextTypes = {
     signUp: PropTypes.func.isRequired,
+    router: PropTypes.object.isRequired,
   }
 
   constructor(props) {
     super(props)
     this.state = {
+      firstName: '',
       emailAddress: '',
       password: '',
       isSigningUp: false,
@@ -34,10 +37,10 @@ export default class SignUp extends React.Component {
       .then(() => {
         router.push('/store')
       })
-      .catch(() => {
+      .catch((error) => {
         this.setState({
           isSigningUp: false,
-          signUpError: 'Something went wrong',
+          signUpError: error.data ? error.data.message : 'Something went wrong, please try again',
         })
       })
   }
@@ -62,7 +65,7 @@ export default class SignUp extends React.Component {
           <form className={formClass} onSubmit={this.handleSignUp}>
             <div className="ui error message">
               <div className="header">Failed to sign up</div>
-              <p>Something went wrong</p>
+              <p>{signUpError}</p>
             </div>
             <div className="ui field">
               <label htmlFor="firstName">First Name</label>
@@ -93,6 +96,7 @@ export default class SignUp extends React.Component {
             </div>
             <button className="ui button" type="submit">Sign Up</button>
           </form>
+          Already have an account? <Link to="/sign-in">Sign in</Link>
         </div>
       </div>
     )
