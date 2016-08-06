@@ -84,6 +84,11 @@ export default class InvoiceContainer extends React.Component {
         const payUReference = response.payu_reference
         window.location.href = `https://staging.payu.co.za/rpp.do?PayUReference=${payUReference}`
       })
+      .catch(() => {
+        this.setState({
+          error: 'Something went wrong making payment',
+        })
+      })
   }
 
   fetchInvoiceProducts() {
@@ -93,6 +98,11 @@ export default class InvoiceContainer extends React.Component {
       .then((invoiceProducts) => {
         this.setState({ invoiceProducts })
       })
+      .catch(() => {
+        this.setState({
+          error: 'Something went wrong fetching invoice line items',
+        })
+      })
   }
 
   fetchInvoice() {
@@ -101,6 +111,11 @@ export default class InvoiceContainer extends React.Component {
     store.find('invoice', invoiceId)
       .then((invoice) => {
         this.setState({ invoice })
+      })
+      .catch(() => {
+        this.setState({
+          error: 'Something went wrong fetching invoice',
+        })
       })
   }
 
