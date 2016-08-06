@@ -137,6 +137,7 @@ export default class AuthWrapper extends React.Component {
     return new Promise((resolve) => {
       this.setState({ authDetails: null })
       this.clearAuthDetails()
+      this.context.router.push('/')
       resolve()
     })
   }
