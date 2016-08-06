@@ -15,7 +15,7 @@ class Orders extends React.Component {
         <table className="ui table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Order ID</th>
               <th>Festival</th>
               <th>Total</th>
               <th>Amount Due</th>
@@ -25,7 +25,7 @@ class Orders extends React.Component {
           <tbody>
             {orders.map((o) => (
               <tr key={o.id}>
-                <td><Link to={`/account/orders/${o.id}`}>{o.id}</Link></td>
+                <td>Order {o.id}</td>
                 <td>{o.festival.name}</td>
                 <td>R{o.total_rands}</td>
                 <td>R{o.current_invoice.amount_due_rands}</td>
