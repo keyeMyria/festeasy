@@ -24,6 +24,7 @@ class Invoice extends React.Component {
             <tr>
               <th>Product</th>
               <th>Quantity</th>
+              <th>Unit Price</th>
               <th>Sub Total</th>
             </tr>
           </thead>
@@ -32,6 +33,7 @@ class Invoice extends React.Component {
               <tr key={ip.id}>
                 <td>{ip.product.name}</td>
                 <td>{ip.quantity}</td>
+                <td><PriceFormatter rands={ip.unit_price_rands} /></td>
                 <td><PriceFormatter rands={ip.sub_total_rands} /></td>
               </tr>
             ))}
