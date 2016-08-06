@@ -20,5 +20,10 @@ class Payment(db.Model, Entity):
     invoice_id = Column(Integer, ForeignKey('invoice.id'), nullable=False)
     invoice = relationship('Invoice', back_populates='payments')
 
+    payu_transactions = relationship(
+        'PayUTransaction',
+        back_populates='payment',
+    )
+
     # Amount paid in Rands.
     amount_rands = Column(Numeric, nullable=False)

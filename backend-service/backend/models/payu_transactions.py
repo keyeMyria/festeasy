@@ -20,3 +20,9 @@ class PayUTransaction(db.Model, Entity):
         'Invoice',
         back_populates='payu_transactions',
     )
+
+    payment_id = Column(ForeignKey('payment.id'))
+    payment = relationship(
+        'Payment',
+        back_populates='payu_transactions',
+    )
