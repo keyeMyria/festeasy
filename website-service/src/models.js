@@ -31,4 +31,8 @@ module.exports = [
     name: 'invoice',
     endpoint: 'invoices',
   },
+  {
+    name: 'invoiceProduct',
+    endpoint: 'invoice-products',
+  },
 ]
