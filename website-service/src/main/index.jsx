@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Navbar from './navbar.jsx'
+import Navbar from 'main/components/navbar.jsx'
 
 
 export default class Main extends React.Component {

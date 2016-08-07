@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import InvoiceContainer from 'main/myInvoiceContainer.jsx'
+import InvoiceContainer from 'main/components/myInvoiceContainer.jsx'
 
 
 export default class Payment extends React.Component {

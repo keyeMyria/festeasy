@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import AddToCartButton from 'main/addToCartButton.jsx'
+import AddToCartButton from 'main/components/addToCartButton.jsx'
 import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 

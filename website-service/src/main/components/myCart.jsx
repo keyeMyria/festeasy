@@ -4,7 +4,7 @@ import { Option } from 'semantic-react'
 import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
-import CartRow from 'main/myCartRow.jsx'
+import CartRow from 'main/components/myCartRow.jsx'
 
 
 export default class Cart extends React.Component {

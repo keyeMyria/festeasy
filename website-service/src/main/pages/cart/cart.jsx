@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Page from 'utils/page.jsx'
-import Cart from 'main/myCart.jsx'
+import Cart from 'main/components/myCart.jsx'
 
 
 export default class CartContainer extends React.Component {

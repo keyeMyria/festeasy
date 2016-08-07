@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Page from 'utils/page.jsx'
-import Invoice from 'main/myInvoice.jsx'
+import Invoice from 'main/components/myInvoice.jsx'
 
 
 export default class InvoiceContainer extends React.Component {
