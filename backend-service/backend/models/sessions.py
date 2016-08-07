@@ -1,7 +1,5 @@
-import datetime
-import jwt
-from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy import ForeignKey
+from datetime import datetime, timedelta
+from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -10,17 +8,14 @@ from .utils import Entity
 
 
 class Session(db.Model, Entity):
-    __tablename__ = 'session'
 
-    def generate_token(self):
-        # TODO: Sort out token generation mess
-        assert self.user.id is not None
-        payload = {
-            'sub': self.user.id,
-            'iat': self.created_on,
-            'exp': self.expires_on,
-        }
-        self.token = jwt.encode(payload, 'secret').decode('unicode_escape')
+    def __init__(self, user=None, expires_on=None, token=None):
+        self.expires_on = (expires_on if expires_on
+                           else datetime.utcnow() + timedelta(days=30))
+        # TODO: Fix import dependency issue.
+        from backend.utils import random_string
+        self.token = token if token else random_string(32)
+        self.user = user
 
     def __repr__(self):
         return '<Session {id}>'.format(id=self.id)
@@ -28,11 +23,10 @@ class Session(db.Model, Entity):
     expires_on = Column(DateTime, nullable=False)
     token = Column(String(200), nullable=False, unique=True)
 
-    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    user_id = Column(ForeignKey('user.id'), nullable=False)
     user = relationship(
         'User',
         back_populates='sessions',
-        cascade='save-update, merge',
     )
 
     def is_valid(self):

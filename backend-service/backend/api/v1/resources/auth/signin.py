@@ -25,13 +25,7 @@ class Signin(Resource):
                 'Incorrect email address and password combination.',
                 401,
             )
-        now = datetime.datetime.now()
-        expires_on = now + datetime.timedelta(days=14)
-        session = Session(
-            expires_on=expires_on,
-            user=user,
-        )
-        session.generate_token()
+        session = Session(user=user)
         db.session.add(session)
         db.session.commit()
         return {'session': session_schema.dump(session).data}

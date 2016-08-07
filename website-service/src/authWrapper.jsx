@@ -73,6 +73,7 @@ export default class AuthWrapper extends React.Component {
 
   responseErrorInterceptor(response) {
     const { router } = this.context
+    console.log(response)
     if (response.status === 401) {
       this.clearAuthDetails()
       router.push('/sign-in')
