@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
+import NavLink from 'main/components/navLink.jsx'
 
 
 export default class Account extends React.Component {
@@ -15,8 +15,8 @@ export default class Account extends React.Component {
         <div className="ui two column grid">
           <div className="four wide column">
             <div className="ui vertical pointing menu">
-              <Link className="item" to="/account/orders" activeClassName="active">Orders</Link>
-              <Link className="item" to="/account/settings" activeClassName="active">Settings</Link>
+              <NavLink to="/account/orders">Orders</NavLink>
+              <NavLink to="/account/settings">Settings</NavLink>
             </div>
           </div>
           <div className="twelve wide column">
