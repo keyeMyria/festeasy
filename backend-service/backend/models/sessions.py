@@ -30,5 +30,5 @@ class Session(db.Model, Entity):
     )
 
     def is_valid(self):
-        now = datetime.datetime.now()
+        now = datetime.now()
         return self.expires_on > now

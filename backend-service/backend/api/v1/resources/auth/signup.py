@@ -28,12 +28,12 @@ class Signup(Resource):
         user.cart = Cart()
         db.session.add(user)
         db.session.commit()
-        # send_templated_email(
-        #     user.email_address,
-        #     'Welcome',
-        #     'signup.html',
-        #     dict(
-        #         first_name=user.first_name,
-        #     ),
-        # )
+        send_templated_email(
+            user.email_address,
+            'Welcome',
+            'signup.html',
+            dict(
+                first_name=user.first_name,
+            ),
+        )
         return user_schema.dump(user).data

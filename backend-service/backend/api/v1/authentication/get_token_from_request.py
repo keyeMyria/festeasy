@@ -19,7 +19,7 @@ def get_token_from_request():
         ),
         'query_token': fields.String(
             location='query',
-            load_from='auth-token',
+            load_from='session-token',
             missing='',
         )
     }
