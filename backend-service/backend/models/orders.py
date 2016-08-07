@@ -1,5 +1,4 @@
-from sqlalchemy import Column, Integer
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -10,7 +9,50 @@ from .invoices import Invoice
 
 
 class Order(db.Model, Entity):
-    __tablename__ = 'order'
+    def __repr__(self):
+        return '<Order {self.id}>'.format(self=self)
+
+    festival_id = Column(ForeignKey('festival.id'), nullable=False)
+    festival = relationship(
+        'Festival',
+        back_populates='orders',
+    )
+
+    user_id = Column(ForeignKey('user.id'), nullable=False)
+    user = relationship(
+        'User',
+        back_populates='orders',
+        cascade='save-update, merge'
+    )
+
+    invoices = relationship(
+        'Invoice',
+        back_populates='order',
+    )
+
+    order_products = relationship(
+        'OrderProduct',
+        back_populates='order',
+    )
+
+    packages = relationship(
+        'Package',
+        back_populates='order',
+    )
+
+    collection = relationship(
+        'Collection',
+        back_populates='order',
+        uselist=False,
+    )
+
+    # TODO: Test.
+    @property
+    def current_invoice(self):
+        return (Invoice.query
+                .filter(Invoice.order_id == self.id)
+                .order_by(Invoice.created_on.desc())
+                .first())
 
     # TODO: Imporve testing
     @staticmethod
@@ -34,53 +76,6 @@ class Order(db.Model, Entity):
                 )
             )
         return order
-
-    def __repr__(self):
-        return '<Order {id}>'.format(id=self.id)
-
-    festival_id = Column(Integer, ForeignKey('festival.id'), nullable=False)
-    festival = relationship(
-        'Festival',
-        back_populates='orders',
-        cascade='save-update, merge'
-    )
-
-    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    user = relationship(
-        'User',
-        back_populates='orders',
-        cascade='save-update, merge'
-    )
-
-    invoices = relationship(
-        'Invoice',
-        back_populates='order',
-    )
-
-    # TODO: Test.
-    @property
-    def current_invoice(self):
-        return (Invoice.query
-                .filter(Invoice.order_id == self.id)
-                .order_by(Invoice.created_on.desc())
-                .first())
-
-    order_products = relationship(
-        'OrderProduct',
-        back_populates='order',
-        cascade='save-update, merge'
-    )
-
-    packages = relationship(
-        'Package',
-        back_populates='order',
-    )
-
-    collection = relationship(
-        'Collection',
-        back_populates='order',
-        uselist=False,
-    )
 
     @property
     def total_rands(self):

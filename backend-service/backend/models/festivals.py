@@ -1,17 +1,13 @@
-from sqlalchemy import Column, String, DateTime, Integer
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import relationship
 
 from backend import db
-
-from .utils import Entity
+from backend.models.utils import Entity
 
 
 class Festival(db.Model, Entity):
-    __tablename__ = 'festival'
-
     def __repr__(self):
-        return '<Festival {id}>'.format(id=self.id)
+        return '<Festival {self.id}>'.format(self=self)
 
     name = Column(String, nullable=False)
     starts_on = Column(DateTime, nullable=False)
@@ -21,22 +17,11 @@ class Festival(db.Model, Entity):
     ticket_link = Column(String)
     facebook_link = Column(String)
 
-    base_festival_id = Column(
-        Integer,
-        ForeignKey('base_festival.id'),
-        nullable=False,
-    )
-    base_festival = relationship(
-        'BaseFestival',
-        back_populates='festivals',
-        cascade='save-update, merge, delete'
-    )
-
     orders = relationship(
         'Order',
         back_populates='festival',
-        cascade='save-update, merge'
     )
+
     carts = relationship(
         'Cart',
         back_populates='festival',

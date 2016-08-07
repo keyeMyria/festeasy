@@ -1,8 +1,7 @@
 import datetime
 
-from backend.models import User, Product, Festival, Cart
-from backend.models import Category, BaseFestival
-from backend.models import Supplier, ProductCategory, ProductSupplier
+from backend.models import User, Product, Festival, Cart, Category, Supplier, \
+    ProductCategory
 
 
 def get_dummy_data():
@@ -29,9 +28,6 @@ def get_dummy_data():
         price_rands=10,
         description='A description.',
     )
-    castle.product_suppliers.extend([
-        ProductSupplier(product=castle, supplier=woolies),
-    ])
     castle.product_categories.extend([
         ProductCategory(product=castle, category=beer),
         ProductCategory(product=castle, category=drinks),
@@ -44,9 +40,6 @@ def get_dummy_data():
         price_rands=10,
         description='A description.',
     )
-    lays.product_suppliers.extend([
-        ProductSupplier(product=lays, supplier=woolies),
-    ])
     lays.product_categories.extend([
         ProductCategory(product=lays, category=food)
     ])
@@ -58,9 +51,6 @@ def get_dummy_data():
         price_rands=10,
         description='A description.',
     )
-    coke.product_suppliers.extend([
-        ProductSupplier(product=coke, supplier=pp),
-    ])
     coke.product_categories.extend([
         ProductCategory(product=coke, category=drinks)
     ])
@@ -108,12 +98,8 @@ def get_dummy_data():
     jelly_beans.product_categories.extend([
         ProductCategory(product=jelly_beans, category=food),
     ])
-    rtd = BaseFestival(name='Rocking The Diasies')
-    sun = BaseFestival(name='Sunflower Fest')
-    oppi = BaseFestival(name='Oppie Koppie')
     festivals = [
         Festival(
-            base_festival=rtd,
             name='Rocking The Daisies',
             starts_on=now + datetime.timedelta(days=2),
             ends_on=now + datetime.timedelta(days=4),
@@ -123,7 +109,6 @@ def get_dummy_data():
             facebook_link='https://www.facebook.com/rockingthedaisiesfestival/?fref=ts',
         ),
         Festival(
-            base_festival=sun,
             name='Sunflower Fest',
             starts_on=now + datetime.timedelta(days=20),
             ends_on=now + datetime.timedelta(days=25),
@@ -133,7 +118,6 @@ def get_dummy_data():
             facebook_link='https://www.facebook.com/SunflowerFest',
         ),
         Festival(
-            base_festival=oppi,
             name='Oppie Koppie',
             starts_on=now + datetime.timedelta(days=27),
             ends_on=now + datetime.timedelta(days=30),

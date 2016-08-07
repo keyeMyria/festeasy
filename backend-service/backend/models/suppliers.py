@@ -1,6 +1,5 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-from sqlalchemy import ForeignKey
 
 from backend import db
 
@@ -8,33 +7,17 @@ from .utils import Entity
 
 
 class Supplier(db.Model, Entity):
-    """
-    A supplier is a physical store from where Products
+    """A supplier is a physical store from where Products
     are bought.
     EG: Woolies in Palmyra Junction.
     """
-    __tablename__ = 'supplier'
 
     def __repr__(self):
-        return '<Supplier {id}>'.format(id=self.id)
+        return '<Supplier {self.id}>'.format(sef=self)
 
     name = Column(String)
     location = Column(String)
     contact_numer = Column(String)
-
-    base_supplier_id = Column(
-        Integer,
-        ForeignKey('base_supplier.id'),
-    )
-    base_supplier = relationship(
-        'BaseSupplier',
-        back_populates="suppliers",
-    )
-
-    product_suppliers = relationship(
-        'ProductSupplier',
-        back_populates='supplier',
-    )
 
     stock_units = relationship(
         'StockUnit',

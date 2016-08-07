@@ -20,10 +20,7 @@ from .payments import Payment
 from .invoices import Invoice
 from .categories import Category
 from .product_categories import ProductCategory
-from .base_festivals import BaseFestival
 from .suppliers import Supplier
-from .base_suppliers import BaseSupplier
-from .product_suppliers import ProductSupplier
 from .stock_units import StockUnit
 from .forgot_password_tokens import ForgotPasswordToken
 from .packages import Package

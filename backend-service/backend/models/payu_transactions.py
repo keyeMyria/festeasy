@@ -7,6 +7,9 @@ from .utils import Entity
 
 
 class PayUTransaction(db.Model, Entity):
+    def __repr__(self):
+        return '<PayUTransaction {self.id}>'.format(self=self)
+
     payu_reference = Column(BigInteger, unique=True, nullable=False)
     merchant_reference = Column(Integer)
     successful = Column(Boolean)

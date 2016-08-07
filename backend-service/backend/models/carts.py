@@ -1,35 +1,26 @@
-from sqlalchemy import Column, Integer
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
-
-from .utils import Entity
+from backend.models.utils import Entity
 
 
 class Cart(db.Model, Entity):
-    __tablename__ = 'cart'
-
-    def __init__(self, festival=None, user=None, products=[]):
-        self.festival = festival
-        self.user = user
-        self.products = products
-
     def __repr__(self):
-        return '<Cart {id}>'.format(id=self.id)
+        return '<Cart {self.id}>'.format(self=self)
 
     festival_id = Column(Integer, ForeignKey('festival.id'))
     festival = relationship(
         'Festival',
         back_populates='carts',
-        cascade='save-update, merge'
     )
+
     user = relationship(
         'User',
         back_populates='cart',
         uselist=False,
-        cascade='save-update, merge'
     )
+
     cart_products = relationship(
         'CartProduct',
         back_populates='cart',

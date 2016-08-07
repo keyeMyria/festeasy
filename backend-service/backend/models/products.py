@@ -1,5 +1,4 @@
-from sqlalchemy import Column, String, Numeric
-from sqlalchemy import Boolean
+from sqlalchemy import Column, String, Numeric, Boolean
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -8,20 +7,10 @@ from .utils import Entity
 
 
 class Product(db.Model, Entity):
-    __tablename__ = 'product'
-
-    def __init__(self, cost_rands=None, description=None, is_enabled=False,
-                 name=None, price_rands=None):
-        self.cost_rands = cost_rands
-        self.description = description
-        self.is_enabled = is_enabled
-        self.name = name
-        self.price_rands = price_rands
-
     def __repr__(self):
-        return '<Product {id}>'.format(id=self.id)
+        return '<Product {self.id}>'.format(self=self)
 
-    # The cost of a Product in Rands.
+    # Estimated cost of a product. Actual cost is recorded on a StockUnit.
     cost_rands = Column(Numeric)
     description = Column(String)
     # Should a Product show up on the products list.
@@ -32,7 +21,7 @@ class Product(db.Model, Entity):
     cart_products = relationship(
         'CartProduct',
         back_populates='product',
-        cascade='save-update, merge, delete'
+        cascade='save-update, merge, delete, delete-orphan'
     )
 
     invoice_products = relationship(
@@ -43,16 +32,10 @@ class Product(db.Model, Entity):
     order_products = relationship(
         'OrderProduct',
         back_populates='product',
-        cascade='save-update, merge'
     )
 
     product_categories = relationship(
         'ProductCategory',
-        back_populates='product',
-    )
-
-    product_suppliers = relationship(
-        'ProductSupplier',
         back_populates='product',
     )
 
