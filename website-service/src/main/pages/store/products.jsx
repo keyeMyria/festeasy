@@ -35,16 +35,20 @@ class ProductList extends React.Component {
 
   render() {
     const { products } = this.props
-    return (
-      <div>
-        {products.map(product => (
+    let result
+    if (products.length === 0) {
+      result = <div>No results</div>
+    } else {
+      result = (
+        products.map(product => (
           <div key={product.id}>
             <ProductListItem product={product} />
             <div className="ui divider" />
           </div>
-        ))}
-      </div>
-    )
+        ))
+      )
+    }
+    return <div>{result}</div>
   }
 }
 
@@ -64,11 +68,23 @@ export default class ProductListContainer extends React.Component {
       error: null,
       products: null,
     }
+    this.fetchProducts = this.fetchProducts.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.fetchProducts({})
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.fetchProducts({
+      search: nextProps.location.query.search,
+    })
+  }
+
+  fetchProducts(params) {
     const { store } = this.context
-    store.findAll('product', {}, { bypassCache: true })
+    const config = { bypassCache: true }
+    store.findAll('product', params, config)
       .then((products) => {
         this.setState({
           loading: false,
@@ -85,7 +101,6 @@ export default class ProductListContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.location)
     const { products, error } = this.state
     return (
       <Page

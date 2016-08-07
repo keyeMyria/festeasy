@@ -4,18 +4,20 @@ import React, { PropTypes } from 'react'
 class ProductSearch extends React.Component {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
+    searchTerm: PropTypes.string,
   }
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      searchTerm: '',
+      searchTerm: props.searchTerm || '',
     }
-    this.onClick = this.onClick.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
   }
 
-  onClick() {
+  onSubmit(e) {
+    e.preventDefault()
     this.props.onClick(this.state.searchTerm)
   }
 
@@ -26,15 +28,15 @@ class ProductSearch extends React.Component {
   render() {
     const { searchTerm } = this.state
     return (
-      <div className="ui fluid action input">
+      <form className="ui form" onSubmit={this.onSubmit}>
         <input
           type="text"
           placeholder="Search products..."
           value={searchTerm}
           onChange={this.onChange}
         />
-        <button className="ui button" onClick={this.onClick}>Search</button>
-      </div>
+        <button className="ui button">Search</button>
+      </form>
     )
   }
 }
@@ -47,6 +49,7 @@ export default class Store extends React.Component {
 
   static propTypes = {
     children: PropTypes.any.isRequired,
+    location: PropTypes.object.isRequired,
   }
 
   constructor() {
@@ -55,14 +58,16 @@ export default class Store extends React.Component {
   }
 
   onSearch(term) {
-    this.context.router.push(`/store?search=${term}`)
+    const path = term === '' ? '' : '?search='.concat(term)
+    this.context.router.push('/store'.concat(path))
   }
 
   render() {
+    const { search } = this.props.location.query
     return (
       <div>
         <h1 className="ui center aligned header">Store</h1>
-        <ProductSearch onClick={this.onSearch} />
+        <ProductSearch onClick={this.onSearch} searchTerm={search} />
         <div className="ui divider" />
         {this.props.children}
       </div>
