@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import Page from 'common/page.jsx'
+import Page from 'utils/page.jsx'
 import Cart from 'main/myCart.jsx'
 
 

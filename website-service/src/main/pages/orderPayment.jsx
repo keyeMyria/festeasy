@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Payment from 'main/payment.jsx'
-import Page from 'common/page.jsx'
+import Page from 'utils/page.jsx'
 
 
 export default class OrderPayment extends React.Component {

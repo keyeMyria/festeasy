@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Button } from 'semantic-react'
-import Page from 'common/page.jsx'
+import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 
 

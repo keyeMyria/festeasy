@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import Page from 'common/page.jsx'
+import Page from 'utils/page.jsx'
 
 
 class Orders extends React.Component {

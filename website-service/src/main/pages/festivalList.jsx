@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
 import { festivalShape } from 'utils/shapes.jsx'
-import Page from 'common/page.jsx'
+import Page from 'utils/page.jsx'
 import DateFormatter from 'utils/dateFormatter.jsx'
 
 
