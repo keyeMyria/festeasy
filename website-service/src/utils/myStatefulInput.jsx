@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react'
-import { Input } from 'semantic-react'
+import MyInput from 'utils/myInput.jsx'
 
 
-export default class MyOnBlurInput extends React.Component {
+export default class MyStatefulInput extends React.Component {
   static propTypes = {
     initialValue: PropTypes.any.isRequired,
-    onBlur: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -25,11 +24,10 @@ export default class MyOnBlurInput extends React.Component {
     const filteredProps = Object.assign({}, this.props)
     delete filteredProps.initialValue
     return (
-      <Input
-        {...filteredProps}
-        value={value}
+      <MyInput
         onChange={this.onChange}
-        onBlur={this.props.onBlur}
+        value={value}
+        {...filteredProps}
       />
     )
   }

@@ -4,8 +4,8 @@ import { Option } from 'semantic-react'
 import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
-import { MyTable, MyTr, MyTd, MyTh } from 'utils/table.jsx'
-import MyOnBlurInput from 'utils/myOnBlurInput.jsx'
+import { MyTable, MyTr, MyTd, MyTh } from 'utils/myTable.jsx'
+import MyStatefulInput from 'utils/myStatefulInput.jsx'
 import MyButton from 'utils/myButton.jsx'
 
 
@@ -35,36 +35,6 @@ export default class Cart extends React.Component {
         {festival.name} - {moment(festival.starts_on).format('YYYY')}
       </Option>
     ))
-
-    const headers = (
-      <MyTr>
-        <MyTh>Product</MyTh>
-        <MyTh>Quantity</MyTh>
-        <MyTh>Sub Total</MyTh>
-        <MyTh />
-      </MyTr>
-    )
-
-    const rows = cartProducts.map((cp) => (
-      <MyTr key={cp.id}>
-        <MyTd>{cp.product.name}</MyTd>
-        <MyTd>
-          <MyOnBlurInput
-            type="number"
-            onBlur={(e) => updateQuantity(cp, e.target.value)}
-            initialValue={cp.quantity}
-          />
-        </MyTd>
-        <MyTd>
-          <PriceFormatter rands={cp.sub_total_rands} />
-        </MyTd>
-        <MyTd>
-          <MyButton onClick={() => removeCartProduct(cp)}>
-            Remove
-          </MyButton>
-        </MyTd>
-      </MyTr>
-    ))
     return (
       <div className="ui segment">
         <label htmlFor="MySelect">Select festival:</label>
@@ -81,8 +51,38 @@ export default class Cart extends React.Component {
           </div>
         : ''}
         <MyTable
-          headers={headers}
-          rows={rows}
+          headers={
+            <MyTr>
+              <MyTh>Product</MyTh>
+              <MyTh>Quantity</MyTh>
+              <MyTh>Sub Total</MyTh>
+              <MyTh />
+            </MyTr>
+          }
+          rows={
+            cartProducts.map((cp) => (
+              <MyTr key={cp.id}>
+                <MyTd>{cp.product.name}</MyTd>
+                <MyTd>
+                  <MyStatefulInput
+                    type="number"
+                    min={1}
+                    max={10}
+                    initialValue={cp.quantity}
+                    onBlur={(e) => updateQuantity(cp, e.target.value)}
+                  />
+                </MyTd>
+                <MyTd>
+                  <PriceFormatter rands={cp.sub_total_rands} />
+                </MyTd>
+                <MyTd>
+                  <MyButton onClick={() => removeCartProduct(cp)}>
+                    Remove
+                  </MyButton>
+                </MyTd>
+              </MyTr>
+            ))
+          }
         />
         <div>
           <div>Total: <PriceFormatter rands={cart.total_rands} /></div>
