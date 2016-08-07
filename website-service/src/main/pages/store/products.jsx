@@ -54,6 +54,10 @@ export default class ProductListContainer extends React.Component {
     store: PropTypes.object.isRequired,
   }
 
+  static propTypes = {
+    location: PropTypes.object.isRequired,
+  }
+
   constructor() {
     super()
     this.state = {
@@ -81,6 +85,7 @@ export default class ProductListContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.location)
     const { products, error } = this.state
     return (
       <Page

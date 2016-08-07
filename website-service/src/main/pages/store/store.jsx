@@ -1,42 +1,70 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
+
+
+class ProductSearch extends React.Component {
+  static propTypes = {
+    onClick: PropTypes.func.isRequired,
+  }
+
+  constructor() {
+    super()
+    this.state = {
+      searchTerm: '',
+    }
+    this.onClick = this.onClick.bind(this)
+    this.onChange = this.onChange.bind(this)
+  }
+
+  onClick() {
+    this.props.onClick(this.state.searchTerm)
+  }
+
+  onChange(e) {
+    this.setState({ searchTerm: e.target.value })
+  }
+
+  render() {
+    const { searchTerm } = this.state
+    return (
+      <div className="ui fluid action input">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={this.onChange}
+        />
+        <button className="ui button" onClick={this.onClick}>Search</button>
+      </div>
+    )
+  }
+}
 
 
 export default class Store extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
   static propTypes = {
     children: PropTypes.any.isRequired,
+  }
+
+  constructor() {
+    super()
+    this.onSearch = this.onSearch.bind(this)
+  }
+
+  onSearch(term) {
+    this.context.router.push(`/store?search=${term}`)
   }
 
   render() {
     return (
       <div>
         <h1 className="ui center aligned header">Store</h1>
+        <ProductSearch onClick={this.onSearch} />
         <div className="ui divider" />
-        <div className="ui grid">
-          <div className="four wide column">
-            <h4 className="ui header">Product Categories</h4>
-            <div className="ui vertical pointing menu">
-              <Link className="item" activeClassName="active" to="/store">All</Link>
-              <div className="item">
-                <b>Alcohol</b>
-                <div className="menu">
-                  <a className="item">Beer</a>
-                  <a className="item">Wine</a>
-                </div>
-              </div>
-              <div className="item">
-                <b>Food</b>
-                <div className="menu">
-                  <a className="item">Snacks</a>
-                  <a className="item">Meals</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="twelve wide column">
-            {this.props.children}
-          </div>
-        </div>
+        {this.props.children}
       </div>
     )
   }
