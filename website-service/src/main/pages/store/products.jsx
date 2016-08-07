@@ -72,7 +72,12 @@ export default class ProductListContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchProducts({})
+    const params = {}
+    const searchTerm = this.props.location.query.search
+    if (searchTerm) {
+      params.search = searchTerm
+    }
+    this.fetchProducts(params)
   }
 
   componentWillReceiveProps(nextProps) {
