@@ -4,7 +4,9 @@ import { Option } from 'semantic-react'
 import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
-import CartRow from 'main/components/myCartRow.jsx'
+import { MyTable, MyTr, MyTd, MyTh } from 'utils/table.jsx'
+import MyOnBlurInput from 'utils/myOnBlurInput.jsx'
+import MyButton from 'utils/myButton.jsx'
 
 
 export default class Cart extends React.Component {
@@ -27,10 +29,41 @@ export default class Cart extends React.Component {
       onCheckout,
       removeCartProduct,
     } = this.props
+
     const options = festivals.map((festival) => (
       <Option key={festival.id} value={festival.id}>
         {festival.name} - {moment(festival.starts_on).format('YYYY')}
       </Option>
+    ))
+
+    const headers = (
+      <MyTr>
+        <MyTh>Product</MyTh>
+        <MyTh>Quantity</MyTh>
+        <MyTh>Sub Total</MyTh>
+        <MyTh />
+      </MyTr>
+    )
+
+    const rows = cartProducts.map((cp) => (
+      <MyTr key={cp.id}>
+        <MyTd>{cp.product.name}</MyTd>
+        <MyTd>
+          <MyOnBlurInput
+            type="number"
+            onBlur={(e) => updateQuantity(cp, e.target.value)}
+            initialValue={cp.quantity}
+          />
+        </MyTd>
+        <MyTd>
+          <PriceFormatter rands={cp.sub_total_rands} />
+        </MyTd>
+        <MyTd>
+          <MyButton onClick={() => removeCartProduct(cp)}>
+            Remove
+          </MyButton>
+        </MyTd>
+      </MyTr>
     ))
     return (
       <div className="ui segment">
@@ -47,26 +80,10 @@ export default class Cart extends React.Component {
             Please select a festival
           </div>
         : ''}
-        <table className="ui table">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Sub Total</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {cartProducts.map((cartProduct) => (
-              <CartRow
-                updateQuantity={updateQuantity}
-                removeCartProduct={removeCartProduct}
-                key={cartProduct.id}
-                cartProduct={cartProduct}
-              />
-            ))}
-          </tbody>
-        </table>
+        <MyTable
+          headers={headers}
+          rows={rows}
+        />
         <div>
           <div>Total: <PriceFormatter rands={cart.total_rands} /></div>
           <button
