@@ -38,7 +38,7 @@ export default class FestivalContainer extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { store } = this.context
     const { festivalId } = this.props.params
     store.find('festival', festivalId, { bypassCache: true })

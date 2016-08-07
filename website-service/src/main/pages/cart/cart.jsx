@@ -27,7 +27,7 @@ export default class CartContainer extends React.Component {
     this.onCheckout = this.onCheckout.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchCart()
     this.fetchFestivals()
     this.fetchCartProducts()

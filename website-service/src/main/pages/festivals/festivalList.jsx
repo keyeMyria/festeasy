@@ -63,7 +63,7 @@ export default class FestivalListContainer extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { store } = this.context
     store.findAll('festival', {}, { bypassCache: true })
       .then((festivals) => {

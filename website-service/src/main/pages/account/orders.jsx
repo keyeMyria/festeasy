@@ -1,47 +1,9 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
 import Page from 'utils/page.jsx'
-import { MyTable, MyTr, MyTd, MyTh } from 'utils/myTable.jsx'
+import OrderList from 'main/components/myOrderList.jsx'
 
 
-class Orders extends React.Component {
-  static propTypes = {
-    orders: PropTypes.array.isRequired,
-  }
-
-  render() {
-    const { orders } = this.props
-    return (
-      <MyTable
-        headers={
-          <MyTr>
-            <MyTh>Order ID</MyTh>
-            <MyTh>Festival</MyTh>
-            <MyTh>Total</MyTh>
-            <MyTh>Amount Due</MyTh>
-            <MyTh />
-          </MyTr>
-        }
-        rows={
-          orders.map((o) => (
-            <MyTr key={o.id}>
-              <MyTd>{o.id}</MyTd>
-              <MyTd>{o.festival.name}</MyTd>
-              <MyTd>{o.total_rands}</MyTd>
-              <MyTd>{o.current_invoice.amount_due_rands}</MyTd>
-              <MyTd>
-                <Link to={`/account/orders/${o.id}/invoice`}>See invoice</Link>
-              </MyTd>
-            </MyTr>
-          ))
-        }
-      />
-    )
-  }
-}
-
-
-export default class OrdersContainer extends React.Component {
+export default class OrderListContainer extends React.Component {
   static contextTypes = {
     store: PropTypes.object.isRequired,
   }
@@ -55,7 +17,7 @@ export default class OrdersContainer extends React.Component {
     this.fetchOrders = this.fetchOrders.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchOrders()
   }
 
@@ -83,7 +45,7 @@ export default class OrdersContainer extends React.Component {
         isLoading={!orders && !error}
         contentError={error}
         content={
-          orders ? <Orders orders={orders} /> : ''
+          orders ? <OrderList orders={orders} /> : ''
         }
       />
     )

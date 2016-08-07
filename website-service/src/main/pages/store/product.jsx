@@ -5,6 +5,10 @@ import PriceFormatter from 'utils/priceFormatter.jsx'
 
 
 class Product extends React.Component {
+  static propTypes = {
+    product: PropTypes.object.isRequired,
+  }
+
   render() {
     const { product } = this.props
     return (
@@ -16,10 +20,6 @@ class Product extends React.Component {
       </div>
     )
   }
-}
-
-Product.propTypes = {
-  product: PropTypes.object.isRequired,
 }
 
 
@@ -40,7 +40,7 @@ export default class ProductContainer extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { store } = this.context
     store.find('product', this.props.params.productId, { bypassCache: true })
       .then((product) => {
