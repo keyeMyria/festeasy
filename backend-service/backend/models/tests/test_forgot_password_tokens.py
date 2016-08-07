@@ -8,7 +8,7 @@ from backend.models import ForgotPasswordToken
 
 class TestForgotPasswordToken(ModelTestCase):
     def test_create_for_user(self):
-        """ Test that ForgotPasswordToken.create_for_user creates a valid token
+        """Test that ForgotPasswordToken.create_for_user creates a valid FPT
         for given user.
         """
         user = factories.UserFactory()
@@ -23,9 +23,7 @@ class TestForgotPasswordToken(ModelTestCase):
         future_date = now + datetime.timedelta(seconds=10)
 
         user = factories.UserFactory()
-        forgot_password_token = factories.ForgotPasswordTokenFactory()
-        forgot_password_token.user = user
-        forgot_password_token.token = ForgotPasswordToken.get_token()
+        forgot_password_token = ForgotPasswordToken.create_for_user(user)
 
         forgot_password_token.expires_on = future_date
         forgot_password_token.used_on = None

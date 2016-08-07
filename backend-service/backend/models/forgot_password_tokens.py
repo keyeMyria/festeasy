@@ -24,10 +24,6 @@ class ForgotPasswordToken(db.Model, Entity):
         return self.expires_on > now and not self.used_on
 
     @staticmethod
-    def get_token():
-        return str(uuid4())
-
-    @staticmethod
     def create_for_user(user):
         now = datetime.datetime.now()
         token = str(uuid4())
