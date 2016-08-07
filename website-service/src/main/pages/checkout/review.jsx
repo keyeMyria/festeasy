@@ -76,7 +76,7 @@ export default class ReviewContainer extends React.Component {
   onProceed() {
     const { axios } = this.context
     const cartId = this.state.cart.id
-    axios.request({
+    axios({
       method: 'post',
       url: `carts/${cartId}/checkout`,
     })
