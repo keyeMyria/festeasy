@@ -23,7 +23,7 @@ import PaymentConfirmation from 'main/pages/paymentConfirmation.jsx'
 import Account from 'main/pages/account.jsx'
 import Orders from 'main/pages/orders.jsx'
 import Settings from 'main/pages/settings.jsx'
-import OrderPayment from 'main/pages/orderPayment.jsx'
+import Invoice from 'main/pages/invoice.jsx'
 
 
 export default (
@@ -42,7 +42,7 @@ export default (
         <Route path="account" component={Account}>
           <IndexRedirect to="orders" />
           <Route path="orders" component={Orders} />
-          <Route path="orders/:orderId/payment" component={OrderPayment} />
+          <Route path="orders/:orderId/invoice" component={Invoice} />
           <Route path="settings" component={Settings} />
         </Route>
         <Route path="cart" component={Cart} />

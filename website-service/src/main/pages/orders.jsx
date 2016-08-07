@@ -29,7 +29,7 @@ class Orders extends React.Component {
                 <td>{o.festival.name}</td>
                 <td>R{o.total_rands}</td>
                 <td>R{o.current_invoice.amount_due_rands}</td>
-                <td><Link to={`/account/orders/${o.id}/payment`}>Make payment</Link></td>
+                <td><Link to={`/account/orders/${o.id}/invoice`}>See invoice</Link></td>
               </tr>
             ))}
           </tbody>
