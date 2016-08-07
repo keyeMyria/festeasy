@@ -1,18 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import NavLink from 'main/components/navLink.jsx'
 
-
-class NavLink extends React.Component {
-  render() {
-    return (
-      <Link
-        {...this.props}
-        className="item"
-        activeClassName="active"
-      />
-    )
-  }
-}
 
 export default class Navbar extends React.Component {
   static contextTypes = {
