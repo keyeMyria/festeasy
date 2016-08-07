@@ -1,7 +1,7 @@
 import React from 'react'
-import shallowCompare from 'react-addons-shallow-compare';
-import classNames from 'classnames';
-import Segment from 'semantic-react';
+import shallowCompare from 'react-addons-shallow-compare'
+import classNames from 'classnames'
+import { Segment } from 'semantic-react'
 
 export default class Tab extends React.Component {
   static propTypes = {
@@ -48,7 +48,6 @@ export default class Tab extends React.Component {
   render() {
     const { children, active, loading, value, ...other } = this.props;
     other.className = classNames(other.className, this.getClasses());
-
     return (
       <Tab.Components.Segment {...other} attached="bottom">
 				{children}

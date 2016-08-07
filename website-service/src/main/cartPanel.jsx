@@ -1,29 +1,37 @@
-import React, { Component, PropTypes } from 'react';
-import { MenuItem, Tabs, TabMenu } from 'semantic-react'
-import CartItem from './cartItem.jsx'
+import React from 'react';
+import { MenuItem } from 'semantic-react'
+// import { Tab } from 'semantic-react'
+import Tabs from '../components/sidePanel/tabs.jsx'
+import TabMenu from '../components/sidePanel/tabmenu.jsx'
+import Tab from '../components/sidePanel/tab.jsx'
 
-export default class CartPanel extends Component {
+// import CartItem from './cartItem.jsx'
+
+
+export default class CartPanel extends React.Component {
   // static propTypes = {
   // }
   constructor(props) {
     super(props);
     this.state = {
-      active: 1,
+      active: 2,
     }
   }
   render() {
     return (
-      <Tabs onTabChange={(val) => this.setState({ active: val })} activeTab={this.state.active}>
-        <TabMenu vertical >
-          <MenuItem menuValue={1}>
-          hi
-          </MenuItem>
-          <MenuItem menuValue={2}>second</MenuItem>
-          <MenuItem menuValue={3}>Third</MenuItem>
-          <MenuItem menuValue={4}>Four</MenuItem>
-        </TabMenu>
-
-      </Tabs>
+      <div>
+        <Tabs onTabChange={(val) => this.setState({ active: val })} activeTab={this.state.active}>
+          <TabMenu vertical >
+            <MenuItem menuValue={2}>second<Tab value={2}>second</Tab></MenuItem>
+            <MenuItem menuValue={3}>Third</MenuItem>
+            <MenuItem menuValue={4}>Four</MenuItem>
+          </TabMenu>
+          <Tab value={3}>something else here</Tab>
+        </Tabs>
+        <div>
+          {this.state.active}
+        </div>
+      </div>
     )
   }
 }

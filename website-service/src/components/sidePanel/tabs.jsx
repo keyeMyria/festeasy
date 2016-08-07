@@ -1,8 +1,9 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
+import Tab from './tab.jsx'
 import DefaultProps from './defaultProps.jsx';
 import TabMenu from './tabmenu.jsx';
-import Tab from './tab.jsx';
+// import Tab from './tab.jsx';
 
 export default class Tabs extends React.Component {
   static propTypes = {
@@ -60,7 +61,7 @@ export default class Tabs extends React.Component {
     const { children, activeTab } = this.props;
     const childrenWithoutMenu = React.Children.toArray(children);
     childrenWithoutMenu.shift();
-
+    console.log('children tabs: ', childrenWithoutMenu)
     return childrenWithoutMenu.map(child => {
       if (!child || child.type !== Tabs.Components.Tab) {
         return null;

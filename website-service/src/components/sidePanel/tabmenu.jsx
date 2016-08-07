@@ -1,7 +1,7 @@
 import React from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
-import classNames from 'classnames';
-import Menu from 'semantic-react';
+import classNames from 'classnames'
+import { Menu } from 'semantic-react'
 
 export default class TabMenu extends React.Component {
   static propTypes = {
