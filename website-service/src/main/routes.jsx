@@ -9,8 +9,8 @@ import FestivalList from 'main/pages/festivals/festivalList.jsx'
 import Festivals from 'main/pages/festivals/festivals.jsx'
 import Festival from 'main/pages/festivals/festival.jsx'
 import Product from 'main/pages/store/product.jsx'
-import SignIn from 'common/signIn.jsx'
-import SignUp from 'common/signUp.jsx'
+import SignIn from 'main/pages/signIn.jsx'
+import SignUp from 'main/pages/signUp.jsx'
 import Cart from 'main/pages/cart/cart.jsx'
 import Checkout from 'main/pages/checkout/checkout.jsx'
 import Review from 'main/pages/checkout/review.jsx'
@@ -20,7 +20,7 @@ import PaymentConfirmation from 'main/pages/paymentRedirects/paymentConfirmation
 import Account from 'main/pages/account/account.jsx'
 import Orders from 'main/pages/account/orders.jsx'
 import Settings from 'main/pages/account/settings.jsx'
-import Invoice from 'main/pages/invoice.jsx'
+import Invoice from 'main/pages/account/invoice.jsx'
 
 
 export default (

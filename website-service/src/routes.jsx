@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Route, browserHistory } from 'react-router'
-import NotFound from 'common/notFound.jsx'
+import NotFound from 'common/pages/notFound.jsx'
 import mainRoutes from 'main/routes.jsx'
 import App from 'app.jsx'
 
