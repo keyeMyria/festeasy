@@ -35,4 +35,8 @@ module.exports = [
     name: 'invoiceProduct',
     endpoint: 'invoice-products',
   },
+  {
+    name: 'forgotPasswordToken',
+    endpoint: 'forgot-password-tokens',
+  },
 ]
