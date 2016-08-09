@@ -14,14 +14,13 @@ const loaders = [
   {
     include: [srcPath],
     test: /\.js$/,
-    loaders: ['babel-loader?presets[]=es2015&presets[]=stage-0'],
+    loaders: ['babel-loader'],
   },
   {
     include: [srcPath],
     test: /\.jsx$/,
     loaders: [
-      'react-hot',
-      'babel-loader?presets[]=es2015&presets[]=stage-0&presets[]=react',
+      'react-hot', 'babel-loader',
     ],
   },
   {
