@@ -78,7 +78,7 @@ export default class ReviewContainer extends React.Component {
     const cartId = this.state.cart.id
     axios({
       method: 'post',
-      url: `carts/${cartId}/checkout`,
+      url: `v1/carts/${cartId}/checkout`,
     })
       .then((response) => {
         const invoiceId = response.data.current_invoice.id
