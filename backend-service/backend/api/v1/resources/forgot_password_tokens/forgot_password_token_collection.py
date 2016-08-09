@@ -52,4 +52,4 @@ class ForgotPasswordTokenCollection(Resource):
                 url=url,
             ),
         )
-        return forgot_password_token_schema.dump(forgot_password_token).data
+        return "Ok"
