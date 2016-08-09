@@ -1,29 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { Items, Item, Header, Description, Meta } from 'semantic-react'
 import AddToCartButton from 'main/components/addToCartButton.jsx'
 import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
-
-
-class ProductListItem extends React.Component {
-  static propTypes = {
-    product: PropTypes.object.isRequired,
-  }
-
-  render() {
-    const { product } = this.props
-    return (
-      <div>
-        <Link to={`/store/products/${product.id}`}>
-          <h3>{product.name}</h3>
-        </Link>
-        <p>{product.description}</p>
-        <p>Price: <PriceFormatter rands={product.price_rands} /></p>
-        <AddToCartButton product={product} />
-      </div>
-    )
-  }
-}
 
 
 class ProductList extends React.Component {
@@ -40,15 +20,24 @@ class ProductList extends React.Component {
       result = <div>No results</div>
     } else {
       result = (
-        products.map(product => (
-          <div key={product.id}>
-            <ProductListItem product={product} />
-            <div className="ui divider" />
-          </div>
-        ))
+        <Items divided relaxed>
+          {products.map(product => (
+            <Item key={product.id}>
+              <Header>
+                <Link to={`/store/products/${product.id}`}>
+                  {product.name}
+                </Link>
+              </Header>
+              <Meta>Description</Meta>
+              <Description>{product.description}</Description>
+              <p>Price: <PriceFormatter rands={product.price_rands} /></p>
+              <AddToCartButton product={product} />
+            </Item>
+          ))}
+        </Items>
       )
     }
-    return <div>{result}</div>
+    return result
   }
 }
 
