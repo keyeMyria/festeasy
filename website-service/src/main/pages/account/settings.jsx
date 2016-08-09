@@ -5,7 +5,7 @@ class ChangePassword extends React.Component {
   static contextTypes = {
     authDetails: PropTypes.object.isRequired,
     addNotification: PropTypes.func.isRequired,
-    axios: PropTypes.any.isRequired,
+    axios: PropTypes.object.isRequired,
   }
 
   constructor() {
@@ -29,9 +29,9 @@ class ChangePassword extends React.Component {
     e.preventDefault()
     const { addNotification, axios, authDetails } = this.context
     const { currentPassword, newPassword } = this.state
-    axios.request({
+    axios({
       method: 'post',
-      url: `users/${authDetails.userId}/change-password`,
+      url: `v1/users/${authDetails.userId}/change-password`,
       data: {
         'current_password': currentPassword,
         'new_password': newPassword,
