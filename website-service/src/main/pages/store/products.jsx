@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Items, Item, Header, Description, Meta } from 'semantic-react'
+import { Cards, Card, Content, Header, Description } from 'semantic-react'
 import AddToCartButton from 'main/components/addToCartButton.jsx'
 import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
@@ -20,21 +20,24 @@ class ProductList extends React.Component {
       result = <div>No results</div>
     } else {
       result = (
-        <Items divided relaxed>
+        <Cards className="four">
           {products.map(product => (
-            <Item key={product.id}>
-              <Header>
-                <Link to={`/store/products/${product.id}`}>
-                  {product.name}
-                </Link>
-              </Header>
-              <Meta>Description</Meta>
-              <Description>{product.description}</Description>
-              <p>Price: <PriceFormatter rands={product.price_rands} /></p>
-              <AddToCartButton product={product} />
-            </Item>
+            <Card key={product.id}>
+              <Content>
+                <Header>
+                  <Link to={`/store/products/${product.id}`}>
+                    {product.name}
+                  </Link>
+                </Header>
+                <Description>{product.description}</Description>
+                <p>Price: <PriceFormatter rands={product.price_rands} /></p>
+              </Content>
+              <Content extra>
+                <AddToCartButton product={product} />
+              </Content>
+            </Card>
           ))}
-        </Items>
+        </Cards>
       )
     }
     return result
