@@ -38,10 +38,13 @@ export default class SignIn extends React.Component {
         router.push('/store')
       })
       .catch((error) => {
-        console.log(error)
+        let errorMessage = 'Something went wrong, please try again'
+        if (error.status === 401) {
+          errorMessage = 'Incorrent email address and password combination'
+        }
         this.setState({
           isSigningIn: false,
-          signInError: error.data ? error.data.message : 'Something went wrong, please try again',
+          signInError: errorMessage,
         })
       })
   }
@@ -75,6 +78,7 @@ export default class SignIn extends React.Component {
           </Field>
           <Field required label="Password">
             <Input
+              required
               type="password"
               name="password"
               onChange={this.handleChange}

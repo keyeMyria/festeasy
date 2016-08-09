@@ -39,9 +39,13 @@ export default class SignUp extends React.Component {
         router.push('/store')
       })
       .catch((error) => {
+        let errorMessage = 'Something went wrong, please try again'
+        if (error.status === 409) {
+          errorMessage = 'Account already exists'
+        }
         this.setState({
           isSigningUp: false,
-          signUpError: error.data ? error.data.message : 'Something went wrong, please try again',
+          signUpError: errorMessage,
         })
       })
   }
@@ -96,6 +100,9 @@ export default class SignUp extends React.Component {
         </Form>
         <div>
           Already have an account? <Link to="/sign-in">Sign in</Link>
+        </div>
+        <div>
+          Forgot your password? <Link to="recover-password">Recover password</Link>
         </div>
       </AuthBox>
     )
