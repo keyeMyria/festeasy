@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -p --config webpack.production.config.js"
+    "build": "webpack --config webpack.production.config.js"
   },
   "author": "Jason Russell",
   "license": "ISC",

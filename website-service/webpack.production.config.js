@@ -20,6 +20,13 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production'),
       },
     }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+    }),
     new ExtractTextPlugin('[name].css'),
     new CopyWebpackPlugin([{
       from: '_redirects',
