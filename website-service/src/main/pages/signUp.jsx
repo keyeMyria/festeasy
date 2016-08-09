@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import classNames from 'classnames'
+import AuthBox from 'main/components/authBox.jsx'
+import { MyForm, MyInput, MyButton } from 'utils/index.jsx'
 
 
 export default class SignUp extends React.Component {
@@ -53,52 +54,50 @@ export default class SignUp extends React.Component {
       isSigningUp,
       signUpError,
     } = this.state
-    const formClass = classNames({
-      'ui form': true,
-      'loading': isSigningUp,
-      'error': signUpError !== null,
-    })
     return (
-      <div className="ui container centered grid">
-        <div className="ui segment six wide column">
-          <h1 className="ui header">Sign Up</h1>
-          <form className={formClass} onSubmit={this.handleSignUp}>
-            <div className="ui error message">
-              <div className="header">Failed to sign up</div>
-              <p>{signUpError}</p>
-            </div>
-            <div className="ui field">
-              <label htmlFor="firstName">First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                onChange={this.handleChange}
-                value={firstName}
-              />
-            </div>
-            <div className="ui field">
-              <label htmlFor="emailAddress">Email Address</label>
-              <input
-                type="text"
-                name="emailAddress"
-                onChange={this.handleChange}
-                value={emailAddress}
-              />
-            </div>
-            <div className="ui field">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                onChange={this.handleChange}
-                value={password}
-              />
-            </div>
-            <button className="ui button" type="submit">Sign Up</button>
-          </form>
+      <AuthBox title="Sign Up">
+        <MyForm
+          state={signUpError ? 'error' : ''}
+          loading={!!isSigningUp}
+          onSubmit={this.handleSignUp}
+        >
+          <div className="ui error message">
+            <div className="header">Failed to sign up</div>
+            <p>{signUpError}</p>
+          </div>
+          <div className="ui field">
+            <label htmlFor="firstName">First Name</label>
+            <MyInput
+              type="text"
+              name="firstName"
+              onChange={this.handleChange}
+              value={firstName}
+            />
+          </div>
+          <div className="ui field">
+            <label htmlFor="emailAddress">Email Address</label>
+            <MyInput
+              type="text"
+              name="emailAddress"
+              onChange={this.handleChange}
+              value={emailAddress}
+            />
+          </div>
+          <div className="ui field">
+            <label htmlFor="password">Password</label>
+            <MyInput
+              type="password"
+              name="password"
+              onChange={this.handleChange}
+              value={password}
+            />
+          </div>
+          <MyButton type="submit">Sign Up</MyButton>
+        </MyForm>
+        <div>
           Already have an account? <Link to="/sign-in">Sign in</Link>
         </div>
-      </div>
+      </AuthBox>
     )
   }
 }

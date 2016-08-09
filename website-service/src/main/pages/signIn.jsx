@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import classNames from 'classnames'
+import AuthBox from 'main/components/authBox.jsx'
+import { MyForm, MyButton, MyInput } from 'utils/index.jsx'
 
 
 export default class SignIn extends React.Component {
@@ -52,43 +53,44 @@ export default class SignIn extends React.Component {
       isSigningIn,
       signInError,
     } = this.state
-    const formClass = classNames({
-      'ui form': true,
-      'loading': isSigningIn,
-      'error': signInError !== null,
-    })
     return (
-      <div className="ui container centered grid">
-        <div className="ui segment six wide column">
-          <h1 className="ui header">Sign In</h1>
-          <form className={formClass} onSubmit={this.handleSignIn}>
-            <div className="ui error message">
-              <div className="header">Failed to sign in</div>
-              <p>{signInError}</p>
-            </div>
-            <div className="ui field">
-              <label htmlFor="emailAddress">Email Address</label>
-              <input
-                type="text"
-                name="emailAddress"
-                onChange={this.handleChange}
-                value={emailAddress}
-              />
-            </div>
-            <div className="ui field">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                onChange={this.handleChange}
-                value={password}
-              />
-            </div>
-            <button className="ui button" type="submit">Sign In</button>
-          </form>
+      <AuthBox title="Sign In">
+        <MyForm
+          state={signInError ? 'error' : ''}
+          loading={!!isSigningIn}
+          onSubmit={this.handleSignIn}
+        >
+          <div className="ui error message">
+            <div className="header">Failed to sign in</div>
+            <p>{signInError}</p>
+          </div>
+          <div className="ui field">
+            <label htmlFor="emailAddress">Email Address</label>
+            <MyInput
+              type="text"
+              name="emailAddress"
+              onChange={this.handleChange}
+              value={emailAddress}
+            />
+          </div>
+          <div className="ui field">
+            <label htmlFor="password">Password</label>
+            <MyInput
+              type="password"
+              name="password"
+              onChange={this.handleChange}
+              value={password}
+            />
+          </div>
+          <MyButton type="submit">Sign In</MyButton>
+        </MyForm>
+        <div>
           Dont have an account yet? <Link to="/sign-up">Sign up</Link>
         </div>
-      </div>
+        <div>
+          Forgot your password? <Link to="recover-password">Recover password</Link>
+        </div>
+      </AuthBox>
     )
   }
 }
