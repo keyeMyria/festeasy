@@ -1,30 +1,9 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
+import { Cards, Card, Header, Description, Content, Date } from 'semantic-react'
 import { festivalShape } from 'utils/shapes.jsx'
 import Page from 'utils/page.jsx'
 import DateFormatter from 'utils/dateFormatter.jsx'
-
-
-class FestivalListItem extends React.Component {
-  static propTypes = {
-    festival: festivalShape.isRequired,
-  }
-
-  render() {
-    const festival = this.props.festival
-    return (
-      <div>
-        <h2>
-          <Link to={`/festivals/${festival.id}`}>
-            {festival.name}
-          </Link>
-        </h2>
-        <p>{festival.description}</p>
-        <p>Starts: <DateFormatter date={festival.starts_on} /></p>
-      </div>
-    )
-  }
-}
 
 
 class FestivalList extends React.Component {
@@ -37,14 +16,27 @@ class FestivalList extends React.Component {
   render() {
     const { festivals } = this.props
     return (
-      <div>
+      <Cards className="two">
         {festivals.map(festival => (
-          <div key={festival.id}>
-            <FestivalListItem festival={festival} />
-            <div className="ui divider" />
-          </div>
+          <Card key={festival.id}>
+            <Content>
+              <Header>
+                <Link to={`/festivals/${festival.id}`}>
+                  {festival.name}
+                </Link>
+              </Header>
+              <Content meta>
+                <Date>
+                  <DateFormatter date={festival.starts_on} />
+                </Date>
+              </Content>
+              <Description>
+                {festival.description}
+              </Description>
+            </Content>
+          </Card>
         ))}
-      </div>
+      </Cards>
     )
   }
 }
