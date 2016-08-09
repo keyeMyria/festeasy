@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import { Form, Input, Button, Field } from 'semantic-react'
 import AuthBox from 'main/components/authBox.jsx'
-import { MyForm, MyInput, MyButton } from 'utils/index.jsx'
 
 
 export default class SignUp extends React.Component {
@@ -56,7 +56,7 @@ export default class SignUp extends React.Component {
     } = this.state
     return (
       <AuthBox title="Sign Up">
-        <MyForm
+        <Form
           state={signUpError ? 'error' : ''}
           loading={!!isSigningUp}
           onSubmit={this.handleSignUp}
@@ -65,35 +65,35 @@ export default class SignUp extends React.Component {
             <div className="header">Failed to sign up</div>
             <p>{signUpError}</p>
           </div>
-          <div className="ui field">
-            <label htmlFor="firstName">First Name</label>
-            <MyInput
+          <Field required label="First Name">
+            <Input
+              required
               type="text"
               name="firstName"
               onChange={this.handleChange}
               value={firstName}
             />
-          </div>
-          <div className="ui field">
-            <label htmlFor="emailAddress">Email Address</label>
-            <MyInput
+          </Field>
+          <Field required label="Email Address">
+            <Input
+              required
               type="text"
               name="emailAddress"
               onChange={this.handleChange}
               value={emailAddress}
             />
-          </div>
-          <div className="ui field">
-            <label htmlFor="password">Password</label>
-            <MyInput
+          </Field>
+          <Field required label="Pasword">
+            <Input
+              required
               type="password"
               name="password"
               onChange={this.handleChange}
               value={password}
             />
-          </div>
-          <MyButton type="submit">Sign Up</MyButton>
-        </MyForm>
+          </Field>
+          <Button type="submit">Sign Up</Button>
+        </Form>
         <div>
           Already have an account? <Link to="/sign-in">Sign in</Link>
         </div>

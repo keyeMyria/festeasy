@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import MyInput from 'utils/myInput.jsx'
+import { Input } from 'semantic-react'
 
 
 export default class MyStatefulInput extends React.Component {
@@ -24,7 +24,7 @@ export default class MyStatefulInput extends React.Component {
     const filteredProps = Object.assign({}, this.props)
     delete filteredProps.initialValue
     return (
-      <MyInput
+      <Input
         onChange={this.onChange}
         value={value}
         {...filteredProps}

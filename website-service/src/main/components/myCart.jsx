@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { Option } from 'semantic-react'
+import { Button, Option, Table, Tr, Td } from 'semantic-react'
 import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
-import { MyTable, MyTr, MyTd, MyTh } from 'utils/myTable.jsx'
 import MyStatefulInput from 'utils/myStatefulInput.jsx'
-import MyButton from 'utils/myButton.jsx'
 
 
 export default class Cart extends React.Component {
@@ -50,20 +48,20 @@ export default class Cart extends React.Component {
             Please select a festival
           </div>
         : ''}
-        <MyTable
-          headers={
-            <MyTr>
-              <MyTh>Product</MyTh>
-              <MyTh>Quantity</MyTh>
-              <MyTh>Sub Total</MyTh>
-              <MyTh />
-            </MyTr>
-          }
-          rows={
-            cartProducts.map((cp) => (
-              <MyTr key={cp.id}>
-                <MyTd>{cp.product.name}</MyTd>
-                <MyTd>
+        <Table>
+          <thead>
+            <Tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Sub Total</th>
+              <th />
+            </Tr>
+          </thead>
+          <tbody>
+            {cartProducts.map((cp) => (
+              <Tr key={cp.id}>
+                <Td>{cp.product.name}</Td>
+                <Td>
                   <MyStatefulInput
                     type="number"
                     min={1}
@@ -71,19 +69,19 @@ export default class Cart extends React.Component {
                     initialValue={cp.quantity}
                     onBlur={(e) => updateQuantity(cp, e.target.value)}
                   />
-                </MyTd>
-                <MyTd>
+                </Td>
+                <Td>
                   <PriceFormatter rands={cp.sub_total_rands} />
-                </MyTd>
-                <MyTd>
-                  <MyButton onClick={() => removeCartProduct(cp)}>
+                </Td>
+                <Td>
+                  <Button onClick={() => removeCartProduct(cp)}>
                     Remove
-                  </MyButton>
-                </MyTd>
-              </MyTr>
-            ))
-          }
-        />
+                  </Button>
+                </Td>
+              </Tr>
+            ))}
+          </tbody>
+        </Table>
         <div>
           <div>Total: <PriceFormatter rands={cart.total_rands} /></div>
           <button

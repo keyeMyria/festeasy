@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import { Form, Button, Input, Field } from 'semantic-react'
 import AuthBox from 'main/components/authBox.jsx'
-import { MyForm, MyButton, MyInput } from 'utils/index.jsx'
 
 
 export default class SignIn extends React.Component {
@@ -55,7 +55,7 @@ export default class SignIn extends React.Component {
     } = this.state
     return (
       <AuthBox title="Sign In">
-        <MyForm
+        <Form
           state={signInError ? 'error' : ''}
           loading={!!isSigningIn}
           onSubmit={this.handleSignIn}
@@ -64,26 +64,25 @@ export default class SignIn extends React.Component {
             <div className="header">Failed to sign in</div>
             <p>{signInError}</p>
           </div>
-          <div className="ui field">
-            <label htmlFor="emailAddress">Email Address</label>
-            <MyInput
+          <Field required label="Email Address">
+            <Input
+              required
               type="text"
               name="emailAddress"
               onChange={this.handleChange}
               value={emailAddress}
             />
-          </div>
-          <div className="ui field">
-            <label htmlFor="password">Password</label>
-            <MyInput
+          </Field>
+          <Field required label="Password">
+            <Input
               type="password"
               name="password"
               onChange={this.handleChange}
               value={password}
             />
-          </div>
-          <MyButton type="submit">Sign In</MyButton>
-        </MyForm>
+          </Field>
+          <Button type="submit">Sign In</Button>
+        </Form>
         <div>
           Dont have an account yet? <Link to="/sign-up">Sign up</Link>
         </div>

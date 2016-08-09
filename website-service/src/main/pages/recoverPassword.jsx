@@ -1,11 +1,13 @@
-import React from 'react'
-import MyInput from 'utils/myInput.jsx'
-import MyButton from 'utils/myButton.jsx'
-import MyForm from 'utils/myForm.jsx'
+import React, { PropTypes } from 'react'
+import { Input, Button, Form, Field } from 'semantic-react'
 import AuthBox from 'main/components/authBox.jsx'
 
 
 export default class RecoverPassword extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+  }
+
   constructor() {
     super()
     this.state = {
@@ -17,6 +19,8 @@ export default class RecoverPassword extends React.Component {
 
   onSubmit(e) {
     e.preventDefault()
+    const { store } = this.context
+    store.create('forgotPasswordToken')
   }
 
   onChange(e) {
@@ -29,22 +33,22 @@ export default class RecoverPassword extends React.Component {
     const { emailAddress } = this.state
     return (
       <AuthBox title="Recover Password">
-        <MyForm onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit}>
           <div className="ui error message">
             <div className="header">Failed to sign in</div>
             <p>Something went wrong</p>
           </div>
-          <div className="ui field">
-            <label htmlFor="emailAddress">Email Address</label>
-            <MyInput
+          <Field required label="Email Address">
+            <Input
+              required
               type="text"
               name="emailAddress"
               onChange={this.onChange}
               value={emailAddress}
             />
-          </div>
-          <MyButton type="submit">Submit</MyButton>
-        </MyForm>
+          </Field>
+          <Button type="submit">Submit</Button>
+        </Form>
       </AuthBox>
     )
   }

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { MyTable, MyTr, MyTd, MyTh } from 'utils/myTable.jsx'
+import { Table, Tr, Td } from 'semantic-react'
 
 
 export default class OrderList extends React.Component {
@@ -11,30 +11,30 @@ export default class OrderList extends React.Component {
   render() {
     const { orders } = this.props
     return (
-      <MyTable
-        headers={
-          <MyTr>
-            <MyTh>Order ID</MyTh>
-            <MyTh>Festival</MyTh>
-            <MyTh>Total</MyTh>
-            <MyTh>Amount Due</MyTh>
-            <MyTh />
-          </MyTr>
-        }
-        rows={
-          orders.map((o) => (
-            <MyTr key={o.id}>
-              <MyTd>{o.id}</MyTd>
-              <MyTd>{o.festival.name}</MyTd>
-              <MyTd>{o.total_rands}</MyTd>
-              <MyTd>{o.current_invoice.amount_due_rands}</MyTd>
-              <MyTd>
+      <Table>
+        <thead>
+          <Tr>
+            <th>Order ID</th>
+            <th>Festival</th>
+            <th>Total</th>
+            <th>Amount Due</th>
+            <th />
+          </Tr>
+        </thead>
+        <tbody>
+          {orders.map((o) => (
+            <Tr key={o.id}>
+              <Td>{o.id}</Td>
+              <Td>{o.festival.name}</Td>
+              <Td>{o.total_rands}</Td>
+              <Td>{o.current_invoice.amount_due_rands}</Td>
+              <Td>
                 <Link to={`/account/orders/${o.id}/invoice`}>See invoice</Link>
-              </MyTd>
-            </MyTr>
-          ))
-        }
-      />
+              </Td>
+            </Tr>
+          ))}
+        </tbody>
+      </Table>
     )
   }
 }
