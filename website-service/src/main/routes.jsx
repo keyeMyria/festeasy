@@ -22,6 +22,7 @@ import Orders from 'main/pages/account/orders.jsx'
 import Settings from 'main/pages/account/settings.jsx'
 import Invoice from 'main/pages/account/invoice.jsx'
 import RecoverPassword from 'main/pages/recoverPassword.jsx'
+import ResetPassword from 'main/pages/resetPassword.jsx'
 
 
 export default (
@@ -34,6 +35,7 @@ export default (
     <Route path="sign-up" component={SignUp} />
     <Route path="sign-in" component={SignIn} />
     <Route path="recover-password" component={RecoverPassword} />
+    <Route path="reset-password" component={ResetPassword} />
     <Route path="payment-confirmation" component={PaymentConfirmation} />
     <Route path="payment-cancellation" component={PaymentCancellation} />
     <Route path="account" component={Account}>

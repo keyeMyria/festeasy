@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Input, Button, Form, Field } from 'semantic-react'
+import { Input, Button, Form, Field, Message, Header } from 'semantic-react'
 import AuthBox from 'main/components/authBox.jsx'
 
 
@@ -12,6 +12,9 @@ export default class RecoverPassword extends React.Component {
     super()
     this.state = {
       emailAddress: '',
+      isSubmitting: false,
+      response: null,
+      error: null,
     }
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -20,7 +23,27 @@ export default class RecoverPassword extends React.Component {
   onSubmit(e) {
     e.preventDefault()
     const { store } = this.context
-    store.create('forgotPasswordToken')
+    this.setState({ isSubmitting: true })
+    const params = {
+      'email_address': this.state.emailAddress,
+    }
+    store.create('forgotPasswordToken', params)
+      .then(() => {
+        this.setState({
+          isSubmitting: false,
+          response: true,
+          error: null,
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+        this.setState({
+          isSubmitting: false,
+          error: {
+            body: error.data ? error.data.message : 'Something went wrong',
+          },
+        })
+      })
   }
 
   onChange(e) {
@@ -30,14 +53,28 @@ export default class RecoverPassword extends React.Component {
   }
 
   render() {
-    const { emailAddress } = this.state
+    const { emailAddress, isSubmitting, response, error } = this.state
+    let state = ''
+    if (error) {
+      state = 'error'
+    } else if (response) {
+      state = 'success'
+    }
     return (
       <AuthBox title="Recover Password">
-        <Form onSubmit={this.onSubmit}>
-          <div className="ui error message">
-            <div className="header">Failed to sign in</div>
-            <p>Something went wrong</p>
-          </div>
+        <Form
+          state={state}
+          loading={!!isSubmitting}
+          onSubmit={this.onSubmit}
+        >
+          <Message emphasis="error">
+            <Header>Failed to send password reset email</Header>
+            <p>{error ? error.body : 'Something went wrong'}</p>
+          </Message>
+          <Message emphasis="success">
+            <Header>Successfully sent password reset email</Header>
+            <p>Please check your email inbox</p>
+          </Message>
           <Field required label="Email Address">
             <Input
               required
