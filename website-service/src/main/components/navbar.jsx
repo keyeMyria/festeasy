@@ -14,6 +14,7 @@ export default class Navbar extends React.Component {
     let links = []
     if (this.context.authDetails) {
       links = [
+        <i className="ui cart icon" onClick={() => console.log('open cart now: ', "using redux state yay")} />,
         <NavLink key="a" to="/cart">Cart</NavLink>,
         <NavLink key="c" to="/account">Account</NavLink>,
         <Button key="b" onClick={this.context.signOut}>Sign Out</Button>,

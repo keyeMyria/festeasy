@@ -5,6 +5,8 @@ import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
 import MyStatefulInput from 'utils/myStatefulInput.jsx'
+import CartRow from 'main/myCartRow.jsx'
+import CartPanel from './cartPanel.jsx'
 
 
 export default class Cart extends React.Component {

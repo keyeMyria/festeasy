@@ -4,13 +4,22 @@ export default class CartItem extends React.Component {
   render() {
     return (
       <div>
-        <div className="ui feed">
-          <div className="event">
-            <div className="label">
-              <img src="/images/avatar/small/elliot.jpg" role="presentation" />
+        <div className="ui items">
+          <div className="item">
+            <div className="ui tiny image">
+              <img src="/images/beer.png" role="presentation" />
             </div>
             <div className="content">
-              You bought this stuff <a>Beers</a>
+              <a className="header">Beer</a>
+              <div className="meta">
+                <span>Golden Liquid Lunch</span>
+              </div>
+              <div className="description">
+                <p>5</p>
+              </div>
+              <div className="extra">
+                Have a jolly good time in the sun
+              </div>
             </div>
           </div>
         </div>
