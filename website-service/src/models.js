@@ -1,42 +1,42 @@
 module.exports = [
   {
     name: 'cart',
-    endpoint: 'carts',
+    endpoint: 'v1/carts',
   },
   {
     name: 'cartProduct',
-    endpoint: 'cart-products',
+    endpoint: 'v1/cart-products',
   },
   {
     name: 'product',
-    endpoint: 'products',
+    endpoint: 'v1/products',
   },
   {
     name: 'payu-transaction',
-    endpoint: 'payu-transactions',
+    endpoint: 'v1/payu-transactions',
   },
   {
     name: 'festival',
-    endpoint: 'festivals',
+    endpoint: 'v1/festivals',
   },
   {
     name: 'order',
-    endpoint: 'orders',
+    endpoint: 'v1/orders',
   },
   {
     name: 'user',
-    endpoint: 'users',
+    endpoint: 'v1/users',
   },
   {
     name: 'invoice',
-    endpoint: 'invoices',
+    endpoint: 'v1/invoices',
   },
   {
     name: 'invoiceProduct',
-    endpoint: 'invoice-products',
+    endpoint: 'v1/invoice-products',
   },
   {
     name: 'forgotPasswordToken',
-    endpoint: 'forgot-password-tokens',
+    endpoint: 'v1/forgot-password-tokens',
   },
 ]

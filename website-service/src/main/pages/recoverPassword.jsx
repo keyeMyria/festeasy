@@ -6,6 +6,7 @@ import AuthBox from 'main/components/authBox.jsx'
 export default class RecoverPassword extends React.Component {
   static contextTypes = {
     store: PropTypes.object.isRequired,
+    axios: PropTypes.func.isRequired,
   }
 
   constructor() {
@@ -22,12 +23,16 @@ export default class RecoverPassword extends React.Component {
 
   onSubmit(e) {
     e.preventDefault()
-    const { store } = this.context
-    this.setState({ isSubmitting: true })
+    const { axios } = this.context
+    this.setState({ isSubmitting: true, error: null, response: null })
     const params = {
       'email_address': this.state.emailAddress,
     }
-    store.create('forgotPasswordToken', params)
+    axios({
+      method: 'post',
+      url: 'v1/auth/recover-password',
+      data: params,
+    })
       .then(() => {
         this.setState({
           isSubmitting: false,

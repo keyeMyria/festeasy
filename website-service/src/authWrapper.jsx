@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import axios from 'axios'
-import apiEndpoint from 'apiEndpoint'
 
 
 export default class AuthWrapper extends React.Component {
@@ -33,7 +32,6 @@ export default class AuthWrapper extends React.Component {
     this.clearAuthDetails = this.clearAuthDetails.bind(this)
     this.requestInterceptor = this.requestInterceptor.bind(this)
     this.responseErrorInterceptor = this.responseErrorInterceptor.bind(this)
-    axios.defaults.baseURL = apiEndpoint.concat('v1')
     axios.interceptors.request.use(this.requestInterceptor)
     axios.interceptors.response.use((r) => (r), this.responseErrorInterceptor)
     if (sessionId && sessionToken && userId) {
@@ -91,7 +89,7 @@ export default class AuthWrapper extends React.Component {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
-        url: 'auth/signup',
+        url: 'v1/auth/signup',
         data: { email_address: emailAddress, password, first_name: firstName },
       })
         .then(() => (
@@ -113,7 +111,7 @@ export default class AuthWrapper extends React.Component {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
-        url: 'auth/signin',
+        url: 'v1/auth/signin',
         data: { email_address: emailAddress, password },
       })
         .then(response => {
