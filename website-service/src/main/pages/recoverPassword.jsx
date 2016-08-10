@@ -41,7 +41,6 @@ export default class RecoverPassword extends React.Component {
         })
       })
       .catch((error) => {
-        console.log(error)
         this.setState({
           isSubmitting: false,
           error: {

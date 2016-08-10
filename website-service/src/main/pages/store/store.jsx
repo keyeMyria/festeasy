@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Form, Input, Button, Header, Divider } from 'semantic-react'
 
 
 class ProductSearch extends React.Component {
@@ -28,15 +29,15 @@ class ProductSearch extends React.Component {
   render() {
     const { searchTerm } = this.state
     return (
-      <form className="ui form" onSubmit={this.onSubmit}>
-        <input
+      <Form onSubmit={this.onSubmit}>
+        <Input
           type="text"
           placeholder="Search products..."
           value={searchTerm}
           onChange={this.onChange}
         />
-        <button className="ui button">Search</button>
-      </form>
+        <Button>Search</Button>
+      </Form>
     )
   }
 }
@@ -66,9 +67,9 @@ export default class Store extends React.Component {
     const { search } = this.props.location.query
     return (
       <div>
-        <h1 className="ui center aligned header">Store</h1>
+        <Header aligned="center">Store</Header>
         <ProductSearch onClick={this.onSearch} searchTerm={search} />
-        <div className="ui divider" />
+        <Divider />
         {this.props.children}
       </div>
     )
