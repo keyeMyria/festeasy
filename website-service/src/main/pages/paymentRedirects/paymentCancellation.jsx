@@ -1,11 +1,12 @@
 import React from 'react'
+import { Header } from 'semantic-react'
 
 
 export default class PaymentCancellation extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui header">Payment cancelled</h1>
+        <Header>Payment cancelled</Header>
         Payment cancellation here.
       </div>
     )

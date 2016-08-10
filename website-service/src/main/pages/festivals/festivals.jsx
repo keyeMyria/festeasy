@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Header, Divider } from 'semantic-react'
 
 
 export default class Festivals extends React.Component {
@@ -9,8 +10,8 @@ export default class Festivals extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui center aligned header">Festivals</h1>
-        <div className="ui divider" />
+        <Header aligned="center">Festivals</Header>
+        <Divider />
         {this.props.children}
       </div>
     )

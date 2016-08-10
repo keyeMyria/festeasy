@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Header } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import DateFormatter from 'utils/dateFormatter.jsx'
 
@@ -12,7 +13,7 @@ class Festival extends React.Component {
     const { festival } = this.props
     return (
       <div>
-        <h2 className="ui center aligned header">{festival.name}</h2>
+        <Header>{festival.name}</Header>
         <p>{festival.description}</p>
         <p>Starts On: <DateFormatter date={festival.starts_on} /></p>
       </div>
