@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import Navbar from 'main/components/navbar.jsx'
 import CartContainer from 'main/pages/cartContainer.jsx'
 import CartPanel from './cartPanel.jsx'
-import CartItem from './cartItem.jsx'
 
 
 export default class Main extends React.Component {
