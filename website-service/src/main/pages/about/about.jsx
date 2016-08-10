@@ -1,12 +1,11 @@
 import React from 'react';
+import { Header } from 'semantic-react'
 
 
 export default class About extends React.Component {
   render() {
     return (
-      <div>
-        <h1 className="ui center aligned header">About page here</h1>
-      </div>
+      <Header aligned="center">About Page Here</Header>
     )
   }
 }

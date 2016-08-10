@@ -1,12 +1,11 @@
 import React from 'react'
+import { Header } from 'semantic-react'
 
 
 export default class NotFound extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Page Not Found</h1>
-      </div>
+      <Header aligned="center">Page not found</Header>
     )
   }
 }

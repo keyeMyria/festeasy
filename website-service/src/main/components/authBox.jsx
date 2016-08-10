@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Header, Grid, Column, Segment } from 'semantic-react'
 
 
 export default class AuthBox extends React.Component {
@@ -10,12 +11,14 @@ export default class AuthBox extends React.Component {
   render() {
     const { title, children } = this.props
     return (
-      <div className="ui container centered grid">
-        <div className="ui segment six wide column">
-          <h1 className="ui header">{title}</h1>
-          {children}
-        </div>
-      </div>
+      <Grid centered>
+        <Column width={6}>
+          <Segment>
+            <Header>{title}</Header>
+            {children}
+          </Segment>
+        </Column>
+      </Grid>
     )
   }
 }

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Segment, Header, Table, Tr, Td, Button } from 'semantic-react'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 
 
@@ -16,34 +17,34 @@ export default class Invoice extends React.Component {
   render() {
     const { invoice, invoiceProducts, makePayment } = this.props
     return (
-      <div className="ui segment">
-        <h2 className="ui center aligned header">Invoice {invoice.id}</h2>
-        <table className="ui table">
+      <Segment>
+        <Header>Invoice {invoice.id}</Header>
+        <Table>
           <thead>
-            <tr>
+            <Tr>
               <th>Product</th>
               <th>Quantity</th>
               <th>Unit Price</th>
               <th>Sub Total</th>
-            </tr>
+            </Tr>
           </thead>
           <tbody>
             {invoiceProducts.map((ip) => (
-              <tr key={ip.id}>
-                <td>{ip.product.name}</td>
-                <td>{ip.quantity}</td>
-                <td><PriceFormatter rands={ip.unit_price_rands} /></td>
-                <td><PriceFormatter rands={ip.sub_total_rands} /></td>
-              </tr>
+              <Tr key={ip.id}>
+                <Td>{ip.product.name}</Td>
+                <Td>{ip.quantity}</Td>
+                <Td><PriceFormatter rands={ip.unit_price_rands} /></Td>
+                <Td><PriceFormatter rands={ip.sub_total_rands} /></Td>
+              </Tr>
             ))}
           </tbody>
-        </table>
+        </Table>
         <div>
           Total due: <PriceFormatter rands={invoice.amount_due_rands} />
           <br />
-          <button className="ui green button" onClick={makePayment}>Make payment</button>
+          <Button onClick={makePayment}>Make payment</Button>
         </div>
-      </div>
+      </Segment>
     )
   }
 }

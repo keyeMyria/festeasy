@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react'
+import { Segment, Header, Form, Field, Input, Button } from 'semantic-react'
 
 
 class ChangePassword extends React.Component {
   static contextTypes = {
     authDetails: PropTypes.object.isRequired,
     addNotification: PropTypes.func.isRequired,
-    axios: PropTypes.object.isRequired,
+    axios: PropTypes.func.isRequired,
   }
 
   constructor() {
@@ -54,30 +55,28 @@ class ChangePassword extends React.Component {
   render() {
     const { currentPassword, newPassword } = this.state
     return (
-      <div className="ui segment">
-        <h3 className="ui header">Change Password</h3>
-        <form className="ui form" onSubmit={this.handleSubmit}>
-          <div className="field">
-            <label htmlFor="currentPassword">Current password</label>
-            <input
+      <Segment>
+        <Header>Change Password</Header>
+        <Form onSubmit={this.handleSubmit}>
+          <Field label="Current Password">
+            <Input
               name="currentPassword"
               type="password"
               onChange={this.handleChange}
               value={currentPassword}
             />
-          </div>
-          <div className="field">
-            <label htmlFor="newPassword">New password</label>
-            <input
+          </Field>
+          <Field label="New Password">
+            <Input
               name="newPassword"
               type="password"
               onChange={this.handleChange}
               value={newPassword}
             />
-          </div>
-          <button className="ui button">Change Password</button>
-        </form>
-      </div>
+          </Field>
+          <Button>Change Password</Button>
+        </Form>
+      </Segment>
     )
   }
 }
@@ -87,7 +86,7 @@ export default class Settings extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui header">Settings</h1>
+        <Header>Settings</Header>
         <ChangePassword />
       </div>
     )

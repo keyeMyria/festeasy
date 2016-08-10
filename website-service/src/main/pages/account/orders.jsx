@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Header } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import OrderList from 'main/components/myOrderList.jsx'
 
@@ -41,7 +42,7 @@ export default class OrderListContainer extends React.Component {
     const { orders, error } = this.state
     return (
       <Page
-        header={<h2 className="ui header">Orders</h2>}
+        header={<Header>Orders</Header>}
         isLoading={!orders && !error}
         contentError={error}
         content={

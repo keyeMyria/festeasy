@@ -153,8 +153,6 @@ export default class CartContainer extends React.Component {
     const isReady = cart && cartProducts && festivals
     return (
       <div>
-        <h1 className="ui center aligned header">Cart</h1>
-        <div className="ui divider" />
         <Page
           isLoading={!isReady && !error}
           contentError={error}

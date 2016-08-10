@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Header, Divider, Grid, Column, Menu } from 'semantic-react'
 import NavLink from 'main/components/navLink.jsx'
 
 
@@ -10,19 +11,19 @@ export default class Account extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui center aligned header">Account</h1>
-        <div className="ui divider" />
-        <div className="ui two column grid">
-          <div className="four wide column">
-            <div className="ui vertical pointing menu">
+        <Header aligned="center">Account</Header>
+        <Divider />
+        <Grid columns={2}>
+          <Column width={4}>
+            <Menu vertical pointing>
               <NavLink to="/account/orders">Orders</NavLink>
               <NavLink to="/account/settings">Settings</NavLink>
-            </div>
-          </div>
-          <div className="twelve wide column">
+            </Menu>
+          </Column>
+          <Column width={12}>
             {this.props.children}
-          </div>
-        </div>
+          </Column>
+        </Grid>
       </div>
     )
   }

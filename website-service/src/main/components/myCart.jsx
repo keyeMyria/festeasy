@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { Button, Option, Table, Tr, Td } from 'semantic-react'
+import { Header, SubHeader, Label, Message, Button, Option, Table, Tr, Td } from 'semantic-react'
 import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
@@ -35,19 +35,19 @@ export default class Cart extends React.Component {
     ))
     return (
       <div className="ui segment">
-        <label htmlFor="MySelect">Select festival:</label>
+        {!cart.festival_id ?
+          <Message emphasis="warning">
+            Please select a festival below
+          </Message>
+        : ''}
+        <Label>Select festival:</Label>
         <MySelect
           fluid
-          placeholder="Select festival"
+          placeholder="Select festival..."
           selected={cart.festival_id ? [cart.festival_id] : []}
           updateSelected={(selected) => this.props.selectFestival(selected[0])}
           options={options}
         />
-        {!cart.festival_id ?
-          <div className="ui compact blue message">
-            Please select a festival
-          </div>
-        : ''}
         <Table>
           <thead>
             <Tr>
@@ -84,13 +84,12 @@ export default class Cart extends React.Component {
         </Table>
         <div>
           <div>Total: <PriceFormatter rands={cart.total_rands} /></div>
-          <button
-            className="ui positive button"
+          <Button
             onClick={onCheckout}
             disabled={!(cart.festival_id && cartProducts.length > 0)}
           >
             Secure Checkout
-          </button>
+          </Button>
         </div>
       </div>
     )
@@ -101,12 +100,12 @@ export default class Cart extends React.Component {
     let result
     if (cartProducts.length === 0) {
       result = (
-        <h2 className="ui center aligned header">
+        <Header aligned="center">
           Cart Empty
-          <div className="sub header">
+          <SubHeader>
             <Link to="/store">Continue shopping</Link>
-          </div>
-        </h2>
+          </SubHeader>
+        </Header>
       )
     } else {
       result = this.getMain()
