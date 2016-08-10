@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Segment, Header, Table, Tr, Td, Button } from 'semantic-react'
+import { Header, Table, Tr, Td, Button } from 'semantic-react'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 
 
@@ -17,7 +17,7 @@ export default class Invoice extends React.Component {
   render() {
     const { invoice, invoiceProducts, makePayment } = this.props
     return (
-      <Segment>
+      <div>
         <Header>Invoice {invoice.id}</Header>
         <Table>
           <thead>
@@ -44,7 +44,7 @@ export default class Invoice extends React.Component {
           <br />
           <Button onClick={makePayment}>Make payment</Button>
         </div>
-      </Segment>
+      </div>
     )
   }
 }
