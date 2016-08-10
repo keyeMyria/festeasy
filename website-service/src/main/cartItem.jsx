@@ -1,7 +1,14 @@
 import React, { PropTypes } from 'react';
 
 export default class CartItem extends React.Component {
+  static propTypes = {
+    cartProduct: PropTypes.object.isRequired,
+    updateQuantity: PropTypes.func.isRequired,
+    removeCartProduct: PropTypes.func.isRequired,
+  }
   render() {
+    const { cartProduct, updateQuantity, removeCartProduct } = this.props
+    console.log('cartProduct: ', cartProduct)
     return (
       <div>
         <div className="ui items">
@@ -10,12 +17,12 @@ export default class CartItem extends React.Component {
               <img src="/images/beer.png" role="presentation" />
             </div>
             <div className="content">
-              <a className="header">Beer</a>
+              <a className="header">{cartProduct.product.name}</a>
               <div className="meta">
-                <span>Golden Liquid Lunch</span>
+                <span>{cartProduct.product.description}</span>
               </div>
               <div className="description">
-                <p>5</p>
+                <p>{parseInt(cartProduct.quantity, 10)}</p>
               </div>
               <div className="extra">
                 Have a jolly good time in the sun

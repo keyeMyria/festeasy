@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Motion, spring } from 'react-motion';
+import CartItem from 'main/cartItem.jsx'
 
 // import { MenuItem } from 'semantic-react'
 // import { Tab } from 'semantic-react'
@@ -22,7 +23,7 @@ const styler = {
   backgroundColor: 'white',
   // borderColor: '#2A8EFF',
   // borderStyle: 'solid',
-  // borderSize: '0.3em',
+  // borderSize: '0em',
   cursor: 'pointer',
   boxShadow: '-5px 2px 5px #afafaf',
   justifyContent: 'center',
@@ -31,6 +32,13 @@ const styler = {
 export default class CartPanel extends React.Component {
   static propTypes = {
     children: PropTypes.any,
+    cart: PropTypes.object.isRequired,
+    cartProducts: PropTypes.array.isRequired,
+    festivals: PropTypes.array.isRequired,
+    removeCartProduct: PropTypes.func.isRequired,
+    selectFestival: PropTypes.func.isRequired,
+    updateQuantity: PropTypes.func.isRequired,
+    onCheckout: PropTypes.func.isRequired,
   }
   constructor(props) {
     super(props);
@@ -47,24 +55,25 @@ export default class CartPanel extends React.Component {
   componentWillMount() {
     document.addEventListener('click', this.handleClick, false)
   }
-  componentDidMount() {
-    this.setState({
-      open: true,
-    })
-  }
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClick, false)
   }
   initialStyle() {
     return {
+      padding: 0,
       width: spring(0, { stiffness: 150, damping: 20 }),
-      height: spring(10, { stiffness: 100, damping: 20 }),
+      height: spring(600, { stiffness: 100, damping: 20 }),
       right: spring(0, { stiffness: 100, damping: 10 }),
     }
   }
   handleClick(e) {
+    const { open } = this.state
     if (!ReactDOM.findDOMNode(this).contains(e.target) && this.state.open) {
-      const { open } = this.state
+      this.setState({
+        open: !open,
+      })
+    }
+    if (e.target.id === 'open-cart') {
       this.setState({
         open: !open,
       })
@@ -72,6 +81,7 @@ export default class CartPanel extends React.Component {
   }
   finalStyle() {
     return {
+      padding: 20,
       width: spring(700, { stiffness: 150, damping: 26 }),
       height: spring(600, { stiffness: 100, damping: 20 }),
       right: spring(0, { stiffness: 100, damping: 10 }),
@@ -91,25 +101,36 @@ export default class CartPanel extends React.Component {
       open: !open,
     })
   }
-
+  showChildren() {
+    const { cartProducts, updateQuantity, removeCartProduct } = this.props
+    return (cartProducts.map((cartProduct) => (
+      <CartItem
+        updateQuantity={updateQuantity}
+        removeCartProduct={removeCartProduct}
+        key={cartProduct.id}
+        cartProduct={cartProduct}
+      />
+    )))
+  }
   render() {
     const { open } = this.state
     const style = !open ? this.initialStyle() : this.finalStyle()
     // open ? this.dimDoc() : this.undimDoc()
     return (
       <Motion style={style} >
-        {({ width, height, right }) => (
+        {({ width, height, right, padding }) => (
           <div
             style={{
               ...styler,
               width: width,
               height: height,
               right: right,
+              padding: padding,
             }}
           >
-            {open ? this.props.children : null}
+            {open ? this.showChildren() : null}
           </div>
-        )
+          )
         }
       </Motion>
     )
