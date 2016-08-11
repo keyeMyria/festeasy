@@ -26,6 +26,7 @@ from .resources import suppliers
 from .resources import stock_units
 from .resources import forgot_password_tokens
 from .resources import payu_transactions
+from .resources import images
 
 
 @v1_bp.errorhandler(APIException)

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Numeric, Boolean
+from sqlalchemy import Column, String, Numeric, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -17,6 +17,12 @@ class Product(db.Model, Entity):
     is_enabled = Column(Boolean, default=False, nullable=False)
     name = Column(String(150), nullable=False)
     price_rands = Column(Numeric, nullable=False)
+
+    thumbnail_image_id = Column(ForeignKey('image.id'))
+    thumbnail_image = relationship(
+        'Image',
+        back_populates='product',
+    )
 
     cart_products = relationship(
         'CartProduct',

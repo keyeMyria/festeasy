@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Cards, Card, Content, Header, Description } from 'semantic-react'
+import { Image, Cards, Card, Content, Header, Description } from 'semantic-react'
 import AddToCartButton from 'main/components/addToCartButton.jsx'
 import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
+import apiEndpoint from 'apiEndpoint.js'
 
 
 class ProductList extends React.Component {
@@ -23,6 +24,14 @@ class ProductList extends React.Component {
         <Cards className="four">
           {products.map(product => (
             <Card key={product.id}>
+              {product.thumbnail_image_id ?
+                <Image
+                  centered
+                  style={{ 'maxHeight': '270px', width: 'auto', height: 'auto' }}
+                  alt="product thumbnail"
+                  src={apiEndpoint.concat(`v1/images/${product.thumbnail_image_id}/image`)}
+                /> : 'No thumbnail image'
+              }
               <Content>
                 <Header>
                   <Link to={`/store/products/${product.id}`}>
