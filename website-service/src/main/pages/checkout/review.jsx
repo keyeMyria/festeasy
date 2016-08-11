@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
-import { Button } from 'semantic-react'
-import Page from 'common/page.jsx'
+import { Button, Table, Tr, Td, Header } from 'semantic-react'
+import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 
 
@@ -16,28 +16,26 @@ class Review extends React.Component {
     const festival = cart.festival
     return (
       <div>
-        <h2 className="ui header">Review Cart</h2>
-        <div>
-          <p>Festival: {festival.name}</p>
-        </div>
-        <table className="ui table">
+        <Header>Review Cart</Header>
+        <p>Festival: {festival.name}</p>
+        <Table>
           <thead>
-            <tr>
+            <Tr>
               <th>Product</th>
               <th>Quantity</th>
               <th>Sub Total</th>
-            </tr>
+            </Tr>
           </thead>
           <tbody>
             {cartProducts.map((cp) => (
-              <tr key={cp.id}>
-                <td>{cp.product.name}</td>
-                <td>{cp.quantity}</td>
-                <td>{cp.sub_total_rands}</td>
-              </tr>
+              <Tr key={cp.id}>
+                <Td>{cp.product.name}</Td>
+                <Td>{cp.quantity}</Td>
+                <Td>{cp.sub_total_rands}</Td>
+              </Tr>
             ))}
           </tbody>
-        </table>
+        </Table>
         <div>
           Total: <PriceFormatter rands={cart.total_rands} />
         </div>
@@ -76,9 +74,9 @@ export default class ReviewContainer extends React.Component {
   onProceed() {
     const { axios } = this.context
     const cartId = this.state.cart.id
-    axios.request({
+    axios({
       method: 'post',
-      url: `carts/${cartId}/checkout`,
+      url: `v1/carts/${cartId}/checkout`,
     })
       .then((response) => {
         const invoiceId = response.data.current_invoice.id

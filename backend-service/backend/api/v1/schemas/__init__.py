@@ -24,3 +24,4 @@ from .packaged_stock_unit_schema import PackagedStockUnitSchema
 from .collection_schema import CollectionSchema
 from .payu_set_transaction_schema import PayUSetTransactionSchema
 from .payu_transaction_schema import PayUTransactionSchema
+from .recover_password_schema import RecoverPasswordSchema

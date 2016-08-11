@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Segment, Header, Content, Steps, Step, Description } from 'semantic-react'
 
 
 export default class Checkout extends React.Component {
@@ -9,36 +10,48 @@ export default class Checkout extends React.Component {
 
   render() {
     const { pathname } = this.props.location
+    const steps = [
+      {
+        title: 'Cart',
+        completed: true,
+        description: 'Choose your products and festival',
+        active: false,
+      }, {
+        title: 'Review',
+        completed: false,
+        description: 'Review your cart',
+        active: pathname === '/checkout/review',
+      }, {
+        title: 'Payment',
+        completed: false,
+        description: 'Make payment',
+        active: pathname === '/checkout/payment',
+      }, {
+        title: 'Confirmation',
+        completed: false,
+        description: 'Recieve payment confirmation',
+      },
+    ]
     return (
       <div>
-        <h1 className="ui center aligned header">Checkout</h1>
-        <div className="ui ordered steps">
-          <div className="completed step">
-            <div className="content">
-              <div className="title">Cart</div>
-              <div className="description">Choose your products and festival</div>
-            </div>
-          </div>
-          <div className={'step '.concat(pathname === '/checkout/review' ? 'active' : '')}>
-            <div className="content">
-              <div className="title">Review</div>
-              <div className="description">Review your cart</div>
-            </div>
-          </div>
-          <div className={'step '.concat(pathname === '/checkout/payment' ? 'active' : '')}>
-            <div className="content">
-              <div className="title">Payment</div>
-              <div className="description">Make payment</div>
-            </div>
-          </div>
-          <div className="step">
-            <div className="content">
-              <div className="title">Confirmation</div>
-              <div className="description">Recieve payment confirmation</div>
-            </div>
-          </div>
-        </div>
-        {this.props.children}
+        <Header aligned="center">Checkout</Header>
+        <Steps ordered fluid equalWidths>
+          {steps.map((step) => (
+            <Step
+              key={step.title}
+              completed={step.completed || false}
+              active={step.active || false}
+            >
+              <Content>
+                <div className="title">{step.title}</div>
+                <Description>{step.description}</Description>
+              </Content>
+            </Step>
+          ))}
+        </Steps>
+        <Segment>
+          {this.props.children}
+        </Segment>
       </div>
     )
   }

@@ -36,4 +36,4 @@ class ResetPassword(Resource):
         db.session.add(forgot_password_token)
         db.session.add(user)
         db.session.commit()
-        return
+        return "OK"

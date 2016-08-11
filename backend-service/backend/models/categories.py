@@ -2,18 +2,15 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 from backend import db
-
-from .utils import Entity
+from backend.models.utils import Entity
 
 
 class Category(db.Model, Entity):
-    __tablename__ = 'category'
+    def __repr__(self):
+        return '<Category {self.id}>'.format(self=self)
 
     name = Column(String)
     description = Column(String)
-
-    def __repr__(self):
-        return '<Category {id}>'.format(id=self.id)
 
     product_categories = relationship(
         'ProductCategory',

@@ -1,8 +1,7 @@
 import datetime
-from factory import Factory, SubFactory
+from factory import Factory
 
 from backend.models import Festival
-from . import BaseFestivalFactory
 
 
 class FestivalFactory(Factory):
@@ -13,4 +12,3 @@ class FestivalFactory(Factory):
     ends_on = datetime.datetime.now() + datetime.timedelta(days=2)
     name = 'The Test Festival'
     description = 'This is a description.'
-    base_festival = SubFactory(BaseFestivalFactory)

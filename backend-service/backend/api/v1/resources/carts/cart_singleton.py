@@ -5,17 +5,20 @@ from backend import db
 from backend.models import Cart
 from backend.api.utils import get_or_404
 from backend.api.v1.schemas import CartSchema
+from backend.api.v1.authentication import requires_auth
 
 
 cart_schema = CartSchema()
 
 
 class CartSingleton(Resource):
-    def get(self, cart_id):
+    method_decorators = [requires_auth]
+
+    def get(self, cart_id, authenticated_user):
         cart = get_or_404(Cart, Cart.id == cart_id)
         return cart_schema.dump(cart).data
 
-    def patch(self, cart_id):
+    def patch(self, cart_id, authenticated_user):
         load_data = cart_schema.load(request.get_json()).data
         cart = get_or_404(Cart, Cart.id == cart_id)
         for arg in load_data:

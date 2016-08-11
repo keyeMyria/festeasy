@@ -27,29 +27,3 @@ class ForgotPasswordTokenCollection(Resource):
                 forgot_password_tokens,
                 many=True)
                 .data)
-
-    def post(self):
-        data = forgot_password_token_schema.load(request.get_json()).data
-        user = get_or_404(User, User.email_address == data['email_address'])
-        forgot_password_token = ForgotPasswordToken.create_for_user(user)
-        db.session.add(forgot_password_token)
-        db.session.commit()
-        host_url = (request.environ['HTTP_ORIGIN']
-                    if 'HTTP_ORIGIN' in request.environ.keys() else None)
-        url = (
-            '{host_url}/reset-password?token={token}'
-            .format(
-                host_url=host_url,
-                token=forgot_password_token.token,
-            )
-        )
-        send_templated_email(
-            user.email_address,
-            'Forgot Password',
-            'forgot-password.html',
-            data=dict(
-                first_name=user.first_name,
-                url=url,
-            ),
-        )
-        return forgot_password_token_schema.dump(forgot_password_token).data

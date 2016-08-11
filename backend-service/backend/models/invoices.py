@@ -1,5 +1,4 @@
-from sqlalchemy import Column, Integer
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -10,7 +9,20 @@ from .utils import Entity
 
 
 class Invoice(db.Model, Entity):
-    __tablename__ = 'invoice'
+    def __repr__(self):
+        return '<Invoice {self.id}>'.format(self=self)
+
+    order_id = Column(ForeignKey('order.id'), nullable=False)
+    order = relationship('Order', back_populates='invoices')
+
+    invoice_products = relationship('InvoiceProduct', back_populates='invoice')
+
+    payments = relationship('Payment', back_populates='invoice')
+
+    payu_transactions = relationship(
+        'PayUTransaction',
+        back_populates='invoice',
+    )
 
     # TODO: Imporve testing
     @staticmethod
@@ -41,34 +53,6 @@ class Invoice(db.Model, Entity):
         for ip in self.invoice_products:
             total += ip.sub_total_rands
         return total
-
-    def __repr__(self):
-        return '<Invoice {id}>'.format(id=self.id)
-
-    order_id = Column(
-        Integer,
-        ForeignKey('order.id'),
-        nullable=False
-    )
-    order = relationship(
-        'Order',
-        back_populates='invoices'
-    )
-
-    invoice_products = relationship(
-        'InvoiceProduct',
-        back_populates='invoice'
-    )
-
-    payments = relationship(
-        'Payment',
-        back_populates='invoice'
-    )
-
-    payu_transactions = relationship(
-        'PayUTransaction',
-        back_populates='invoice',
-    )
 
     @property
     def payments_total_rands(self):

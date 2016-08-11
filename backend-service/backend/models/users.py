@@ -1,7 +1,6 @@
 import datetime
-from sqlalchemy import Column, Integer, String, Boolean
-from sqlalchemy import ForeignKey, CheckConstraint
-from sqlalchemy import or_, and_
+from sqlalchemy import Column, String, Boolean, ForeignKey, CheckConstraint, \
+    or_, and_
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -12,25 +11,13 @@ from .utils import Entity
 
 
 class User(db.Model, Entity):
-    __tablename__ = 'user'
-
-    def __init__(self, email_address=None, password=None, first_name=None,
-                last_name=None, cart=None, is_admin=None, guest_token=None,
-                facebook=None, sessions=[], orders=[]):
-        self.is_admin = is_admin
-        self.email_address = email_address
+    def __init__(self, password=None, **kwargs):
+        super().__init__(**kwargs)
         if password:
-            self.password_hash = generate_password_hash(password)
-        self.first_name = first_name
-        self.last_name = last_name
-        self.cart = cart
-        self.guest_token = guest_token
-        self.sessions = sessions
-        self.orders = orders
-        self.facebook = facebook
+            self.set_password(password)
 
     def __repr__(self):
-        return '<User {id}>'.format(id=self.id)
+        return '<User {self.id}>'.format(self=self)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -71,7 +58,6 @@ class User(db.Model, Entity):
     )
 
     cart_id = Column(
-        Integer,
         ForeignKey('cart.id'),
         nullable=False,
     )

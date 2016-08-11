@@ -7,6 +7,9 @@ from .utils import Entity
 
 
 class PayUTransaction(db.Model, Entity):
+    def __repr__(self):
+        return '<PayUTransaction {self.id}>'.format(self=self)
+
     payu_reference = Column(BigInteger, unique=True, nullable=False)
     merchant_reference = Column(Integer)
     successful = Column(Boolean)
@@ -18,5 +21,11 @@ class PayUTransaction(db.Model, Entity):
     invoice_id = Column(ForeignKey('invoice.id'), nullable=False)
     invoice = relationship(
         'Invoice',
+        back_populates='payu_transactions',
+    )
+
+    payment_id = Column(ForeignKey('payment.id'))
+    payment = relationship(
+        'Payment',
         back_populates='payu_transactions',
     )

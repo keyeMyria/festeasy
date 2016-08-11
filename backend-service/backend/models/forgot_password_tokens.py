@@ -1,18 +1,20 @@
 import datetime
 from uuid import uuid4
-from sqlalchemy import Column, String, DateTime
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
-
-from .utils import Entity
+from backend.models.utils import Entity
 
 
 class ForgotPasswordToken(db.Model, Entity):
+    def __repr__(self):
+        return '<ForgotPasswordToken id={self.id}'.format(self=self)
+
     token = Column(String, unique=True, nullable=False)
     expires_on = Column(DateTime, nullable=False)
     used_on = Column(DateTime)
+
     user_id = Column(ForeignKey('user.id'), nullable=False)
     user = relationship(
         'User',
@@ -22,10 +24,6 @@ class ForgotPasswordToken(db.Model, Entity):
     def is_valid(self):
         now = datetime.datetime.now()
         return self.expires_on > now and not self.used_on
-
-    @staticmethod
-    def get_token():
-        return str(uuid4())
 
     @staticmethod
     def create_for_user(user):

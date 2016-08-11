@@ -11,5 +11,5 @@ class SessionFactory(Factory):
         model = Session
 
     user = SubFactory(UserFactory)
-    expires_on = datetime.datetime.now()
+    expires_on = datetime.datetime.now() + datetime.timedelta(hours=25)
     token = 'asdf'
