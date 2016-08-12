@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Segment, Header, Form, Field, Input, Button } from 'semantic-react'
+import { Header, Form, Field, Input, Button } from 'semantic-react'
 
 
 class ChangePassword extends React.Component {
@@ -55,7 +55,7 @@ class ChangePassword extends React.Component {
   render() {
     const { currentPassword, newPassword } = this.state
     return (
-      <Segment>
+      <div>
         <Header>Change Password</Header>
         <Form onSubmit={this.handleSubmit}>
           <Field label="Current Password">
@@ -76,7 +76,7 @@ class ChangePassword extends React.Component {
           </Field>
           <Button>Change Password</Button>
         </Form>
-      </Segment>
+      </div>
     )
   }
 }

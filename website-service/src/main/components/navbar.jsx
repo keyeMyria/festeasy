@@ -25,7 +25,7 @@ export default class Navbar extends React.Component {
       ]
     }
     return (
-      <Menu fixed secondary pointing>
+      <Menu secondary pointing>
         <Container>
           <Header item>
             <Link to="/">Home</Link>

@@ -9,7 +9,7 @@ export default class Main extends React.Component {
 
   render() {
     return (
-      <div style={{ paddingTop: 55 }}>
+      <div>
         <Navbar />
         <div className="ui container">
           {this.props.children}

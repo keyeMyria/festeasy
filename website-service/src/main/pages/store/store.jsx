@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Form, Input, Button, Header, Divider } from 'semantic-react'
+import { Form, Input, Button, Divider } from 'semantic-react'
 
 
 class ProductSearch extends React.Component {
@@ -67,7 +67,6 @@ export default class Store extends React.Component {
     const { search } = this.props.location.query
     return (
       <div>
-        <Header aligned="center">Store</Header>
         <ProductSearch onClick={this.onSearch} searchTerm={search} />
         <Divider />
         {this.props.children}
