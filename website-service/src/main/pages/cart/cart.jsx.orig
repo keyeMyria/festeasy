@@ -1,5 +1,7 @@
+<<<<<<< HEAD:website-service/src/main/pages/cart/cart.jsx
 import React, { PropTypes } from 'react'
 import Page from 'utils/page.jsx'
+import Cart from 'main/components/myCart.jsx'
 
 
 export default class CartContainer extends React.Component {
@@ -7,10 +9,6 @@ export default class CartContainer extends React.Component {
     store: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
     authDetails: PropTypes.object.isRequired,
-  }
-
-  static propTypes = {
-    children: PropTypes.any,
   }
 
   constructor(props) {
@@ -28,7 +26,6 @@ export default class CartContainer extends React.Component {
     this.updateQuantity = this.updateQuantity.bind(this)
     this.removeCartProduct = this.removeCartProduct.bind(this)
     this.onCheckout = this.onCheckout.bind(this)
-    this.renderChildren = this.renderChildren.bind(this)
   }
 
   componentDidMount() {
@@ -111,17 +108,17 @@ export default class CartContainer extends React.Component {
       })
       .catch(() => {
         this.setState({
-          error: 'Something went wrong in remove',
+          error: 'Something went wrong',
         })
       })
   }
 
-  updateQuantity(cp) {
+  updateQuantity(cp, quantity) {
     const { store } = this.context
     store.update(
       'cartProduct',
       cp.id,
-      { quantity: cp.quantity },
+      { quantity: quantity },
       { method: 'patch' },
     )
       .then(() => {
@@ -151,37 +148,42 @@ export default class CartContainer extends React.Component {
         })
       })
   }
-  renderChildren() {
-    const { cart, cartProducts, festivals } = this.state
-    const childrenWithProps = React.Children.map(this.props.children, (child) =>
-      React.cloneElement(child, {
-        cart: cart,
-        cartProducts: cartProducts,
-        festivals: festivals,
-        removeCartProduct: this.removeCartProduct,
-        selectFestival: this.selectFestival,
-        updateQuantity: this.updateQuantity,
-        onCheckout: this.onCheckout,
-      }))
-    return childrenWithProps
-  }
 
+=======
+import React from 'react'
+import Cart from 'main/myCart.jsx'
+import CartContainer from './cartContainer.jsx'
+
+export default class CartPage extends React.Component {
+>>>>>>> ALOT OF STUFF:website-service/src/main/pages/cart.jsx
   render() {
-    const { cart, cartProducts, festivals, error } = this.state
-    const isReady = cart && cartProducts && festivals
     return (
       <div>
+<<<<<<< HEAD:website-service/src/main/pages/cart/cart.jsx
         <Page
           isLoading={!isReady && !error}
           contentError={error}
           content={
             isReady ?
-              <div>
-                {this.renderChildren()}
-              </div>
+              <Cart
+                cart={cart}
+                cartProducts={cartProducts}
+                festivals={festivals}
+                removeCartProduct={this.removeCartProduct}
+                selectFestival={this.selectFestival}
+                updateQuantity={this.updateQuantity}
+                onCheckout={this.onCheckout}
+              />
             : ''
           }
         />
+=======
+        <h1 className="ui center aligned header">Cart</h1>
+        <div className="ui divider" />
+        <CartContainer>
+          <Cart />
+        </CartContainer>
+>>>>>>> ALOT OF STUFF:website-service/src/main/pages/cart.jsx
       </div>
     )
   }

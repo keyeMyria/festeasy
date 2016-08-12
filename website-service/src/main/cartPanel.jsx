@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import { Motion, spring } from 'react-motion';
 import CartItem from 'main/cartItem.jsx'
 
@@ -30,16 +29,7 @@ const styler = {
 }
 
 export default class CartPanel extends React.Component {
-  static propTypes = {
-    children: PropTypes.any,
-    cart: PropTypes.object.isRequired,
-    cartProducts: PropTypes.array.isRequired,
-    festivals: PropTypes.array.isRequired,
-    removeCartProduct: PropTypes.func.isRequired,
-    selectFestival: PropTypes.func.isRequired,
-    updateQuantity: PropTypes.func.isRequired,
-    onCheckout: PropTypes.func.isRequired,
-  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -68,7 +58,7 @@ export default class CartPanel extends React.Component {
   }
   handleClick(e) {
     const { open } = this.state
-    if (!ReactDOM.findDOMNode(this).contains(e.target) && this.state.open) {
+    if (!this.node.contains(e.target) && this.state.open) {
       this.setState({
         open: !open,
       })
@@ -120,6 +110,7 @@ export default class CartPanel extends React.Component {
       <Motion style={style} >
         {({ width, height, right, padding }) => (
           <div
+            ref={node => this.node = node}
             style={{
               ...styler,
               width: width,

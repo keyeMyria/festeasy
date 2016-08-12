@@ -4,7 +4,12 @@ import { Header, SubHeader, Label, Message, Button, Option, Table, Tr, Td } from
 import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
+<<<<<<< HEAD:website-service/src/main/components/myCart.jsx
 import MyStatefulInput from 'utils/myStatefulInput.jsx'
+=======
+import CartRow from 'main/myCartRow.jsx'
+import CartPanel from './cartPanel.jsx'
+>>>>>>> Add wip for some stuff:website-service/src/main/myCart.jsx
 
 
 export default class Cart extends React.Component {
@@ -34,6 +39,7 @@ export default class Cart extends React.Component {
       </Option>
     ))
     return (
+<<<<<<< HEAD:website-service/src/main/components/myCart.jsx
       <div className="ui segment">
         {!cart.festival_id ?
           <Message emphasis="warning">
@@ -90,6 +96,53 @@ export default class Cart extends React.Component {
           >
             Secure Checkout
           </Button>
+=======
+      <div>
+        <div className="ui segment">
+          <label htmlFor="MySelect">Select festival:</label>
+          <MySelect
+            fluid
+            placeholder="Select festival"
+            selected={cart.festival_id ? [cart.festival_id] : []}
+            updateSelected={(selected) => this.props.selectFestival(selected[0])}
+            options={options}
+          />
+          {!cart.festival_id ?
+            <div className="ui compact blue message">
+              Please select a festival
+            </div>
+          : ''}
+          <table className="ui table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {cartProducts.map((cartProduct) => (
+                <CartRow
+                  updateQuantity={updateQuantity}
+                  removeCartProduct={removeCartProduct}
+                  key={cartProduct.id}
+                  cartProduct={cartProduct}
+                />
+              ))}
+            </tbody>
+          </table>
+          <div>
+            <div>Total: <PriceFormatter rands={cart.total_rands} /></div>
+            <button
+              className="ui positive button"
+              onClick={onCheckout}
+              disabled={!(cart.festival_id && cartProducts.length > 0)}
+            >
+              Secure Checkout
+            </button>
+          </div>
+>>>>>>> Add wip for some stuff:website-service/src/main/myCart.jsx
         </div>
       </div>
     )

@@ -1,0 +1,31 @@
+import React from 'react'
+<<<<<<< HEAD
+import { Router, Route, browserHistory } from 'react-router'
+import NotFound from 'common/pages/notFound.jsx'
+import mainRoutes from 'main/routes.jsx'
+=======
+import { Router, Route, browserHistory, IndexRoute, IndexRedirect } from 'react-router'
+import CartPreview from 'main/cartPreview.jsx'
+import Panel from 'main/panel.jsx'
+import Main from 'main/main.jsx'
+import Store from 'main/pages/store.jsx'
+import Products from 'main/pages/products.jsx'
+import Landing from 'main/pages/landing.jsx'
+import About from 'main/pages/about.jsx'
+import FestivalList from 'main/pages/festivalList.jsx'
+import Festivals from 'main/pages/festivals.jsx'
+import Festival from 'main/pages/festival.jsx'
+import Product from 'main/pages/product.jsx'
+import Admin from 'admin/admin.jsx'
+>>>>>>> Add wip for some stuff
+import App from 'app.jsx'
+
+
+export default (
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      {mainRoutes}
+    </Route>
+    <Route path="*" component={NotFound} />
+  </Router>
+)

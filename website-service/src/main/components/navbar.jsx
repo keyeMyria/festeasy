@@ -15,7 +15,7 @@ export default class Navbar extends React.Component {
     if (this.context.authDetails) {
       links = [
         <NavLink key="a" to="/cart">Cart</NavLink>,
-        <button id="open-cart" className="ui basic button">
+        <button key="d" id="open-cart" className="ui basic button">
           <i id="open-cart" className="ui large cart icon" />
         </button>,
         <NavLink key="c" to="/account">Account</NavLink>,
@@ -40,7 +40,7 @@ export default class Navbar extends React.Component {
           <div className="right menu">
             {links}
           </div>
-          </Container>
+        </Container>
       </Menu>
     )
   }

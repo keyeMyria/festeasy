@@ -7,8 +7,8 @@ export default class CartItem extends React.Component {
     removeCartProduct: PropTypes.func.isRequired,
   }
   render() {
-    const { cartProduct, updateQuantity, removeCartProduct } = this.props
-    console.log('cartProduct: ', cartProduct)
+    // , updateQuantity, removeCartProduct
+    const { cartProduct } = this.props
     return (
       <div>
         <div className="ui items">

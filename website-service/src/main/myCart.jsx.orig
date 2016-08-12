@@ -4,18 +4,18 @@ import { Option } from 'semantic-react'
 import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
-// import CartRow from 'main/myCartRow.jsx'
+import CartRow from 'main/myCartRow.jsx'
 
 
 export default class Cart extends React.Component {
   static propTypes = {
-    cart: PropTypes.object,
-    cartProducts: PropTypes.array,
-    festivals: PropTypes.array,
-    removeCartProduct: PropTypes.func,
-    selectFestival: PropTypes.func,
-    updateQuantity: PropTypes.func,
-    onCheckout: PropTypes.func,
+    cart: PropTypes.object.isRequired,
+    cartProducts: PropTypes.array.isRequired,
+    festivals: PropTypes.array.isRequired,
+    removeCartProduct: PropTypes.func.isRequired,
+    selectFestival: PropTypes.func.isRequired,
+    updateQuantity: PropTypes.func.isRequired,
+    onCheckout: PropTypes.func.isRequired,
   }
 
   getMain() {
@@ -23,7 +23,9 @@ export default class Cart extends React.Component {
       cart,
       cartProducts,
       festivals,
+      updateQuantity,
       onCheckout,
+      removeCartProduct,
     } = this.props
     const options = festivals.map((festival) => (
       <Option key={festival.id} value={festival.id}>
@@ -56,14 +58,14 @@ export default class Cart extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {/* {cartProducts.map((cartProduct) => (
+              {cartProducts.map((cartProduct) => (
                 <CartRow
                   updateQuantity={updateQuantity}
                   removeCartProduct={removeCartProduct}
                   key={cartProduct.id}
                   cartProduct={cartProduct}
                 />
-              ))} */}
+              ))}
             </tbody>
           </table>
           <div>

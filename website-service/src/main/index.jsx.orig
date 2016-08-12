@@ -1,0 +1,31 @@
+import React, { PropTypes } from 'react';
+<<<<<<< HEAD:website-service/src/main/index.jsx
+import Navbar from 'main/components/navbar.jsx'
+=======
+import CartContainer from 'main/pages/cartContainer.jsx'
+import Navbar from './navbar.jsx'
+import CartPanel from './cartPanel.jsx'
+import CartItem from './cartItem.jsx'
+>>>>>>> ALOT OF STUFF:website-service/src/main/main.jsx
+
+
+export default class Main extends React.Component {
+  static propTypes = {
+    children: PropTypes.object.isRequired,
+  }
+
+
+  render() {
+    return (
+      <div style={{ paddingTop: 55 }}>
+        <Navbar />
+        <CartContainer>
+          <CartPanel />
+        </CartContainer>
+        <div className="ui container">
+          {this.props.children}
+        </div>
+      </div>
+    )
+  }
+}
