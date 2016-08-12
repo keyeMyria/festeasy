@@ -1,6 +1,6 @@
 import datetime
 
-from backend.models import User, Product, Festival, Cart, Category, Supplier, \
+from backend.models import User, Product, Festival, Cart, Category, Image, \
     ProductCategory
 
 
@@ -19,14 +19,16 @@ def get_dummy_data():
     drinks = Category(name='Drinks')
     beer = Category(name='Beer')
     food = Category(name='Food')
-    woolies = Supplier(name='Woolies')
-    pp = Supplier(name='Pick n Pay')
     castle = Product(
         name='Castle Lite Beer',
         cost_rands=10,
         is_enabled=True,
         price_rands=10,
         description='A description.',
+        thumbnail_image=Image(
+            file_data=open('../images/castle_light.png', 'rb').read(),
+            filetype='png'
+        )
     )
     castle.product_categories.extend([
         ProductCategory(product=castle, category=beer),
@@ -39,6 +41,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description.',
+        thumbnail_image=Image(
+            file_data=open('../images/lays.png', 'rb').read(),
+            filetype='png'
+        )
     )
     lays.product_categories.extend([
         ProductCategory(product=lays, category=food)
@@ -50,6 +56,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description.',
+        thumbnail_image=Image(
+            file_data=open('../images/coke_can.png', 'rb').read(),
+            filetype='png'
+        )
     )
     coke.product_categories.extend([
         ProductCategory(product=coke, category=drinks)
@@ -60,6 +70,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description',
+        thumbnail_image=Image(
+            file_data=open('../images/windhoek.png', 'rb').read(),
+            filetype='png'
+        )
     )
     windhoek.product_categories.extend([
         ProductCategory(product=windhoek, category=drinks),
@@ -72,6 +86,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description',
+        thumbnail_image=Image(
+            file_data=open('../images/tex.png', 'rb').read(),
+            filetype='png'
+        )
     )
     text.product_categories.extend([
         ProductCategory(product=text, category=food),
@@ -83,6 +101,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='a description.',
+        thumbnail_image=Image(
+            file_data=open('../images/kitkat.png', 'rb').read(),
+            filetype='png'
+        )
     )
     kitkat.product_categories.extend([
         ProductCategory(product=kitkat, category=food),
@@ -94,6 +116,10 @@ def get_dummy_data():
         is_enabled=True,
         price_rands=10,
         description='A description.',
+        thumbnail_image=Image(
+            file_data=open('../images/jellybeans.png', 'rb').read(),
+            filetype='png'
+        )
     )
     jelly_beans.product_categories.extend([
         ProductCategory(product=jelly_beans, category=food),
