@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
+import { Header, Image, Grid, Column } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import AddToCartButton from 'main/components/addToCartButton.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
+import apiEndpoint from 'apiEndpoint.js'
 
 
 class Product extends React.Component {
@@ -12,12 +14,24 @@ class Product extends React.Component {
   render() {
     const { product } = this.props
     return (
-      <div>
-        <h2 className="ui center aligned header">{product.name}</h2>
-        <p>{product.description}</p>
-        <p>Price: <PriceFormatter rands={product.price_rands} /></p>
-        <AddToCartButton product={product} />
-      </div>
+      <Grid columns={2}>
+        <Column width={4}>
+          {product.thumbnail_image_id ?
+            <Image
+              centered
+              style={{ maxHeight: '270px', width: 'auto', height: 'auto' }}
+              alt="product thumbnail"
+              src={apiEndpoint.concat(`v1/images/${product.thumbnail_image_id}/image`)}
+            /> : 'No thumbnail image'
+          }
+        </Column>
+        <Column>
+          <Header>{product.name}</Header>
+          <p>{product.description}</p>
+          <p>Price: <PriceFormatter rands={product.price_rands} /></p>
+          <AddToCartButton product={product} />
+        </Column>
+      </Grid>
     )
   }
 }

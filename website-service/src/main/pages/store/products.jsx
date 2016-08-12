@@ -25,16 +25,18 @@ class ProductList extends React.Component {
         <Cards className="four">
           {products.map(product => (
             <Card key={product.id}>
-              <div style={{ minHeight: imageHeight }}>
-                {product.thumbnail_image_id ?
-                  <Image
-                    centered
-                    style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
-                    alt="product thumbnail"
-                    src={apiEndpoint.concat(`v1/images/${product.thumbnail_image_id}/image`)}
-                  /> : 'No thumbnail image'
-                }
-              </div>
+              <Link to={`/store/products/${product.id}`}>
+                <div style={{ minHeight: imageHeight }}>
+                  {product.thumbnail_image_id ?
+                    <Image
+                      centered
+                      style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
+                      alt="product thumbnail"
+                      src={apiEndpoint.concat(`v1/images/${product.thumbnail_image_id}/image`)}
+                    /> : 'No thumbnail image'
+                  }
+                </div>
+              </Link>
               <Content>
                 <Header>
                   <Link to={`/store/products/${product.id}`}>
