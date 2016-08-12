@@ -39,8 +39,8 @@ export default class Navbar extends React.Component {
           <NavLink to="/panels">Panel Test</NavLink>
           <div className="right menu">
             {links}
-          </Menu>
-        </Container>
+          </div>
+          </Container>
       </Menu>
     )
   }
