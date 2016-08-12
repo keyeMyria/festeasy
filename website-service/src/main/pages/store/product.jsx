@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Header, Image, Grid, Column } from 'semantic-react'
+import { Link } from 'react-router'
+import { Header, Image, Grid, Column, Breadcrumb } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import AddToCartButton from 'main/components/addToCartButton.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
@@ -14,24 +15,35 @@ class Product extends React.Component {
   render() {
     const { product } = this.props
     return (
-      <Grid columns={2}>
-        <Column width={4}>
-          {product.thumbnail_image_id ?
-            <Image
-              centered
-              style={{ maxHeight: '270px', width: 'auto', height: 'auto' }}
-              alt="product thumbnail"
-              src={apiEndpoint.concat(`v1/images/${product.thumbnail_image_id}/image`)}
-            /> : 'No thumbnail image'
-          }
-        </Column>
-        <Column>
-          <Header>{product.name}</Header>
-          <p>{product.description}</p>
-          <p>Price: <PriceFormatter rands={product.price_rands} /></p>
-          <AddToCartButton product={product} />
-        </Column>
-      </Grid>
+      <div>
+        <Breadcrumb>
+          <Link className="section" to="/store">All Products</Link>
+          <i className="right angle icon divider" />
+          <Link className="section" to={`/store/products/${product.id}`}>
+            {product.name}
+          </Link>
+        </Breadcrumb>
+        <br />
+        <br />
+        <Grid columns={2}>
+          <Column width={4}>
+            {product.thumbnail_image_id ?
+              <Image
+                centered
+                style={{ maxHeight: '270px', width: 'auto', height: 'auto' }}
+                alt="product thumbnail"
+                src={apiEndpoint.concat(`v1/images/${product.thumbnail_image_id}/image`)}
+              /> : 'No thumbnail image'
+            }
+          </Column>
+          <Column>
+            <Header>{product.name}</Header>
+            <p>{product.description}</p>
+            <p>Price: <PriceFormatter rands={product.price_rands} /></p>
+            <AddToCartButton product={product} />
+          </Column>
+        </Grid>
+      </div>
     )
   }
 }
