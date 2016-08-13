@@ -13,7 +13,9 @@ const styler = {
   position: 'fixed',
   zIndex: 5,
   paddingTop: '60px',
-  borderRadius: '0.5%',
+  border: '1px solid',
+  borderColor: '#6AA0D5',
+  borderRadius: '10px',
   overflowX: 'hidden',
   WebkitBoxSizing: 'border-box', /* Safari/Chrome, other WebKit */
   // -moz-box-sizing: border-box,    /* Firefox, other Gecko */
@@ -139,7 +141,14 @@ export default class CartPanel extends React.Component {
               padding: padding,
             }}
           >
-            {open ? this.showChildren() : null}
+            <div className="ui grid">
+              <div className="twelve wide column"  >
+                {open ? this.showChildren() : null}
+              </div>
+              <div className="four wide column" style={{border: '1px solid black', borderRadius: '20px' }}  >
+                this is where totals and other stuff goes
+              </div>
+            </div>
           </div>
           )
         }
