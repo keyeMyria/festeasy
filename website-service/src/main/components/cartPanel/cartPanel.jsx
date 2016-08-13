@@ -10,7 +10,7 @@ import CartItem from './cartItem.jsx'
 
 // import CartItem from './cartItem.jsx'
 const styler = {
-  position: 'absolute',
+  position: 'fixed',
   zIndex: 5,
   paddingTop: '60px',
   borderRadius: '0.5%',
