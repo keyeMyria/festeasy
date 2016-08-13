@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import CartItem from './cartItem.jsx'
 
@@ -30,6 +30,16 @@ const styler = {
 
 export default class CartPanel extends React.Component {
 
+  static propTypes = {
+    cart: PropTypes.object,
+    cartProducts: PropTypes.array,
+    festivals: PropTypes.array,
+    removeCartProduct: PropTypes.func,
+    selectFestival: PropTypes.func,
+    updateQuantity: PropTypes.func,
+    onCheckout: PropTypes.func,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -42,12 +52,15 @@ export default class CartPanel extends React.Component {
     this.dimDoc = this.dimDoc.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
+
   componentWillMount() {
     document.addEventListener('click', this.handleClick, false)
   }
+
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClick, false)
   }
+
   initialStyle() {
     return {
       padding: 0,
@@ -56,6 +69,7 @@ export default class CartPanel extends React.Component {
       right: spring(0, { stiffness: 100, damping: 10 }),
     }
   }
+
   handleClick(e) {
     const { open } = this.state
     if (!this.node.contains(e.target) && this.state.open) {
@@ -69,6 +83,7 @@ export default class CartPanel extends React.Component {
       })
     }
   }
+
   finalStyle() {
     return {
       padding: 20,
@@ -77,20 +92,24 @@ export default class CartPanel extends React.Component {
       right: spring(0, { stiffness: 100, damping: 10 }),
     }
   }
+
   dimDoc() {
     const opac = 0.2
     document.body.style.backgroundColor = `rgba(0,0,0,${opac})`
   }
+
   undimDoc() {
     const opac = 0
     document.body.style.backgroundColor = `rgba(0,0,0,${opac})`
   }
+
   close() {
     const { open } = this.state
     this.setState({
       open: !open,
     })
   }
+
   showChildren() {
     const { cartProducts, updateQuantity, removeCartProduct } = this.props
     return (cartProducts.map((cartProduct) => (
@@ -102,6 +121,7 @@ export default class CartPanel extends React.Component {
       />
     )))
   }
+
   render() {
     const { open } = this.state
     const style = !open ? this.initialStyle() : this.finalStyle()

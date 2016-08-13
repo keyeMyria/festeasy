@@ -23,13 +23,13 @@ import apiEndpoint from 'apiEndpoint.js'
 
 export default class Cart extends React.Component {
   static propTypes = {
-    cart: PropTypes.object.isRequired,
-    cartProducts: PropTypes.array.isRequired,
-    festivals: PropTypes.array.isRequired,
-    removeCartProduct: PropTypes.func.isRequired,
-    selectFestival: PropTypes.func.isRequired,
-    updateQuantity: PropTypes.func.isRequired,
-    onCheckout: PropTypes.func.isRequired,
+    cart: PropTypes.object,
+    cartProducts: PropTypes.array,
+    festivals: PropTypes.array,
+    removeCartProduct: PropTypes.func,
+    selectFestival: PropTypes.func,
+    updateQuantity: PropTypes.func,
+    onCheckout: PropTypes.func,
   }
 
   getMain() {
