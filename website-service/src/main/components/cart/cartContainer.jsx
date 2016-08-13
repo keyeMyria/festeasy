@@ -116,12 +116,13 @@ export default class CartContainer extends React.Component {
       })
   }
 
-  updateQuantity(cp) {
+  updateQuantity(cp, quant) {
+    console.log('updating it : to ', quant)
     const { store } = this.context
     store.update(
       'cartProduct',
       cp.id,
-      { quantity: cp.quantity },
+      { quantity: quant },
       { method: 'patch' },
     )
       .then(() => {
