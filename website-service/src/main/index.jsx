@@ -9,6 +9,8 @@ import {
 } from 'semantic-react'
 import Navbar from 'main/components/navbar.jsx'
 import logo from 'images/fe_logo.png'
+import CartContainer from 'main/components/cart/cartContainer.jsx'
+import CartPanel from 'main/components/cartPanel/cartPanel.jsx'
 
 
 export default class Main extends React.Component {
@@ -16,10 +18,14 @@ export default class Main extends React.Component {
     children: PropTypes.object.isRequired,
   }
 
+
   render() {
     return (
       <div>
         <Navbar />
+        <CartContainer>
+          <CartPanel />
+        </CartContainer>
         <div className="ui container">
           <Grid columns={3} centered>
             <Column width={4}>
