@@ -33,7 +33,6 @@ export default class CartContainer extends React.Component {
 
   componentDidMount() {
     const { store } = this.context
-    console.log('store: ', store)
     store.definitions.cartProduct.on('DS.afterInject', (something, entity) =>
         this.setState({
           cartProducts: store.store.cartProduct.collection,
@@ -124,7 +123,6 @@ export default class CartContainer extends React.Component {
   }
 
   updateQuantity(cp, quant) {
-    console.log('updating it : to ', quant)
     const { store } = this.context
     store.update(
       'cartProduct',
