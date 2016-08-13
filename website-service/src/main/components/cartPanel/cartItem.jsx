@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import apiEndpoint from 'apiEndpoint.js'
+import { Image } from 'semantic-react'
 
 export default class CartItem extends React.Component {
   static propTypes = {
@@ -14,7 +16,14 @@ export default class CartItem extends React.Component {
         <div className="ui items">
           <div className="item">
             <div className="ui tiny image">
-              <img src="/images/beer.png" role="presentation" />
+              {cartProduct.product.thumbnail_image_id ?
+                <Image
+                  centered
+                  style={{ 'maxHeight': '270px', width: '90px', height: '90px' }}
+                  alt="product thumbnail"
+                  src={apiEndpoint.concat(`v1/images/${cartProduct.product.thumbnail_image_id}/image`)}
+                /> : 'No thumbnail image'
+              }
             </div>
             <div className="content">
               <a className="header">{cartProduct.product.name}</a>
