@@ -14,6 +14,9 @@ export default class Navbar extends React.Component {
     if (this.context.authDetails) {
       links = [
         <NavLink key="a" to="/cart">Cart</NavLink>,
+        <button key="d" id="open-cart" className="ui basic button">
+          <i id="open-cart" className="ui large cart icon" />
+        </button>,
         <NavLink key="c" to="/account">Account</NavLink>,
         <Button key="b" onClick={this.context.signOut}>Sign Out</Button>,
       ]
