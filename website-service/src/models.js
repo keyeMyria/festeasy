@@ -1,5 +1,9 @@
 module.exports = [
   {
+    name: 'stockUnit',
+    endpoint: 'v1/stock-units',
+  },
+  {
     name: 'supplier',
     endpoint: 'v1/suppliers',
   },

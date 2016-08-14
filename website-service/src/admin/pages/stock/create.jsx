@@ -6,6 +6,7 @@ import MySelect from 'utils/mySelect.jsx'
 export default class CreateStockPage extends React.Component {
   static contextTypes = {
     store: PropTypes.object.isRequired,
+    axios: PropTypes.func.isRequired,
   }
 
   constructor() {
@@ -16,18 +17,41 @@ export default class CreateStockPage extends React.Component {
       suppliers: null,
       selectedSupplier: null,
       quantity: '',
-      cost: '',
+      unitCost: '',
     }
     this.fetchProducts = this.fetchProducts.bind(this)
     this.fetchSuppliers = this.fetchSuppliers.bind(this)
     this.getForm = this.getForm.bind(this)
     this.selectProduct = this.selectProduct.bind(this)
     this.selectSupplier = this.selectSupplier.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   componentDidMount() {
     this.fetchProducts()
     this.fetchSuppliers()
+  }
+
+  onSubmit(e) {
+    e.preventDefault()
+    const {
+      selectedProduct,
+      selectedSupplier,
+      unitCost,
+      quantity,
+    } = this.state
+    const data = [...Array(quantity).keys()].map(() => (
+      {
+        product_id: selectedProduct.id,
+        supplier_id: selectedSupplier.id,
+        cost_rands: unitCost,
+      }
+    ))
+    this.context.axios({
+      method: 'post',
+      url: 'v1/stock-units',
+      data,
+    })
   }
 
   getForm() {
@@ -37,7 +61,7 @@ export default class CreateStockPage extends React.Component {
       suppliers,
       selectedSupplier,
       quantity,
-      cost,
+      unitCost,
     } = this.state
     const productOptions = products.map((p) => (
       <Option key={p.id} value={p}>
@@ -53,7 +77,7 @@ export default class CreateStockPage extends React.Component {
     return (
       <div>
         <Header>Create Stock Unit</Header>
-        <Form>
+        <Form onSubmit={this.onSubmit}>
           <Field label="Product">
             <MySelect
               placeholder="Select product..."
@@ -74,12 +98,14 @@ export default class CreateStockPage extends React.Component {
             <Input
               type="number"
               value={quantity}
+              onChange={(e) => this.setState({ quantity: parseInt(e.target.value, 10) })}
             />
           </Field>
-          <Field label="Cost">
+          <Field label="Unit Cost">
             <Input
               type="number"
-              value={cost}
+              value={unitCost}
+              onChange={(e) => this.setState({ unitCost: e.target.value })}
             />
           </Field>
           <Button>Submit</Button>
