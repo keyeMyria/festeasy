@@ -33,7 +33,7 @@ export default class CartContainer extends React.Component {
 
   componentDidMount() {
     const { store } = this.context
-    store.definitions.cartProduct.on('DS.afterInject', (something, entity) =>
+    store.definitions.cartProduct.on('DS.afterInject', () =>
         this.setState({
           cartProducts: store.store.cartProduct.collection,
         })
