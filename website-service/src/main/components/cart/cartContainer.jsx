@@ -33,10 +33,11 @@ export default class CartContainer extends React.Component {
 
   componentDidMount() {
     const { store } = this.context
-    store.definitions.cartProduct.on('DS.afterInject', () =>
-        this.setState({
-          cartProducts: store.store.cartProduct.collection,
-        })
+
+    store.definitions.cartProduct.on('DS.change', () =>
+      this.setState({
+        cartProducts: store.store.cartProduct.collection,
+      })
     )
     this.fetchCart()
     this.fetchFestivals()
