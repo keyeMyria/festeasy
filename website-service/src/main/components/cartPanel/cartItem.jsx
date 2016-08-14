@@ -24,7 +24,7 @@ export default class CartItem extends React.Component {
             /> : 'No thumbnail image'
           }
         </div>
-        <div className="ten wide column">
+        <div className="nine wide column">
           <div className="row ui header">
           {cartProduct.product.name}
           </div>
@@ -32,7 +32,7 @@ export default class CartItem extends React.Component {
           {cartProduct.product.description}
           </div>
         </div>
-        <div className="three wide column">
+        <div className="four wide column">
           <MyStatefulInput
             type="number"
             min={1}
