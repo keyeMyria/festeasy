@@ -89,8 +89,8 @@ export default class CartPanel extends React.Component {
   finalStyle() {
     return {
       padding: 20,
-      width: spring(700, { stiffness: 150, damping: 26 }),
-      height: spring(600, { stiffness: 100, damping: 20 }),
+      width: spring(500, { stiffness: 150, damping: 26 }),
+      height: spring(window.innerHeight-70, { stiffness: 100, damping: 20 }),
       right: spring(0, { stiffness: 100, damping: 10 }),
     }
   }
@@ -112,18 +112,47 @@ export default class CartPanel extends React.Component {
     })
   }
 
-  showChildren() {
+  showCartItems() {
     const { cartProducts, updateQuantity, removeCartProduct } = this.props
-    return (cartProducts.map((cartProduct) => (
+    return (
+      cartProducts.map((cartProduct) => (
       <CartItem
         updateQuantity={updateQuantity}
         removeCartProduct={removeCartProduct}
         key={cartProduct.id}
         cartProduct={cartProduct}
       />
-    )))
+    ))
+  )
   }
-
+  getAttr(ob, attr) {
+    return (ob ? ob[attr] : null)
+  }
+  showCartTotalBox() {
+    const { cart } = this.props
+    return (
+      <div style={{height: '160px'}}>
+        <div className="ui grid" >
+          <div className="eleven wide column" >
+            <div className="row" >
+              Total Cost:
+            </div>
+            <div className="row" >
+              no. Products:
+            </div>
+          </div>
+          <div className="five wide column" >
+            <div className="row" >
+              { cart.total_rands }
+            </div>
+            <div className="row" >
+              {this.getAttr(cart.cart_products, 'length')}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
   render() {
     const { open } = this.state
     const style = !open ? this.initialStyle() : this.finalStyle()
@@ -141,14 +170,20 @@ export default class CartPanel extends React.Component {
               padding: padding,
             }}
           >
-            <div className="ui grid">
-              <div className="twelve wide column"  >
-                {open ? this.showChildren() : null}
+            {open ?
+              <div>
+                <div className="ui items">
+                  {open ? this.showCartItems() : null}
+                  <div className="item">
+                    <div className="ui divider" />
+                  </div>
+                </div>
+                <div style={{position: 'fixed', top: height-30, backgroundColor: 'white', width: width, height: '84px'}} className="six wide column" >
+                    <div className="ui divider" />
+                    {this.showCartTotalBox()}
+                </div>
               </div>
-              <div className="four wide column" style={{border: '1px solid black', borderRadius: '20px' }}  >
-                this is where totals and other stuff goes
-              </div>
-            </div>
+            : null}
           </div>
           )
         }
