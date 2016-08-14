@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Button, Menu, Container, Header } from 'semantic-react'
-import NavLink from 'main/components/navLink.jsx'
+import NavLink from 'common/navLink.jsx'
 
 
 export default class Navbar extends React.Component {

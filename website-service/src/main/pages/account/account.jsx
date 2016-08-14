@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Grid, Column, Menu, Segment } from 'semantic-react'
-import NavLink from 'main/components/navLink.jsx'
+import NavLink from 'common/navLink.jsx'
 
 
 export default class Account extends React.Component {
