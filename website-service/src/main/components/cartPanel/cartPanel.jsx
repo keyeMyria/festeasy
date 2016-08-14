@@ -9,6 +9,7 @@ import CartItem from './cartItem.jsx'
 // import Tab from '../components/sidePanel/tab.jsx'
 
 // import CartItem from './cartItem.jsx'
+const panelWidth = 400
 const styler = {
   position: 'fixed',
   zIndex: 5,
@@ -57,6 +58,7 @@ export default class CartPanel extends React.Component {
 
   componentWillMount() {
     document.addEventListener('click', this.handleClick, false)
+    document.getElementById("main").style.transition = 'padding-right 0.5s'
   }
 
   componentWillUnmount() {
@@ -89,7 +91,7 @@ export default class CartPanel extends React.Component {
   finalStyle() {
     return {
       padding: 20,
-      width: spring(500, { stiffness: 150, damping: 26 }),
+      width: spring(panelWidth, { stiffness: 150, damping: 26 }),
       height: spring(window.innerHeight-70, { stiffness: 100, damping: 20 }),
       right: spring(0, { stiffness: 100, damping: 10 }),
     }
@@ -157,6 +159,8 @@ export default class CartPanel extends React.Component {
     const { open } = this.state
     const style = !open ? this.initialStyle() : this.finalStyle()
     // open ? this.dimDoc() : this.undimDoc()
+    open ? document.getElementById("main").style.paddingRight = `${panelWidth}px`
+      : document.getElementById("main").style.paddingRight = "0px"
     return (
       <Motion style={style} >
         {({ width, height, right, padding }) => (
