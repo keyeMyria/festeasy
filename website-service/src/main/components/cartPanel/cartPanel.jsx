@@ -155,7 +155,7 @@ export default class CartPanel extends React.Component {
             </div>
           </div>
         </div>
-        <div className="ui center aligned">
+        <div className="ui center aligned" style={{ width: `${panelWidth-40}px` }}>
           <Button
             onClick={() => {
               this.props.onCheckout(); this.setState({
