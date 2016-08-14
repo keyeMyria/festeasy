@@ -26,7 +26,7 @@ export default class Main extends React.Component {
         <CartContainer>
           <CartPanel />
         </CartContainer>
-        <div className="ui container">
+        <div className="ui container" id="main">
           <Grid columns={3} centered>
             <Column width={4}>
               <Image
