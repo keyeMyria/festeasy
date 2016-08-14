@@ -1,7 +1,7 @@
 import datetime
 
 from backend.models import User, Product, Festival, Cart, Category, Image, \
-    ProductCategory
+    ProductCategory, Supplier
 
 
 def get_dummy_data():
@@ -153,6 +153,9 @@ def get_dummy_data():
             facebook_link='https://www.facebook.com/oppikoppifestival/',
             ),
     ]
+    woolies = Supplier(name='Woolies')
+    pnp = Supplier(name='Pick n Pay')
+    items.extend([woolies, pnp])
     items.extend(users)
     items.extend(festivals)
     return items
