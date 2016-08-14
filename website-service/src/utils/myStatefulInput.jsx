@@ -15,6 +15,12 @@ export default class MyStatefulInput extends React.Component {
     this.onChange = this.onChange.bind(this)
   }
 
+  componentWillReceiveProps(obj) {
+    this.setState({
+      value: obj.initialValue,
+    })
+  }
+
   onChange(e) {
     this.setState({ value: e.target.value })
   }
