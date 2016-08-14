@@ -74,11 +74,11 @@ export default class CartPanel extends React.Component {
 
   handleClick(e) {
     const { open } = this.state
-    if (!this.node.contains(e.target) && this.state.open) {
-      this.setState({
-        open: !open,
-      })
-    }
+    // if (!this.node.contains(e.target) && this.state.open) {
+    //   this.setState({
+    //     open: !open,
+    //   })
+    // }
     if (e.target.id === 'open-cart') {
       this.setState({
         open: !open,
