@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import CartItem from './cartItem.jsx'
+import { Button } from 'semantic-react'
 
 // import { MenuItem } from 'semantic-react'
 // import { Tab } from 'semantic-react'
@@ -132,16 +133,18 @@ export default class CartPanel extends React.Component {
   }
   showCartTotalBox() {
     const { cart } = this.props
+    const headings = [
+      'Total Cost:',
+      'no. unique items:']
     return (
       <div style={{ height: '160px' }}>
         <div className="ui grid" >
           <div className="eleven wide column" >
-            <div className="row" >
-              Total Cost:
-            </div>
-            <div className="row" >
-              no. Products:
-            </div>
+            {headings.map((heading) => (
+              <div className="row" >
+                {heading}
+              </div>
+            ))}
           </div>
           <div className="five wide column" >
             <div className="row" >
@@ -151,6 +154,17 @@ export default class CartPanel extends React.Component {
               {this.getAttr(cart.cart_products, 'length')}
             </div>
           </div>
+        </div>
+        <div className="ui center aligned">
+          <Button
+            onClick={() => {
+              this.props.onCheckout(); this.setState({
+                open: !open,
+              })
+            }
+            }
+            className="fluid"
+          >CHECKOUT</Button>
         </div>
       </div>
     )
@@ -185,7 +199,7 @@ export default class CartPanel extends React.Component {
                 <div
                   style={{
                     position: 'fixed',
-                    top: height - 30,
+                    top: height - 60,
                     backgroundColor: 'white',
                     width: width,
                     height: '84px',
