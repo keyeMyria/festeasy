@@ -131,7 +131,7 @@ export default class CartPanel extends React.Component {
   showCartTotalBox() {
     const { cart } = this.props
     return (
-      <div style={{height: '160px'}}>
+      <div style={{ height: '160px' }}>
         <div className="ui grid" >
           <div className="eleven wide column" >
             <div className="row" >
@@ -143,7 +143,7 @@ export default class CartPanel extends React.Component {
           </div>
           <div className="five wide column" >
             <div className="row" >
-              { cart.total_rands }
+              {this.getAttr(cart, 'total_rands')}
             </div>
             <div className="row" >
               {this.getAttr(cart.cart_products, 'length')}
@@ -178,9 +178,18 @@ export default class CartPanel extends React.Component {
                     <div className="ui divider" />
                   </div>
                 </div>
-                <div style={{position: 'fixed', top: height-30, backgroundColor: 'white', width: width, height: '84px'}} className="six wide column" >
-                    <div className="ui divider" />
-                    {this.showCartTotalBox()}
+                <div
+                  style={{
+                    position: 'fixed',
+                    top: height - 30,
+                    backgroundColor: 'white',
+                    width: width,
+                    height: '84px',
+                  }}
+                  className="six wide column"
+                >
+                  <div className="ui divider" />
+                  {this.showCartTotalBox()}
                 </div>
               </div>
             : null}
