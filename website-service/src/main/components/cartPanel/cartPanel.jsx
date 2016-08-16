@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Motion, spring } from 'react-motion';
+import { TransitionMotion, Motion, spring } from 'react-motion';
 import CartItem from './cartItem.jsx'
 import { Button } from 'semantic-react'
 
@@ -69,9 +69,9 @@ export default class CartPanel extends React.Component {
   initialStyle() {
     return {
       padding: 0,
-      width: spring(0, { stiffness: 150, damping: 20 }),
+      width: spring(panelWidth * 2, { stiffness: 150, damping: 20 }),
       height: spring(600, { stiffness: 100, damping: 20 }),
-      right: spring(0, { stiffness: 100, damping: 10 }),
+      right: spring(-800, { stiffness: 150, damping: 10 }),
     }
   }
 
@@ -92,9 +92,9 @@ export default class CartPanel extends React.Component {
   finalStyle() {
     return {
       padding: 20,
-      width: spring(panelWidth, { stiffness: 150, damping: 26 }),
+      width: spring(panelWidth*2, { stiffness: 150, damping: 26 }),
       height: spring(window.innerHeight-70, { stiffness: 100, damping: 20 }),
-      right: spring(0, { stiffness: 100, damping: 10 }),
+      right: spring(-400, { stiffness: 100, damping: 10 }),
     }
   }
 
@@ -114,20 +114,52 @@ export default class CartPanel extends React.Component {
       open: !open,
     })
   }
-
+  willEnter() {
+    console.log('calling willEnter: ')
+    return {
+      paddingLeft: 400,
+      paddingRight: 0,
+    }
+  }
+  willLeave() {
+    return {
+      paddingLeft: spring(400),
+      paddingRight: spring(0),
+    }
+  }
   showCartItems() {
     const { cartProducts, updateQuantity, removeCartProduct } = this.props
     return (
-      cartProducts.map((cartProduct) => (
-      <CartItem
-        updateQuantity={updateQuantity}
-        removeCartProduct={removeCartProduct}
-        key={cartProduct.id}
-        cartProduct={cartProduct}
-      />
-    ))
-  )
+      <TransitionMotion willEnter={this.willEnter} willLeave={this.willLeave}
+        styles={cartProducts.map(cp => ({
+          key: cp.id,
+          data: cp,
+          style: { paddingLeft: spring(0, { stiffness: 150, damping: 36 }), paddingRight: spring(400, { stiffness: 150, damping: 36 }) },
+        })
+        )}>
+        {interpolatedStyles => (
+          <div>
+            {
+              interpolatedStyles.map(config => {
+                console.log('config: ', config)
+                return (
+                  <div style={{ ...config.style }}>
+                    <CartItem
+                      updateQuantity={updateQuantity}
+                      removeCartProduct={removeCartProduct}
+                      key={config.id}
+                      cartProduct={config.data}
+                    />
+                  </div>
+                )
+              })
+            }
+          </div>
+        )}
+      </TransitionMotion>
+        )
   }
+
   getAttr(ob, attr) {
     return (ob ? ob[attr] : null)
   }
@@ -190,10 +222,13 @@ export default class CartPanel extends React.Component {
           >
             {open ?
               <div>
+
                 <div className="ui items">
-                  {open ? this.showCartItems() : null}
+                  <div>
+                    {this.showCartItems()}
+                  </div>
                   <div className="item">
-                    <div className="ui divider" />
+                    <div className="ui hidden divider" ></div>
                   </div>
                 </div>
                 <div
@@ -206,7 +241,7 @@ export default class CartPanel extends React.Component {
                   }}
                   className="six wide column"
                 >
-                  <div className="ui divider" />
+                  <div className="ui divider" ></div>
                   {this.showCartTotalBox()}
                 </div>
               </div>
@@ -215,6 +250,6 @@ export default class CartPanel extends React.Component {
           )
         }
       </Motion>
-    )
-  }
+          )
+        }
 }
