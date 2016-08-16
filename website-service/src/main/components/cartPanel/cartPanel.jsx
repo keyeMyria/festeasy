@@ -123,8 +123,8 @@ export default class CartPanel extends React.Component {
   }
   willLeave() {
     return {
-      paddingLeft: spring(400),
-      paddingRight: spring(0),
+      paddingLeft: spring(400, { stiffness: 450, damping: 26 }),
+      paddingRight: spring(0, { stiffness: 450, damping: 26 }),
     }
   }
   showCartItems() {
