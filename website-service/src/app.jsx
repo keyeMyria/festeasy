@@ -32,7 +32,7 @@ export default class App extends React.Component {
   }
 
   addNotification(notificaton) {
-    this.refs.notificationSystem.addNotification(notificaton)
+    this.refs.notificationSystem.addNotification(Object.assign({}, notificaton, {position: 'tl'}))
   }
 
   render() {
