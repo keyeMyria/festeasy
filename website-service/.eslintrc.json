@@ -37,6 +37,7 @@
         "quote-props": "off",
         "func-names": "off",
         "react/prefer-stateless-function": "off",
-        "react/no-multi-comp": "off"
+        "react/no-multi-comp": "off",
+        "react/self-closing-comp": 1
     }
 }

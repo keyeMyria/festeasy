@@ -25,7 +25,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    root: path.resolve('./src'),
+    root: path.resolve(__dirname, './src'),
   },
   devServer: {
     historyApiFallback: true,
