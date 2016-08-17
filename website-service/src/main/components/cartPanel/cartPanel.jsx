@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
 import { TransitionMotion, Motion, spring } from 'react-motion';
-import CartItem from './cartItem.jsx'
 import { Button } from 'semantic-react'
+import CartItem from './cartItem.jsx'
+
+/* eslint-disable react/self-closing-comp */
+
 
 const panelWidth = 400
 const stayOpen = true
@@ -53,6 +56,10 @@ export default class CartPanel extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClick, false)
+  }
+
+  getAttr(ob, attr) {
+    return (ob ? ob[attr] : null)
   }
 
   initialStyle() {
@@ -129,24 +136,25 @@ export default class CartPanel extends React.Component {
         styles={cartProducts.map(cp => ({
           key: cp.id,
           data: cp,
-          style: { paddingLeft: spring(0, { stiffness: 150, damping: 36 }), paddingRight: spring(400, { stiffness: 150, damping: 36 }) },
+          style: { paddingLeft: spring(0, { stiffness: 150, damping: 36 }),
+            paddingRight: spring(400, { stiffness: 150, damping: 36 }) },
         })
-        )}>
+        )}
+      >
         {interpolatedStyles => (
           <div>
             {
-              interpolatedStyles.map(config => {
-                return (
-                  <div style={{ ...config.style }}>
-                    <CartItem
-                      updateQuantity={updateQuantity}
-                      removeCartProduct={removeCartProduct}
-                      key={config.id}
-                      cartProduct={config.data}
-                    />
-                  </div>
-                )
-              })
+              interpolatedStyles.map(config => (
+                <div style={{ ...config.style }}>
+                  <CartItem
+                    updateQuantity={updateQuantity}
+                    removeCartProduct={removeCartProduct}
+                    key={config.id}
+                    cartProduct={config.data}
+                  />
+                </div>
+              )
+              )
             }
           </div>
         )}
@@ -154,9 +162,6 @@ export default class CartPanel extends React.Component {
         )
   }
 
-  getAttr(ob, attr) {
-    return (ob ? ob[attr] : null)
-  }
   showCartTotalBox() {
     const { cart } = this.props
     const headings = [
@@ -181,7 +186,7 @@ export default class CartPanel extends React.Component {
             </div>
           </div>
         </div>
-        <div className="ui center aligned" style={{ width: `${panelWidth-40}px` }}>
+        <div className="ui center aligned" style={{ width: `${panelWidth - 40}px` }}>
           <Button
             onClick={() => {
               this.props.onCheckout(); this.setState({
@@ -198,14 +203,17 @@ export default class CartPanel extends React.Component {
   render() {
     const { open } = this.state
     const style = !open ? this.initialStyle() : this.finalStyle()
-    // open ? this.dimDoc() : this.undimDoc()
-    open ? document.getElementById("main").style.paddingRight = `${panelWidth}px`
-      : document.getElementById("main").style.paddingRight = "0px"
+    /* eslint-disable */
+    open ? document.getElementById('main').style.paddingRight = `${panelWidth}px`
+      : document.getElementById('main').style.paddingRight = '0px'
+    /* eslint-enable */
     return (
       <Motion style={style} >
         {({ width, height, right, padding }) => (
           <div
+            /* eslint-disable */
             ref={node => this.node = node}
+            /* eslint-enable */
             style={{
               ...styler,
               width: width,
@@ -216,7 +224,6 @@ export default class CartPanel extends React.Component {
           >
             {open ?
               <div>
-
                 <div className="ui items">
                   <div>
                     {this.showCartItems()}
@@ -244,6 +251,6 @@ export default class CartPanel extends React.Component {
           )
         }
       </Motion>
-          )
-        }
+  )
+  }
 }
