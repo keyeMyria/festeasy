@@ -3,14 +3,8 @@ import { TransitionMotion, Motion, spring } from 'react-motion';
 import CartItem from './cartItem.jsx'
 import { Button } from 'semantic-react'
 
-// import { MenuItem } from 'semantic-react'
-// import { Tab } from 'semantic-react'
-// import Tabs from '../components/sidePanel/tabs.jsx'
-// import TabMenu from '../components/sidePanel/tabmenu.jsx'
-// import Tab from '../components/sidePanel/tab.jsx'
-
-// import CartItem from './cartItem.jsx'
 const panelWidth = 400
+const stayOpen = true
 const styler = {
   position: 'fixed',
   zIndex: 5,
@@ -20,13 +14,8 @@ const styler = {
   borderRadius: '10px',
   overflowX: 'hidden',
   WebkitBoxSizing: 'border-box', /* Safari/Chrome, other WebKit */
-  // -moz-box-sizing: border-box,    /* Firefox, other Gecko */
-  // box-sizing: border-box,
   boxSizing: 'border-box',
   backgroundColor: 'white',
-  // borderColor: '#2A8EFF',
-  // borderStyle: 'solid',
-  // borderSize: '0em',
   cursor: 'pointer',
   boxShadow: '-5px 2px 5px #afafaf',
   justifyContent: 'center',
@@ -59,7 +48,7 @@ export default class CartPanel extends React.Component {
 
   componentWillMount() {
     document.addEventListener('click', this.handleClick, false)
-    document.getElementById("main").style.transition = 'padding-right 0.5s'
+    document.getElementById('main').style.transition = 'padding-right 0.5s'
   }
 
   componentWillUnmount() {
@@ -75,13 +64,22 @@ export default class CartPanel extends React.Component {
     }
   }
 
+  finalStyle() {
+    return {
+      padding: 20,
+      width: spring(panelWidth * 2, { stiffness: 150, damping: 26 }),
+      height: spring(window.innerHeight - 70, { stiffness: 100, damping: 20 }),
+      right: spring(-400, { stiffness: 100, damping: 10 }),
+    }
+  }
+
   handleClick(e) {
     const { open } = this.state
-    // if (!this.node.contains(e.target) && this.state.open) {
-    //   this.setState({
-    //     open: !open,
-    //   })
-    // }
+    if (!stayOpen && !this.node.contains(e.target) && this.state.open) {
+      this.setState({
+        open: !open,
+      })
+    }
     if (e.target.id === 'open-cart') {
       this.setState({
         open: !open,
@@ -89,14 +87,6 @@ export default class CartPanel extends React.Component {
     }
   }
 
-  finalStyle() {
-    return {
-      padding: 20,
-      width: spring(panelWidth*2, { stiffness: 150, damping: 26 }),
-      height: spring(window.innerHeight-70, { stiffness: 100, damping: 20 }),
-      right: spring(-400, { stiffness: 100, damping: 10 }),
-    }
-  }
 
   dimDoc() {
     const opac = 0.2
@@ -114,6 +104,7 @@ export default class CartPanel extends React.Component {
       open: !open,
     })
   }
+
   willEnter() {
     console.log('calling willEnter: ')
     return {
@@ -121,16 +112,20 @@ export default class CartPanel extends React.Component {
       paddingRight: 0,
     }
   }
+
   willLeave() {
     return {
       paddingLeft: spring(400, { stiffness: 450, damping: 26 }),
       paddingRight: spring(0, { stiffness: 450, damping: 26 }),
     }
   }
+
   showCartItems() {
     const { cartProducts, updateQuantity, removeCartProduct } = this.props
     return (
-      <TransitionMotion willEnter={this.willEnter} willLeave={this.willLeave}
+      <TransitionMotion
+        willEnter={this.willEnter}
+        willLeave={this.willLeave}
         styles={cartProducts.map(cp => ({
           key: cp.id,
           data: cp,
@@ -141,7 +136,6 @@ export default class CartPanel extends React.Component {
           <div>
             {
               interpolatedStyles.map(config => {
-                console.log('config: ', config)
                 return (
                   <div style={{ ...config.style }}>
                     <CartItem
