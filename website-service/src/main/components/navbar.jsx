@@ -25,14 +25,13 @@ export default class Navbar extends React.Component {
       ]
     }
     return (
-      <Menu secondary pointing>
+      // TODO: Use secondary, but its broken.
+      <Menu pointing inverted>
         <Container>
-          <Header item>
-            <Link to="/">Home</Link>
-          </Header>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/festivals">Festivals</NavLink>
-          <NavLink to="/store">Store</NavLink>
+          <NavLink to="/">HOME</NavLink>
+          <NavLink to="/festivals">FESTIVALS</NavLink>
+          <NavLink to="/store">STORE</NavLink>
+          <NavLink to="/about">ABOUT</NavLink>
           <Menu floated="right">
             {links}
           </Menu>

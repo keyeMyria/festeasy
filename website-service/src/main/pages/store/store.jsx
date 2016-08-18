@@ -67,9 +67,11 @@ export default class Store extends React.Component {
     const { search } = this.props.location.query
     return (
       <div>
-        <ProductSearch onClick={this.onSearch} searchTerm={search} />
-        <Divider />
-        {this.props.children}
+        <div className="ui container">
+          <ProductSearch onClick={this.onSearch} searchTerm={search} />
+          <Divider />
+          {this.props.children}
+        </div>
       </div>
     )
   }
