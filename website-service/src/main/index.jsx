@@ -18,44 +18,50 @@ export default class Main extends React.Component {
     children: PropTypes.object.isRequired,
   }
 
+  static contextTypes = {
+    authDetails: PropTypes.object,
+  }
 
   render() {
     return (
       <div>
         <Navbar />
-        <CartContainer>
+        {this.context.authDetails ? <CartContainer>
           <CartPanel />
-        </CartContainer>
-        <div className="ui container" id="main">
-          <Grid columns={3} centered>
-            <Column width={4}>
-              <Image
-                style={{ maxHeight: 70 }}
-                src={logo}
-              />
-            </Column>
-            <Column width={8}>
-              <Input
-                fluid
-                size="big"
-                icon="search"
-                placeholder="What are you looking for?"
-              />
-            </Column>
-            <Column width={4}>
-              <Button
-                size="large"
-                color="black"
-              >
-                Cart
-              </Button>
-            </Column>
-          </Grid>
-        </div>
-        <Divider />
-        {this.props.children}
-        <div>
-          Footer stuff
+        </CartContainer> : null
+        }
+          <div id="main">
+          <div className="ui container" id="main">
+            <Grid columns={3} centered>
+              <Column width={4}>
+                <Image
+                  style={{ maxHeight: 70 }}
+                  src={logo}
+                />
+              </Column>
+              <Column width={8}>
+                <Input
+                  fluid
+                  size="big"
+                  icon="search"
+                  placeholder="What are you looking for?"
+                />
+              </Column>
+              <Column width={4}>
+                <Button
+                  size="large"
+                  color="black"
+                >
+                  Cart
+                </Button>
+              </Column>
+            </Grid>
+          </div>
+          <Divider />
+          {this.props.children}
+          <div>
+            Footer stuff
+          </div>
         </div>
       </div>
     )
