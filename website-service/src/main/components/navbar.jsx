@@ -27,7 +27,7 @@ export default class Navbar extends React.Component {
       // TODO: Use secondary, but its broken.
       <Menu pointing inverted>
         <Container>
-          <NavLink to="/">HOME</NavLink>
+          <NavLink to="/" onlyActiveOnIndex>HOME</NavLink>
           <NavLink to="/festivals">FESTIVALS</NavLink>
           <NavLink to="/store">STORE</NavLink>
           <NavLink to="/about">ABOUT</NavLink>
