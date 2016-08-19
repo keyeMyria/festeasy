@@ -2,6 +2,7 @@ import os
 import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_cors import CORS
 
 from .emailer import Emailer
@@ -12,6 +13,7 @@ logger.setLevel(logging.WARN)
 
 db = SQLAlchemy()
 emailer = Emailer()
+migrate = Migrate()
 
 
 def create_app(config):
@@ -48,5 +50,6 @@ def create_app(config):
 
     db.init_app(app)
     emailer.init_app(app)
+    migrate.init_app(app, db)
 
     return app

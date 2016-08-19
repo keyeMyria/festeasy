@@ -4,9 +4,9 @@ logging.config.fileConfig('logging.ini')
 
 import sys
 import pytest
-
 from flask import current_app
 from flask_script import Manager, Command, Option, Shell, Server
+from flask_migrate import MigrateCommand
 
 from backend import create_app, db, models
 from backend.utils import get_dummy_data
@@ -82,7 +82,9 @@ def _make_context():
     )
     context.update(vars(models))
     return context
+
 manager.add_command('shell', Shell(make_context=_make_context))
+manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
