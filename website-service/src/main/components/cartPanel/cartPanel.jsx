@@ -16,7 +16,7 @@ const styler = {
   borderColor: '#6AA0D5',
   borderRadius: '10px',
   overflowX: 'hidden',
-  WebkitBoxSizing: 'border-box', /* Safari/Chrome, other WebKit */
+  WebkitBoxSizing: 'border-box',
   boxSizing: 'border-box',
   backgroundColor: 'white',
   cursor: 'pointer',
@@ -127,6 +127,7 @@ export default class CartPanel extends React.Component {
     }
   }
 
+//  TODO: seperate into functional paradymes
   showCartItems() {
     const { cartProducts, updateQuantity, removeCartProduct } = this.props
     return (
@@ -159,7 +160,7 @@ export default class CartPanel extends React.Component {
           </div>
         )}
       </TransitionMotion>
-        )
+    )
   }
 
   showCartTotalBox() {
