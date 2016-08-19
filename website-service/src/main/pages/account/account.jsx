@@ -10,19 +10,21 @@ export default class Account extends React.Component {
 
   render() {
     return (
-      <Grid columns={2}>
-        <Column width={4}>
-          <Menu vertical pointing>
-            <NavLink to="/account/orders">Orders</NavLink>
-            <NavLink to="/account/settings">Settings</NavLink>
-          </Menu>
-        </Column>
-        <Column width={12}>
-          <Segment>
-            {this.props.children}
-          </Segment>
-        </Column>
-      </Grid>
+      <div className="ui container">
+        <Grid columns={2}>
+          <Column width={4}>
+            <Menu vertical pointing>
+              <NavLink to="/account/orders">Orders</NavLink>
+              <NavLink to="/account/settings">Settings</NavLink>
+            </Menu>
+          </Column>
+          <Column width={12}>
+            <Segment>
+              {this.props.children}
+            </Segment>
+          </Column>
+        </Grid>
+      </div>
     )
   }
 }

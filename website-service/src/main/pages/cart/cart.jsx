@@ -152,7 +152,7 @@ export default class CartContainer extends React.Component {
     const { cart, cartProducts, festivals, error } = this.state
     const isReady = cart && cartProducts && festivals
     return (
-      <div>
+      <div className="ui container">
         <Page
           isLoading={!isReady && !error}
           contentError={error}
