@@ -11,6 +11,7 @@ import Navbar from 'main/components/navbar.jsx'
 import logo from 'images/fe_logo.png'
 import CartContainer from 'main/components/cart/cartContainer.jsx'
 import CartPanel from 'main/components/cartPanel/cartPanel.jsx'
+import HoverMenu from 'main/components/hoverMenu/hoverMenu.jsx'
 
 
 export default class Main extends React.Component {
@@ -26,11 +27,13 @@ export default class Main extends React.Component {
     return (
       <div>
         <Navbar />
+        {this.context.authDetails ? <HoverMenu /> : null
+        }
         {this.context.authDetails ? <CartContainer>
           <CartPanel />
         </CartContainer> : null
         }
-          <div id="main">
+        <div id="main">
           <div className="ui container" id="main">
             <Grid columns={3} centered>
               <Column width={4}>
@@ -47,14 +50,7 @@ export default class Main extends React.Component {
                   placeholder="What are you looking for?"
                 />
               </Column>
-              <Column width={4}>
-                <Button
-                  size="large"
-                  color="black"
-                >
-                  Cart
-                </Button>
-              </Column>
+              <Column width={4} />
             </Grid>
           </div>
           <Divider />

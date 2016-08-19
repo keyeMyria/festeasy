@@ -41,13 +41,7 @@ export default class Navbar extends React.Component {
           </Container>
         </Menu>
         <Container>
-          <NavLink to="/" onlyActiveOnIndex>HOME</NavLink>
-          <NavLink to="/festivals">FESTIVALS</NavLink>
-          <NavLink to="/store">STORE</NavLink>
-          <NavLink to="/about">ABOUT</NavLink>
-          <Menu floated="right">
-            {links}
-          </Menu>
+          <button className="ui button" id="show-products">Products</button>
         </Container>
         <div className="ui hidden divider"></div>
       </div>
