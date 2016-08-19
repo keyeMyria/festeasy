@@ -15,7 +15,7 @@ export default class Navbar extends React.Component {
       links = [
         <NavLink key="a" to="/cart">Cart</NavLink>,
         <button key="d" id="open-cart" className="ui basic button">
-          <i id="open-cart" className="ui large cart icon" />
+          <i id="open-cart" className="ui blue large cart icon" />
         </button>,
         <NavLink key="c" to="/account">Account</NavLink>,
         <Button key="b" onClick={this.context.signOut}>Sign Out</Button>,
@@ -28,7 +28,18 @@ export default class Navbar extends React.Component {
     }
     return (
       // TODO: Use secondary, but its broken.
-      <Menu pointing inverted>
+      <div>
+        <Menu pointing inverted>
+          <Container>
+            <NavLink to="/" onlyActiveOnIndex>HOME</NavLink>
+            <NavLink to="/festivals">FESTIVALS</NavLink>
+            <NavLink to="/store">STORE</NavLink>
+            <NavLink to="/about">ABOUT</NavLink>
+            <Menu floated="right">
+              {links}
+            </Menu>
+          </Container>
+        </Menu>
         <Container>
           <NavLink to="/" onlyActiveOnIndex>HOME</NavLink>
           <NavLink to="/festivals">FESTIVALS</NavLink>
@@ -38,7 +49,8 @@ export default class Navbar extends React.Component {
             {links}
           </Menu>
         </Container>
-      </Menu>
+        <div className="ui hidden divider"></div>
+      </div>
     )
   }
 }

@@ -128,6 +128,34 @@ export default class CartPanel extends React.Component {
   }
 
 //  TODO: seperate into functional paradymes
+  showHeader() {
+    const { cart } = this.props
+    return (
+      <div className="ui grid">
+        <div className="eight wide column">
+          <div className="row">
+            <div className="ui header">
+              Your Festeasy Cart for:
+            </div>
+          </div>
+          <div className="row">
+            <div className="ui header">
+              {cart.festival ? cart.festival.name : 'No festival selected'}
+            </div>
+            <div className="ui header">
+              {/* {cart.festival ? cart.festival.starts_on : ''} */}
+            </div>
+          </div>
+          <div className="row">
+            <div className="ui divider">
+            </div>
+          </div>
+        </div>
+        <div className="eight wide column">
+        </div>
+      </div>
+    )
+  }
   showCartItems() {
     const { cartProducts, updateQuantity, removeCartProduct } = this.props
     return (
@@ -226,6 +254,9 @@ export default class CartPanel extends React.Component {
             {open ?
               <div>
                 <div className="ui items">
+                  <div>
+                    {this.showHeader()}
+                  </div>
                   <div>
                     {this.showCartItems()}
                   </div>
