@@ -1,3 +1,0 @@
-checkout.controller('checkoutController', ($scope) ->
-
-)

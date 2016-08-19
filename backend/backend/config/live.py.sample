@@ -1,4 +1,0 @@
-SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
-EMAILER_BACKEND = 'MailgunEmailer'
-MAILGUN_DOMAIN = 'mg.festeasy.co.za'
-MAILGUN_API_KEY = '123'

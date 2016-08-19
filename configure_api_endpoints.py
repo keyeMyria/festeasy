@@ -1,10 +1,6 @@
 import argparse
 
 
-ANGULAR = "angular.module('conf', [])\
-.constant('API_END_POINT', \
-'{endpoint}');"
-
 parser = argparse.ArgumentParser(
     description='Set API endpoints for www and admin_www.'
 )
@@ -23,21 +19,14 @@ if args.environment not in choices:
     print('Unkown environment supplied, assuming local.')
     args.environment = 'local'
 
-tmp = {
-    'local': ANGULAR.format(
-        endpoint='http://localhost:5000/api/v1'
-    ),
-    'production': ANGULAR.format(
-        endpoint='https://festeasy-production.herokuapp.com/api/v1'
-    ),
-    'staging': ANGULAR.format(
-        endpoint='https://festeasy-staging.herokuapp.com/api/v1'
-    ),
+data = {
+    'local': "module.exports = 'http://localhost:5000/api/'",
+    'staging': "module.exports = 'https://festeasy-staging.herokuapp.com/api/'",
+    'production': "module.exports = 'https://festeasy-production.herokuapp.com/api/'",
 }
 
 data = {
-    'www/src/app/settings.coffee': tmp[args.environment],
-    'admin_www/src/app/settings.coffee': tmp[args.environment],
+    'website-service/src/apiEndpoint.js': data[args.environment],
 }
 
 for path, line in data.items():
