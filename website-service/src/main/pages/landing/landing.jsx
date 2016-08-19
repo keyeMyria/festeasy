@@ -9,6 +9,8 @@ import {
   Cards,
   Card,
 } from 'semantic-react'
+import jumbo from 'images/jumbo_1.png'
+import voss from 'images/voss.jpg'
 
 
 class Lead extends React.Component {
@@ -16,7 +18,7 @@ class Lead extends React.Component {
     return (
       <div
         style={{
-          backgroundImage: 'url(\'/images/jumbo_1.png\')',
+          backgroundImage: `url('${jumbo}')`,
           backgroundSize: '100%',
           height: 600,
         }}
@@ -117,7 +119,7 @@ class Shop extends React.Component {
     return (
       <div
         style={{
-          backgroundImage: 'url(\'/images/voss.jpg\')',
+          backgroundImage: `url('${voss}')`,
           backgroundSize: '100%',
           height: 600,
         }}

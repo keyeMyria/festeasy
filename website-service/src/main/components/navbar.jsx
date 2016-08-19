@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
-import { Button, Menu, Container, Header } from 'semantic-react'
+import { Button, Menu, Container } from 'semantic-react'
 import NavLink from 'common/navLink.jsx'
 
 

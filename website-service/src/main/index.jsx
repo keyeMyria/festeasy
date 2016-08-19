@@ -8,6 +8,7 @@ import {
   Image,
 } from 'semantic-react'
 import Navbar from 'main/components/navbar.jsx'
+import logo from 'images/fe_logo.png'
 
 
 export default class Main extends React.Component {
@@ -24,7 +25,7 @@ export default class Main extends React.Component {
             <Column width={4}>
               <Image
                 style={{ maxHeight: 70 }}
-                src="/images/fe_logo.png"
+                src={logo}
               />
             </Column>
             <Column width={8}>
