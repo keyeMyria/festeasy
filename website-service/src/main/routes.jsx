@@ -9,6 +9,7 @@ import FestivalList from 'main/pages/festivals/festivalList.jsx'
 import Festivals from 'main/pages/festivals/festivals.jsx'
 import Festival from 'main/pages/festivals/festival.jsx'
 import Product from 'main/pages/store/product.jsx'
+import ProductCategory from 'main/pages/store/productCategory.jsx'
 import SignIn from 'main/pages/signIn.jsx'
 import SignUp from 'main/pages/signUp.jsx'
 import Cart from 'main/pages/cart/cart.jsx'
@@ -31,6 +32,7 @@ export default (
     <Route path="store" component={Store}>
       <IndexRoute component={Products} />
       <Route path="products/:productId" component={Product} />
+      <Route path="product-category/:category" component={ProductCategory} />
     </Route>
     <Route path="sign-up" component={SignUp} />
     <Route path="sign-in" component={SignIn} />
