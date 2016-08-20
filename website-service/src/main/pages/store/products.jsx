@@ -1,6 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Image, Cards, Card, Content, Header, Description } from 'semantic-react'
+import {
+  Image,
+  Cards,
+  Card,
+  Content,
+  Header,
+  Description,
+} from 'semantic-react'
 import AddToCartButton from 'main/components/addToCartButton.jsx'
 import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
