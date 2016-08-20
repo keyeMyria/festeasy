@@ -79,7 +79,7 @@ export default class HoverMenu extends React.Component {
       width: spring(window.innerWidth, { stiffness: 150, damping: 20 }),
       height: 0,
       left: spring(0, { stiffness: 350, damping: 10 }),
-      top: spring(95, { stiffness: 350, damping: 10 }),
+      top: spring(88, { stiffness: 350, damping: 10 }),
     }
   }
 
@@ -89,7 +89,7 @@ export default class HoverMenu extends React.Component {
       width: spring(window.innerWidth, { stiffness: 150, damping: 26 }),
       height: spring(110, { stiffness: 300, damping: 30 }),
       left: spring(0, { stiffness: 100, damping: 10 }),
-      top: spring(95, { stiffness: 150, damping: 10 }),
+      top: spring(88, { stiffness: 150, damping: 10 }),
     }
   }
 
