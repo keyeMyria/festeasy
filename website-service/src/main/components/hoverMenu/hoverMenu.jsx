@@ -11,8 +11,8 @@ const stayOpen = true
 const styler = {
   position: 'absolute',
   zIndex: 5,
-  border: '1px solid',
-  borderColor: '#6AA0D5',
+  // border: '1px solid',
+  // borderColor: '#6AA0D5',
   // borderRadius: '10px',
   overflowX: 'hidden',
   WebkitBoxSizing: 'border-box',
