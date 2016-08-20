@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
+import NavLink from 'common/navLink.jsx'
+import { browserHistory } from 'react-router'
 // import { Button } from 'semantic-react'
 
 /* eslint-disable react/self-closing-comp */
@@ -86,7 +88,7 @@ export default class HoverMenu extends React.Component {
     return {
       padding: 20,
       width: spring(window.innerWidth, { stiffness: 150, damping: 26 }),
-      height: spring(350, { stiffness: 300, damping: 20 }),
+      height: spring(150, { stiffness: 300, damping: 20 }),
       left: spring(0, { stiffness: 100, damping: 10 }),
       top: spring(95, { stiffness: 150, damping: 10 }),
     }
@@ -155,6 +157,7 @@ export default class HoverMenu extends React.Component {
 
   render() {
     const { open, groups } = this.state
+    console.log('froups: ', groups)
     const style = !open ? this.initialStyle() : this.finalStyle()
     const obb = [{ 'heading2':
           [{ 'sub1': 'link' }, { 'sub2': 'link2' }] },
@@ -179,24 +182,25 @@ export default class HoverMenu extends React.Component {
             {open ?
               <div className="ui container">
                 <div className="ui grid">
-                  <div className="four wide column">
-                    {groups.map((g) => (
+                  {groups.map((g) => (
+                    <div className="four wide column">
                       <div className="ui row">
                         <div className="ui blue header">
                           {g.name}
                         </div>
+                        <div>
+                          {g.categories.map((cat) => (
+                            <div className="ui row">
+                              <NavLink to={`/store/product-category/${cat.name}`}>
+                                {cat.name}
+                              </NavLink>
+                            </div>
+                            )
+                          )}
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                  <div className="four wide column">
-                    hello
-                  </div>
-                  <div className="four wide column">
-                    hello
-                  </div>
-                  <div className="four wide column">
-                    hello
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             : null}
