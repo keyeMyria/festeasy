@@ -8,7 +8,7 @@ import {
   Image,
 } from 'semantic-react'
 import Navbar from 'main/components/navbar.jsx'
-import logo from 'images/fe_logo.png'
+import logo from 'fe_logo.png'
 
 
 export default class Main extends React.Component {

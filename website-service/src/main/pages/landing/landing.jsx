@@ -9,8 +9,8 @@ import {
   Cards,
   Card,
 } from 'semantic-react'
-import jumbo from 'images/jumbo_1.png'
-import voss from 'images/voss.jpg'
+import jumbo from 'jumbo_1.png'
+import voss from 'voss.jpg'
 
 
 class Lead extends React.Component {
