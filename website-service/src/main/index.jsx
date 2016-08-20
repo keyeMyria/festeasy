@@ -3,7 +3,6 @@ import {
   Input,
   Grid,
   Column,
-  Button,
   Divider,
   Image,
 } from 'semantic-react'
