@@ -15,8 +15,10 @@ import HoverMenu from 'main/components/hoverMenu/hoverMenu.jsx'
 
 
 class Bar extends React.Component {
+
   static contextTypes = {
     router: PropTypes.object.isRequired,
+    authDetails: PropTypes.object,
   }
 
   static propTypes = {
@@ -53,44 +55,47 @@ class Bar extends React.Component {
     this.setState({ searchTerm: e.target.value })
   }
 
-  static contextTypes = {
-    authDetails: PropTypes.object,
-  }
 
   render() {
+    const { authDetails } = this.context
     return (
       <div className="ui container">
-        {this.context.authDetails ? <HoverMenu /> : null
-        }
-        {this.context.authDetails ? <CartContainer>
-          <CartPanel />
-        </CartContainer> : null
-        }
-        <Grid columns={3} centered>
-          <Column width={4}>
-            <Image
-              style={{ maxHeight: 70 }}
-              src={logo}
-            />
-          </Column>
-          <Column width={8}>
-            <Form onSubmit={this.onSubmit}>
-              <Input
-                fluid
-                size="big"
-                icon="search"
-                onChange={this.onChange}
-                value={this.state.searchTerm}
-                placeholder="What are you looking for?"
+        <button className="ui button" id="show-products">Products</button>
+        {authDetails ? (
+          <div>
+            <HoverMenu />
+            <CartContainer>
+              <CartPanel />
+            </CartContainer>
+          </div>
+        ) : null}
+        <div id="main">
+          <Grid columns={3} centered>
+            <Column width={4}>
+              <Image
+                style={{ maxHeight: 70 }}
+                src={logo}
               />
-            </Form>
-          </Column>
-          <Column width={4} />
-        </Grid>
+            </Column>
+            <Column width={8}>
+              <Form onSubmit={this.onSubmit}>
+                <Input
+                  fluid
+                  size="big"
+                  icon="search"
+                  onChange={this.onChange}
+                  value={this.state.searchTerm}
+                  placeholder="What are you looking for?"
+                />
+              </Form>
+            </Column>
+            <Column width={4} />
+          </Grid>
+        </div>
       </div>
-    )
+      )
   }
-}
+  }
 
 
 class Footer extends React.Component {
