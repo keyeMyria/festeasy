@@ -7,6 +7,8 @@ import CartItem from './cartItem.jsx'
 
 
 const panelWidth = 400
+const bottom = window.innerHeight - 20
+const top = 40
 const stayOpen = true
 const styler = {
   position: 'fixed',
@@ -20,8 +22,10 @@ const styler = {
   boxSizing: 'border-box',
   backgroundColor: 'white',
   cursor: 'pointer',
+  padding: 20,
   boxShadow: '-5px 2px 5px #afafaf',
   justifyContent: 'center',
+  top: top,
 }
 
 export default class CartPanel extends React.Component {
@@ -64,18 +68,16 @@ export default class CartPanel extends React.Component {
 
   initialStyle() {
     return {
-      padding: 0,
-      width: spring(panelWidth * 2, { stiffness: 150, damping: 20 }),
-      height: spring(600, { stiffness: 100, damping: 20 }),
+      width: spring(panelWidth * 1, { stiffness: 150, damping: 20 }),
+      height: spring(window.innerHeight - top, { stiffness: 100, damping: 20 }),
       right: spring(-800, { stiffness: 150, damping: 10 }),
     }
   }
 
   finalStyle() {
     return {
-      padding: 20,
-      width: spring(panelWidth * 2, { stiffness: 150, damping: 26 }),
-      height: spring(window.innerHeight - 70, { stiffness: 100, damping: 20 }),
+      width: spring(panelWidth * 2, { stiffness: 150, damping: 32 }),
+      height: spring(window.innerHeight - top, { stiffness: 100, damping: 20 }),
       right: spring(-400, { stiffness: 100, damping: 10 }),
     }
   }
@@ -197,34 +199,48 @@ export default class CartPanel extends React.Component {
       'Total Cost:',
       'no. unique items:']
     return (
-      <div style={{ height: '160px' }}>
-        <div className="ui grid" >
-          <div className="eleven wide column" >
-            {headings.map((heading) => (
+      <div>
+        <div
+          style={{
+            position: 'fixed',
+            top: bottom - 90,
+            backgroundColor: 'white',
+            border: '1px solid',
+            borderColor: '#6AA0D5',
+            borderRadius: '20px',
+            height: '109px',
+            padding: '10px'
+          }}
+          className="five wide column"
+        >
+          <div className="ui grid" >
+            <div className="eleven wide column" >
+              {headings.map((heading) => (
+                <div className="row" >
+                  {heading}
+                </div>
+              ))}
+            </div>
+            <div className="five wide column" >
               <div className="row" >
-                {heading}
+                {this.getAttr(cart, 'total_rands')}
               </div>
-            ))}
-          </div>
-          <div className="five wide column" >
-            <div className="row" >
-              {this.getAttr(cart, 'total_rands')}
-            </div>
-            <div className="row" >
-              {this.getAttr(cart.cart_products, 'length')}
+              <div className="row" >
+                {this.getAttr(cart.cart_products, 'length')}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="ui center aligned" style={{ width: `${panelWidth - 40}px` }}>
-          <Button
-            onClick={() => {
-              this.props.onCheckout(); this.setState({
-                open: !open,
-              })
-            }
-            }
-            className="fluid"
-          >CHECKOUT</Button>
+          <div className="ui center aligned" style={{ width: `${panelWidth - 60}px` }}>
+            <Button
+              onClick={() => {
+                this.props.onCheckout(); this.setState({
+                  open: !open,
+                })
+              }
+              }
+              className="fluid"
+            >CHECKOUT</Button>
+          </div>
         </div>
       </div>
     )
@@ -248,41 +264,22 @@ export default class CartPanel extends React.Component {
               width: width,
               height: height,
               right: right,
-              padding: padding,
             }}
           >
-            {open ?
-              <div>
-                <div className="ui items">
-                  <div>
-                    {this.showHeader()}
-                  </div>
-                  <div>
-                    {this.showCartItems()}
-                  </div>
-                  <div className="item">
-                    <div className="ui hidden divider" ></div>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    position: 'fixed',
-                    top: height - 60,
-                    backgroundColor: 'white',
-                    width: width,
-                    height: '84px',
-                  }}
-                  className="six wide column"
-                >
-                  <div className="ui divider" ></div>
-                  {this.showCartTotalBox()}
-                </div>
-              </div>
-            : null}
+            <div>
+              {this.showHeader()}
+            </div>
+            <div className="ui hidden divider" ></div>
+            <div>
+              {this.showCartItems()}
+            </div>
+            <div>
+              {this.showCartTotalBox()}
+            </div>
           </div>
           )
         }
       </Motion>
-  )
+      )
   }
-}
+  }
