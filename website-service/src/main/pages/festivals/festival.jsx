@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Header } from 'semantic-react'
+import { Link } from 'react-router'
+import { Header, Breadcrumb } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import DateFormatter from 'utils/dateFormatter.jsx'
 
@@ -13,6 +14,13 @@ class Festival extends React.Component {
     const { festival } = this.props
     return (
       <div>
+        <Breadcrumb>
+          <Link className="section" to="/festivals">All Festivals</Link>
+          <i className="right angle icon divider" />
+          <Link className="section" to={`/festivals/${festival.id}`}>
+            {festival.name}
+          </Link>
+        </Breadcrumb>
         <Header>{festival.name}</Header>
         <p>{festival.description}</p>
         <p>Starts On: <DateFormatter date={festival.starts_on} /></p>
