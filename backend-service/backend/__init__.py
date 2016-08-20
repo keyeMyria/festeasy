@@ -36,6 +36,9 @@ def create_app(config):
         app.config['FACEBOOK_SECRET'] = os.environ['FACEBOOK_SECRET']
         app.config['PAYU_SET_TRANSACTION_URL'] = os.environ['PAYU_SET_TRANSACTION_URL']
         app.config['PAYU_NOTIFICATION_URL'] = os.environ['PAYU_NOTIFICATION_URL']
+        app.config['PAYU_SOAP_USERNAME'] = os.environ['PAYU_SOAP_USERNAME']
+        app.config['PAYU_SOAP_PASSWORD'] = os.environ['PAYU_SOAP_PASSWORD']
+        app.config['PAYU_SOAP_SAFE_KEY'] = os.environ['PAYU_SOAP_SAFE_KEY']
     else:
         raise Exception('Unrecognized config paramter.')
 
