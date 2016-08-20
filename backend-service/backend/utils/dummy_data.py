@@ -1,7 +1,7 @@
 import datetime
 
 from backend.models import User, Product, Festival, Cart, Category, Image, \
-    ProductCategory, Supplier
+    ProductCategory, Supplier, Group
 
 
 def get_dummy_data():
@@ -16,9 +16,37 @@ def get_dummy_data():
         cart=Cart()
     )]
     now = datetime.datetime.now()
-    drinks = Category(name='Drinks')
-    beer = Category(name='Beer')
-    food = Category(name='Food')
+
+    '''
+    * GROUPS
+    '''
+    alcBeverages = Group(name='Alcholic Beverages')
+    nonAlcBeverages = Group(name='Non-Alcholic Beverages')
+    food = Group(name='Food')
+    snacks = Group(name='Snacks')
+
+    items.append(alcBeverages)
+    items.append(nonAlcBeverages)
+    items.append(food)
+    items.append(snacks)
+    '''
+    * CATAGORIES
+    '''
+
+    beer = Category(name='Beer', group=alcBeverages)
+    chips = Category(name='Chips', group=snacks)
+    soda = Category(name='Soda', group=nonAlcBeverages)
+    chocolate = Category(name='Chocolate', group=food)
+    candy = Category(name='Candy', group=food)
+
+    items.append(beer)
+    items.append(chips)
+    items.append(soda)
+
+    '''
+    * PRODUCTS
+    '''
+
     castle = Product(
         name='Castle Lite Beer',
         cost_rands=10,
@@ -28,13 +56,7 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/castle_light.png', 'rb').read(),
             filetype='png'
-        )
-    )
-    castle.product_categories.extend([
-        ProductCategory(product=castle, category=beer),
-        ProductCategory(product=castle, category=drinks),
-    ])
-    items.append(castle)
+        ))
     lays = Product(
         name='Lays Small Pack',
         cost_rands=10,
@@ -44,12 +66,7 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/lays.png', 'rb').read(),
             filetype='png'
-        )
-    )
-    lays.product_categories.extend([
-        ProductCategory(product=lays, category=food)
-    ])
-    items.append(lays)
+        ))
     coke = Product(
         name='Coke Can',
         cost_rands=10,
@@ -59,11 +76,7 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/coke_can.png', 'rb').read(),
             filetype='png'
-        )
-    )
-    coke.product_categories.extend([
-        ProductCategory(product=coke, category=drinks)
-    ])
+        ))
     windhoek = Product(
         name='Windhoek Beer',
         cost_rands=10,
@@ -73,13 +86,7 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/windhoek.png', 'rb').read(),
             filetype='png'
-        )
-    )
-    windhoek.product_categories.extend([
-        ProductCategory(product=windhoek, category=drinks),
-        ProductCategory(product=windhoek, category=beer),
-    ])
-    items.append(windhoek)
+        ))
     text = Product(
         name='Text Chocolate',
         cost_rands=10,
@@ -89,12 +96,7 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/tex.png', 'rb').read(),
             filetype='png'
-        )
-    )
-    text.product_categories.extend([
-        ProductCategory(product=text, category=food),
-    ])
-    items.append(text)
+        ))
     kitkat = Product(
         name='KitKat Chocolate',
         cost_rands=10,
@@ -104,12 +106,7 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/kitkat.png', 'rb').read(),
             filetype='png'
-        )
-    )
-    kitkat.product_categories.extend([
-        ProductCategory(product=kitkat, category=food),
-    ])
-    items.append(kitkat)
+        ))
     jelly_beans = Product(
         name='Jelly Beans',
         cost_rands=10,
@@ -119,11 +116,35 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/jellybeans.png', 'rb').read(),
             filetype='png'
-        )
-    )
-    jelly_beans.product_categories.extend([
-        ProductCategory(product=jelly_beans, category=food),
+        ))
+
+    '''
+    * ASSIGN CATAGORIES TO PRODUCTS
+    '''
+
+    castle.product_categories.extend([
+        ProductCategory(product=castle, category=beer),
     ])
+    lays.product_categories.extend([
+        ProductCategory(product=lays, category=chips)
+    ])
+    coke.product_categories.extend([
+        ProductCategory(product=coke, category=soda)
+    ])
+    windhoek.product_categories.extend([
+        ProductCategory(product=windhoek, category=beer),
+    ])
+    kitkat.product_categories.extend([
+        ProductCategory(product=kitkat, category=chocolate),
+    ])
+    jelly_beans.product_categories.extend([
+        ProductCategory(product=jelly_beans, category=candy),
+    ])
+
+    '''
+    * FESTIVALS
+    '''
+
     festivals = [
         Festival(
             name='Rocking The Daisies',
@@ -155,6 +176,11 @@ def get_dummy_data():
     ]
     woolies = Supplier(name='Woolies')
     pnp = Supplier(name='Pick n Pay')
+    items.append(kitkat)
+    items.append(text)
+    items.append(castle)
+    items.append(lays)
+    items.append(windhoek)
     items.extend([woolies, pnp])
     items.extend(users)
     items.extend(festivals)
