@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import {
   Header,
-  Button,
   Content,
   Grid,
   Row,
@@ -87,12 +87,12 @@ export default class FestivalsContainer extends React.Component {
           </Cards>
           <Grid centered>
             <Column>
-              <Button
-                size="large"
-                color="yellow"
+              <Link
+                to="/festivals"
+                className="ui large yellow button"
               >
                 See All Festivals
-              </Button>
+              </Link>
             </Column>
           </Grid>
         </div>
