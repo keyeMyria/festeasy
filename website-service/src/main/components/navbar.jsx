@@ -31,6 +31,7 @@ export default class Navbar extends React.Component {
           <NavLink to="/festivals">FESTIVALS</NavLink>
           <NavLink to="/store">STORE</NavLink>
           <NavLink to="/about">ABOUT</NavLink>
+          <NavLink to="/how-it-works">HOW IT WORKS</NavLink>
           <Menu floated="right">
             {links}
           </Menu>

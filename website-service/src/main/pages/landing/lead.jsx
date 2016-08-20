@@ -1,7 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router'
 import {
   Header,
-  Button,
   Grid,
   Column,
 } from 'semantic-react'
@@ -37,12 +37,12 @@ export default class Lead extends React.Component {
         <br />
         <Grid centered>
           <Column>
-            <Button
-              size="large"
-              color="yellow"
+            <Link
+              to="/how-it-works"
+              className="ui yellow large button"
             >
-              How it Workds
-            </Button>
+              How it Works
+            </Link>
           </Column>
         </Grid>
       </div>
