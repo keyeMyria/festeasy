@@ -53,6 +53,7 @@ class Bar extends React.Component {
   render() {
     return (
       <div className="ui container">
+        
         <Grid columns={3} centered>
           <Column width={4}>
             <Image
