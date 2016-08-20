@@ -60,7 +60,6 @@ class Bar extends React.Component {
     const { authDetails } = this.context
     return (
       <div className="ui container">
-        <button className="ui button" id="show-products">Products</button>
         {authDetails ? (
           <div>
             <HoverMenu />
@@ -69,6 +68,10 @@ class Bar extends React.Component {
             </CartContainer>
           </div>
         ) : null}
+        <div className="ui one column stackable center aligned page grid">
+          <button className="ui tiny blue button center aligned" id="show-products">Categories</button>
+        </div>
+        <div className="ui hidden divider"></div>
         <div id="main">
           <Grid columns={3} centered>
             <Column width={4}>
