@@ -50,7 +50,7 @@ export default class FestivalContainer extends React.Component {
   componentDidMount() {
     const { store } = this.context
     const { festivalId } = this.props.params
-    store.find('festival', festivalId, { bypassCache: true })
+    store.find('festival', festivalId)
       .then((festival) => {
         this.setState({
           festival,
