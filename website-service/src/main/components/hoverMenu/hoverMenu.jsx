@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import { TransitionMotion, Motion, spring } from 'react-motion';
-import { Button } from 'semantic-react'
+import { Motion, spring } from 'react-motion';
+// import { Button } from 'semantic-react'
 
 /* eslint-disable react/self-closing-comp */
 
 
-const panelWidth = 200
+// const panelWidth = 200
 const stayOpen = true
 const styler = {
   position: 'absolute',
@@ -33,33 +33,46 @@ export default class HoverMenu extends React.Component {
     updateQuantity: PropTypes.func,
     onCheckout: PropTypes.func,
   }
+  static contextTypes = {
+    store: PropTypes.object,
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       active: 2,
       open: false,
+      groups: null,
     }
     this.initialStyle = this.initialStyle.bind(this)
     this.finalStyle = this.finalStyle.bind(this)
     this.close = this.close.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.mapToLink = this.mapToLink.bind(this)
   }
 
   componentWillMount() {
     document.addEventListener('click', this.handleClick, false)
+    this.getGroups()
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClick, false)
   }
-
+  getGroups() {
+    const { store } = this.context
+    store.findAll('group', {})
+    .then((groups) =>
+    this.setState({
+      groups,
+    })
+  )
+  }
   getAttr(ob, attr) {
     return (ob ? ob[attr] : null)
   }
 
   initialStyle() {
-    const { posX, posY } = this.state
     return {
       padding: 0,
       width: spring(window.innerWidth, { stiffness: 150, damping: 20 }),
@@ -116,10 +129,37 @@ export default class HoverMenu extends React.Component {
     }
   }
 
+  mapToLink(arr) {
+    // go through array
+    // for each object in array, check the value for object, if array recursive, else print
+    let links = []
+    arr.forEach((heading) => {
+      Object.keys(heading).forEach((subh) => {
+        if (heading[subh] !== null && typeof heading[subh] === 'object') {
+          // console.log('obj value: ', typeof heading[subh], heading[subh])
+          this.mapToLink(heading[subh])
+        } else {
+          links.push(
+            <div>
+              {subh}
+            </div>
+          )
+        }
+      })
+    })
+    console.log('links: ', links)
+    return (<div className="ui header">
+      hello
+    </div>)
+  }
 
   render() {
-    const { open } = this.state
+    const { open, groups } = this.state
     const style = !open ? this.initialStyle() : this.finalStyle()
+    const obb = [{ 'heading2':
+          [{ 'sub1': 'link' }, { 'sub2': 'link2' }] },
+        { 'heading':
+          [{ 'sub2': 'link3' }, { 'sub21': 'link21' }] }]
     return (
       <Motion style={style} >
         {({ width, height, left, padding, top }) => (
@@ -137,16 +177,25 @@ export default class HoverMenu extends React.Component {
             }}
           >
             {open ?
-              <div>
-                <div className="ui items">
-                  <div>
+              <div className="ui container">
+                <div className="ui grid">
+                  <div className="four wide column">
+                    {groups.map((g) => (
+                      <div className="ui row">
+                        <div className="ui blue header">
+                          {g.name}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="four wide column">
                     hello
                   </div>
-                  <div>
-                    there
+                  <div className="four wide column">
+                    hello
                   </div>
-                  <div className="item">
-                    <div className="ui hidden divider" ></div>
+                  <div className="four wide column">
+                    hello
                   </div>
                 </div>
               </div>
