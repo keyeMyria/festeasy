@@ -18,7 +18,6 @@ class Bar extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
-    authDetails: PropTypes.object,
   }
 
   static propTypes = {
@@ -57,44 +56,29 @@ class Bar extends React.Component {
 
 
   render() {
-    const { authDetails } = this.context
     return (
       <div className="ui container">
-        {authDetails ? (
-          <div>
-            <HoverMenu />
-            <CartContainer>
-              <CartPanel />
-            </CartContainer>
-          </div>
-        ) : null}
-        <div className="ui one column stackable center aligned page grid">
-          <button className="ui tiny blue button center aligned" id="show-products">Categories</button>
-        </div>
-        <div className="ui hidden divider"></div>
-        <div id="main">
-          <Grid columns={3} centered>
-            <Column width={4}>
-              <Image
-                style={{ maxHeight: 70 }}
-                src={logo}
+        <Grid columns={3} centered>
+          <Column width={4}>
+            <Image
+              style={{ maxHeight: 70 }}
+              src={logo}
+            />
+          </Column>
+          <Column width={8}>
+            <Form onSubmit={this.onSubmit}>
+              <Input
+                fluid
+                size="big"
+                icon="search"
+                onChange={this.onChange}
+                value={this.state.searchTerm}
+                placeholder="What are you looking for?"
               />
-            </Column>
-            <Column width={8}>
-              <Form onSubmit={this.onSubmit}>
-                <Input
-                  fluid
-                  size="big"
-                  icon="search"
-                  onChange={this.onChange}
-                  value={this.state.searchTerm}
-                  placeholder="What are you looking for?"
-                />
-              </Form>
-            </Column>
-            <Column width={4} />
-          </Grid>
-        </div>
+            </Form>
+          </Column>
+          <Column width={4} />
+        </Grid>
       </div>
       )
   }
@@ -118,14 +102,36 @@ export default class Main extends React.Component {
     location: PropTypes.object.isRequired,
   }
 
+  static contextTypes = {
+    authDetails: PropTypes.object,
+  }
+
   render() {
+    const { authDetails } = this.context
     return (
       <div>
         <Navbar />
+        {authDetails ? (
+          <div>
+            <HoverMenu />
+            <CartContainer>
+              <CartPanel />
+            </CartContainer>
+          </div>
+        ) : null}
+        <div className="ui one column stackable center aligned page grid">
+          <button
+            className="ui tiny blue button center aligned"
+            id="show-products"
+          >Categories</button>
+        </div>
+        <div className="ui hidden divider"></div>
         <Bar location={this.props.location} />
-        <Divider />
-        {this.props.children}
-        <Footer />
+        <div id="main">
+          <Divider />
+          {this.props.children}
+          <Footer />
+        </div>
       </div>
     )
   }
