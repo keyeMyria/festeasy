@@ -35,11 +35,16 @@ export default class Lead extends React.Component {
         <br />
         <br />
         <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <Grid centered>
           <Column>
             <Link
               to="/how-it-works"
-              className="ui yellow large button"
+              className="ui yellow massive button"
             >
               How it Works
             </Link>

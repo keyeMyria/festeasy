@@ -43,11 +43,14 @@ export default class FestivalsContainer extends React.Component {
     if (this.state.festivals) {
       festivals = this.state.festivals.map((f) => (
         <Card
+          key={f.id}
           style={{ height: 200 }}
         >
           <Content>
             <Header>
-              {f.name}
+              <Link to={`/festivals/${f.id}`}>
+                {f.name}
+              </Link>
             </Header>
             <Description>
               {f.description}
@@ -89,7 +92,7 @@ export default class FestivalsContainer extends React.Component {
             <Column>
               <Link
                 to="/festivals"
-                className="ui large yellow button"
+                className="ui massive yellow button"
               >
                 See All Festivals
               </Link>
