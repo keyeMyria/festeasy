@@ -24,11 +24,15 @@ import Settings from 'main/pages/account/settings.jsx'
 import Invoice from 'main/pages/account/invoice.jsx'
 import RecoverPassword from 'main/pages/recoverPassword.jsx'
 import ResetPassword from 'main/pages/resetPassword.jsx'
+import HowItWorks from 'main/pages/howItWorks/howItWorks.jsx'
+import Search from 'main/pages/search/search.jsx'
 
 
 export default (
   <Route path="" component={Main}>
     <IndexRoute component={Landing} />
+    <Route path="search" component={Search} />
+    <Route path="how-it-works" component={HowItWorks} />
     <Route path="store" component={Store}>
       <IndexRoute component={Products} />
       <Route path="products/:productId" component={Product} />

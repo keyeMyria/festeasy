@@ -68,7 +68,7 @@ export default class ProductContainer extends React.Component {
 
   componentDidMount() {
     const { store } = this.context
-    store.find('product', this.props.params.productId, { bypassCache: true })
+    store.find('product', this.props.params.productId)
       .then((product) => {
         this.setState({
           product,

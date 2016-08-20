@@ -26,6 +26,7 @@ module.exports = [
   {
     name: 'product',
     endpoint: 'v1/products',
+    maxAge: 60000,
   },
   {
     name: 'payu-transaction',
@@ -34,6 +35,7 @@ module.exports = [
   {
     name: 'festival',
     endpoint: 'v1/festivals',
+    maxAge: 60000,
   },
   {
     name: 'order',

@@ -63,9 +63,9 @@ class PayUTransactionCollection(Resource):
         invoice = get_or_404(Invoice, Invoice.id == invoice_id)
         user = invoice.order.user
         store = {
-            'soapUsername': 'Staging Integration Store 1',
-            'soapPassword': '78cXrW1W',
-            'safekey': '{45D5C765-16D2-45A4-8C41-8D6F84042F8C}',
+            'soapUsername': current_app.config['PAYU_SOAP_USERNAME'],
+            'soapPassword': current_app.config['PAYU_SOAP_PASSWORD'],
+            'safekey': current_app.config['PAYU_SOAP_SAFE_KEY'],
         }
         basket = {
             'description': 'FestEasy Invoice #{0}'.format(invoice.id),

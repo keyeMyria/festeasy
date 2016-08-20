@@ -12,19 +12,23 @@ export default class Navbar extends React.Component {
   render() {
     let links = []
     if (this.context.authDetails) {
-      links = [
-        <NavLink key="a" to="/cart">Cart</NavLink>,
-        <button key="d" id="open-cart" className="ui basic button">
-          <i id="open-cart" className="ui blue large cart icon" />
-        </button>,
-        <NavLink key="c" to="/account">Account</NavLink>,
-        <Button key="b" onClick={this.context.signOut}>Sign Out</Button>,
-      ]
+      links = (
+        <Menu floated="right">
+          <NavLink to="/cart">CART</NavLink>
+          <button key="d" id="open-cart" className="ui basic button">
+            <i id="open-cart" className="ui blue large cart icon" />
+          </button>
+          <NavLink to="/account">ACCOUNT</NavLink>
+          <Button onClick={this.context.signOut}>Sign Out</Button>
+        </Menu>
+      )
     } else {
-      links = [
-        <NavLink key="c" to="/sign-in">Sign In</NavLink>,
-        <NavLink key="d" to="/sign-up">Sign Up</NavLink>,
-      ]
+      links = (
+        <Menu floated="right">
+          <NavLink to="/sign-in">SIGN IN</NavLink>
+          <NavLink to="/sign-up">SIGN UP</NavLink>
+        </Menu>
+      )
     }
     return (
       // TODO: Use secondary, but its broken.
@@ -41,7 +45,12 @@ export default class Navbar extends React.Component {
           </Container>
         </Menu>
         <Container>
-          <button className="ui button" id="show-products">Products</button>
+          <NavLink to="/" onlyActiveOnIndex>HOME</NavLink>
+          <NavLink to="/festivals">FESTIVALS</NavLink>
+          <NavLink to="/store">STORE</NavLink>
+          <NavLink to="/about">ABOUT</NavLink>
+          <NavLink to="/how-it-works">HOW IT WORKS</NavLink>
+          {links}
         </Container>
         <div className="ui hidden divider"></div>
       </div>

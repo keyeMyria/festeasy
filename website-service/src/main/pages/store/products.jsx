@@ -37,8 +37,7 @@ export default class ProductListContainer extends React.Component {
 
   fetchProducts(params) {
     const { store } = this.context
-    const config = { bypassCache: true }
-    store.findAll('product', params, config)
+    store.findAll('product', params)
       .then((products) => {
         this.setState({
           loading: false,
