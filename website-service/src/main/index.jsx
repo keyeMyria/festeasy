@@ -36,14 +36,7 @@ export default class Main extends React.Component {
                 placeholder="What are you looking for?"
               />
             </Column>
-            <Column width={4}>
-              <Button
-                size="large"
-                color="black"
-              >
-                Cart
-              </Button>
-            </Column>
+            <Column width={4} />
           </Grid>
         </div>
         <Divider />
