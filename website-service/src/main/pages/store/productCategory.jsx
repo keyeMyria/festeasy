@@ -21,6 +21,10 @@ export default class ProductCategoryContainer extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.getProducts()
+  }
+
   componentWillReceiveProps(props) {
     console.log('gettingprops: ', props.params.category)
     this.setState({
@@ -42,10 +46,6 @@ export default class ProductCategoryContainer extends React.Component {
           error: 'Something went wrong',
         })
       })
-  }
-
-  componentDidMount() {
-    this.getProducts()
   }
 
   render() {

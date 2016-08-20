@@ -1,7 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 import { Motion, spring } from 'react-motion';
 import NavLink from 'common/navLink.jsx'
-import { browserHistory } from 'react-router'
 // import { Button } from 'semantic-react'
 
 /* eslint-disable react/self-closing-comp */
@@ -133,11 +132,10 @@ export default class HoverMenu extends React.Component {
   mapToLink(arr) {
     // go through array
     // for each object in array, check the value for object, if array recursive, else print
-    let links = []
+    const links = []
     arr.forEach((heading) => {
       Object.keys(heading).forEach((subh) => {
         if (heading[subh] !== null && typeof heading[subh] === 'object') {
-          // console.log('obj value: ', typeof heading[subh], heading[subh])
           this.mapToLink(heading[subh])
         } else {
           links.push(
@@ -148,7 +146,6 @@ export default class HoverMenu extends React.Component {
         }
       })
     })
-    console.log('links: ', links)
     return (<div className="ui header">
       hello
     </div>)
@@ -156,12 +153,7 @@ export default class HoverMenu extends React.Component {
 
   render() {
     const { open, groups } = this.state
-    console.log('froups: ', groups)
     const style = !open ? this.initialStyle() : this.finalStyle()
-    const obb = [{ 'heading2':
-          [{ 'sub1': 'link' }, { 'sub2': 'link2' }] },
-        { 'heading':
-          [{ 'sub2': 'link3' }, { 'sub21': 'link21' }] }]
     return (
       <Motion style={style} >
         {({ width, height, left, padding, top }) => (
