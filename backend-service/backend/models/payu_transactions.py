@@ -24,8 +24,9 @@ class PayUTransaction(db.Model, Entity):
         back_populates='payu_transactions',
     )
 
-    payment_id = Column(ForeignKey('payment.id'))
+    payment_id = Column(ForeignKey('payment.id'), unique=True)
     payment = relationship(
         'Payment',
-        back_populates='payu_transactions',
+        back_populates='payu_transaction',
+        uselist=False,
     )
