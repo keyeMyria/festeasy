@@ -43,7 +43,11 @@ export default class Invoice extends React.Component {
         <div>
           Total due: <PriceFormatter rands={invoice.amount_due_rands} />
           <br />
-          <Button onClick={makePayment} state={isCheckingOut ? 'loading' : ''}>Make payment</Button>
+          {invoice.amount_due_rands > 0 ?
+            <Button onClick={makePayment} state={isCheckingOut ? 'loading' : ''}>
+              Make payment
+            </Button> : ''
+          }
         </div>
       </div>
     )
