@@ -5,6 +5,7 @@ from webargs.flaskparser import parser
 
 from backend.models import InvoiceProduct
 from backend.api.v1.schemas import InvoiceProductSchema
+from backend.api.v1.authentication import requires_auth
 
 
 query_args = {
@@ -17,7 +18,9 @@ query_args = {
 
 # TODO: Test.
 class InvoiceProductCollection(Resource):
-    def get(self):
+    method_decorators = [requires_auth]
+
+    def get(self, authenticated_user):
         params = parser.parse(query_args, request)
         invoice_id = params['invoice_id']
         q = InvoiceProduct.query
