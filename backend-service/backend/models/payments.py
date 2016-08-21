@@ -16,7 +16,8 @@ class Payment(db.Model, Entity):
     invoice_id = Column(ForeignKey('invoice.id'), nullable=False)
     invoice = relationship('Invoice', back_populates='payments')
 
-    payu_transactions = relationship(
+    payu_transaction = relationship(
         'PayUTransaction',
         back_populates='payment',
+        uselist=False,
     )

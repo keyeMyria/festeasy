@@ -3,6 +3,7 @@ from flask_restful import Resource
 
 from backend.models import OrderProduct, Festival, Order
 from backend.api.v1.schemas import OrderProductSchema
+from backend.api.v1.authentication import requires_auth
 
 
 order_product_schema = OrderProductSchema()
@@ -24,7 +25,9 @@ def filter_festival(q, festival_id):
 
 
 class OrderProductCollection(Resource):
-    def get(self):
+    method_decorators = [requires_auth]
+
+    def get(self, authenticated_user):
         q = OrderProduct.query
         festival_id = request.args.get('festival-id')
         if festival_id:

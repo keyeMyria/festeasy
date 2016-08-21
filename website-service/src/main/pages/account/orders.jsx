@@ -24,7 +24,7 @@ export default class OrderListContainer extends React.Component {
 
   fetchOrders() {
     const { store } = this.context
-    store.findAll('order')
+    store.findAll('order', {}, { bypassCache: true })
       .then((orders) => {
         this.setState({
           orders,

@@ -33,7 +33,7 @@ export default class Checkout extends React.Component {
       },
     ]
     return (
-      <div>
+      <div className="ui container">
         <Header aligned="center">Checkout</Header>
         <Steps ordered fluid equalWidths>
           {steps.map((step) => (
