@@ -17,6 +17,7 @@ export default class InvoiceContainer extends React.Component {
     this.state = {
       invoice: null,
       invoiceProducts: null,
+      isCheckingOut: false,
       error: null,
     }
     this.makePayment = this.makePayment.bind(this)
@@ -30,6 +31,7 @@ export default class InvoiceContainer extends React.Component {
   }
 
   makePayment() {
+    this.setState({ isCheckingOut: true })
     const { invoice } = this.state
     const { store } = this.context
     store.create('payu-transaction', {
@@ -37,10 +39,11 @@ export default class InvoiceContainer extends React.Component {
     })
       .then((response) => {
         const payUReference = response.payu_reference
-        window.location.href = `https://staging.payu.co.za/rpp.do?PayUReference=${payUReference}`
+        window.location.href = `https://secure.payu.co.za/rpp.do?PayUReference=${payUReference}`
       })
       .catch(() => {
         this.setState({
+          isCheckingOut: false,
           error: 'Something went wrong making payment',
         })
       })
@@ -75,7 +78,7 @@ export default class InvoiceContainer extends React.Component {
   }
 
   render() {
-    const { invoice, invoiceProducts, error } = this.state
+    const { invoice, invoiceProducts, error, isCheckingOut } = this.state
     const isReady = invoice && invoiceProducts
     return (
       <Page
@@ -87,6 +90,7 @@ export default class InvoiceContainer extends React.Component {
               invoice={invoice}
               invoiceProducts={invoiceProducts}
               makePayment={this.makePayment}
+              isCheckingOut={isCheckingOut}
             />
           : ''
         }

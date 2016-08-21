@@ -11,11 +11,12 @@ export default class Invoice extends React.Component {
   static propTypes = {
     invoice: PropTypes.object.isRequired,
     invoiceProducts: PropTypes.array.isRequired,
+    isCheckingOut: PropTypes.bool.isRequired,
     makePayment: PropTypes.func,
   }
 
   render() {
-    const { invoice, invoiceProducts, makePayment } = this.props
+    const { invoice, invoiceProducts, makePayment, isCheckingOut } = this.props
     return (
       <div>
         <Header>Invoice {invoice.id}</Header>
@@ -42,7 +43,7 @@ export default class Invoice extends React.Component {
         <div>
           Total due: <PriceFormatter rands={invoice.amount_due_rands} />
           <br />
-          <Button onClick={makePayment}>Make payment</Button>
+          <Button onClick={makePayment} state={isCheckingOut ? 'loading' : ''}>Make payment</Button>
         </div>
       </div>
     )
