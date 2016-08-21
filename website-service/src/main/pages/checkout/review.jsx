@@ -23,6 +23,7 @@ class Review extends React.Component {
             <Tr>
               <th>Product</th>
               <th>Quantity</th>
+              <th>Unit Price</th>
               <th>Sub Total</th>
             </Tr>
           </thead>
@@ -31,7 +32,12 @@ class Review extends React.Component {
               <Tr key={cp.id}>
                 <Td>{cp.product.name}</Td>
                 <Td>{cp.quantity}</Td>
-                <Td>{cp.sub_total_rands}</Td>
+                <Td>
+                  <PriceFormatter rands={cp.product.price_rands} />
+                </Td>
+                <Td>
+                  <PriceFormatter rands={cp.sub_total_rands} />
+                </Td>
               </Tr>
             ))}
           </tbody>
