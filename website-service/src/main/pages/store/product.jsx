@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router'
-import { Header, Image, Grid, Column, Breadcrumb } from 'semantic-react'
+import { Header, Image, Grid, Column, Breadcrumb, Divider } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import AddToCartButton from 'main/components/addToCartButton.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
@@ -26,7 +26,7 @@ class Product extends React.Component {
         <br />
         <br />
         <Grid columns={2}>
-          <Column width={4}>
+          <Column width={6}>
             {product.thumbnail_image_id ?
               <Image
                 centered
@@ -43,6 +43,7 @@ class Product extends React.Component {
             <AddToCartButton product={product} />
           </Column>
         </Grid>
+        <Divider />
       </div>
     )
   }
