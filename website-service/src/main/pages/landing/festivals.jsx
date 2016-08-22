@@ -8,7 +8,9 @@ import {
   Column,
   Description,
   Cards,
+  Card,
 } from 'semantic-react'
+import SelectFestivalButton from 'main/components/selectFestivalButton.jsx'
 
 
 export default class FestivalsContainer extends React.Component {
@@ -41,21 +43,24 @@ export default class FestivalsContainer extends React.Component {
     let festivals = []
     if (this.state.festivals) {
       festivals = this.state.festivals.map((f) => (
-        <Link
+        <Card
           key={f.id}
           style={{ height: 200 }}
-          className="ui card"
-          to={`/festivals/${f.id}`}
         >
           <Content>
             <Header>
-              {f.name}
+              <Link
+                to={`/festivals/${f.id}`}
+              >
+                {f.name}
+              </Link>
             </Header>
             <Description>
               {f.description}
             </Description>
+            <SelectFestivalButton style={{ zIndex: 999 }} festival={f} />
           </Content>
-        </Link>
+        </Card>
       ))
     }
     return (

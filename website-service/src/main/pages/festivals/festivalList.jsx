@@ -4,6 +4,7 @@ import { Cards, Card, Header, Description, Content, Date } from 'semantic-react'
 import { festivalShape } from 'utils/shapes.jsx'
 import Page from 'utils/page.jsx'
 import DateFormatter from 'utils/dateFormatter.jsx'
+import SelectFestivalButton from 'main/components/selectFestivalButton.jsx'
 
 
 class FestivalList extends React.Component {
@@ -33,6 +34,7 @@ class FestivalList extends React.Component {
               <Description>
                 {festival.description}
               </Description>
+              <SelectFestivalButton festival={festival} />
             </Content>
           </Card>
         ))}
