@@ -25,7 +25,7 @@ class Order(db.Model, Entity):
         cascade='save-update, merge'
     )
 
-    shipping_address = Column(String, nullable=False)
+    shipping_address = Column(String)
 
     invoices = relationship(
         'Invoice',
