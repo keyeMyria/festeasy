@@ -89,12 +89,36 @@ class Footer extends React.Component {
           <div className="ui stackable inverted divided grid">
             <div className="seven wide column">
               <h4 className="ui inverted header">
-                Some links here
+                Social Media
               </h4>
               <div className="ui inverted link list">
-                <Link className="item" to="/store">Facebook</Link>
-                <Link className="item" to="/store">Twitter</Link>
-                <Link className="item" to="/store">Instagram</Link>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="item"
+                  href="https://facebook.com"
+                >
+                  <i className="facebook icon" />
+                  Facebook
+                </a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="item"
+                  href="https://twitter.com"
+                >
+                  <i className="twitter icon" />
+                  Twitter
+                </a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="item"
+                  href="https://instagram.com"
+                >
+                  <i className="instagram icon" />
+                  Instagram
+                </a>
               </div>
             </div>
             <div className="seven wide column">
