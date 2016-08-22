@@ -19,7 +19,7 @@ export default class Invoice extends React.Component {
     const { invoice, invoiceProducts, makePayment, isCheckingOut } = this.props
     return (
       <div>
-        <Header>Invoice #{invoice.id}</Header>
+        <Header>Order #{invoice.order_id}</Header>
         <Table>
           <thead>
             <Tr>
