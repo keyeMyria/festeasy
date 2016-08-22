@@ -42,21 +42,21 @@ export default class FestivalsContainer extends React.Component {
     let festivals = []
     if (this.state.festivals) {
       festivals = this.state.festivals.map((f) => (
-        <Card
+        <Link
           key={f.id}
           style={{ height: 200 }}
+          className="ui card"
+          to={`/festivals/${f.id}`}
         >
           <Content>
             <Header>
-              <Link to={`/festivals/${f.id}`}>
-                {f.name}
-              </Link>
+              {f.name}
             </Header>
             <Description>
               {f.description}
             </Description>
           </Content>
-        </Card>
+        </Link>
       ))
     }
     return (
@@ -70,7 +70,7 @@ export default class FestivalsContainer extends React.Component {
         >
           find your festival
         </Header>
-        <Grid>
+        <Grid style={{ fontSize: 20 }}>
           <Row>
             <Column aligned="center">
               <p>
