@@ -17,6 +17,7 @@ export default class AddToCartButton extends React.Component {
     super()
     this.state = {
       quantity: 1,
+      isLoading: false,
     }
     this.onClick = this.onClick.bind(this)
     this.onChange = this.onChange.bind(this)
@@ -25,6 +26,7 @@ export default class AddToCartButton extends React.Component {
   onClick() {
     const { store, authDetails, addNotification } = this.context
     if (authDetails) {
+      this.setState({ isLoading: true })
       store.find('user', authDetails.userId)
         .then((user) => {
           store.create('cartProduct', {
@@ -33,12 +35,14 @@ export default class AddToCartButton extends React.Component {
             quantity: this.state.quantity,
           })
             .then(() => {
+              this.setState({ isLoading: false })
               addNotification({
                 message: 'Successfully added product to cart',
                 level: 'success',
               })
             })
             .catch((error) => {
+              this.setState({ isLoading: false })
               let message = 'Something went wrong'
               let level = 'error'
               if (error.status === 409) {
@@ -65,17 +69,26 @@ export default class AddToCartButton extends React.Component {
   }
 
   render() {
+    const { isLoading, quantity } = this.state
     return (
       <div>
         <Input
+          disabled={isLoading}
           required
           type="number"
           min={1}
           max={10}
-          value={this.state.quantity}
+          value={quantity}
           onChange={this.onChange}
         />
-        <Button basic color="green" onClick={this.onClick}>Add to cart</Button>
+        <Button
+          state={isLoading ? 'loading' : ''}
+          basic
+          color="green"
+          onClick={this.onClick}
+        >
+          Add to cart
+        </Button>
       </div>
     )
   }

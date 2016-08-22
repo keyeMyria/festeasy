@@ -8,7 +8,6 @@ import {
   Column,
   Description,
   Cards,
-  Card,
 } from 'semantic-react'
 
 
