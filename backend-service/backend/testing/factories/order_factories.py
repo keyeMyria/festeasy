@@ -10,3 +10,4 @@ class OrderFactory(Factory):
 
     festival = SubFactory(FestivalFactory)
     user = SubFactory(UserFactory)
+    shipping_address = 'Some address'

@@ -65,6 +65,7 @@ class TestOrder(ModelTestCase):
         db.session.commit()
 
         order = Order.from_cart(user.cart)
+        order.shipping_address = 'some address'
         db.session.add(order)
         db.session.commit()
 

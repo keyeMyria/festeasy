@@ -28,6 +28,7 @@ class TestCartCheckout(APITestCase):
         response = self.api_request(
             'post',
             '/api/v1/carts/{cart_id}/checkout'.format(cart_id=user.cart.id),
+            data=dict(shipping_address='some addres'),
             session_token=session.token,
         )
 

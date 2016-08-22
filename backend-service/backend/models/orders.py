@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -24,6 +24,8 @@ class Order(db.Model, Entity):
         back_populates='orders',
         cascade='save-update, merge'
     )
+
+    shipping_address = Column(String, nullable=False)
 
     invoices = relationship(
         'Invoice',

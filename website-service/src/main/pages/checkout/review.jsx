@@ -1,23 +1,100 @@
 import React, { PropTypes } from 'react'
-import { Button, Table, Tr, Td, Header } from 'semantic-react'
+import {
+  Form,
+  Field,
+  Input,
+  Grid,
+  Column,
+  Button,
+  Table,
+  Tr,
+  Td,
+  Header,
+  Image,
+} from 'semantic-react'
 import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
+import apiEndpoint from 'apiEndpoint.js'
+
+
+class DeliveryForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  }
+
+  constructor() {
+    super()
+    this.state = {
+      streetAddress: '',
+      suburb: '',
+      city: '',
+    }
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  onChange(e) {
+    const state = {}
+    state[e.target.name] = e.target.value
+    this.setState(state)
+  }
+
+  onSubmit(e) {
+    e.preventDefault()
+    this.props.onSubmit(this.state)
+  }
+
+  render() {
+    const { streetAddress, suburb, city } = this.state
+    return (
+      <Form onSubmit={this.onSubmit}>
+        <Field label="Street Address" required>
+          <Input
+            onChange={this.onChange}
+            value={streetAddress}
+            name="streetAddress"
+            placeholder="22 Stellenberg Avenue"
+            required
+          />
+        </Field>
+        <Field label="Suburb" required>
+          <Input
+            onChange={this.onChange}
+            value={suburb}
+            name="suburb"
+            placeholder="Kenilworth"
+            required
+          />
+        </Field>
+        <Field label="City" required>
+          <Input
+            onChange={this.onChange}
+            value={city}
+            name="city"
+            placeholder="Cape Town"
+            required
+          />
+        </Field>
+        <Button color="green">Proceed</Button>
+      </Form>
+    )
+  }
+}
 
 
 class Review extends React.Component {
   static propTypes = {
     cart: PropTypes.object.isRequired,
     cartProducts: PropTypes.array.isRequired,
-    onProceed: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   }
 
   render() {
-    const { cart, cartProducts, onProceed } = this.props
+    const { cart, cartProducts, onSubmit } = this.props
     const festival = cart.festival
     return (
       <div>
-        <Header>Review Cart</Header>
-        <p>Festival: {festival.name}</p>
+        <Header emphasis="dividing">1. Review your cart for {festival.name}</Header>
         <Table>
           <thead>
             <Tr>
@@ -30,7 +107,25 @@ class Review extends React.Component {
           <tbody>
             {cartProducts.map((cp) => (
               <Tr key={cp.id}>
-                <Td>{cp.product.name}</Td>
+                <Td>
+                  <Grid columns={2}>
+                    <Column width={3}>
+                      {cp.product.thumbnail_image_id ?
+                        <Image
+                          centered
+                          style={{ maxHeight: '40px', width: 'auto', height: 'auto' }}
+                          alt="product thumbnail"
+                          src={
+                            apiEndpoint.concat(`v1/images/${cp.product.thumbnail_image_id}/image`)
+                          }
+                        /> : 'No thumbnail image'
+                      }
+                    </Column>
+                    <Column>
+                      {cp.product.name}
+                    </Column>
+                  </Grid>
+                </Td>
                 <Td>{cp.quantity}</Td>
                 <Td>
                   <PriceFormatter rands={cp.product.price_rands} />
@@ -42,10 +137,15 @@ class Review extends React.Component {
             ))}
           </tbody>
         </Table>
-        <div>
+        <div className="ui right aligned container">
           Total: <PriceFormatter rands={cart.total_rands} />
         </div>
-        <Button onClick={onProceed}>Proceed</Button>
+        <Header emphasis="dividing">2. Enter your Delivery Address</Header>
+        <Grid>
+          <Column width={5}>
+            <DeliveryForm onSubmit={onSubmit} />
+          </Column>
+        </Grid>
       </div>
     )
   }
@@ -77,12 +177,16 @@ export default class ReviewContainer extends React.Component {
     this.fetchCartProducts()
   }
 
-  onProceed() {
+  onProceed(addressData) {
+    const a = addressData
     const { axios } = this.context
     const cartId = this.state.cart.id
     axios({
       method: 'post',
       url: `v1/carts/${cartId}/checkout`,
+      data: {
+        shipping_address: `${a.streetAddress}, ${a.suburb}, ${a.city}`,
+      },
     })
       .then((response) => {
         const invoiceId = response.data.current_invoice.id
@@ -135,7 +239,7 @@ export default class ReviewContainer extends React.Component {
             <Review
               cart={cart}
               cartProducts={cartProducts}
-              onProceed={this.onProceed}
+              onSubmit={this.onProceed}
             />
           : ''
         }
