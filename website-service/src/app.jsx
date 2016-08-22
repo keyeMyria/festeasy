@@ -2,13 +2,16 @@
 
 import React, { PropTypes } from 'react';
 import axios from 'axios'
+import mixpanel from 'mixpanel-browser'
 import NotificationSystem from 'react-notification-system'
-import AuthWrapper from './authWrapper.jsx'
-import StoreWrapper from './storeWrapper.jsx'
-import apiEndpoint from './apiEndpoint.js'
+import AuthWrapper from 'authWrapper.jsx'
+import StoreWrapper from 'storeWrapper.jsx'
+import apiEndpoint from 'apiEndpoint.js'
+import mixpanelToken from 'mixpanelToken.js'
 
 
 axios.defaults.baseURL = apiEndpoint
+mixpanel.init(mixpanelToken)
 
 
 export default class App extends React.Component {

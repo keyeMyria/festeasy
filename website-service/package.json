@@ -47,6 +47,7 @@
     "js-data": "^2.9.0",
     "js-data-http": "^2.2.2",
     "lodash": "^4.15.0",
+    "mixpanel-browser": "^2.9.9",
     "moment": "^2.14.1",
     "react": "^15.3.1",
     "react-addons-shallow-compare": "^15.3.1",

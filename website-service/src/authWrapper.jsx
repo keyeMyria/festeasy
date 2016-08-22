@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import mixpanel from 'mixpanel-browser'
 import axios from 'axios'
 
 
@@ -36,6 +37,7 @@ export default class AuthWrapper extends React.Component {
     axios.interceptors.response.use((r) => (r), this.responseErrorInterceptor)
     if (sessionId && sessionToken && userId) {
       authDetails = { sessionId, sessionToken, userId }
+      mixpanel.identify(userId)
     } else {
       this.clearAuthDetails()
     }
@@ -71,7 +73,6 @@ export default class AuthWrapper extends React.Component {
 
   responseErrorInterceptor(response) {
     const { router } = this.context
-    console.log(response)
     if (response.status === 401) {
       this.setState({ authDetails: null })
       this.clearAuthDetails()
@@ -88,6 +89,7 @@ export default class AuthWrapper extends React.Component {
 
   signUp(firstName, emailAddress, password) {
     return new Promise((resolve, reject) => {
+      mixpanel.track('sign-up')
       axios({
         method: 'post',
         url: 'v1/auth/signup',
@@ -117,7 +119,14 @@ export default class AuthWrapper extends React.Component {
       })
         .then(response => {
           const session = response.data.session
+          const user = response.data.user
           this.persistAuthDetails(session.id, session.token, session.user_id)
+          mixpanel.identify(session.user_id)
+          mixpanel.people.set({
+            '$email': user.email_address,
+            '$first_name': user.first_name,
+          })
+          mixpanel.track('sign-in')
           this.setState({
             authDetails: {
               sessionId: session.id,
@@ -135,6 +144,7 @@ export default class AuthWrapper extends React.Component {
 
   signOut() {
     return new Promise((resolve) => {
+      mixpanel.track('sign-out')
       this.setState({ authDetails: null })
       this.clearAuthDetails()
       this.context.router.push('/')
