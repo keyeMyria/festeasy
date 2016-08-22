@@ -29,7 +29,7 @@ export default class Navbar extends React.Component {
     }
     return (
       // TODO: Use secondary, but its broken.
-      <Menu pointing inverted>
+      <Menu pointing fixed inverted>
         <Container>
           <NavLink to="/" onlyActiveOnIndex>HOME</NavLink>
           <NavLink to="/festivals">FESTIVALS</NavLink>

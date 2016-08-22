@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import {
   Input,
   Grid,
@@ -83,13 +84,35 @@ class Bar extends React.Component {
 class Footer extends React.Component {
   render() {
     return (
-      <div className="ui container">
-        Footer stuff
+      <div className="ui inverted vertical footer segment">
+        <div className="ui center aligned container">
+          <div className="ui stackable inverted divided grid">
+            <div className="seven wide column">
+              <h4 className="ui inverted header">
+                Some links here
+              </h4>
+              <div className="ui inverted link list">
+                <Link className="item" to="/store">Facebook</Link>
+                <Link className="item" to="/store">Twitter</Link>
+                <Link className="item" to="/store">Instagram</Link>
+              </div>
+            </div>
+            <div className="seven wide column">
+              <h4 className="ui inverted header">
+                Fest Easy
+              </h4>
+            </div>
+          </div>
+          <div className="ui horizontal inverted small divided link list">
+            <Link className="item" to="/contact-us">Contact Us</Link>
+            <Link className="item" to="/terms-and-conditions">Terms and Conditions</Link>
+            <Link className="item" to="/privacy-policy">Privacy Polidy</Link>
+          </div>
+        </div>
       </div>
     )
   }
 }
-
 
 export default class Main extends React.Component {
   static propTypes = {
@@ -98,13 +121,23 @@ export default class Main extends React.Component {
   }
 
   render() {
+    const style = {
+      paddingTop: 70,
+      display: 'flex',
+      minHeight: '100vh',
+      flexDirection: 'column',
+    }
     return (
       <div>
         <Navbar />
-        <Bar location={this.props.location} />
-        <Divider />
-        {this.props.children}
-        <Footer />
+        <div style={style}>
+          <Bar location={this.props.location} />
+          <Divider />
+          <div style={{ flex: 1, paddingBottom: 40 }}>
+            {this.props.children}
+          </div>
+          <Footer />
+        </div>
       </div>
     )
   }
