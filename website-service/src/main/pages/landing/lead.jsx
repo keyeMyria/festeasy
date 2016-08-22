@@ -19,14 +19,19 @@ export default class Lead extends React.Component {
         }}
       >
         <Header
-          style={{ color: 'white' }}
+          style={{
+            color: 'white',
+            fontSize: 70,
+          }}
           aligned="center"
           size="huge"
         >
           FESTIVALS, EASIER
         </Header>
         <Header
-          style={{ color: 'white' }}
+          style={{
+            color: 'white',
+          }}
           aligned="center"
         >
           CHILLIN' ON THE DOORSTEP FOR YOUR CONVENIENCE
@@ -40,7 +45,7 @@ export default class Lead extends React.Component {
         <br />
         <br />
         <br />
-        <Grid centered>
+        <Grid aligned="center">
           <Column>
             <Link
               to="/how-it-works"

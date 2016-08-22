@@ -60,10 +60,13 @@ export default class FestivalsContainer extends React.Component {
       ))
     }
     return (
-      <div>
+      <div style={{ paddingTop: 30 }}>
         <Header
           aligned="center"
           size="huge"
+          style={{
+            fontSize: 60,
+          }}
         >
           find your festival
         </Header>
@@ -88,7 +91,7 @@ export default class FestivalsContainer extends React.Component {
           <Cards className="three">
             {festivals}
           </Cards>
-          <Grid centered>
+          <Grid aligned="center">
             <Column>
               <Link
                 to="/festivals"
