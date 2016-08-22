@@ -18,7 +18,7 @@ export default class Checkout extends React.Component {
         active: false,
       }, {
         title: 'Review',
-        completed: false,
+        completed: pathname === '/checkout/payment',
         description: 'Review your cart',
         active: pathname === '/checkout/review',
       }, {

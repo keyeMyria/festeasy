@@ -15,7 +15,7 @@ export default class OrderList extends React.Component {
       <Table>
         <thead>
           <Tr>
-            <th>Order ID</th>
+            <th>Order #</th>
             <th>Festival</th>
             <th>Total</th>
             <th>Amount Due</th>
@@ -25,7 +25,7 @@ export default class OrderList extends React.Component {
         <tbody>
           {orders.map((o) => (
             <Tr key={o.id}>
-              <Td>Order {o.id}</Td>
+              <Td>Order #{o.id}</Td>
               <Td>{o.festival.name}</Td>
               <Td>
                 <PriceFormatter rands={o.total_rands} />

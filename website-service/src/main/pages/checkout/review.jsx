@@ -137,7 +137,7 @@ class Review extends React.Component {
             ))}
           </tbody>
         </Table>
-        <div className="ui right aligned container">
+        <div className="ui right aligned container" style={{ fontSize: 18 }}>
           Total: <PriceFormatter rands={cart.total_rands} />
         </div>
         <Header emphasis="dividing">2. Enter your Delivery Address</Header>
