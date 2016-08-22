@@ -76,7 +76,7 @@ class PayUTransactionCollection(Resource):
             'merchantReference': invoice.id,
             'returnUrl': base_return_url + '/payment-confirmation',
             'cancelUrl': base_return_url + '/payment-cancellation',
-            'supportedPaymentMethods': 'CREDITCARD',
+            'supportedPaymentMethods': 'CREDITCARD,EFT_PRO',
             'notificationUrl': current_app.config['PAYU_NOTIFICATION_URL']
         }
         customer = {
