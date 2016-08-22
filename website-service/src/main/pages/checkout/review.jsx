@@ -20,6 +20,7 @@ import apiEndpoint from 'apiEndpoint.js'
 class DeliveryForm extends React.Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    isSubmitting: PropTypes.bool.isRequired,
   }
 
   constructor() {
@@ -46,6 +47,7 @@ class DeliveryForm extends React.Component {
 
   render() {
     const { streetAddress, suburb, city } = this.state
+    const { isSubmitting } = this.props
     return (
       <Form onSubmit={this.onSubmit}>
         <Field label="Street Address" required>
@@ -75,7 +77,7 @@ class DeliveryForm extends React.Component {
             required
           />
         </Field>
-        <Button color="green">Proceed</Button>
+        <Button color="green" state={isSubmitting ? 'loading' : ''}>Proceed</Button>
       </Form>
     )
   }
@@ -87,10 +89,11 @@ class Review extends React.Component {
     cart: PropTypes.object.isRequired,
     cartProducts: PropTypes.array.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    isSubmitting: PropTypes.bool.isRequired,
   }
 
   render() {
-    const { cart, cartProducts, onSubmit } = this.props
+    const { cart, cartProducts, onSubmit, isSubmitting } = this.props
     const festival = cart.festival
     return (
       <div>
@@ -143,7 +146,7 @@ class Review extends React.Component {
         <Header emphasis="dividing">2. Enter your Delivery Address</Header>
         <Grid>
           <Column width={5}>
-            <DeliveryForm onSubmit={onSubmit} />
+            <DeliveryForm onSubmit={onSubmit} isSubmitting={isSubmitting} />
           </Column>
         </Grid>
       </div>
@@ -166,6 +169,7 @@ export default class ReviewContainer extends React.Component {
       cart: null,
       cartProducts: null,
       error: null,
+      isSubmitting: false,
     }
     this.onProceed = this.onProceed.bind(this)
     this.fetchCart = this.fetchCart.bind(this)
@@ -178,6 +182,7 @@ export default class ReviewContainer extends React.Component {
   }
 
   onProceed(addressData) {
+    this.setState({ isSubmitting: true })
     const a = addressData
     const { axios } = this.context
     const cartId = this.state.cart.id
@@ -229,7 +234,7 @@ export default class ReviewContainer extends React.Component {
   }
 
   render() {
-    const { cart, cartProducts, error } = this.state
+    const { cart, cartProducts, error, isSubmitting } = this.state
     const isReady = cart && cartProducts
     return (
       <Page
@@ -240,6 +245,7 @@ export default class ReviewContainer extends React.Component {
               cart={cart}
               cartProducts={cartProducts}
               onSubmit={this.onProceed}
+              isSubmitting={isSubmitting}
             />
           : ''
         }
