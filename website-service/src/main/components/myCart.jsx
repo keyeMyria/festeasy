@@ -116,9 +116,13 @@ export default class Cart extends React.Component {
             ))}
           </tbody>
         </Table>
-        <div>
-          <div>Total: <PriceFormatter rands={cart.total_rands} /></div>
+        <div className="ui right aligned container">
+          <div style={{ fontSize: 18 }}>
+            Total: <PriceFormatter rands={cart.total_rands} />
+          </div>
+          <br />
           <Button
+            color="green"
             onClick={onCheckout}
             disabled={!(cart.festival_id && cartProducts.length > 0)}
           >

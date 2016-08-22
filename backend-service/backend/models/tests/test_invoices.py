@@ -32,6 +32,7 @@ class TestInvoice(ModelTestCase):
         db.session.commit()
 
         order = Order.from_cart(user.cart)
+        order.shipping_address = 'some address'
         db.session.add(order)
         db.session.commit()
 
@@ -67,6 +68,7 @@ class TestInvoice(ModelTestCase):
         db.session.add(user)
         db.session.commit()
         order = Order.from_cart(user.cart)
+        order.shipping_address = 'some address'
         db.session.add(order)
         db.session.commit()
         invoice = Invoice.from_order(order)
@@ -89,6 +91,7 @@ class TestInvoice(ModelTestCase):
         db.session.add(user)
         db.session.commit()
         order = Order.from_cart(user.cart)
+        order.shipping_address = 'some address'
         db.session.add(order)
         db.session.commit()
         invoice = Invoice.from_order(order)
@@ -117,6 +120,7 @@ class TestInvoice(ModelTestCase):
         db.session.add(user)
         db.session.commit()
         order = Order.from_cart(user.cart)
+        order.shipping_address = 'some address'
         db.session.add(order)
         db.session.commit()
         invoice = Invoice.from_order(order)

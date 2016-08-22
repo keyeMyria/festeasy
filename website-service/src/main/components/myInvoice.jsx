@@ -19,7 +19,7 @@ export default class Invoice extends React.Component {
     const { invoice, invoiceProducts, makePayment, isCheckingOut } = this.props
     return (
       <div>
-        <Header>Invoice {invoice.id}</Header>
+        <Header>Order #{invoice.order_id}</Header>
         <Table>
           <thead>
             <Tr>
@@ -40,12 +40,18 @@ export default class Invoice extends React.Component {
             ))}
           </tbody>
         </Table>
-        <div>
-          Total due: <PriceFormatter rands={invoice.amount_due_rands} />
+        <div className="ui right aligned container">
+          <div style={{ fontSize: 18 }}>
+            Total Due: <PriceFormatter rands={invoice.amount_due_rands} />
+          </div>
           <br />
           {invoice.amount_due_rands > 0 ?
-            <Button onClick={makePayment} state={isCheckingOut ? 'loading' : ''}>
-              Make payment
+            <Button
+              color="green"
+              onClick={makePayment}
+              state={isCheckingOut ? 'loading' : ''}
+            >
+              Make Payment
             </Button> : ''
           }
         </div>
