@@ -20,7 +20,7 @@ query_args = {
 # TODO: Abstract.
 def filter_checkoutable(q):
     now = datetime.datetime.now()
-    return q.filter(Festival.starts_on > now + datetime.timedelta(days=7))
+    return q.filter(Festival.starts_on > now + datetime.timedelta(hours=1))
 
 
 class FestivalCollection(Resource):
