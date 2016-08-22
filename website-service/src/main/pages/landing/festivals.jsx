@@ -10,6 +10,7 @@ import {
   Cards,
   Card,
 } from 'semantic-react'
+import SelectFestivalButton from 'main/components/selectFestivalButton.jsx'
 
 
 export default class FestivalsContainer extends React.Component {
@@ -48,26 +49,32 @@ export default class FestivalsContainer extends React.Component {
         >
           <Content>
             <Header>
-              <Link to={`/festivals/${f.id}`}>
+              <Link
+                to={`/festivals/${f.id}`}
+              >
                 {f.name}
               </Link>
             </Header>
             <Description>
               {f.description}
             </Description>
+            <SelectFestivalButton style={{ zIndex: 999 }} festival={f} />
           </Content>
         </Card>
       ))
     }
     return (
-      <div>
+      <div style={{ paddingTop: 30 }}>
         <Header
           aligned="center"
           size="huge"
+          style={{
+            fontSize: 60,
+          }}
         >
           find your festival
         </Header>
-        <Grid>
+        <Grid style={{ fontSize: 20 }}>
           <Row>
             <Column aligned="center">
               <p>
@@ -88,7 +95,7 @@ export default class FestivalsContainer extends React.Component {
           <Cards className="three">
             {festivals}
           </Cards>
-          <Grid centered>
+          <Grid aligned="center">
             <Column>
               <Link
                 to="/festivals"

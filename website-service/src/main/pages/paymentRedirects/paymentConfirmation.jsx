@@ -7,7 +7,7 @@ export default class PaymentConfirmation extends React.Component {
     return (
       <Container>
         <Header aligned="center">Payment Confirmed</Header>
-        <Grid centered>
+        <Grid aligned="center">
           <Column>
             <p>
               Yay! Thank you for using FestEasy!

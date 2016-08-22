@@ -8,10 +8,10 @@ export default class PaymentCancellation extends React.Component {
     return (
       <Container>
         <Header aligned="center">Payment Cancelled</Header>
-        <Grid centered>
+        <Grid aligned="center">
           <Column>
             <p>
-              Hello! It looks like you have cancelled your payment.
+              Hello! It looks like your payment was cancelled.
             </p>
             <p>
               If you would like to re-try your payment, please go to&nbsp;
