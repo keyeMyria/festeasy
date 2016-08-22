@@ -39,12 +39,12 @@ class Bar extends React.Component {
   onSubmit(e) {
     e.preventDefault()
     const { searchTerm } = this.state
+    const location = { pathname: '/store' }
     if (searchTerm) {
-      this.context.router.push({
-        pathname: '/search',
-        query: { term: searchTerm },
-      })
+      location.pathname = '/search'
+      location.query = { term: searchTerm }
     }
+    this.context.router.push(location)
   }
 
   onChange(e) {
