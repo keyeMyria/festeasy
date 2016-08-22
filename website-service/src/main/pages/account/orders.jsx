@@ -7,6 +7,7 @@ import OrderList from 'main/components/myOrderList.jsx'
 export default class OrderListContainer extends React.Component {
   static contextTypes = {
     store: PropTypes.object.isRequired,
+    authDetails: PropTypes.object,
   }
 
   constructor() {
@@ -23,8 +24,8 @@ export default class OrderListContainer extends React.Component {
   }
 
   fetchOrders() {
-    const { store } = this.context
-    store.findAll('order', {}, { bypassCache: true })
+    const { store, authDetails } = this.context
+    store.findAll('order', { 'user-id': authDetails.userId }, { bypassCache: true })
       .then((orders) => {
         this.setState({
           orders,
