@@ -32,7 +32,7 @@ deployment:
       - curl http://festeasy-staging.herokuapp.com:
           background: true
       - git push -f git@heroku.com:festeasy-staging.git $CIRCLE_SHA1:master
-      - heroku run --app festeasy-staging "cd backend-service; python manage.py -c env db upgrade"
+      - heroku run --exit-code --app festeasy-staging "cd backend-service; python manage.py -c env db upgrade"
       - cd website-service; netlify -t $NETLIFY_TOKEN deploy -s 61317f4c-80d0-498c-a7f0-3dba72aca617 -p build
   production:
     branch: production
@@ -40,5 +40,5 @@ deployment:
       - curl http://festeasy-production.herokuapp.com:
           background: true
       - git push -f git@heroku.com:festeasy-production.git $CIRCLE_SHA1:master
-      - heroku run --app festeasy-production "cd backend-service; python manage.py -c env db upgrade"
+      - heroku run --exit-code --app festeasy-production "cd backend-service; python manage.py -c env db upgrade"
       - cd website-service; netlify -t $NETLIFY_TOKEN deploy -s a99d67e2-41d4-44b7-ba2e-e64659f01a20 -p build
