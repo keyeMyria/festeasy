@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router';
-import { Cards, Card, Header, Description, Content, Date } from 'semantic-react'
+import { Cards, Card, Header, Description, Content, Date, Image } from 'semantic-react'
 import { festivalShape } from 'utils/shapes.jsx'
 import Page from 'utils/page.jsx'
 import DateFormatter from 'utils/dateFormatter.jsx'
 import SelectFestivalButton from 'main/components/selectFestivalButton.jsx'
+import apiEndpoint from 'apiEndpoint.js'
 
 
 class FestivalList extends React.Component {
@@ -16,10 +17,23 @@ class FestivalList extends React.Component {
 
   render() {
     const { festivals } = this.props
+    const imageHeight = '270px'
     return (
       <Cards className="two">
         {festivals.map(festival => (
           <Card key={festival.id}>
+            <Link to={`/festivals/${festival.id}`}>
+              <div style={{ minHeight: imageHeight }}>
+                {festival.image_id ?
+                  <Image
+                    centered
+                    style={{ maxHeight: '270px', width: 'auto', height: 'auto' }}
+                    alt="product thumbnail"
+                    src={apiEndpoint.concat(`v1/images/${festival.image_id}/image`)}
+                  /> : 'No thumbnail image'
+                }
+              </div>
+            </Link>
             <Content>
               <Header>
                 <Link to={`/festivals/${festival.id}`}>

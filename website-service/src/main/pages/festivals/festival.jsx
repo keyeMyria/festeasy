@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router'
-import { Header, Breadcrumb, Divider } from 'semantic-react'
+import { Grid, Column, Image, Header, Breadcrumb, Divider } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import DateFormatter from 'utils/dateFormatter.jsx'
 import SelectFestivalButton from 'main/components/selectFestivalButton.jsx'
+import apiEndpoint from 'apiEndpoint.js'
 
 
 class Festival extends React.Component {
@@ -22,10 +23,24 @@ class Festival extends React.Component {
             {festival.name}
           </Link>
         </Breadcrumb>
-        <Header>{festival.name}</Header>
-        <p>{festival.description}</p>
-        <p>Starts On: <DateFormatter date={festival.starts_on} /></p>
-        <SelectFestivalButton festival={festival} />
+        <Grid columns={2}>
+          <Column>
+            {festival.image_id ?
+              <Image
+                centered
+                style={{ maxHeight: '270px', width: 'auto', height: 'auto' }}
+                alt="product thumbnail"
+                src={apiEndpoint.concat(`v1/images/${festival.image_id}/image`)}
+              /> : 'No thumbnail image'
+            }
+          </Column>
+          <Column>
+            <Header>{festival.name}</Header>
+            <p>{festival.description}</p>
+            <p>Starts On: <DateFormatter date={festival.starts_on} /></p>
+            <SelectFestivalButton festival={festival} />
+          </Column>
+        </Grid>
         <Divider />
       </div>
     )

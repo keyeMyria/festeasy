@@ -11,3 +11,4 @@ class FestivalSchema(EntitySchema):
     website_link = fields.Url()
     facebook_link = fields.Url()
     ticket_link = fields.Url()
+    image_id = fields.Integer()
