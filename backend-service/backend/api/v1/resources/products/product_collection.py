@@ -36,8 +36,8 @@ class ProductCollection(Resource):
         search_term = request.args.get('search')
         if search_term:
             q = search(q, search_term)
-        products = q.all()
-        return product_schema.dump(products, many=True).data
+        q = q.order_by(Product.created_on.desc())
+        return product_schema.dump(q.all(), many=True).data
 
     def post(self):
         load_data = product_schema.load(request.get_json()).data
