@@ -9,8 +9,10 @@ import {
   Description,
   Cards,
   Card,
+  Image,
 } from 'semantic-react'
 import SelectFestivalButton from 'main/components/selectFestivalButton.jsx'
+import apiEndpoint from 'apiEndpoint.js'
 
 
 export default class FestivalsContainer extends React.Component {
@@ -41,12 +43,24 @@ export default class FestivalsContainer extends React.Component {
 
   render() {
     let festivals = []
+    const imageHeight = '270px'
     if (this.state.festivals) {
       festivals = this.state.festivals.map((f) => (
         <Card
           key={f.id}
-          style={{ height: 200 }}
         >
+          <Link to={`/festivals/${f.id}`}>
+            <div style={{ minHeight: imageHeight }}>
+              {f.image_id ?
+                <Image
+                  centered
+                  style={{ maxHeight: '270px', width: 'auto', height: 'auto' }}
+                  alt="product thumbnail"
+                  src={apiEndpoint.concat(`v1/images/${f.image_id}/image`)}
+                /> : 'No thumbnail image'
+              }
+            </div>
+          </Link>
           <Content>
             <Header>
               <Link

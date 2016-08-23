@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -16,6 +16,12 @@ class Festival(db.Model, Entity):
     website_link = Column(String)
     ticket_link = Column(String)
     facebook_link = Column(String)
+
+    image_id = Column(ForeignKey('image.id'))
+    image = relationship(
+        'Image',
+        back_populates='festival',
+    )
 
     orders = relationship(
         'Order',

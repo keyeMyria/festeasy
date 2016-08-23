@@ -133,6 +133,10 @@ def get_dummy_data():
             website_link='http://rockingthedaisies.com/',
             ticket_link='http://seed.nutickets.co.za/RTD2016',
             facebook_link='https://www.facebook.com/rockingthedaisiesfestival/?fref=ts',
+            image=Image(
+                file_data=open('../images/rtd.jpg', 'rb').read(),
+                filetype='jpg'
+            )
         ),
         Festival(
             name='Sunflower Fest',

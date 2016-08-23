@@ -19,3 +19,8 @@ class Image(db.Model, Entity):
         'Product',
         back_populates='thumbnail_image',
     )
+
+    festival = relationship(
+        'Festival',
+        back_populates='image',
+    )
