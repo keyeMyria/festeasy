@@ -47,6 +47,7 @@ export default class Cart extends React.Component {
         {festival.name} - {moment(festival.starts_on).format('YYYY')}
       </Option>
     ))
+    const imageHeight = 40
     return (
       <div className="ui segment">
         {!cart.festival_id ?
@@ -81,11 +82,11 @@ export default class Cart extends React.Component {
                         {cp.product.thumbnail_image_id ?
                           <Image
                             centered
-                            style={{ maxHeight: '40px', width: 'auto', height: 'auto' }}
+                            style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
                             alt="product thumbnail"
-                            src={
-                              apiEndpoint.concat(`v1/images/${cp.product.thumbnail_image_id}/image`)
-                            }
+                            src={apiEndpoint.concat(
+                              `v1/images/${cp.product.thumbnail_image_id}/image?height=${imageHeight}`
+                            )}
                           /> : 'No thumbnail image'
                         }
                       </Column>

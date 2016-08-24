@@ -14,6 +14,7 @@ class Festival extends React.Component {
 
   render() {
     const { festival } = this.props
+    const imageHeight = 250
     return (
       <div>
         <Breadcrumb>
@@ -23,14 +24,18 @@ class Festival extends React.Component {
             {festival.name}
           </Link>
         </Breadcrumb>
+        <br />
+        <br />
         <Grid columns={2}>
-          <Column>
+          <Column width={6}>
             {festival.image_id ?
               <Image
                 centered
-                style={{ maxHeight: '270px', width: 'auto', height: 'auto' }}
+                style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
                 alt="product thumbnail"
-                src={apiEndpoint.concat(`v1/images/${festival.image_id}/image`)}
+                src={apiEndpoint.concat(
+                  `v1/images/${festival.image_id}/image?height=${imageHeight}`
+                )}
               /> : 'No thumbnail image'
             }
           </Column>

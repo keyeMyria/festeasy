@@ -17,7 +17,7 @@ class FestivalList extends React.Component {
 
   render() {
     const { festivals } = this.props
-    const imageHeight = '270px'
+    const imageHeight = '250'
     return (
       <Cards className="two">
         {festivals.map(festival => (
@@ -27,9 +27,11 @@ class FestivalList extends React.Component {
                 {festival.image_id ?
                   <Image
                     centered
-                    style={{ maxHeight: '270px', width: 'auto', height: 'auto' }}
+                    style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
                     alt="product thumbnail"
-                    src={apiEndpoint.concat(`v1/images/${festival.image_id}/image`)}
+                    src={apiEndpoint.concat(
+                      `v1/images/${festival.image_id}/image?height=${imageHeight}`
+                    )}
                   /> : 'No thumbnail image'
                 }
               </div>
