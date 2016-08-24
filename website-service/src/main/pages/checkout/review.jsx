@@ -95,6 +95,7 @@ class Review extends React.Component {
   render() {
     const { cart, cartProducts, onSubmit, isSubmitting } = this.props
     const festival = cart.festival
+    const imageHeight = 40
     return (
       <div>
         <Header emphasis="dividing">1. Review your cart for {festival.name}</Header>
@@ -116,11 +117,11 @@ class Review extends React.Component {
                       {cp.product.thumbnail_image_id ?
                         <Image
                           centered
-                          style={{ maxHeight: '40px', width: 'auto', height: 'auto' }}
+                          style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
                           alt="product thumbnail"
-                          src={
-                            apiEndpoint.concat(`v1/images/${cp.product.thumbnail_image_id}/image`)
-                          }
+                          src={apiEndpoint.concat(
+                            `v1/images/${cp.product.thumbnail_image_id}/image?height=${imageHeight}`
+                          )}
                         /> : 'No thumbnail image'
                       }
                     </Column>
