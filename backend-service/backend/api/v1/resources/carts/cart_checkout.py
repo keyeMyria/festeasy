@@ -25,7 +25,7 @@ class CartCheckout(Resource):
             )
         now = datetime.datetime.now()
         # TODO: Abstract.
-        if cart.festival.starts_on < now + datetime.timedelta(hours=1):
+        if cart.festival.starts_on < now + datetime.timedelta(days=2):
             raise APIException(
                 status_code=400,
                 message="Festival starts too soon."
