@@ -31,7 +31,7 @@ const loaders = [
     test: /\.(jpe?g|png|gif|svg)$/,
     loaders: [
       'file?hash=sha512&digest=hex&name=[hash].[ext]',
-      'image-webpack?bypassOnDebug&optimizationLevel=5&interlaced=false',
+      'image-webpack?bypassOnDebug&optimizationLevel=1&interlaced=false',
     ],
   },
   {
