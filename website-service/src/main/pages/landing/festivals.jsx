@@ -43,7 +43,7 @@ export default class FestivalsContainer extends React.Component {
 
   render() {
     let festivals = []
-    const imageHeight = '200'
+    const imageHeight = '200px'
     if (this.state.festivals) {
       festivals = this.state.festivals.map((f) => (
         <Card
@@ -57,7 +57,7 @@ export default class FestivalsContainer extends React.Component {
                   style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
                   alt="product thumbnail"
                   src={apiEndpoint.concat(
-                    `v1/images/${f.image_id}/image?height=${imageHeight}`
+                    `v1/images/${f.image_id}/image?height=250`
                   )}
                 /> : 'No thumbnail image'
               }

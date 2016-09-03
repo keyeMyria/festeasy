@@ -28,10 +28,10 @@ const loaders = [
     loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
   },
   {
-    test: /\.(jpe?g|png|gif|svg)$/i,
+    test: /\.(jpe?g|png|gif|svg)$/,
     loaders: [
       'file?hash=sha512&digest=hex&name=[hash].[ext]',
-      'image-webpack?bypassOnDebug&optimizationLevel=8&interlaced=false',
+      'image-webpack?bypassOnDebug&optimizationLevel=1&interlaced=false',
     ],
   },
   {
