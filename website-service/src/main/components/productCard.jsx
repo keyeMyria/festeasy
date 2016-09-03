@@ -19,7 +19,7 @@ export default class ProductCard extends React.Component {
 
   render() {
     const { product } = this.props
-    const imageHeight = '200'
+    const imageHeight = '200px'
     return (
       <Card>
         <Link to={`/store/products/${product.id}`}>
@@ -30,7 +30,7 @@ export default class ProductCard extends React.Component {
                 style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
                 alt="product thumbnail"
                 src={apiEndpoint.concat(
-                  `v1/images/${product.thumbnail_image_id}/image?height=${imageHeight}`
+                  `v1/images/${product.thumbnail_image_id}/image?height=200`
                 )}
               /> : 'No thumbnail image'
             }
