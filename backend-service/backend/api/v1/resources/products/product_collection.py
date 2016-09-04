@@ -45,10 +45,13 @@ def filter_categories(q, category):
 
 
 def search(q, search_term):
+    q = q.outerjoin(ProductCategory)
+    q = q.outerjoin(Category)
     q = q.filter(
         or_(
-            Product.name.ilike("%{0}%".format(search_term)),
-            Product.description.ilike("%{0}%".format(search_term)),
+            Category.name.ilike('%{0}%'.format(search_term)),
+            Product.name.ilike('%{0}%'.format(search_term)),
+            Product.description.ilike('%{0}%'.format(search_term)),
         )
     )
     return q
