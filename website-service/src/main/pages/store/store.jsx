@@ -3,13 +3,8 @@ import NavLink from 'common/navLink.jsx'
 
 
 export default class Store extends React.Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
   static propTypes = {
     children: PropTypes.any.isRequired,
-    location: PropTypes.object.isRequired,
   }
 
   render() {
