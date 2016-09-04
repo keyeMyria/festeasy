@@ -1,34 +1,7 @@
 import React, { PropTypes } from 'react'
-import { Cards } from 'semantic-react'
 import Page from 'utils/page.jsx'
-import ProductCard from 'main/components/productCard.jsx'
 import hocProducts from 'common/hocProducts.jsx'
-
-
-class ProductList extends React.Component {
-  static propTypes = {
-    products: PropTypes.arrayOf(
-      PropTypes.object
-    ).isRequired,
-  }
-
-  render() {
-    const { products } = this.props
-    let result
-    if (products.length === 0) {
-      result = <div>No results</div>
-    } else {
-      result = (
-        <Cards className="four">
-          {products.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </Cards>
-      )
-    }
-    return result
-  }
-}
+import ProductList from 'main/components/productList.jsx'
 
 
 class Popular extends React.Component {
@@ -99,7 +72,7 @@ class RecentlyAdded extends React.Component {
 const WrappedRecentlyAdded = hocProducts(RecentlyAdded)
 
 
-export default class ProductsPage extends React.Component {
+export default class ProductsLandingPage extends React.Component {
   render() {
     return (
       <div>
