@@ -10,4 +10,6 @@ supplier_schema = SupplierSchema()
 class SupplierCollection(Resource):
     def get(self):
         suplliers = Supplier.query.all()
-        return supplier_schema.dump(suplliers, many=True).data
+        return {
+            'data': supplier_schema.dump(suplliers, many=True).data,
+        }

@@ -1,64 +1,38 @@
 import React, { PropTypes } from 'react'
 import { Header, Form, Field, Option, Input, Button } from 'semantic-react'
 import MySelect from 'utils/mySelect.jsx'
+import hocProducts from 'common/hocProducts.jsx'
+import hocSuppliers from 'common/hocSuppliers.jsx'
 
 
-export default class CreateStockPage extends React.Component {
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-    axios: PropTypes.func.isRequired,
+class CreateStockUnitForm extends React.Component {
+  static propTypes = {
+    products: PropTypes.array.isRequired,
+    suppliers: PropTypes.array.isRequired,
   }
 
   constructor() {
     super()
     this.state = {
-      products: null,
-      selectedProduct: null,
-      suppliers: null,
-      selectedSupplier: null,
-      quantity: '',
+      selectProduct: null,
+      selectSupplier: null,
+      quantity: 1,
       unitCost: '',
     }
-    this.fetchProducts = this.fetchProducts.bind(this)
-    this.fetchSuppliers = this.fetchSuppliers.bind(this)
-    this.getForm = this.getForm.bind(this)
-    this.selectProduct = this.selectProduct.bind(this)
-    this.selectSupplier = this.selectSupplier.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
-  }
-
-  componentDidMount() {
-    this.fetchProducts()
-    this.fetchSuppliers()
   }
 
   onSubmit(e) {
     e.preventDefault()
-    const {
-      selectedProduct,
-      selectedSupplier,
-      unitCost,
-      quantity,
-    } = this.state
-    const data = [...Array(quantity).keys()].map(() => (
-      {
-        product_id: selectedProduct.id,
-        supplier_id: selectedSupplier.id,
-        cost_rands: unitCost,
-      }
-    ))
-    this.context.axios({
-      method: 'post',
-      url: 'v1/stock-units',
-      data,
-    })
   }
 
-  getForm() {
+  render() {
     const {
       products,
-      selectedProduct,
       suppliers,
+    } = this.props
+    const {
+      selectedProduct,
       selectedSupplier,
       quantity,
       unitCost,
@@ -73,7 +47,6 @@ export default class CreateStockPage extends React.Component {
         {s.name}
       </Option>
     ))
-
     return (
       <div>
         <Header>Create Stock Unit</Header>
@@ -83,7 +56,7 @@ export default class CreateStockPage extends React.Component {
               placeholder="Select product..."
               selected={selectedProduct ? [selectedProduct] : []}
               options={productOptions}
-              updateSelected={this.selectProduct}
+              updateSelected={ps => this.setState({ selectedProduct: ps[0] })}
             />
           </Field>
           <Field label="Supplier">
@@ -91,21 +64,26 @@ export default class CreateStockPage extends React.Component {
               placeholder="Select supplier..."
               selected={selectedSupplier ? [selectedSupplier] : []}
               options={supplierOptions}
-              updateSelected={this.selectSupplier}
+              updateSelected={ss => this.setState({ selectedSupplier: ss[0] })}
             />
           </Field>
           <Field label="Quantity">
             <Input
               type="number"
-              value={quantity}
+              min={1}
+              max={10}
+              value={quantity || ''}
               onChange={(e) => this.setState({ quantity: parseInt(e.target.value, 10) })}
+              required
             />
           </Field>
           <Field label="Unit Cost">
             <Input
               type="number"
-              value={unitCost}
+              min={0}
+              value={unitCost || ''}
               onChange={(e) => this.setState({ unitCost: e.target.value })}
+              required
             />
           </Field>
           <Button>Submit</Button>
@@ -113,40 +91,36 @@ export default class CreateStockPage extends React.Component {
       </div>
     )
   }
+}
 
-  selectProduct(products) {
-    return new Promise((resolve) => {
-      this.setState({ selectedProduct: products[0] }, resolve())
-    })
+
+class CreateStockPage extends React.Component {
+  static propTypes = {
+    fetchProducts: PropTypes.func.isRequired,
+    fetchSuppliers: PropTypes.func.isRequired,
+    fetchProductsResponse: PropTypes.object.isRequired,
+    fetchSuppliersResponse: PropTypes.object.isRequired,
   }
 
-  selectSupplier(suppliers) {
-    return new Promise((resolve) => {
-      this.setState({ selectedSupplier: suppliers[0] }, resolve())
-    })
-  }
-
-  fetchSuppliers() {
-    this.context.store.findAll('supplier')
-    .then((suppliers) => {
-      this.setState({ suppliers })
-    })
-  }
-
-  fetchProducts() {
-    this.context.store.findAll('product')
-    .then((products) => {
-      this.setState({ products })
-    })
+  componentDidMount() {
+    this.props.fetchProducts()
+    this.props.fetchSuppliers()
   }
 
   render() {
-    const { products, suppliers } = this.state
-    const isReady = products && suppliers
+    const { fetchProductsResponse, fetchSuppliersResponse } = this.props
+    const isReady = fetchProductsResponse.data && fetchSuppliersResponse.data
     return (
       <div>
-        {isReady ? this.getForm() : 'loading...' }
+        {isReady ?
+          <CreateStockUnitForm
+            products={fetchProductsResponse.data}
+            suppliers={fetchSuppliersResponse.data}
+          /> : ''}
       </div>
     )
   }
 }
+
+
+export default hocProducts(hocSuppliers(CreateStockPage))
