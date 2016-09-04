@@ -16,9 +16,8 @@ def get_dummy_data():
         cart=Cart()
     )]
     now = datetime.datetime.now()
-    drinks = Category(name='Drinks')
-    beer = Category(name='Beer')
-    food = Category(name='Food')
+    drinks = Category(name='drinks')
+    food = Category(name='food')
     castle = Product(
         name='Castle Lite Beer',
         cost_rands=10,
@@ -28,12 +27,9 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/castle_light.png', 'rb').read(),
             filetype='png'
-        )
+        ),
+        product_categories=[ProductCategory(category=drinks)]
     )
-    castle.product_categories.extend([
-        ProductCategory(product=castle, category=beer),
-        ProductCategory(product=castle, category=drinks),
-    ])
     items.append(castle)
     lays = Product(
         name='Lays Small Pack',
@@ -44,11 +40,9 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/lays.png', 'rb').read(),
             filetype='png'
-        )
+        ),
+        product_categories=[ProductCategory(category=food)]
     )
-    lays.product_categories.extend([
-        ProductCategory(product=lays, category=food)
-    ])
     items.append(lays)
     coke = Product(
         name='Coke Can',
@@ -59,11 +53,10 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/coke_can.png', 'rb').read(),
             filetype='png'
-        )
+        ),
+        product_categories=[ProductCategory(category=drinks)]
     )
-    coke.product_categories.extend([
-        ProductCategory(product=coke, category=drinks)
-    ])
+    items.append(coke)
     windhoek = Product(
         name='Windhoek Beer',
         cost_rands=10,
@@ -73,12 +66,9 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/windhoek.png', 'rb').read(),
             filetype='png'
-        )
+        ),
+        product_categories=[ProductCategory(category=drinks)]
     )
-    windhoek.product_categories.extend([
-        ProductCategory(product=windhoek, category=drinks),
-        ProductCategory(product=windhoek, category=beer),
-    ])
     items.append(windhoek)
     text = Product(
         name='Text Chocolate',
@@ -89,11 +79,9 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/tex.png', 'rb').read(),
             filetype='png'
-        )
+        ),
+        product_categories=[ProductCategory(category=food)]
     )
-    text.product_categories.extend([
-        ProductCategory(product=text, category=food),
-    ])
     items.append(text)
     kitkat = Product(
         name='KitKat Chocolate',
@@ -104,11 +92,9 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/kitkat.png', 'rb').read(),
             filetype='png'
-        )
+        ),
+        product_categories=[ProductCategory(category=food)]
     )
-    kitkat.product_categories.extend([
-        ProductCategory(product=kitkat, category=food),
-    ])
     items.append(kitkat)
     jelly_beans = Product(
         name='Jelly Beans',
@@ -119,11 +105,10 @@ def get_dummy_data():
         thumbnail_image=Image(
             file_data=open('../images/jellybeans.png', 'rb').read(),
             filetype='png'
-        )
+        ),
+        product_categories=[ProductCategory(category=food)]
     )
-    jelly_beans.product_categories.extend([
-        ProductCategory(product=jelly_beans, category=food),
-    ])
+    items.append(jelly_beans)
     festivals = [
         Festival(
             name='Rocking The Daisies',
