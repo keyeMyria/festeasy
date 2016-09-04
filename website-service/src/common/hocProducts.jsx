@@ -21,7 +21,6 @@ export default function(WrappedComponent) {
     }
 
     fetchProducts(queryParams) {
-      console.log(queryParams)
       const state = this.state.fetchProductsResponse
       state.isLoading = true
       this.setState({ fetchProductsResponse: state })
