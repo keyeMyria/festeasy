@@ -14,8 +14,8 @@ class CreateStockUnitForm extends React.Component {
   constructor() {
     super()
     this.state = {
-      selectProduct: null,
-      selectSupplier: null,
+      selectedProduct: null,
+      selectedSupplier: null,
       quantity: 1,
       unitCost: '',
     }
@@ -24,6 +24,13 @@ class CreateStockUnitForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault()
+    const { selectedProduct, selectedSupplier, quantity, unitCost } = this.state
+    this.props.createStockUnit({
+      product_id: selectedProduct.id,
+      supplier_id: selectedSupplier.id,
+      quantity,
+      cost_rands: unitCost,
+    })
   }
 
   render() {
@@ -77,7 +84,7 @@ class CreateStockUnitForm extends React.Component {
               required
             />
           </Field>
-          <Field label="Unit Cost">
+          <Field label="Unit Cost (Rands)">
             <Input
               type="number"
               min={0}
