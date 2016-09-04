@@ -31,45 +31,29 @@ class SearchResults extends React.Component {
 
 
 export default class SearchContainer extends React.Component {
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-  }
-
   static propTypes = {
     location: PropTypes.object.isRequired,
-  }
-
-  constructor() {
-    super()
-    this.state = {
-      products: null,
-      festivals: null,
-    }
-    this.fetchProducts = this.fetchProducts.bind(this)
+    fetchProducts: PropTypes.func.isRequired,
+    fetchProductsResponse: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
-    this.fetchProducts()
+    this.props.fetchProducts({
+      search: this.props.location.query.term || '',
+    })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchProducts({
-      search: nextProps.location.query.term,
-    })
-  }
-
-  fetchProducts(params) {
-    this.context.store.findAll(
-      'product',
-      { search: params ? params.search : this.props.location.query.term || '' },
-    )
-    .then((products) => {
-      this.setState({ products })
-    })
+    if (nextProps.location.query.term !== this.props.location.query.term) {
+      this.props.fetchProducts({
+        search: nextProps.location.query.term || '',
+      })
+    }
   }
 
   render() {
-    const { products } = this.state
+    const { fetchProductsResponse } = this.props
+    const products = fetchProductsResponse.data
     const isReady = !!products
     return (
       <div className="ui container">

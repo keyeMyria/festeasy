@@ -18,7 +18,7 @@ class TestProductCollection(APITestCase):
             url_for(endpoint),
         )
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
-        self.assertEqual(repsonse.json[0]['id'], product.id, repsonse.json)
+        self.assertEqual(repsonse.json['data'][0]['id'], product.id, repsonse.json)
 
     def test_post(self):
         product_name = 'asdf'
