@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Cards } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import ProductCard from 'main/components/productCard.jsx'
+import hocProducts from 'common/hocProducts.jsx'
 
 
 class ProductList extends React.Component {
@@ -30,67 +31,81 @@ class ProductList extends React.Component {
 }
 
 
-export default class ProductListContainer extends React.Component {
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-  }
-
+class Popular extends React.Component {
   static propTypes = {
-    location: PropTypes.object.isRequired,
-  }
-
-  constructor() {
-    super()
-    this.state = {
-      error: null,
-      products: null,
-    }
-    this.fetchProducts = this.fetchProducts.bind(this)
+    fetchProducts: PropTypes.func.isRequired,
+    fetchProductsResponse: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
-    const params = {}
-    const searchTerm = this.props.location.query.search
-    if (searchTerm) {
-      params.search = searchTerm
-    }
-    this.fetchProducts(params)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.fetchProducts({
-      search: nextProps.location.query.search,
+    this.props.fetchProducts({
+      'page-size': 4,
+      'order-by': 'created_on',
+      'order-direction': 'asc',
     })
   }
 
-  fetchProducts(params) {
-    const { store } = this.context
-    store.findAll('product', params)
-      .then((products) => {
-        this.setState({
-          loading: false,
-          error: null,
-          products,
-        })
-      })
-      .catch(() => {
-        this.setState({
-          loading: false,
-          error: 'Something went wrong',
-        })
-      })
+  render() {
+    const { fetchProductsResponse } = this.props
+    const products = fetchProductsResponse.data
+    const errors = fetchProductsResponse.errors
+    return (
+      <div>
+        <h2 className="ui header">Popular</h2>
+        <Page
+          isLoading={!products && !errors}
+          content={
+            products ? <ProductList products={products} /> : ''
+          }
+        />
+      </div>
+    )
+  }
+}
+const WrappedPopular = hocProducts(Popular)
+
+
+class RecentlyAdded extends React.Component {
+  static propTypes = {
+    fetchProducts: PropTypes.func.isRequired,
+    fetchProductsResponse: PropTypes.object.isRequired,
+  }
+
+  componentDidMount() {
+    this.props.fetchProducts({
+      'page-size': 4,
+      'order-by': 'created_on',
+      'order-direction': 'desc',
+    })
   }
 
   render() {
-    const { products, error } = this.state
+    const { fetchProductsResponse } = this.props
+    const products = fetchProductsResponse.data
+    const errors = fetchProductsResponse.errors
     return (
-      <Page
-        isLoading={!products && !error}
-        contentError={error}
-        content={
-          products ? <ProductList products={products} /> : ''
-        }
-      />
+      <div>
+        <h2 className="ui header">Recently Added</h2>
+        <Page
+          isLoading={!products && !errors}
+          content={
+            products ? <ProductList products={products} /> : ''
+          }
+        />
+      </div>
+    )
+  }
+}
+const WrappedRecentlyAdded = hocProducts(RecentlyAdded)
+
+
+export default class ProductsPage extends React.Component {
+  render() {
+    return (
+      <div>
+        <WrappedRecentlyAdded />
+        <WrappedPopular />
+      </div>
     )
   }
 }

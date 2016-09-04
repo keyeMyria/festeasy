@@ -25,6 +25,7 @@ import RecoverPassword from 'main/pages/recoverPassword.jsx'
 import ResetPassword from 'main/pages/resetPassword.jsx'
 import HowItWorks from 'main/pages/howItWorks/howItWorks.jsx'
 import Search from 'main/pages/search/search.jsx'
+import hocProducts from 'common/hocProducts.jsx'
 
 
 export default (
@@ -33,8 +34,9 @@ export default (
     <Route path="search" component={Search} />
     <Route path="how-it-works" component={HowItWorks} />
     <Route path="store" component={Store}>
-      <IndexRoute component={Products} />
+      <IndexRoute component={hocProducts(Products)} />
       <Route path="products/:productId" component={Product} />
+      <Route path="categories/:categoryName" />
     </Route>
     <Route path="sign-up" component={SignUp} />
     <Route path="sign-in" component={SignIn} />
