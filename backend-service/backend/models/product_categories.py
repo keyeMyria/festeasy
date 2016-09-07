@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -22,4 +22,8 @@ class ProductCategory(db.Model, Entity):
     category = relationship(
         'Category',
         back_populates='product_categories',
+    )
+
+    __table_args__ = (
+        UniqueConstraint('product_id', 'category_id'),
     )
