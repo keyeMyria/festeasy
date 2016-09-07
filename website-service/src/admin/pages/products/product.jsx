@@ -1,16 +1,21 @@
 import React, { PropTypes, Component } from 'react'
+import { Option } from 'semantic-react'
+import genericHOC from 'common/genericHOC.jsx'
 import { Loader } from 'utils/loader.jsx'
 import { Error } from 'utils/error.jsx'
 import { BasicForm } from 'utils/form.jsx'
+import { MultiSelect } from 'utils/select.jsx'
 
 
-export default class ProductPage extends Component {
+class ProductPage extends Component {
   static contextTypes = {
     axios: PropTypes.func.isRequired,
   }
 
   static propTypes = {
     params: PropTypes.object.isRequired,
+    fetchCategories: PropTypes.func.isRequired,
+    fetchCategoriesResponse: PropTypes.object.isRequired,
   }
 
   constructor() {
@@ -33,6 +38,7 @@ export default class ProductPage extends Component {
 
   componentDidMount() {
     this.fetchProduct()
+    this.props.fetchCategories({ 'product-id': this.props.params.productId })
   }
 
   fetchProduct = () => {
@@ -56,6 +62,7 @@ export default class ProductPage extends Component {
   }
 
   handleSubmit = formData => {
+    console.log(formData)
     const { productId } = this.props.params
     const state = Object.assign(this.state.updateProductResponse)
     state.isLoading = true
@@ -82,11 +89,15 @@ export default class ProductPage extends Component {
 
   render() {
     let result = <Loader />
+    const { fetchCategoriesResponse } = this.props
     const { fetchProductResponse, updateProductResponse } = this.state
     if (fetchProductResponse.errors) {
       result = <Error />
-    } else if (updateProductResponse.data || fetchProductResponse.data) {
+    } else if (
+      (updateProductResponse.data || fetchProductResponse.data) && fetchCategoriesResponse.data
+    ) {
       const p = updateProductResponse.data ? updateProductResponse.data : fetchProductResponse.data
+      const categories = fetchCategoriesResponse.data
       result = (
         <BasicForm
           onSubmit={this.handleSubmit}
@@ -107,6 +118,20 @@ export default class ProductPage extends Component {
               label: 'Price (Rands)',
               initialValue: p.price_rands,
             },
+            {
+              attr: 'categories',
+              label: 'Categories',
+              component: MultiSelect,
+              componentProps: {
+                placeholder: 'Select categories...',
+                props: {
+                  search: true,
+                },
+                options: categories.map((c) => (
+                  <Option key={c.id} value={c}>{c.name}</Option>
+                )),
+              },
+            },
           ]}
         />
       )
@@ -114,3 +139,10 @@ export default class ProductPage extends Component {
     return result
   }
 }
+
+
+export default genericHOC('Categories', 'v1/categories')(
+  genericHOC('Product', 'v1/products')(
+    ProductPage
+  )
+)
