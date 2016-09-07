@@ -50,33 +50,31 @@ export default class ProductPage extends Component {
     })
     .catch((r) => {
       state.isLoading = false
-      state.data = r.data.data
-      state.errors = null
-      state.meta = r.data.meta
+      state.errors = r.data ? r.data.errors : []
       this.setState({ fetchProductResponse: state })
     })
   }
 
   handleSubmit = formData => {
     const { productId } = this.props.params
-    const updateState = Object.assign(this.state.updateProductResponse)
-    updateState.isLoading = true
-    this.setState({ updateProductResponse: updateState })
+    const state = Object.assign(this.state.updateProductResponse)
+    state.isLoading = true
+    this.setState({ updateProductResponse: state })
     // TODO: Why does returning axios.patch do what I want in BasicForm.
     return new Promise((resolve, reject) => (
       this.context.axios.patch(`v1/products/${productId}`, formData)
       .then((r) => {
-        updateState.isLoading = false
-        updateState.data = r.data.data
-        updateState.errors = null
-        updateState.meta = r.data.meta
-        this.setState({ updateProductResponse: updateState })
+        state.isLoading = false
+        state.data = r.data.data
+        state.errors = null
+        state.meta = r.data.meta
+        this.setState({ updateProductResponse: state })
         resolve(r)
       })
       .catch((r) => {
-        updateState.isLoading = false
-        updateState.errors = r.data ? r.data.errors : []
-        this.setState({ updateProductResponse: updateState })
+        state.isLoading = false
+        state.errors = r.data ? r.data.errors : []
+        this.setState({ updateProductResponse: state })
         reject(r)
       })
     ))
