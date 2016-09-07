@@ -18,7 +18,7 @@ class TestProductSingleton(APITestCase):
             url_for(endpoint, product_id=product.id),
         )
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
-        self.assertEqual(repsonse.json['id'], product.id, repsonse.json)
+        self.assertEqual(repsonse.json['data']['id'], product.id, repsonse.json)
 
     def test_patch(self):
         product = factories.ProductFactory()
@@ -33,5 +33,6 @@ class TestProductSingleton(APITestCase):
             data=data,
         )
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
+        self.assertEqual(repsonse.json['data']['id'], product.id, repsonse.json)
         fetched_product = Product.query.one()
         self.assertEqual(fetched_product.name, data['name'], repsonse.json)
