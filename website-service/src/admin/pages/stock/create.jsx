@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react'
-import { Header, Form, Field, Option, Input, Button } from 'semantic-react'
-import MySelect from 'utils/mySelect.jsx'
+import { Option } from 'semantic-react'
 import hocProducts from 'common/hocProducts.jsx'
 import hocSuppliers from 'common/hocSuppliers.jsx'
+import { BasicForm } from 'utils/form.jsx'
+import { SingleSelect } from 'utils/select.jsx'
 
 
 class CreateStockUnitForm extends React.Component {
@@ -11,90 +12,58 @@ class CreateStockUnitForm extends React.Component {
     suppliers: PropTypes.array.isRequired,
   }
 
-  constructor() {
-    super()
-    this.state = {
-      selectedProduct: null,
-      selectedSupplier: null,
-      quantity: 1,
-      unitCost: '',
-    }
-    this.onSubmit = this.onSubmit.bind(this)
-  }
-
-  onSubmit(e) {
-    e.preventDefault()
-    const { selectedProduct, selectedSupplier, quantity, unitCost } = this.state
-    this.props.createStockUnit({
-      product_id: selectedProduct.id,
-      supplier_id: selectedSupplier.id,
-      quantity,
-      cost_rands: unitCost,
-    })
-  }
-
   render() {
-    const {
-      products,
-      suppliers,
-    } = this.props
-    const {
-      selectedProduct,
-      selectedSupplier,
-      quantity,
-      unitCost,
-    } = this.state
-    const productOptions = products.map((p) => (
-      <Option key={p.id} value={p}>
-        {p.name}
-      </Option>
-    ))
-    const supplierOptions = suppliers.map((s) => (
-      <Option key={s.id} value={s}>
-        {s.name}
-      </Option>
-    ))
+    const { products, suppliers } = this.props
     return (
       <div>
-        <Header>Create Stock Unit</Header>
-        <Form onSubmit={this.onSubmit}>
-          <Field label="Product">
-            <MySelect
-              placeholder="Select product..."
-              selected={selectedProduct ? [selectedProduct] : []}
-              options={productOptions}
-              updateSelected={ps => this.setState({ selectedProduct: ps[0] })}
-            />
-          </Field>
-          <Field label="Supplier">
-            <MySelect
-              placeholder="Select supplier..."
-              selected={selectedSupplier ? [selectedSupplier] : []}
-              options={supplierOptions}
-              updateSelected={ss => this.setState({ selectedSupplier: ss[0] })}
-            />
-          </Field>
-          <Field label="Quantity">
-            <Input
-              type="number"
-              min={1}
-              max={10}
-              value={quantity || ''}
-              onChange={(e) => this.setState({ quantity: parseInt(e.target.value, 10) })}
-              required
-            />
-          </Field>
-          <Field label="Unit Cost (Rands)">
-            <Input
-              type="number"
-              min={0}
-              value={unitCost || ''}
-              onChange={(e) => this.setState({ unitCost: e.target.value })}
-              required
-            />
-          </Field>
-          <Button>Submit</Button>
-        </Form>
+        <BasicForm
+          onSubmit={data => console.log(data)}
+          header="Create Stock Unit"
+          fields={[
+            {
+              attr: 'selectedProduct',
+              label: 'Product',
+              control: SingleSelect,
+              props: {
+                placeholder: 'Select product...',
+                props: {
+                  search: true,
+                },
+                options: products.map((p) => (
+                  <Option key={p.id} value={p}>{p.name}</Option>
+                )),
+              },
+            },
+            {
+              attr: 'selectedSupplier',
+              label: 'Supplier',
+              control: SingleSelect,
+              props: {
+                placeholder: 'Select supplier...',
+                props: {
+                  search: true,
+                },
+                options: suppliers.map((s) => (
+                <Option key={s.id} value={s}>{s.name}</Option>
+                )),
+              },
+            },
+            {
+              attr: 'quantity',
+              label: 'Quantity',
+              props: {
+                type: 'number',
+              },
+            },
+            {
+              attr: 'unit_cost',
+              label: 'Unit Cost (Rands)',
+              props: {
+                type: 'number',
+              },
+            },
+          ]}
+        />
       </div>
     )
   }
