@@ -209,7 +209,7 @@ export default class CartPanel extends React.Component {
             borderColor: '#6AA0D5',
             borderRadius: '20px',
             height: '109px',
-            padding: '10px'
+            padding: '10px',
           }}
           className="five wide column"
         >
