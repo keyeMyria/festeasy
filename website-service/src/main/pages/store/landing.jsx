@@ -35,7 +35,7 @@ class Popular extends React.Component {
     )
   }
 }
-const WrappedPopular = genericHOC('Proucts', 'v1/products')(Popular)
+const WrappedPopular = genericHOC('Products', 'v1/products')(Popular)
 
 
 class RecentlyAdded extends React.Component {
