@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Option } from 'semantic-react'
-import hocProducts from 'common/hocProducts.jsx'
-import hocSuppliers from 'common/hocSuppliers.jsx'
+import genericHOC from 'common/genericHOC.jsx'
 import { BasicForm } from 'utils/form.jsx'
 import { SingleSelect } from 'utils/select.jsx'
 
@@ -99,4 +98,8 @@ class CreateStockPage extends React.Component {
 }
 
 
-export default hocProducts(hocSuppliers(CreateStockPage))
+export default genericHOC('Products', 'v1/products')(
+  genericHOC('Suppliers', 'v1/suppliers')(
+    CreateStockPage
+  )
+)

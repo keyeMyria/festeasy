@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import hocProducts from 'common/hocProducts.jsx'
+import genericHOC from 'common/genericHOC.jsx'
 import { BasicTable } from 'utils/table.jsx'
 import { Loader } from 'utils/loader.jsx'
 import { Error } from 'utils/error.jsx'
@@ -43,4 +43,4 @@ class ProductsPage extends Component {
 }
 
 
-export default hocProducts(ProductsPage)
+export default genericHOC('Products', 'v1/products')(ProductsPage)

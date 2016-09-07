@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Page from 'utils/page.jsx'
-import hocProducts from 'common/hocProducts.jsx'
+import genericHOC from 'common/genericHOC.jsx'
 import ProductList from 'main/components/productList.jsx'
 
 
@@ -41,4 +41,4 @@ class CategoryList extends React.Component {
   }
 }
 
-export default hocProducts(CategoryList)
+export default genericHOC('Products', 'v1/products')(CategoryList)

@@ -26,13 +26,13 @@ import ResetPassword from 'main/pages/resetPassword.jsx'
 import HowItWorks from 'main/pages/howItWorks/howItWorks.jsx'
 import Search from 'main/pages/search/search.jsx'
 import ProductCategoryList from 'main/pages/store/category.jsx'
-import hocProducts from 'common/hocProducts.jsx'
+import genericHOC from 'common/genericHOC.jsx'
 
 
 export default (
   <Route path="" component={Main}>
     <IndexRoute component={Landing} />
-    <Route path="search" component={hocProducts(Search)} />
+    <Route path="search" component={genericHOC('Products', 'v1/products')(Search)} />
     <Route path="how-it-works" component={HowItWorks} />
     <Route path="store" component={Store}>
       <IndexRoute component={StoreLanding} />

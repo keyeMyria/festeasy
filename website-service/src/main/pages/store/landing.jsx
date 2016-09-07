@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Page from 'utils/page.jsx'
-import hocProducts from 'common/hocProducts.jsx'
+import genericHOC from 'common/genericHOC.jsx'
 import ProductList from 'main/components/productList.jsx'
 
 
@@ -35,7 +35,7 @@ class Popular extends React.Component {
     )
   }
 }
-const WrappedPopular = hocProducts(Popular)
+const WrappedPopular = genericHOC('Proucts', 'v1/products')(Popular)
 
 
 class RecentlyAdded extends React.Component {
@@ -69,7 +69,7 @@ class RecentlyAdded extends React.Component {
     )
   }
 }
-const WrappedRecentlyAdded = hocProducts(RecentlyAdded)
+const WrappedRecentlyAdded = genericHOC('Products', 'v1/products')(RecentlyAdded)
 
 
 export default class ProductsLandingPage extends React.Component {
