@@ -17,15 +17,13 @@ class BasicForm extends Component {
   onSubmit = (e) => {
     e.preventDefault()
     this.props.onSubmit(this.state)
-    .then((r) => {
-      console.log(r)
+    .then(() => {
       this.context.addNotification({
         'message': 'Success!',
         'level': 'success',
       })
     })
-    .catch((r) => {
-      console.log(r)
+    .catch(() => {
       this.context.addNotification({
         'message': 'Error :(',
         'level': 'error',
