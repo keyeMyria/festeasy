@@ -11,7 +11,6 @@ import Navbar from 'main/components/navbar.jsx'
 import logo from 'fe_logo.png'
 import CartContainer from 'main/components/cart/cartContainer.jsx'
 import CartPanel from 'main/components/cartPanel/cartPanel.jsx'
-import HoverMenu from 'main/components/hoverMenu/hoverMenu.jsx'
 
 
 class Bar extends React.Component {
@@ -113,19 +112,11 @@ export default class Main extends React.Component {
         <Navbar />
         {authDetails ? (
           <div>
-            <HoverMenu />
             <CartContainer>
               <CartPanel />
             </CartContainer>
           </div>
         ) : null}
-        <div className="ui one column stackable center aligned page grid">
-          <button
-            className="ui tiny blue button center aligned"
-            id="show-products"
-          >Categories</button>
-        </div>
-        <div className="ui hidden divider"></div>
         <Bar location={this.props.location} />
         <div id="main">
           <Divider />

@@ -12,10 +12,6 @@ module.exports = [
     endpoint: 'v1/carts',
   },
   {
-    name: 'group',
-    endpoint: 'v1/groups',
-  },
-  {
     name: 'category',
     endpoint: 'v1/categories',
   },

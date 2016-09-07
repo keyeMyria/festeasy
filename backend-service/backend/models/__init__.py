@@ -28,6 +28,5 @@ from .packaged_stock_unit import PackagedStockUnit
 from .collections import Collection
 from .payu_transactions import PayUTransaction
 from .images import Image
-from .group import Group
 
 db.configure_mappers()

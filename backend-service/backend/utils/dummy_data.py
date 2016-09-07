@@ -1,7 +1,7 @@
 import datetime
 
 from backend.models import User, Product, Festival, Cart, Category, Image, \
-    ProductCategory, Supplier, Group
+    ProductCategory, Supplier
 
 
 def get_dummy_data():
