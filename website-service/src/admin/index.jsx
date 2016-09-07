@@ -18,6 +18,7 @@ export default class Main extends React.Component {
               <Link to="/admin">Admin Home</Link>
             </Header>
             <NavLink to="/admin/stock">Stock</NavLink>
+            <NavLink to="/admin/products">Products</NavLink>
           </Container>
         </Menu>
         <Container>
