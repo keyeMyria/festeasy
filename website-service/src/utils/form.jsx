@@ -38,7 +38,7 @@ class BasicForm extends Component {
         <f.component
           name={f.attr}
           onChange={value => this.setState({ [f.attr]: value })}
-          value={this.state ? this.state[f.attr] : null}
+          value={this.state ? this.state[f.attr] : f.initialValue}
           {...f.componentProps}
         />
         :

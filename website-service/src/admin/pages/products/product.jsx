@@ -33,12 +33,39 @@ class ProductPage extends Component {
         meta: null,
         isLoading: false,
       },
+      fetchPCsResponse: {
+        data: null,
+        errors: null,
+        meta: null,
+        isLoading: false,
+      },
     }
   }
 
   componentDidMount() {
     this.fetchProduct()
-    this.props.fetchCategories({ 'product-id': this.props.params.productId })
+    this.props.fetchCategories()
+    this.fetchProductsCategories()
+  }
+
+  fetchProductsCategories = () => {
+    const { productId } = this.props.params
+    const state = Object.assign(this.state.fetchPCsResponse)
+    state.isLoading = true
+    this.setState({ fetchPCsResponse: state })
+    this.context.axios.get('v1/categories', { params: { 'product-id': productId } })
+    .then((r) => {
+      state.isLoading = false
+      state.data = r.data.data
+      state.errors = null
+      state.meta = r.data.meta
+      this.setState({ fetchPCsResponse: state })
+    })
+    .catch((r) => {
+      state.isLoading = false
+      state.errors = r.data ? r.data.errors : []
+      this.setState({ fetchPCsResponse: state })
+    })
   }
 
   fetchProduct = () => {
@@ -90,14 +117,16 @@ class ProductPage extends Component {
   render() {
     let result = <Loader />
     const { fetchCategoriesResponse } = this.props
-    const { fetchProductResponse, updateProductResponse } = this.state
+    const { fetchProductResponse, updateProductResponse, fetchPCsResponse } = this.state
     if (fetchProductResponse.errors) {
       result = <Error />
     } else if (
-      (updateProductResponse.data || fetchProductResponse.data) && fetchCategoriesResponse.data
+      (updateProductResponse.data || fetchProductResponse.data)
+      && fetchCategoriesResponse.data && fetchPCsResponse.data
     ) {
       const p = updateProductResponse.data ? updateProductResponse.data : fetchProductResponse.data
       const categories = fetchCategoriesResponse.data
+      const currentCategories = fetchPCsResponse.data
       result = (
         <BasicForm
           onSubmit={this.handleSubmit}
@@ -119,16 +148,17 @@ class ProductPage extends Component {
               initialValue: p.price_rands,
             },
             {
-              attr: 'categories',
+              attr: 'category-ids',
               label: 'Categories',
               component: MultiSelect,
+              initialValue: currentCategories.map((c) => c.id),
               componentProps: {
                 placeholder: 'Select categories...',
                 props: {
                   search: true,
                 },
                 options: categories.map((c) => (
-                  <Option key={c.id} value={c}>{c.name}</Option>
+                  <Option key={c.id} value={c.id}>{c.name}</Option>
                 )),
               },
             },
