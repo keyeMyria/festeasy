@@ -3,15 +3,34 @@ import { Header, Form as SRF, Input, Field, Button } from 'semantic-react'
 
 
 class BasicForm extends Component {
+  static contextTypes = {
+    addNotification: PropTypes.func.isRequired,
+  }
+
   static propTypes = {
-    onSubmit: PropTypes.func,
-    fields: PropTypes.array,
+    fields: PropTypes.array.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     header: PropTypes.any,
+    isLoading: PropTypes.bool,
   }
 
   onSubmit = (e) => {
     e.preventDefault()
     this.props.onSubmit(this.state)
+    .then((r) => {
+      console.log(r)
+      this.context.addNotification({
+        'message': 'Success!',
+        'level': 'success',
+      })
+    })
+    .catch((r) => {
+      console.log(r)
+      this.context.addNotification({
+        'message': 'Error :(',
+        'level': 'error',
+      })
+    })
   }
 
   getField = f => (
@@ -28,20 +47,26 @@ class BasicForm extends Component {
         <Input
           name={f.attr}
           onChange={e => this.setState({ [f.attr]: e.target.value })}
+          value={this.state ? this.state[f.attr] : f.initialValue}
           {...f.componentProps}
         />
       }
     </Field>
   )
 
-
   render() {
     return (
       <div>
         {this.props.header ? <Header>{this.props.header}</Header> : ''}
-        <SRF onSubmit={this.onSubmit}>
+        <SRF onSubmit={this.onSubmit} loading={this.props.isLoading}>
           {this.props.fields.map((f) => this.getField(f))}
-          <Button color="blue" type="submit">Submit</Button>
+          <Button
+            state={this.props.isLoading ? 'loading' : ''}
+            color="blue"
+            type="submit"
+          >
+            Submit
+          </Button>
         </SRF>
       </div>
     )

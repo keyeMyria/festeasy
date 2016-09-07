@@ -13,7 +13,9 @@ product_schema = ProductSchema()
 class ProductSingleton(Resource):
     def get(self, product_id):
         product = get_or_404(Product, Product.id == product_id)
-        return product_schema.dump(product).data
+        return {
+            'data': product_schema.dump(product).data,
+        }
 
     def patch(self, product_id):
         product = get_or_404(Product, Product.id == product_id)
@@ -22,4 +24,6 @@ class ProductSingleton(Resource):
             setattr(product, key, val)
         db.session.add(product)
         db.session.commit()
-        return product_schema.dump(product).data
+        return {
+            'data': product_schema.dump(product).data,
+        }

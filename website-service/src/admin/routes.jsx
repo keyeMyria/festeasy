@@ -4,6 +4,7 @@ import Main from 'admin/index.jsx'
 import Landing from 'admin/pages/landing/landing.jsx'
 import CreateStock from 'admin/pages/stock/create.jsx'
 import ProductList from 'admin/pages/products/list.jsx'
+import ProductPage from 'admin/pages/products/product.jsx'
 import hocIndexPage from 'admin/utils/HOCIndexPage.jsx'
 
 
@@ -27,6 +28,7 @@ export default (
     >
       <IndexRedirect to="list" />
       <Route path="list" component={ProductList} />
+      <Route path=":productId" component={ProductPage} />
     </Route>
   </Route>
 )
