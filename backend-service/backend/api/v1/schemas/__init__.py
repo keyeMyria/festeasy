@@ -26,4 +26,3 @@ from .payu_set_transaction_schema import PayUSetTransactionSchema
 from .payu_transaction_schema import PayUTransactionSchema
 from .recover_password_schema import RecoverPasswordSchema
 from .image_schema import ImageSchema
-from .group_schema import GroupSchema

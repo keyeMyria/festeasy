@@ -18,26 +18,14 @@ def get_dummy_data():
     now = datetime.datetime.now()
 
     '''
-    * GROUPS
-    '''
-    alcBeverages = Group(name='Alcholic Beverages')
-    nonAlcBeverages = Group(name='Non-Alcholic Beverages')
-    food = Group(name='Food')
-    snacks = Group(name='Snacks')
-
-    items.append(alcBeverages)
-    items.append(nonAlcBeverages)
-    items.append(food)
-    items.append(snacks)
-    '''
     * CATAGORIES
     '''
 
-    beer = Category(name='Beer', group=alcBeverages)
-    chips = Category(name='Chips', group=snacks)
-    soda = Category(name='Soda', group=nonAlcBeverages)
-    chocolate = Category(name='Chocolate', group=food)
-    candy = Category(name='Candy', group=food)
+    beer = Category(name='Beer')
+    chips = Category(name='Chips')
+    soda = Category(name='Soda')
+    chocolate = Category(name='Chocolate')
+    candy = Category(name='Candy')
 
     items.append(beer)
     items.append(chips)

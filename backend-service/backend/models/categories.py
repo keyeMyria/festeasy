@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 from backend import db
@@ -15,10 +15,4 @@ class Category(db.Model, Entity):
     product_categories = relationship(
         'ProductCategory',
         back_populates='category'
-    )
-
-    group_id = Column(ForeignKey('group.id'), nullable=False)
-    group = relationship(
-        'Group',
-        back_populates='categories'
     )
