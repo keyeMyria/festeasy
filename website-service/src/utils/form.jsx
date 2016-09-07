@@ -17,18 +17,18 @@ class BasicForm extends Component {
   getField = f => (
     <Field key={f.attr}>
       {f.label ? <label htmlFor={f.attr}>{f.label}</label> : ''}
-      {f.control ?
-        <f.control
+      {f.component ?
+        <f.component
           name={f.attr}
           onChange={value => this.setState({ [f.attr]: value })}
           value={this.state ? this.state[f.attr] : null}
-          {...f.props}
+          {...f.componentProps}
         />
         :
         <Input
           name={f.attr}
           onChange={e => this.setState({ [f.attr]: e.target.value })}
-          {...f.props}
+          {...f.componentProps}
         />
       }
     </Field>

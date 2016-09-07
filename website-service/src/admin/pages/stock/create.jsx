@@ -23,8 +23,8 @@ class CreateStockUnitForm extends React.Component {
             {
               attr: 'selectedProduct',
               label: 'Product',
-              control: SingleSelect,
-              props: {
+              component: SingleSelect,
+              componentProps: {
                 placeholder: 'Select product...',
                 props: {
                   search: true,
@@ -37,8 +37,8 @@ class CreateStockUnitForm extends React.Component {
             {
               attr: 'selectedSupplier',
               label: 'Supplier',
-              control: SingleSelect,
-              props: {
+              component: SingleSelect,
+              componentProps: {
                 placeholder: 'Select supplier...',
                 props: {
                   search: true,
