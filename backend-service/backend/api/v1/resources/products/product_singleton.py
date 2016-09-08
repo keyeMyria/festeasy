@@ -6,6 +6,7 @@ from backend import db
 from backend.models import Product, ProductCategory as PC, Image
 from backend.api.utils import get_or_404
 from backend.api.v1.schemas import ProductSchema
+from backend.api.v1.authentication import requires_auth
 
 
 product_schema = ProductSchema()
@@ -19,7 +20,9 @@ class ProductSingleton(Resource):
         }
 
     # TODO: Test and fix hacks.
-    def patch(self, product_id):
+    @requires_auth
+    def patch(self, product_id, authenticated_user):
+        assert authenticated_user.is_admin is True
         product = get_or_404(Product, Product.id == product_id)
         load_data = product_schema.load(request.get_json()).data
         for key, val in load_data.items():

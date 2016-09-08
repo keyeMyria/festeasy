@@ -9,6 +9,13 @@ endpoint = 'v1.productsingleton'
 
 
 class TestProductSingleton(APITestCase):
+    def setUp(self):
+        super().setUp()
+        self.session = factories.SessionFactory()
+        self.session.user.is_admin = True
+        db.session.add(self.session)
+        db.session.commit()
+
     def test_get(self):
         product = factories.ProductFactory()
         db.session.add(product)
@@ -16,6 +23,7 @@ class TestProductSingleton(APITestCase):
         repsonse = self.api_request(
             'get',
             url_for(endpoint, product_id=product.id),
+            session_token=self.session.token,
         )
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
         self.assertEqual(repsonse.json['data']['id'], product.id, repsonse.json)
@@ -31,6 +39,7 @@ class TestProductSingleton(APITestCase):
             'patch',
             url_for(endpoint, product_id=product.id),
             data=data,
+            session_token=self.session.token,
         )
         self.assertEqual(repsonse.status_code, 200, repsonse.json)
         self.assertEqual(repsonse.json['data']['id'], product.id, repsonse.json)
