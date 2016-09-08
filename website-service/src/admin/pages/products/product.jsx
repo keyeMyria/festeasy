@@ -1,10 +1,11 @@
 import React, { PropTypes, Component } from 'react'
-import { Option } from 'semantic-react'
+import { Button, Option, Grid, Column, Image } from 'semantic-react'
 import genericHOC from 'common/genericHOC.jsx'
 import { Loader } from 'utils/loader.jsx'
 import { Error } from 'utils/error.jsx'
 import { BasicForm } from 'utils/form.jsx'
 import { MultiSelect } from 'utils/select.jsx'
+import apiEndpoint from 'apiEndpoint.js'
 
 
 class ProductPage extends Component {
@@ -127,43 +128,70 @@ class ProductPage extends Component {
       const p = updateProductResponse.data ? updateProductResponse.data : fetchProductResponse.data
       const categories = fetchCategoriesResponse.data
       const currentCategories = fetchPCsResponse.data
+      const imageHeight = '200px'
       result = (
-        <BasicForm
-          onSubmit={this.handleSubmit}
-          isLoading={updateProductResponse.isLoading}
-          fields={[
-            {
-              attr: 'name',
-              label: 'Name',
-              initialValue: p.name,
-            },
-            {
-              attr: 'description',
-              label: 'Description',
-              initialValue: p.description,
-            },
-            {
-              attr: 'price_rands',
-              label: 'Price (Rands)',
-              initialValue: p.price_rands,
-            },
-            {
-              attr: 'category-ids',
-              label: 'Categories',
-              component: MultiSelect,
-              initialValue: currentCategories.map((c) => c.id),
-              componentProps: {
-                placeholder: 'Select categories...',
-                props: {
-                  search: true,
+        <Grid columns={2}>
+          <Column width={6}>
+            <div style={{ minHeight: imageHeight }}>
+              {p.thumbnail_image_id ?
+                <Image
+                  centered
+                  style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
+                  alt="product thumbnail"
+                  src={apiEndpoint.concat(
+                    `v1/images/${p.thumbnail_image_id}/image?height=200`
+                  )}
+                /> : 'No thumbnail image'
+              }
+            </div>
+          </Column>
+          <Column width={10}>
+            <BasicForm
+              onSubmit={this.handleSubmit}
+              isLoading={updateProductResponse.isLoading}
+              fields={[
+                {
+                  attr: 'name',
+                  label: 'Name',
+                  initialValue: p.name,
                 },
-                options: categories.map((c) => (
-                  <Option key={c.id} value={c.id}>{c.name}</Option>
-                )),
-              },
-            },
-          ]}
-        />
+                {
+                  attr: 'description',
+                  label: 'Description',
+                  initialValue: p.description,
+                },
+                {
+                  attr: 'price_rands',
+                  label: 'Price (Rands)',
+                  initialValue: p.price_rands,
+                },
+                {
+                  attr: 'category-ids',
+                  label: 'Categories',
+                  component: MultiSelect,
+                  initialValue: currentCategories.map(c => c.id),
+                  componentProps: {
+                    placeholder: 'Select categories...',
+                    props: {
+                      search: true,
+                    },
+                    options: categories.map(c => (
+                      <Option key={c.id} value={c.id}>{c.name}</Option>
+                    )),
+                  },
+                },
+                {
+                  attr: 'image-url',
+                  label: 'New Image URL',
+                },
+                {
+                  attr: 'image-type',
+                  label: 'New Image type (PNG,JPG)',
+                },
+              ]}
+            />
+          </Column>
+        </Grid>
       )
     }
     return result
