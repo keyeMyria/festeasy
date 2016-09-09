@@ -23,13 +23,13 @@ import apiEndpoint from 'apiEndpoint.js'
 
 export default class Cart extends React.Component {
   static propTypes = {
-    cart: PropTypes.object.isRequired,
-    cartProducts: PropTypes.array.isRequired,
-    festivals: PropTypes.array.isRequired,
-    removeCartProduct: PropTypes.func.isRequired,
-    selectFestival: PropTypes.func.isRequired,
-    updateQuantity: PropTypes.func.isRequired,
-    onCheckout: PropTypes.func.isRequired,
+    cart: PropTypes.object,
+    cartProducts: PropTypes.array,
+    festivals: PropTypes.array,
+    removeCartProduct: PropTypes.func,
+    selectFestival: PropTypes.func,
+    updateQuantity: PropTypes.func,
+    onCheckout: PropTypes.func,
   }
 
   getMain() {
@@ -47,7 +47,6 @@ export default class Cart extends React.Component {
         {festival.name} - {moment(festival.starts_on).format('YYYY')}
       </Option>
     ))
-    const imageHeight = 40
     return (
       <div className="ui segment">
         {!cart.festival_id ?
@@ -82,11 +81,11 @@ export default class Cart extends React.Component {
                         {cp.product.thumbnail_image_id ?
                           <Image
                             centered
-                            style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
+                            style={{ maxHeight: '40px', width: 'auto', height: 'auto' }}
                             alt="product thumbnail"
-                            src={apiEndpoint.concat(
-                              `v1/images/${cp.product.thumbnail_image_id}/image?height=40`
-                            )}
+                            src={
+                              apiEndpoint.concat(`v1/images/${cp.product.thumbnail_image_id}/image`)
+                            }
                           /> : 'No thumbnail image'
                         }
                       </Column>
@@ -117,13 +116,9 @@ export default class Cart extends React.Component {
             ))}
           </tbody>
         </Table>
-        <div className="ui right aligned container">
-          <div style={{ fontSize: 18 }}>
-            Total: <PriceFormatter rands={cart.total_rands} />
-          </div>
-          <br />
+        <div>
+          <div>Total: <PriceFormatter rands={cart.total_rands} /></div>
           <Button
-            color="green"
             onClick={onCheckout}
             disabled={!(cart.festival_id && cartProducts.length > 0)}
           >
