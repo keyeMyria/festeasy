@@ -15,6 +15,9 @@ export default class Navbar extends React.Component {
       links = (
         <Menu floated="right">
           <NavLink to="/cart">CART</NavLink>
+          <button key="d" id="open-cart" className="ui basic button">
+            <i id="open-cart" className="ui blue large cart icon" />
+          </button>
           <NavLink to="/account">ACCOUNT</NavLink>
           <Button onClick={this.context.signOut}>Sign Out</Button>
         </Menu>
