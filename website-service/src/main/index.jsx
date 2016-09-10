@@ -172,11 +172,13 @@ export default class Main extends React.Component {
         ) : null}
         <div style={style}>
           <Bar location={this.props.location} />
-          <Divider />
-          <div style={{ flex: 1, paddingBottom: 40 }}>
-            {this.props.children}
+          <div id="main">
+            <Divider />
+            <div style={{ flex: 1, paddingBottom: 40 }}>
+              {this.props.children}
+            </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
       </div>
     )
