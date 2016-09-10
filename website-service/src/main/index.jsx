@@ -153,7 +153,6 @@ export default class Main extends React.Component {
 
   render() {
     const { authDetails } = this.context
-    console.log('auth de: ', authDetails)
     const style = {
       paddingTop: 70,
       display: 'flex',

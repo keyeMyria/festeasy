@@ -115,7 +115,6 @@ export default class CartPanel extends React.Component {
   }
 
   willEnter() {
-    console.log('calling willEnter: ')
     return {
       paddingLeft: 400,
       paddingRight: 0,
