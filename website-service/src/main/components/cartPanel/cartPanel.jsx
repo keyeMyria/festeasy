@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import { TransitionMotion, Motion, spring } from 'react-motion';
+import React, { PropTypes } from 'react'
+import { TransitionMotion, Motion, spring } from 'react-motion'
 import { Button } from 'semantic-react'
 import CartItem from './cartItem.jsx'
 
@@ -253,7 +253,7 @@ export default class CartPanel extends React.Component {
     /* eslint-enable */
     return (
       <Motion style={style} >
-        {({ width, height, right, padding }) => (
+        {({ width, height, right }) => (
           <div
             /* eslint-disable */
             ref={node => this.node = node}
