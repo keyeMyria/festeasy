@@ -85,8 +85,7 @@ export default class Cart extends React.Component {
                             style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
                             alt="product thumbnail"
                             src={apiEndpoint.concat(
-                              `v1/images/${cp.product.thumbnail_image_id}
-                              /image?height=${imageHeight}`
+                              `v1/images/${cp.product.thumbnail_image_id}/image?height=40`
                             )}
                           /> : 'No thumbnail image'
                         }

@@ -55,7 +55,7 @@ class Product extends React.Component {
 
 export default class ProductContainer extends React.Component {
   static contextTypes = {
-    store: PropTypes.object.isRequired,
+    axios: PropTypes.func.isRequired,
   }
 
   static propTypes = {
@@ -71,19 +71,19 @@ export default class ProductContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { store } = this.context
-    store.find('product', this.props.params.productId)
-      .then((product) => {
-        this.setState({
-          product,
-          error: null,
-        })
+    const { axios } = this.context
+    axios.get(`v1/products/${this.props.params.productId}`)
+    .then((r) => {
+      this.setState({
+        product: r.data.data,
+        error: null,
       })
-      .catch(() => {
-        this.setState({
-          error: 'Something went wrong',
-        })
+    })
+    .catch(() => {
+      this.setState({
+        error: 'Something went wrong',
       })
+    })
   }
 
   render() {

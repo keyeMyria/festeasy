@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, IndexRoute, IndexRedirect } from 'react-router'
 import Main from 'main/index.jsx'
 import Store from 'main/pages/store/store.jsx'
-import Products from 'main/pages/store/products.jsx'
+import StoreLanding from 'main/pages/store/landing.jsx'
 import Landing from 'main/pages/landing/landing.jsx'
 import About from 'main/pages/about/about.jsx'
 import FestivalList from 'main/pages/festivals/festivalList.jsx'
@@ -25,16 +25,19 @@ import RecoverPassword from 'main/pages/recoverPassword.jsx'
 import ResetPassword from 'main/pages/resetPassword.jsx'
 import HowItWorks from 'main/pages/howItWorks/howItWorks.jsx'
 import Search from 'main/pages/search/search.jsx'
+import ProductCategoryList from 'main/pages/store/category.jsx'
+import genericHOC from 'common/genericHOC.jsx'
 
 
 export default (
   <Route path="" component={Main}>
     <IndexRoute component={Landing} />
-    <Route path="search" component={Search} />
+    <Route path="search" component={genericHOC('Products', 'v1/products')(Search)} />
     <Route path="how-it-works" component={HowItWorks} />
     <Route path="store" component={Store}>
-      <IndexRoute component={Products} />
+      <IndexRoute component={StoreLanding} />
       <Route path="products/:productId" component={Product} />
+      <Route path="categories/:categoryName" component={ProductCategoryList} />
     </Route>
     <Route path="sign-up" component={SignUp} />
     <Route path="sign-in" component={SignIn} />

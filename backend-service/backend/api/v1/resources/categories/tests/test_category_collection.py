@@ -18,7 +18,7 @@ class TestCategoryCollection(APITestCase):
         )
         self.assertEqual(response.status_code, 200, response.json)
         self.assertEqual(
-            response.json[0]['name'],
+            response.json['data'][0]['name'],
             category.name,
             response.json,
         )
