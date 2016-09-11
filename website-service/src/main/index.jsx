@@ -10,6 +10,8 @@ import {
 } from 'semantic-react'
 import Navbar from 'main/components/navbar.jsx'
 import logo from 'fe_logo.png'
+import CartContainer from 'main/components/cart/cartContainer.jsx'
+import CartPanel from 'main/components/cartPanel/cartPanel.jsx'
 
 
 class Bar extends React.Component {
@@ -54,6 +56,7 @@ class Bar extends React.Component {
   render() {
     return (
       <div className="ui container">
+
         <Grid columns={3} centered>
           <Column width={4}>
             <Image
@@ -144,7 +147,12 @@ export default class Main extends React.Component {
     location: PropTypes.object.isRequired,
   }
 
+  static contextTypes = {
+    authDetails: PropTypes.object,
+  }
+
   render() {
+    const { authDetails } = this.context
     const style = {
       paddingTop: 70,
       display: 'flex',
@@ -154,13 +162,22 @@ export default class Main extends React.Component {
     return (
       <div>
         <Navbar />
+        {authDetails ? (
+          <div>
+            <CartContainer>
+              <CartPanel />
+            </CartContainer>
+          </div>
+        ) : null}
         <div style={style}>
           <Bar location={this.props.location} />
-          <Divider />
-          <div style={{ flex: 1, paddingBottom: 40 }}>
-            {this.props.children}
+          <div id="main">
+            <Divider />
+            <div style={{ flex: 1, paddingBottom: 40 }}>
+              {this.props.children}
+            </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
       </div>
     )

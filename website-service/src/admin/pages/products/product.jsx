@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import { Button, Option, Grid, Column, Image } from 'semantic-react'
+import { Option, Grid, Column, Image } from 'semantic-react'
 import genericHOC from 'common/genericHOC.jsx'
 import { Loader } from 'utils/loader.jsx'
 import { Error } from 'utils/error.jsx'
