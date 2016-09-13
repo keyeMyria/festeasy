@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import {
-  Image,
   Grid,
   Column,
   Header,
@@ -18,7 +17,7 @@ import moment from 'moment'
 import PriceFormatter from 'utils/priceFormatter.jsx'
 import MySelect from 'utils/mySelect.jsx'
 import MyStatefulInput from 'utils/myStatefulInput.jsx'
-import apiEndpoint from 'apiEndpoint.js'
+import ProductImage from 'main/components/productImage.jsx'
 
 
 export default class Cart extends React.Component {
@@ -78,16 +77,7 @@ export default class Cart extends React.Component {
                   <Link to={`/store/products/${cp.product.id}`}>
                     <Grid columns={2}>
                       <Column width={3}>
-                        {cp.product.thumbnail_image_id ?
-                          <Image
-                            centered
-                            style={{ maxHeight: '40px', width: 'auto', height: 'auto' }}
-                            alt="product thumbnail"
-                            src={
-                              apiEndpoint.concat(`v1/images/${cp.product.thumbnail_image_id}/image`)
-                            }
-                          /> : 'No thumbnail image'
-                        }
+                        <ProductImage product={cp.product} maxHeight={40} />
                       </Column>
                       <Column>
                         {cp.product.name}

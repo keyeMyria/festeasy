@@ -10,11 +10,10 @@ import {
   Tr,
   Td,
   Header,
-  Image,
 } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
-import apiEndpoint from 'apiEndpoint.js'
+import ProductImage from 'main/components/productImage.jsx'
 
 
 class DeliveryForm extends React.Component {
@@ -95,7 +94,6 @@ class Review extends React.Component {
   render() {
     const { cart, cartProducts, onSubmit, isSubmitting } = this.props
     const festival = cart.festival
-    const imageHeight = 40
     return (
       <div>
         <Header emphasis="dividing">1. Review your cart for {festival.name}</Header>
@@ -114,16 +112,7 @@ class Review extends React.Component {
                 <Td>
                   <Grid columns={2}>
                     <Column width={3}>
-                      {cp.product.thumbnail_image_id ?
-                        <Image
-                          centered
-                          style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
-                          alt="product thumbnail"
-                          src={apiEndpoint.concat(
-                            `v1/images/${cp.product.thumbnail_image_id}/image?height=${imageHeight}`
-                          )}
-                        /> : 'No thumbnail image'
-                      }
+                      <ProductImage product={cp.product} maxHeight={40} />
                     </Column>
                     <Column>
                       {cp.product.name}

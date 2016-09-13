@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router'
-import { Header, Image, Grid, Column, Breadcrumb, Divider } from 'semantic-react'
+import { Header, Grid, Column, Breadcrumb, Divider } from 'semantic-react'
 import Page from 'utils/page.jsx'
 import AddToCartButton from 'main/components/addToCartButton.jsx'
 import PriceFormatter from 'utils/priceFormatter.jsx'
-import apiEndpoint from 'apiEndpoint.js'
+import ProductImage from 'main/components/productImage.jsx'
 
 
 class Product extends React.Component {
@@ -14,7 +14,6 @@ class Product extends React.Component {
 
   render() {
     const { product } = this.props
-    const imageHeight = '200px'
     return (
       <div>
         <Breadcrumb>
@@ -28,16 +27,7 @@ class Product extends React.Component {
         <br />
         <Grid columns={2}>
           <Column width={6}>
-            {product.thumbnail_image_id ?
-              <Image
-                centered
-                style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
-                alt="product thumbnail"
-                src={apiEndpoint.concat(
-                  `v1/images/${product.thumbnail_image_id}/image?height=200`
-                )}
-              /> : 'No thumbnail image'
-            }
+            <ProductImage product={product} />
           </Column>
           <Column>
             <Header>{product.name}</Header>

@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
-import { Image } from 'semantic-react'
-import apiEndpoint from 'apiEndpoint.js'
+import React, { PropTypes, Component } from 'react'
 import MyStatefulInput from 'utils/myStatefulInput.jsx'
+import ProductImage from 'main/components/productImage.jsx'
 
-export default class CartItem extends React.Component {
+
+export default class CartItem extends Component {
   static propTypes = {
     cartProduct: PropTypes.object.isRequired,
     updateQuantity: PropTypes.func.isRequired,
@@ -16,14 +16,7 @@ export default class CartItem extends React.Component {
     return (
       <div className="ui grid" >
         <div className="three wide column">
-          {cartProduct.product.thumbnail_image_id ?
-            <Image
-              centered
-              style={{ 'maxHeight': '270px', width: '60px', height: '60px' }}
-              alt="product thumbnail"
-              src={apiEndpoint.concat(`v1/images/${cartProduct.product.thumbnail_image_id}/image`)}
-            /> : 'No thumbnail image'
-          }
+          <ProductImage product={cartProduct.product} />
         </div>
         <div className="nine wide column">
           <div className="row ui header">
