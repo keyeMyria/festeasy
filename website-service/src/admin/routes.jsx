@@ -14,7 +14,7 @@ export default (
     <Route
       path="stock"
       component={
-        hocIndexPage([{ text: 'Create', url: '/admin/stock/create' }])
+        hocIndexPage([{ text: 'Create Stock', url: '/admin/stock/create' }])
       }
     >
       <IndexRedirect to="create" />
@@ -23,7 +23,7 @@ export default (
     <Route
       path="products"
       component={
-        hocIndexPage([{ text: 'List', url: '/admin/products/list' }])
+        hocIndexPage([{ text: 'Product List', url: '/admin/products/list' }])
       }
     >
       <IndexRedirect to="list" />

@@ -135,6 +135,7 @@ class ProductPage extends Component {
           <Column width={10}>
             <BasicForm
               onSubmit={this.handleSubmit}
+              header={`Update Product ${p.id}`}
               fields={[
                 { attr: 'name', label: 'Name', initialValue: p.name },
                 { attr: 'description', label: 'Description', initialValue: p.description },
