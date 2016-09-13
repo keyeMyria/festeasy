@@ -43,7 +43,6 @@ export default class CartPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: 2,
       open: false,
     }
     this.initialStyle = this.initialStyle.bind(this)
@@ -95,7 +94,6 @@ export default class CartPanel extends React.Component {
       })
     }
   }
-
 
   dimDoc() {
     const opac = 0.2
@@ -157,6 +155,7 @@ export default class CartPanel extends React.Component {
       </div>
     )
   }
+
   showCartItems() {
     const { cartProducts, updateQuantity, removeCartProduct } = this.props
     return (
@@ -244,6 +243,7 @@ export default class CartPanel extends React.Component {
       </div>
     )
   }
+
   render() {
     const { open } = this.state
     const style = !open ? this.initialStyle() : this.finalStyle()
@@ -279,6 +279,6 @@ export default class CartPanel extends React.Component {
           )
         }
       </Motion>
-      )
+    )
   }
-  }
+}

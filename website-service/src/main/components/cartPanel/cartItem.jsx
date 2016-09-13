@@ -9,6 +9,7 @@ export default class CartItem extends React.Component {
     updateQuantity: PropTypes.func.isRequired,
     removeCartProduct: PropTypes.func.isRequired,
   }
+
   render() {
     // , updateQuantity, removeCartProduct
     const { cartProduct, updateQuantity, removeCartProduct } = this.props
@@ -49,4 +50,5 @@ export default class CartItem extends React.Component {
         </div>
       </div>
     )
-  } }
+  }
+}

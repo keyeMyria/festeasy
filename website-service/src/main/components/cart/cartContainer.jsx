@@ -33,7 +33,6 @@ export default class CartContainer extends React.Component {
 
   componentDidMount() {
     const { store } = this.context
-
     store.definitions.cartProduct.on('DS.change', () =>
       this.setState({
         cartProducts: store.store.cartProduct.collection,
@@ -158,9 +157,10 @@ export default class CartContainer extends React.Component {
         })
       })
   }
+
   renderChildren() {
     const { cart, cartProducts, festivals } = this.state
-    const childrenWithProps = React.Children.map(this.props.children, (child) =>
+    return React.Children.map(this.props.children, (child) =>
       React.cloneElement(child, {
         cart: cart,
         cartProducts: cartProducts,
@@ -170,7 +170,6 @@ export default class CartContainer extends React.Component {
         updateQuantity: this.updateQuantity,
         onCheckout: this.onCheckout,
       }))
-    return childrenWithProps
   }
 
   render() {
