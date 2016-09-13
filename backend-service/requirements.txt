@@ -1,4 +1,4 @@
-alembic==0.8.7
+alembic==0.8.8
 amqp==1.4.9
 aniso8601==1.1.0
 anyjson==0.3.3
@@ -20,7 +20,7 @@ factory-boy==2.7.0
 fake-factory==0.6.0
 flake8==3.0.4
 Flask==0.11.1
-Flask-Cors==3.0.1
+Flask-Cors==3.0.2
 Flask-Migrate==2.0.0
 Flask-RESTful==0.3.5
 Flask-Script==2.0.5
@@ -39,9 +39,9 @@ lazy-object-proxy==1.2.2
 logutils==0.3.3
 Mako==1.0.4
 MarkupSafe==0.23
-marshmallow==2.9.1
+marshmallow==2.10.0
 mccabe==0.5.2
-newrelic==2.68.0.50
+newrelic==2.70.0.51
 nose2==0.6.5
 path.py==8.2.1
 pep8==1.7.0
@@ -73,8 +73,8 @@ SQLAlchemy==1.0.15
 SQLAlchemy-Continuum==1.2.4
 SQLAlchemy-Utils==0.32.9
 suds-jurko==0.6
-traitlets==4.2.2
-vine==1.1.1
+traitlets==4.3.0
+vine==1.1.2
 wcwidth==0.1.7
 webargs==1.3.4
 Werkzeug==0.11.11
