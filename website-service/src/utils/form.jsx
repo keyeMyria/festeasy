@@ -11,24 +11,43 @@ class BasicForm extends Component {
     fields: PropTypes.array.isRequired,
     onSubmit: PropTypes.func.isRequired,
     header: PropTypes.any,
-    isLoading: PropTypes.bool,
   }
 
-  onSubmit = (e) => {
+  constructor(props) {
+    super(props)
+    const fields = {}
+    props.fields.forEach(f => {
+      fields[f.attr] = f.initialValue
+    })
+    this.state = {
+      fields,
+    }
+  }
+
+  onSubmit = e => {
     e.preventDefault()
-    this.props.onSubmit(this.state)
-    .then(() => {
+    this.setState({ isLoading: true })
+    const s = this.props.onSubmit(this.state.fields)
+    s.then(() => {
+      this.setState({ isLoading: false })
       this.context.addNotification({
         'message': 'Success!',
         'level': 'success',
       })
     })
-    .catch(() => {
+    s.catch(() => {
+      this.setState({ isLoading: false })
       this.context.addNotification({
         'message': 'Error :(',
         'level': 'error',
       })
     })
+  }
+
+  handleChange = (attr, value) => {
+    const fields = Object.assign(this.state.fields)
+    fields[attr] = value
+    this.setState({ fields })
   }
 
   getField = f => (
@@ -37,15 +56,15 @@ class BasicForm extends Component {
       {f.component ?
         <f.component
           name={f.attr}
-          onChange={value => this.setState({ [f.attr]: value })}
-          value={this.state ? this.state[f.attr] : f.initialValue}
+          onChange={value => this.handleChange(f.attr, value)}
+          value={this.state.fields[f.attr]}
           {...f.componentProps}
         />
         :
         <Input
           name={f.attr}
-          onChange={e => this.setState({ [f.attr]: e.target.value })}
-          value={this.state ? this.state[f.attr] : f.initialValue}
+          onChange={e => this.handleChange(f.attr, e.target.value)}
+          value={this.state.fields[f.attr]}
           {...f.componentProps}
         />
       }
@@ -56,10 +75,10 @@ class BasicForm extends Component {
     return (
       <div>
         {this.props.header ? <Header>{this.props.header}</Header> : ''}
-        <SRF onSubmit={this.onSubmit} loading={this.props.isLoading}>
+        <SRF onSubmit={this.onSubmit} loading={this.state.isLoading}>
           {this.props.fields.map((f) => this.getField(f))}
           <Button
-            state={this.props.isLoading ? 'loading' : ''}
+            state={this.state.isLoading ? 'loading' : ''}
             color="blue"
             type="submit"
           >

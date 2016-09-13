@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react'
-import { Option, Grid, Column, Image } from 'semantic-react'
+import { Option, Grid, Column } from 'semantic-react'
 import genericHOC from 'common/genericHOC.jsx'
 import { Loader } from 'utils/loader.jsx'
 import { Error } from 'utils/error.jsx'
 import { BasicForm } from 'utils/form.jsx'
 import { MultiSelect } from 'utils/select.jsx'
-import apiEndpoint from 'apiEndpoint.js'
+import ProductImage from 'main/components/productImage.jsx'
 
 
 class ProductPage extends Component {
@@ -90,7 +90,6 @@ class ProductPage extends Component {
   }
 
   handleSubmit = formData => {
-    console.log(formData)
     const { productId } = this.props.params
     const state = Object.assign(this.state.updateProductResponse)
     state.isLoading = true
@@ -128,43 +127,18 @@ class ProductPage extends Component {
       const p = updateProductResponse.data ? updateProductResponse.data : fetchProductResponse.data
       const categories = fetchCategoriesResponse.data
       const currentCategories = fetchPCsResponse.data
-      const imageHeight = '200px'
       result = (
         <Grid columns={2}>
           <Column width={6}>
-            <div style={{ minHeight: imageHeight }}>
-              {p.thumbnail_image_id ?
-                <Image
-                  centered
-                  style={{ maxHeight: imageHeight, width: 'auto', height: 'auto' }}
-                  alt="product thumbnail"
-                  src={apiEndpoint.concat(
-                    `v1/images/${p.thumbnail_image_id}/image?height=200`
-                  )}
-                /> : 'No thumbnail image'
-              }
-            </div>
+            <ProductImage product={p} maxHeight={250} />
           </Column>
           <Column width={10}>
             <BasicForm
               onSubmit={this.handleSubmit}
-              isLoading={updateProductResponse.isLoading}
               fields={[
-                {
-                  attr: 'name',
-                  label: 'Name',
-                  initialValue: p.name,
-                },
-                {
-                  attr: 'description',
-                  label: 'Description',
-                  initialValue: p.description,
-                },
-                {
-                  attr: 'price_rands',
-                  label: 'Price (Rands)',
-                  initialValue: p.price_rands,
-                },
+                { attr: 'name', label: 'Name', initialValue: p.name },
+                { attr: 'description', label: 'Description', initialValue: p.description },
+                { attr: 'price_rands', label: 'Price (Rands)', initialValue: p.price_rands },
                 {
                   attr: 'category-ids',
                   label: 'Categories',
@@ -180,14 +154,8 @@ class ProductPage extends Component {
                     )),
                   },
                 },
-                {
-                  attr: 'image-url',
-                  label: 'New Image URL',
-                },
-                {
-                  attr: 'image-type',
-                  label: 'New Image type (PNG,JPG)',
-                },
+                { attr: 'image-url', label: 'New Image URL' },
+                { attr: 'image-type', label: 'New Image type (PNG,JPG)' },
               ]}
             />
           </Column>
