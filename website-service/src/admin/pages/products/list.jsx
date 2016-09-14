@@ -8,17 +8,15 @@ const ProductListPage = (props, context) => {
   return (
     <DataGridThing
       queryParams={location.query}
-      onQueryPramsChange={
-        q => {
-          const newLocation = Object.assign(props.location)
-          newLocation.query = Object.assign(newLocation.query, q)
-          context.router.push(newLocation)
-        }
-      }
+      onQueryPramsChange={q => {
+        const newLocation = Object.assign(props.location)
+        newLocation.query = Object.assign(newLocation.query, q)
+        context.router.push(newLocation)
+      }}
       fetchData={fetchProducts}
       fetchDataResponse={fetchProductsResponse}
       headers={[
-        { attr: 'id', label: 'Part ID' },
+        { attr: 'id', label: 'Part ID', cellComponent: ({ value }) => <div>Part {value}</div> },
         { attr: 'name', label: 'Name' },
         { attr: 'price_rands', label: 'Price (Rands)' },
       ]}

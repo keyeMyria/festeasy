@@ -98,7 +98,11 @@ class BasicTable extends Component {
               onClick={() => this.handleRowClick(r)}
             >
               {headers.map((h) => (
-                <Td key={h.attr}>{r[h.attr]}</Td>
+                <Td key={h.attr}>
+                  {h.cellComponent ?
+                    React.createElement(h.cellComponent, { value: r[h.attr] })
+                  : r[h.attr]}
+                </Td>
               ))}
             </Tr>
           ))}
